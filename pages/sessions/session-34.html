@@ -1,0 +1,120 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 34: Pengenalan Django untuk Web Development - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 34: Pengenalan Django untuk Web Development</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari framework web Python yang powerful dan lengkap</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Django?</h4>
+                    <p class="text-gray-600 mb-4">High-level Python web framework yang mendorong development yang cepat dan clean.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Instalasi Django
+# pip install django
+
+# Membuat proyek Django baru
+# django-admin startproject mysite
+
+# Struktur proyek Django
+"""
+mysite/
+├── manage.py
+└── mysite/
+    ├── __init__.py
+    ├── settings.py
+    ├── urls.py
+    ├── asgi.py
+    └── wsgi.py
+"""
+
+# Menjalankan server development
+# python manage.py runserver
+
+# Membuat aplikasi baru
+# python manage.py startapp blog
+
+# Struktur aplikasi Django
+"""
+blog/
+├── __init__.py
+├── admin.py
+├── apps.py
+├── models.py
+├── tests.py
+├── views.py
+├── migrations/
+│   └── __init__.py
+└── templates/
+    └── blog/
+"""
+
+# File mysite/urls.py
+from django.contrib import admin
+from django.urls import path, include
+
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('blog/', include('blog.urls')),
+]
+
+# File blog/urls.py
+from django.urls import path
+from . import views
+
+urlpatterns = [
+    path('', views.post_list, name='post_list'),
+    path('post/<int:pk>/', views.post_detail, name='post_detail'),
+]
+
+# File blog/views.py
+from django.shortcuts import render, get_object_or_404
+from .models import Post
+
+def post_list(request):
+    posts = Post.objects.all()
+    return render(request, 'blog/post_list.html', {'posts': posts})
+
+def post_detail(request, pk):
+    post = get_object_or_404(Post, pk=pk)
+    return render(request, 'blog/post_detail.html', {'post': post})</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Models dan Database</h4>
+                    <p class="text-gray-600 mb-4">Mendefinisikan data models dan ORM Django.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># File blog/models.py

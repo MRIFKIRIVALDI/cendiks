@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 26: Pengenalan Fungsi (Function) di Python untuk Pemula - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 26: Pengenalan Fungsi (Function) di Python untuk Pemula</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari dasar-dasar fungsi dalam Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Fungsi?</h4>
+                    <p class="text-gray-600 mb-4">Fungsi adalah blok kode yang dapat dipanggil berulang kali untuk melakukan tugas tertentu.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def sapa():
+    print("Halo, selamat datang!")
+
+# Memanggil fungsi
+sapa()  # Output: Halo, selamat datang!
+sapa()  # Output: Halo, selamat datang!</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Mengapa Menggunakan Fungsi?</h4>
+                    <p class="text-gray-600 mb-4">Meningkatkan reusability kode, memudahkan debugging, membuat kode lebih terorganisir.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Tanpa fungsi - kode berulang
+print("Selamat pagi, John!")
+print("Apakah Anda siap belajar?")
+print("Selamat pagi, Alice!")
+print("Apakah Anda siap belajar?")
+
+# Dengan fungsi - lebih efisien
+def sapa_pengguna(nama):
+    print(f"Selamat pagi, {nama}!")
+    print("Apakah Anda siap belajar?")
+
+sapa_pengguna("John")
+sapa_pengguna("Alice")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Mendefinisikan Fungsi</h4>
+                    <p class="text-gray-600 mb-4">Sintaks dasar untuk membuat fungsi.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def nama_fungsi():
+    # blok kode
+    statement1
+    statement2
+    # ...
+
+# Contoh
+def cetak_info():
+    print("Ini adalah fungsi sederhana")
+    print("Fungsi ini mencetak informasi")
+
+cetak_info()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Memanggil Fungsi</h4>
+                    <p class="text-gray-600 mb-4">Cara menjalankan fungsi yang telah didefinisikan.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def hitung_luas_persegi(sisi):
+    luas = sisi * sisi
+    print(f"Luas persegi dengan sisi {sisi} adalah {luas}")
+
+# Memanggil fungsi
+hitung_luas_persegi(5)   # Output: Luas persegi dengan sisi 5 adalah 25
+hitung_luas_persegi(10)  # Output: Luas persegi dengan sisi 10 adalah 100</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Parameter dan Argument</h4>
+                    <p class="text-gray-600 mb-4">Parameter dalam definisi, argument saat pemanggilan.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Fungsi dengan parameter
+def sapa(nama):  # 'nama' adalah parameter
+    print(f"Halo, {nama}!")
+
+# Memanggil dengan argument
+sapa("John")    # "John" adalah argument
+sapa("Alice")   # "Alice" adalah argument
+
+# Fungsi dengan multiple parameter
+def perkenalan(nama, umur):
+    print(f"Nama saya {nama}, umur saya {umur} tahun")
+
+perkenalan("Bob", 25)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Return Value</h4>
+                    <p class="text-gray-600 mb-4">Mengembalikan nilai dari fungsi.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def tambah(a, b):
+    hasil = a + b
+    return hasil
+
+# Menggunakan nilai return
+result1 = tambah(5, 3)
+result2 = tambah(10, 7)
+
+print(result1)  # Output: 8
+print(result2)  # Output: 17
+
+# Return dapat digunakan langsung
+print(tambah(2, 4))  # Output: 6</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Scope Variabel</h4>
+                    <p class="text-gray-600 mb-4">Local dan global scope.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Global variable
+nama = "John"
+
+def sapa():
+    # Local variable
+    salam = "Halo"
+    print(f"{salam}, {nama}!")
+
+sapa()  # Output: Halo, John!
+
+# print(salam)  # Error: name 'salam' is not defined (local scope)
+
+def ubah_nama():
+    global nama  # Mengakses global variable
+    nama = "Alice"
+
+ubah_nama()
+print(nama)  # Output: Alice</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Penggunaan</h4>
+                    <p class="text-gray-600 mb-4">Fungsi untuk menghitung luas persegi.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def hitung_luas_persegi_panjang(panjang, lebar):
+    """Fungsi untuk menghitung luas persegi panjang"""
+    return panjang * lebar
+
+def hitung_keliling_persegi_panjang(panjang, lebar):
+    """Fungsi untuk menghitung keliling persegi panjang"""
+    return 2 * (panjang + lebar)
+
+# Menggunakan fungsi
+p = 10
+l = 5
+
+luas = hitung_luas_persegi_panjang(p, l)
+keliling = hitung_keliling_persegi_panjang(p, l)
+
+print(f"Luas: {luas}")       # Output: Luas: 50
+print(f"Keliling: {keliling}")  # Output: Keliling: 30</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat fungsi sederhana dan panggil beberapa kali.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/ywE2eqG3-kc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Apa tujuan utama menggunakan fungsi dalam programming?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Membuat kode lebih panjang</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Meningkatkan reusability dan organisasi kode</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Menghapus semua variabel</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Kata kunci apa yang digunakan untuk mendefinisikan fungsi?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>function</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>def</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>define</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

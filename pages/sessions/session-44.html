@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 44: Pengenalan Machine Learning dengan Python - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 44: Pengenalan Machine Learning dengan Python</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari dasar-dasar machine learning menggunakan scikit-learn</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Machine Learning?</h4>
+                    <p class="text-gray-600 mb-4">Cabang dari AI yang memungkinkan komputer belajar dari data.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Machine Learning adalah:
+# - Supervised Learning: Prediksi berdasarkan data berlabel
+# - Unsupervised Learning: Mencari pola dalam data tanpa label
+# - Reinforcement Learning: Belajar melalui trial and error
+
+# Contoh aplikasi ML:
+# - Prediksi harga rumah
+# - Klasifikasi email spam
+# - Rekomendasi produk
+# - Pengenalan gambar
+# - Prediksi cuaca
+
+# Library utama untuk ML di Python:
+# - scikit-learn: Algoritma ML
+# - pandas: Manipulasi data
+# - numpy: Komputasi numerik
+# - matplotlib/seaborn: Visualisasi
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+print("Machine Learning Libraries:")
+print("- NumPy: Komputasi numerik")
+print("- Pandas: Data manipulation")
+print("- Scikit-learn: Algoritma ML")
+print("- Matplotlib: Visualisasi")
+
+# Contoh data sederhana
+data = {
+    'ukuran': [1000, 1500, 1200, 1800, 2000, 1400, 1600, 1700],
+    'kamar': [2, 3, 2, 4, 4, 3, 3, 4],
+    'harga': [200, 300, 250, 400, 450, 280, 320, 380]
+}
+
+df = pd.DataFrame(data)
+print("\nContoh dataset rumah:")
+print(df.head())
+
+# Statistik dasar
+print(f"\nStatistik dataset:")
+print(f"Jumlah data: {len(df)}")
+print(f"Rata-rata harga: ${df['harga'].mean():.0f}")
+print(f"Harga tertinggi: ${df['harga'].max()}")
+print(f"Harga terendah: ${df['harga'].min()}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Supervised Learning - Regresi Linear</h4>
+                    <p class="text-gray-600 mb-4">Memprediksi nilai kontinyu berdasarkan fitur input.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Dataset sederhana: Prediksi harga rumah berdasarkan ukuran
+np.random.seed(42)
+
+# Generate data sintetis
+ukuran = np.random.randint(800, 2500, 100)
+harga = ukuran * 0.15 + np.random.normal(0, 20, 100) + 50
+
+# Buat DataFrame
+df = pd.DataFrame({
+    'ukuran': ukuran,
+    'harga': harga
+})
+
+print("Dataset contoh:")
+print(df.head())
+
+# Split data menjadi training dan testing
+X = df[['ukuran']]  # Features
+y = df['harga']     # Target
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+print(f"\nTraining set: {len(X_train)} samples")
+print(f"Testing set: {len(X_test)} samples")
+
+# Buat model Linear Regression
+model = LinearRegression()
+
+# Training model
+model.fit(X_train, y_train)
+
+# Prediksi
+y_pred = model.predict(X_test)
+
+# Evaluasi model
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"\nModel Performance:")
+print(f"Mean Squared Error: {mse:.2f}")
+print(f"R² Score: {r2:.4f}")
+print(f"Coefficient: {model.coef_[0]:.4f}")
+print(f"Intercept: {model.intercept_:.4f}")
+
+# Visualisasi
+plt.figure(figsize=(10, 6))
+plt.scatter(X_test, y_test, color='blue', alpha=0.7, label='Actual')
+plt.plot(X_test, y_pred, color='red', linewidth=2, label='Predicted')
+plt.xlabel('Ukuran Rumah (sq ft)')
+plt.ylabel('Harga (ribu $)')
+plt.title('Linear Regression: Prediksi Harga Rumah')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+
+# Prediksi harga rumah baru
+ukuran_baru = [[1500]]
+harga_prediksi = model.predict(ukuran_baru)
+print(f"\nPrediksi harga rumah 1500 sq ft: ${harga_prediksi[0]:.0f}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Supervised Learning - Klasifikasi</h4>
+                    <p class="text-gray-600 mb-4">Memprediksi kategori atau kelas dari data.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.datasets import make_classification
+
+# Generate dataset klasifikasi sintetis
+X, y = make_classification(
+    n_samples=1000,
+    n_features=2,
+    n_informative=2,
+    n_redundant=0,
+    n_clusters_per_class=1,
+    random_state=42
+)
+
+# Buat DataFrame
+df = pd.DataFrame(X, columns=['feature1', 'feature2'])
+df['target'] = y
+
+print("Dataset klasifikasi:")
+print(df.head())
+print(f"\nDistribusi kelas: {df['target'].value_counts()}")
+
+# Split data
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# Buat model Logistic Regression
+model = LogisticRegression(random_state=42)
+
+# Training model
+model.fit(X_train, y_train)
+
+# Prediksi
+y_pred = model.predict(X_test)
+
+# Evaluasi model
+accuracy = accuracy_score(y_test, y_pred)
+print(f"\nAccuracy: {accuracy:.4f}")
+
+print("\nClassification Report:")
+print(classification_report(y_test, y_pred))
+
+print("Confusion Matrix:")
+print(confusion_matrix(y_test, y_pred))
+
+# Visualisasi decision boundary
+def plot_decision_boundary(X, y, model):
+    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
+    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
+    xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
+                         np.arange(y_min, y_max, 0.1))
+
+    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
+    Z = Z.reshape(xx.shape)
+
+    plt.contourf(xx, yy, Z, alpha=0.4)
+    plt.scatter(X[:, 0], X[:, 1], c=y, alpha=0.8)
+    plt.xlabel('Feature 1')
+    plt.ylabel('Feature 2')
+    plt.title('Logistic Regression Decision Boundary')
+    plt.show()
+
+plot_decision_boundary(X_test, y_test, model)
+
+# Prediksi probabilitas
+sample_data = [[0.5, 1.2]]
+probabilities = model.predict_proba(sample_data)
+prediction = model.predict(sample_data)
+
+print(f"\nPrediksi untuk data {sample_data[0]}:")
+print(f"Kelas: {prediction[0]}")
+print(f"Probabilitas kelas 0: {probabilities[0][0]:.4f}")
+print(f"Probabilitas kelas 1: {probabilities[0][1]:.4f}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Unsupervised Learning - K-Means Clustering</h4>
+                    <p class="text-gray-600 mb-4">Mengelompokkan data tanpa label yang diketahui.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.cluster import KMeans
+from sklearn.datasets import make_blobs
+from sklearn.metrics import silhouette_score
+
+# Generate dataset dengan clusters
+X, _ = make_blobs(
+    n_samples=300,
+    centers=4,
+    cluster_std=0.60,
+    random_state=42
+)
+
+print("Dataset untuk clustering:")
+print(f"Jumlah sampel: {len(X)}")
+print(f"Dimensi: {X.shape[1]}")
+
+# Buat model K-Means
+kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
+
+# Fit model
+kmeans.fit(X)
+
+# Prediksi cluster untuk setiap data point
+cluster_labels = kmeans.predict(X)
+
+# Centroid dari clusters
+centroids = kmeans.cluster_centers_
+
+print(f"\nJumlah cluster: {len(centroids)}")
+print("Centroid koordinat:")
+for i, centroid in enumerate(centroids):
+    print(f"Cluster {i}: ({centroid[0]:.2f}, {centroid[1]:.2f})")
+
+# Evaluasi clustering dengan Silhouette Score
+silhouette_avg = silhouette_score(X, cluster_labels)
+print(f"\nSilhouette Score: {silhouette_avg:.4f}")
+
+# Visualisasi hasil clustering
+plt.figure(figsize=(10, 6))
+
+# Plot data points dengan warna berdasarkan cluster
+plt.scatter(X[:, 0], X[:, 1], c=cluster_labels, cmap='viridis', alpha=0.6)
+
+# Plot centroids
+plt.scatter(centroids[:, 0], centroids[:, 1], c='red', marker='x', s=200, linewidth=3, label='Centroids')
+
+plt.xlabel('Feature 1')
+plt.ylabel('Feature 2')
+plt.title('K-Means Clustering Results')
+plt.legend()
+plt.grid(True, alpha=0.3)
+plt.show()
+
+# Menentukan jumlah cluster optimal dengan Elbow Method
+inertia_values = []
+k_range = range(1, 11)
+
+for k in k_range:
+    kmeans_temp = KMeans(n_clusters=k, random_state=42, n_init=10)
+    kmeans_temp.fit(X)
+    inertia_values.append(kmeans_temp.inertia_)
+
+plt.figure(figsize=(8, 5))
+plt.plot(k_range, inertia_values, 'bo-')
+plt.xlabel('Number of Clusters (k)')
+plt.ylabel('Inertia')
+plt.title('Elbow Method for Optimal k')
+plt.grid(True, alpha=0.3)
+plt.show()
+
+print("\nInterpretasi Elbow Method:")
+print("- Titik 'elbow' menunjukkan jumlah cluster optimal")
+print("- Inertia menurun drastis sampai titik elbow")
+print("- Setelah elbow, penurunan inertia melambat")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Implementasi algoritma ML sederhana.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/GwIo3gDZCVQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Apa perbedaan utama antara Supervised dan Unsupervised Learning?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Supervised menggunakan label, Unsupervised tidak</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Keduanya sama saja</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Unsupervised lebih akurat</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Algoritma apa yang digunakan untuk regresi linear?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>LinearRegression dari sklearn</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>KMeans</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>DecisionTree</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 2: Cara Kerja Program Python & Bytecode - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="../sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="../install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="../certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="../more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 2: Cara Kerja Program Python & Bytecode</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari bagaimana Python menjalankan program Anda</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Bagaimana Komputer Menjalankan Program?</h4>
+                    <p class="text-gray-600 mb-4">Sebelum memahami Python, kamu perlu tahu dasar eksekusi program. Komputer hanya memahami machine code (kode biner: 0 dan 1).</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Compiler VS Interpreter</h4>
+                    <p class="text-gray-600 mb-4">Compiler menerjemahkan seluruh kode program menjadi file executable. Interpreter menerjemahkan baris per baris.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Python: Compiler + Interpreter (Hybrid)</h4>
+                    <p class="text-gray-600 mb-4">Python pertama-tama meng-compile kode ke bytecode, lalu bytecode dijalankan oleh PVM.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Proses Lengkap Eksekusi Program Python</h4>
+                    <p class="text-gray-600 mb-4">Kode Python (.py) → Compiler internal → Bytecode (.pyc) → PVM → Output.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Apa Itu Bytecode?</h4>
+                    <p class="text-gray-600 mb-4">Bytecode adalah representasi kode Python dalam bentuk yang lebih dekat ke bahasa mesin.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Folder __pycache__ dan File .pyc</h4>
+                    <p class="text-gray-600 mb-4">Folder __pycache__ menyimpan file bytecode untuk mempercepat eksekusi.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Apa Itu PVM (Python Virtual Machine)?</h4>
+                    <p class="text-gray-600 mb-4">PVM adalah mesin virtual yang menjalankan bytecode Python.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ CPython, PyPy, Jython, IronPython</h4>
+                    <p class="text-gray-600 mb-4">Implementasi Python berbeda: CPython (resmi), PyPy (lebih cepat), Jython (untuk JVM), dll.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Contoh Program</h4>
+                    <p class="text-gray-600 mb-4">Contoh program sederhana untuk memahami alur kerja Python.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>print("Hello from Python!")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Latihan Sesi 2</h4>
+                    <p class="text-gray-600 mb-4">Jelaskan perbedaan compiler, interpreter, hybrid; gunakan modul dis; jelaskan __pycache__.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/-auWrbiaoGc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Apa yang dilakukan compiler dalam proses eksekusi program?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Menerjemahkan kode baris per baris</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Menerjemahkan seluruh kode menjadi executable</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Menjalankan bytecode</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Apa itu bytecode dalam Python?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>Kode sumber Python</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>Representasi kode Python yang lebih dekat ke bahasa mesin</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>Machine code</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

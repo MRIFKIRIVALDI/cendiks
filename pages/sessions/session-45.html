@@ -1,0 +1,102 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 45: Pengenalan Machine Learning dengan Python - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 45: Pengenalan Machine Learning dengan Python</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari dasar-dasar machine learning menggunakan scikit-learn</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Machine Learning?</h4>
+                    <p class="text-gray-600 mb-4">Cabang dari AI yang memungkinkan komputer belajar dari data.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Instalasi scikit-learn
+# pip install scikit-learn numpy pandas matplotlib
+
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Machine Learning adalah:
+# - Supervised Learning: Prediksi berdasarkan data berlabel
+# - Unsupervised Learning: Mencari pola dalam data tanpa label
+# - Reinforcement Learning: Belajar melalui trial and error
+
+print("Machine Learning dengan Python")
+print("Library utama:")
+print("- scikit-learn: Algoritma ML")
+print("- numpy: Komputasi numerik")
+print("- pandas: Manipulasi data")
+print("- matplotlib: Visualisasi")
+
+# Contoh data sederhana
+data = {
+    'luas_rumah': [100, 150, 200, 250, 300],
+    'harga': [200, 300, 400, 500, 600]
+}
+
+df = pd.DataFrame(data)
+print("\nContoh dataset:")
+print(df)
+
+# Visualisasi data
+plt.scatter(df['luas_rumah'], df['harga'])
+plt.xlabel('Luas Rumah (m²)')
+plt.ylabel('Harga (juta)')
+plt.title('Hubungan Luas Rumah vs Harga')
+plt.grid(True)
+plt.show()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Supervised Learning - Regresi Linear</h4>
+                    <p class="text-gray-600 mb-4">Memprediksi nilai kontinyu berdasarkan fitur.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Dataset contoh: Prediksi harga rumah
+np.random.seed(42)
+n_samples = 100
+
+# Generate data sintetis

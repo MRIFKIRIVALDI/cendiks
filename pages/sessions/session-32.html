@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 32: Pengenalan Flask untuk Web Development - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 32: Pengenalan Flask untuk Web Development</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari framework web Python yang ringan dan powerful</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Flask?</h4>
+                    <p class="text-gray-600 mb-4">Micro web framework untuk Python yang mudah digunakan.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Instalasi Flask
+# pip install flask
+
+from flask import Flask
+
+# Membuat aplikasi Flask
+app = Flask(__name__)
+
+# Route sederhana
+@app.route('/')
+def home():
+    return 'Hello, World!'
+
+@app.route('/about')
+def about():
+    return 'Ini adalah halaman About'
+
+# Menjalankan aplikasi
+if __name__ == '__main__':
+    app.run(debug=True)
+
+# Jalankan dengan: python app.py
+# Buka browser ke: http://127.0.0.1:5000/</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Routing dan URL</h4>
+                    <p class="text-gray-600 mb-4">Menangani berbagai URL dan HTTP methods.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from flask import Flask, request
+
+app = Flask(__name__)
+
+# Route dengan parameter
+@app.route('/user/<username>')
+def show_user(username):
+    return f'User: {username}'
+
+@app.route('/post/<int:post_id>')
+def show_post(post_id):
+    return f'Post ID: {post_id}'
+
+# Route dengan methods berbeda
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        return 'Processing login...'
+    return 'Login form'
+
+# Route dengan query parameters
+@app.route('/search')
+def search():
+    query = request.args.get('q', '')
+    page = request.args.get('page', 1, type=int)
+    return f'Searching for: {query}, Page: {page}'
+
+# Route dengan subdomain (advanced)
+@app.route('/', subdomain="<company>")
+def company_home(company):
+    return f"Welcome to {company} homepage"
+
+# Error handling
+@app.errorhandler(404)
+def page_not_found(error):
+    return 'Page not found', 404
+
+@app.errorhandler(500)
+def internal_error(error):
+    return 'Internal server error', 500
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Templates dengan Jinja2</h4>
+                    <p class="text-gray-600 mb-4">Rendering HTML dengan template engine.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from flask import Flask, render_template
+
+app = Flask(__name__)
+
+# Data contoh
+users = [
+    {'name': 'Alice', 'age': 25, 'city': 'Jakarta'},
+    {'name': 'Bob', 'age': 30, 'city': 'Bandung'},
+    {'name': 'Charlie', 'age': 35, 'city': 'Surabaya'}
+]
+
+@app.route('/')
+def index():
+    return render_template('index.html', title='Home', users=users)
+
+@app.route('/user/<name>')
+def user_profile(name):
+    user = next((u for u in users if u['name'] == name), None)
+    if user:
+        return render_template('user.html', user=user)
+    return 'User not found', 404
+
+@app.route('/about')
+def about():
+    return render_template('about.html', 
+                         title='About Us',
+                         company='Cendiks',
+                         year=2023)
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+# File templates/index.html
+"""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>Welcome to {{ title }}</h1>
+    
+    <h2>Users:</h2>
+    <ul>
+    {% for user in users %}
+        <li>{{ user.name }} - {{ user.age }} years old, from {{ user.city }}</li>
+    {% endfor %}
+    </ul>
+    
+    {% if users %}
+        <p>We have {{ users|length }} users.</p>
+    {% else %}
+        <p>No users found.</p>
+    {% endif %}
+</body>
+</html>
+"""
+
+# File templates/user.html
+"""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Profile</title>
+</head>
+<body>
+    <h1>{{ user.name }}'s Profile</h1>
+    <p>Age: {{ user.age }}</p>
+    <p>City: {{ user.city }}</p>
+    <a href="/">Back to home</a>
+</body>
+</html>
+"""</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Static Files dan Assets</h4>
+                    <p class="text-gray-600 mb-4">Menangani CSS, JavaScript, dan gambar.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from flask import Flask, render_template, url_for
+
+app = Flask(__name__)
+
+# Mengakses static files
+@app.route('/')
+def home():
+    return render_template('home.html')
+
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
+# URL untuk static files
+@app.route('/assets')
+def show_assets():
+    css_url = url_for('static', filename='css/style.css')
+    js_url = url_for('static', filename='js/app.js')
+    img_url = url_for('static', filename='images/logo.png')
+    
+    return f'''
+    <h1>Static Files URLs</h1>
+    <p>CSS: {css_url}</p>
+    <p>JavaScript: {js_url}</p>
+    <p>Image: {img_url}</p>
+    '''
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+# Struktur folder:
+"""
+myapp/
+├── app.py
+├── static/
+│   ├── css/
+│   │   └── style.css
+│   ├── js/
+│   │   └── app.js
+│   └── images/
+│       └── logo.png
+└── templates/
+    ├── home.html
+    └── dashboard.html
+"""
+
+# File static/css/style.css
+"""
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+"""
+
+# File static/js/app.js
+"""
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Flask app loaded!');
+    
+    // Contoh interaktivitas
+    const buttons = document.querySelectorAll('.btn');
+    buttons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            alert('Button clicked!');
+        });
+    });
+});
+"""
+
+# File templates/home.html
+"""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Home</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Welcome to Flask App</h1>
+        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
+        <button class="btn">Click me!</button>
+    </div>
+    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
+</body>
+</html>
+"""</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Forms dan Input Data</h4>
+                    <p class="text-gray-600 mb-4">Menangani form HTML dan input pengguna.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from flask import Flask, render_template, request, redirect, url_for, flash
+
+app = Flask(__name__)
+app.secret_key = 'your-secret-key-here'  # Diperlukan untuk flash messages
+
+# Data storage sederhana (dalam praktik pakai database)
+users = []
+
+@app.route('/')
+def index():
+    return render_template('index.html', users=users)
+
+@app.route('/add_user', methods=['GET', 'POST'])
+def add_user():
+    if request.method == 'POST':
+        name = request.form.get('name')
+        email = request.form.get('email')
+        age = request.form.get('age', type=int)
+        
+        # Validasi sederhana
+        if not name or not email:
+            flash('Name and email are required!', 'error')
+            return redirect(url_for('add_user'))
+        
+        # Cek email unik
+        if any(user['email'] == email for user in users):
+            flash('Email already exists!', 'error')
+            return redirect(url_for('add_user'))
+        
+        # Tambah user
+        users.append({
+            'name': name,
+            'email': email,
+            'age': age
+        })
+        
+        flash('User added successfully!', 'success')
+        return redirect(url_for('index'))
+    
+    return render_template('add_user.html')
+
+@app.route('/user/<int:user_id>')
+def user_detail(user_id):
+    if 0 <= user_id < len(users):
+        user = users[user_id]
+        return render_template('user_detail.html', user=user, user_id=user_id)
+    return 'User not found', 404
+
+@app.route('/delete_user/<int:user_id>', methods=['POST'])
+def delete_user(user_id):
+    if 0 <= user_id < len(users):
+        deleted_user = users.pop(user_id)
+        flash(f'User {deleted_user["name"]} deleted!', 'success')
+    return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    app.run(debug=True)
+
+# File templates/index.html
+"""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>User Management</title>
+    <style>
+        .flash { padding: 10px; margin: 10px 0; border-radius: 5px; }
+        .success { background-color: #d4edda; color: #155724; }
+        .error { background-color: #f8d7da; color: #721c24; }
+    </style>
+</head>
+<body>
+    <h1>User Management System</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <a href="{{ url_for('add_user') }}">Add New User</a>
+    
+    <h2>Users ({{ users|length }}):</h2>
+    {% if users %}
+        <ul>
+        {% for user in users %}
+            <li>
+                <a href="{{ url_for('user_detail', user_id=loop.index0) }}">
+                    {{ user.name }} ({{ user.email }})
+                </a>
+                <form method="post" action="{{ url_for('delete_user', user_id=loop.index0) }}" style="display: inline;">
+                    <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
+                </form>
+            </li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No users yet.</p>
+    {% endif %}
+</body>
+</html>
+"""
+
+# File templates/add_user.html
+"""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add User</title>
+</head>
+<body>
+    <h1>Add New User</h1>
+    
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+                <div class="flash {{ category }}">{{ message }}</div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+    
+    <form method="post">
+        <label>Name: <input type="text" name="name" required></label><br>
+        <label>Email: <input type="email" name="email" required></label><br>
+        <label>Age: <input type="number" name="age" min="1" max="120"></label><br>
+        <button type="submit">Add User</button>
+    </form>
+    
+    <a href="{{ url_for('index') }}">Back to list</a>
+</body>
+</html>
+"""</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Database Integration</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan SQLAlchemy dengan Flask.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># pip install flask-sqlalchemy
+
+from flask import Flask, render_template, request, redirect, url_for
+from flask_sqlalchemy import SQLAlchemy
+
+app = Flask(__name__)
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+app.secret_key = 'your-secret-key'
+
+db = SQLAlchemy(app)
+
+# Model database
+class Post(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(100), nullable=False)
+    content = db.Column(db.Text, nullable=False)
+    author = db.Column(db.String(50), nullable=False)
+    created_at = db.Column(db.DateTime, default=db.func.current_timestamp())
+
+    def __repr__(self):
+        return f'<Post {self.title}>'
+
+# Routes
+@app.route('/')
+def index():
+    posts = Post.query.order_by(Post.created_at.desc()).all()
+    return render_template('index.html', posts=posts)
+
+@app.route('/post/<int:post_id>')
+def post_detail(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('post_detail.html', post=post)
+
+@app.route('/create', methods=['GET', 'POST'])
+def create_post():
+    if request.method == 'POST':
+        title = request.form['title']
+        content = request.form['content']
+        author = request.form['author']
+        
+        new_post = Post(title=title, content=content, author=author)
+        db.session.add(new_post)
+        db.session.commit()
+        
+        return redirect(url_for('index'))
+    
+    return render_template('create_post.html')
+
+@app.route('/delete/<int:post_id>', methods=['POST'])
+def delete_post(post_id):
+    post = Post.query.get_or_404(post_id)
+    db.session.delete(post)
+    db.session.commit()
+    return redirect(url_for('index'))
+
+if __name__ == '__main__':
+    with app.app_context():
+        db.create_all()  # Buat tabel jika belum ada
+    app.run(debug=True)
+
+# File templates/index.html
+"""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blog</title>
+</head>
+<body>
+    <h1>My Blog</h1>
+    <a href="{{ url_for('create_post') }}">Create New Post</a>
+    
+    {% for post in posts %}
+        <div style="border: 1px solid #ccc; margin: 10px; padding: 10px;">
+            <h2><a href="{{ url_for('post_detail', post_id=post.id) }}">{{ post.title }}</a></h2>
+            <p>By {{ post.author }} on {{ post.created_at.strftime('%Y-%m-%d') }}</p>
+            <p>{{ post.content[:100] }}...</p>
+            <form method="post" action="{{ url_for('delete_post', post_id=post.id) }}" style="display: inline;">
+                <button type="submit" onclick="return confirm('Delete this post?')">Delete</button>
+            </form>
+        </div>
+    {% endfor %}
+</body>
+</html>
+"""
+
+# File templates/create_post.html
+"""
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Create Post</title>
+</head>
+<body>
+    <h1>Create New Post</h1>
+    <form method="post">
+        <label>Title: <input type="text" name="title" required></label><br>
+        <label>Author: <input type="text" name="author" required></label><br>
+        <label>Content:<br>
+            <textarea name="content" rows="10" cols="50" required></textarea>
+        </label><br>
+        <button type="submit">Create Post</button>
+    </form>
+    <a href="{{ url_for('index') }}">Back to blog</a>
+</body>
+</html>
+"""</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Blueprints dan Struktur Aplikasi</h4>
+                    <p class="text-gray-600 mb-4">Mengorganisir aplikasi Flask yang besar.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Struktur aplikasi Flask dengan Blueprints
+"""
+myapp/
+├── app/
+│   ├── __init__.py
+│   ├── models.py
+│   ├── auth/
+│   │   ├── __init__.py
+│   │   ├── routes.py
+│   │   └── forms.py
+│   ├── blog/
+│   │   ├── __init__.py
+│   │   ├── routes.py
+│   │   └── forms.py
+│   └── main/
+│       ├── __init__.py
+│       └── routes.py
+├── templates/
+├── static/
+└── config.py
+"""
+
+# File app/__init__.py
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from .auth import auth_bp
+from .blog import blog_bp
+from .main import main_bp
+
+db = SQLAlchemy()
+
+def create_app(config_class='config.Config'):
+    app = Flask(__name__)
+    app.config.from_object(config_class)
+    
+    db.init_app(app)
+    
+    # Register blueprints
+    app.register_blueprint(auth_bp, url_prefix='/auth')
+    app.register_blueprint(blog_bp, url_prefix='/blog')
+    app.register_blueprint(main_bp)
+    
+    with app.app_context():
+        db.create_all()
+    
+    return app
+
+# File app/auth/__init__.py
+from flask import Blueprint
+
+auth_bp = Blueprint('auth', __name__, template_folder='templates')
+
+from . import routes
+
+# File app/auth/routes.py
+from flask import render_template, redirect, url_for, request, flash
+from . import auth_bp
+
+@auth_bp.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        
+        # Logic autentikasi di sini
+        if username == 'admin' and password == 'password':
+            flash('Login successful!', 'success')
+            return redirect(url_for('main.index'))
+        else:
+            flash('Invalid credentials', 'error')
+    
+    return render_template('auth/login.html')
+
+@auth_bp.route('/logout')
+def logout():
+    # Logic logout
+    flash('Logged out successfully', 'info')
+    return redirect(url_for('main.index'))
+
+# File app/blog/__init__.py
+from flask import Blueprint
+
+blog_bp = Blueprint('blog', __name__, template_folder='templates')
+
+from . import routes
+
+# File app/blog/routes.py
+from flask import render_template, request, redirect, url_for
+from . import blog_bp
+from ..models import Post
+
+@blog_bp.route('/')
+def index():
+    posts = Post.query.all()
+    return render_template('blog/index.html', posts=posts)
+
+@blog_bp.route('/post/<int:post_id>')
+def post(post_id):
+    post = Post.query.get_or_404(post_id)
+    return render_template('blog/post.html', post=post)
+
+# File app/main/__init__.py
+from flask import Blueprint
+
+main_bp = Blueprint('main', __name__)
+
+from . import routes
+
+# File app/main/routes.py
+from flask import render_template
+from . import main_bp
+
+@main_bp.route('/')
+def index():
+    return render_template('main/index.html')
+
+# File config.py
+class Config:
+    SECRET_KEY = 'your-secret-key'
+    SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+# File run.py
+from app import create_app
+
+app = create_app()
+
+if __name__ == '__main__':
+    app.run(debug=True)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat aplikasi Flask sederhana dengan routing dan templates.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/Z1RJmh_OqeA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Method apa yang digunakan untuk mendefinisikan route di Flask?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>@app.route()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>@app.url()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>@app.path()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Template engine apa yang digunakan Flask secara default?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>Django Templates</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>Jinja2</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>Mako</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

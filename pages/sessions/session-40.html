@@ -1,0 +1,384 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 40: Pengenalan API Development dengan FastAPI - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 40: Pengenalan API Development dengan FastAPI</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari framework API modern yang cepat dan mudah</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu FastAPI?</h4>
+                    <p class="text-gray-600 mb-4">Framework web API modern untuk Python dengan performa tinggi.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Instalasi FastAPI
+# pip install fastapi uvicorn
+
+from fastapi import FastAPI
+
+# Membuat aplikasi FastAPI
+app = FastAPI(
+    title="My API",
+    description="Contoh API dengan FastAPI",
+    version="1.0.0"
+)
+
+# Route sederhana
+@app.get("/")
+async def read_root():
+    return {"message": "Hello World"}
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int, q: str = None):
+    return {"item_id": item_id, "q": q}
+
+# Menjalankan server
+# uvicorn main:app --reload
+
+# FastAPI features:
+# - Fast: Sangat cepat, setara dengan NodeJS dan Go
+# - Fast to code: Meningkatkan development speed 200-300%
+# - Fewer bugs: Mengurangi human-induced errors 40%
+# - Intuitive: Excellent editor support dengan autocompletion
+# - Easy: Designed to be easy to use and learn
+# - Short: Minimize code duplication
+# - Robust: Dapatkan production-ready code dengan auto docs
+# - Standards-based: OpenAPI dan JSON Schema</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Path Parameters dan Query Parameters</h4>
+                    <p class="text-gray-600 mb-4">Menangani parameter dalam URL.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from fastapi import FastAPI, Query, Path
+from typing import Optional
+from enum import Enum
+
+app = FastAPI()
+
+class ModelName(str, Enum):
+    alexnet = "alexnet"
+    resnet = "resnet"
+    lenet = "lenet"
+
+# Path parameters dengan validasi
+@app.get("/models/{model_name}")
+async def get_model(model_name: ModelName):
+    if model_name == ModelName.alexnet:
+        return {"model_name": model_name, "message": "Deep Learning FTW!"}
+
+    if model_name.value == "lenet":
+        return {"model_name": model_name, "message": "LeCNN all the images"}
+
+    return {"model_name": model_name, "message": "Have some residuals"}
+
+# Path parameters dengan tipe data
+@app.get("/items/{item_id}")
+async def read_item(
+    item_id: int = Path(..., title="The ID of the item", ge=1, le=1000)
+):
+    return {"item_id": item_id}
+
+# Query parameters
+@app.get("/items/")
+async def read_items(
+    q: Optional[str] = Query(None, max_length=50, description="Query string")
+):
+    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
+    if q:
+        results.update({"q": q})
+    return results
+
+# Multiple query parameters
+@app.get("/users/")
+async def read_users(
+    limit: int = Query(10, description="Number of users to return"),
+    offset: int = Query(0, description="Number of users to skip"),
+    sort: Optional[str] = Query(None, regex="^(asc|desc)$")
+):
+    return {
+        "limit": limit,
+        "offset": offset,
+        "sort": sort,
+        "users": ["user1", "user2", "user3"]
+    }</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Request Body dan Pydantic Models</h4>
+                    <p class="text-gray-600 mb-4">Menangani data dari request body.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel, Field, EmailStr
+from typing import Optional, List
+from datetime import datetime
+
+app = FastAPI()
+
+# Pydantic models untuk request/response
+class Item(BaseModel):
+    name: str = Field(..., example="Foo")
+    price: float = Field(..., gt=0, description="The price must be greater than zero")
+    is_offer: Optional[bool] = None
+    tags: List[str] = []
+
+class User(BaseModel):
+    username: str = Field(..., min_length=3, max_length=50)
+    email: EmailStr
+    full_name: Optional[str] = None
+    disabled: bool = False
+
+class UserInDB(User):
+    hashed_password: str
+
+# Response models
+class ItemResponse(BaseModel):
+    id: int
+    name: str
+    price: float
+    created_at: datetime
+
+# Simulasi database
+fake_items_db = [
+    {"id": 1, "name": "Foo", "price": 50.2},
+    {"id": 2, "name": "Bar", "price": 62.0},
+]
+
+@app.post("/items/", response_model=ItemResponse)
+async def create_item(item: Item):
+    # Simulasi create item
+    new_item = {
+        "id": len(fake_items_db) + 1,
+        "name": item.name,
+        "price": item.price,
+        "created_at": datetime.now()
+    }
+    fake_items_db.append(new_item)
+    return new_item
+
+@app.get("/items/{item_id}", response_model=ItemResponse)
+async def read_item(item_id: int):
+    if item_id < 1 or item_id > len(fake_items_db):
+        raise HTTPException(status_code=404, detail="Item not found")
+
+    item = fake_items_db[item_id - 1]
+    return {
+        "id": item["id"],
+        "name": item["name"],
+        "price": item["price"],
+        "created_at": datetime.now()  # Dalam praktik, ambil dari DB
+    }
+
+@app.put("/items/{item_id}")
+async def update_item(item_id: int, item: Item):
+    if item_id < 1 or item_id > len(fake_items_db):
+        raise HTTPException(status_code=404, detail="Item not found")
+
+    fake_items_db[item_id - 1] = {
+        "id": item_id,
+        "name": item.name,
+        "price": item.price
+    }
+    return {"message": "Item updated successfully"}
+
+@app.delete("/items/{item_id}")
+async def delete_item(item_id: int):
+    if item_id < 1 or item_id > len(fake_items_db):
+        raise HTTPException(status_code=404, detail="Item not found")
+
+    del fake_items_db[item_id - 1]
+    return {"message": "Item deleted successfully"}</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Authentication dan Security</h4>
+                    <p class="text-gray-600 mb-4">Mengamankan API dengan authentication.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from fastapi import FastAPI, Depends, HTTPException, status
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
+from pydantic import BaseModel
+import secrets
+
+app = FastAPI()
+
+security = HTTPBasic()
+
+# Simulasi database user
+fake_users_db = {
+    "johndoe": {
+        "username": "johndoe",
+        "full_name": "John Doe",
+        "email": "johndoe@example.com",
+        "hashed_password": "fakehashedsecret",
+        "disabled": False,
+    },
+    "alice": {
+        "username": "alice",
+        "full_name": "Alice Wonderson",
+        "email": "alice@example.com",
+        "hashed_password": "fakehashedsecret2",
+        "disabled": True,
+    },
+}
+
+class User(BaseModel):
+    username: str
+    email: str | None = None
+    full_name: str | None = None
+    disabled: bool | None = None
+
+class UserInDB(User):
+    hashed_password: str
+
+def get_user(db, username: str):
+    if username in db:
+        user_dict = db[username]
+        return UserInDB(**user_dict)
+
+def fake_hash_password(password: str):
+    return "fakehashed" + password
+
+def fake_decode_token(token):
+    # Simulasi decode JWT token
+    user = get_user(fake_users_db, token)
+    return user
+
+async def get_current_user(credentials: HTTPBasicCredentials = Depends(security)):
+    user = get_user(fake_users_db, credentials.username)
+    if not user:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    if not secrets.compare_digest(credentials.password, user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return user
+
+async def get_current_active_user(current_user: User = Depends(get_current_user)):
+    if current_user.disabled:
+        raise HTTPException(status_code=400, detail="Inactive user")
+    return current_user
+
+@app.post("/token")
+async def login(credentials: HTTPBasicCredentials = Depends(security)):
+    user = get_user(fake_users_db, credentials.username)
+    if not user or not secrets.compare_digest(credentials.password, user.hashed_password):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Incorrect username or password",
+            headers={"WWW-Authenticate": "Basic"},
+        )
+    return {"access_token": user.username, "token_type": "bearer"}
+
+@app.get("/users/me")
+async def read_users_me(current_user: User = Depends(get_current_active_user)):
+    return current_user
+
+@app.get("/users/me/items/")
+async def read_own_items(current_user: User = Depends(get_current_active_user)):
+    return [{"item_id": "Foo", "owner": current_user.username}]</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat API sederhana dengan FastAPI.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/rHux0gMZ3Eg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Apa keunggulan utama FastAPI?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Performa tinggi dan auto documentation</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Hanya untuk machine learning</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Tidak mendukung async</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Command apa yang digunakan untuk menjalankan FastAPI?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>python app.py</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>uvicorn main:app --reload</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>fastapi run</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

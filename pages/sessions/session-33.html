@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 33: Cara Menggunakan Modul Math di Python - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 33: Cara Menggunakan Modul Math di Python</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari fungsi matematika dalam Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Pengenalan Modul Math</h4>
+                    <p class="text-gray-600 mb-4">Modul untuk operasi matematika lanjutan.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import math
+
+# Konstanta matematika
+print(f"Pi: {math.pi}")           # Output: 3.141592653589793
+print(f"Euler: {math.e}")         # Output: 2.718281828459045
+print(f"Tau: {math.tau}")         # Output: 6.283185307179586
+
+# Fungsi dasar
+print(f"Akar kuadrat 16: {math.sqrt(16)}")  # Output: 4.0
+print(f"2 pangkat 3: {math.pow(2, 3)}")     # Output: 8.0
+print(f"Faktorial 5: {math.factorial(5)}") # Output: 120</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Fungsi Trigonometri</h4>
+                    <p class="text-gray-600 mb-4">Sin, cos, tan dan fungsi inversnya.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import math
+
+# Sudut dalam radian
+sudut = math.pi / 4  # 45 derajat
+
+print(f"Sudut: {sudut} radian ({math.degrees(sudut)}°)")
+
+# Fungsi trigonometri
+print(f"sin(45°): {math.sin(sudut):.3f}")
+print(f"cos(45°): {math.cos(sudut):.3f}")
+print(f"tan(45°): {math.tan(sudut):.3f}")
+
+# Fungsi invers
+nilai_sin = 0.707
+sudut_asin = math.asin(nilai_sin)
+print(f"asin(0.707): {math.degrees(sudut_asin):.1f}°")
+
+# Konversi derajat ke radian
+derajat = 60
+radian = math.radians(derajat)
+print(f"{derajat}° = {radian:.3f} radian")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Fungsi Logaritma dan Eksponensial</h4>
+                    <p class="text-gray-600 mb-4">Log, ln, exp, pow.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import math
+
+# Logaritma natural (ln)
+print(f"ln(1): {math.log(1)}")      # Output: 0.0
+print(f"ln(e): {math.log(math.e)}") # Output: 1.0
+
+# Logaritma basis 10
+print(f"log10(100): {math.log10(100)}")  # Output: 2.0
+print(f"log10(1000): {math.log10(1000)}") # Output: 3.0
+
+# Logaritma basis 2
+print(f"log2(8): {math.log2(8)}")   # Output: 3.0
+print(f"log2(16): {math.log2(16)}") # Output: 4.0
+
+# Fungsi eksponensial
+print(f"e^2: {math.exp(2):.3f}")    # Output: 7.389
+print(f"e^0: {math.exp(0)}")       # Output: 1.0
+
+# Pangkat
+print(f"2^3: {math.pow(2, 3)}")    # Output: 8.0
+print(f"10^2: {math.pow(10, 2)}")  # Output: 100.0</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Fungsi Pembulatan</h4>
+                    <p class="text-gray-600 mb-4">Ceil, floor, round, trunc.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import math
+
+angka = 3.7
+
+print(f"Angka: {angka}")
+print(f"ceil({angka}): {math.ceil(angka)}")   # Pembulatan ke atas
+print(f"floor({angka}): {math.floor(angka)}") # Pembulatan ke bawah
+print(f"trunc({angka}): {math.trunc(angka)}") # Potong desimal
+
+angka2 = -3.7
+print(f"\nAngka: {angka2}")
+print(f"ceil({angka2}): {math.ceil(angka2)}")
+print(f"floor({angka2}): {math.floor(angka2)}")
+print(f"trunc({angka2}): {math.trunc(angka2)}")
+
+# Perbedaan round() built-in vs math.round()
+print(f"\nround(3.5): {round(3.5)}")      # Built-in round
+print(f"round(2.5): {round(2.5)}")      # Built-in round</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Fungsi Kombinatorik</h4>
+                    <p class="text-gray-600 mb-4">Permutasi dan kombinasi.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import math
+
+# Faktorial
+print(f"5! = {math.factorial(5)}")  # Output: 120
+
+# Permutasi P(n,r) = n! / (n-r)!
+def permutasi(n, r):
+    return math.factorial(n) // math.factorial(n - r)
+
+# Kombinasi C(n,r) = n! / (r! * (n-r)!)
+def kombinasi(n, r):
+    return math.factorial(n) // (math.factorial(r) * math.factorial(n - r))
+
+# Contoh penggunaan
+n, r = 5, 3
+print(f"P({n},{r}) = {permutasi(n, r)}")  # Output: 60
+print(f"C({n},{r}) = {kombinasi(n, r)}")  # Output: 10
+
+# Lotere: 6 angka dari 49
+total_kombinasi = kombinasi(49, 6)
+print(f"Total kombinasi lotere: {total_kombinasi:,}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Fungsi Lainnya</h4>
+                    <p class="text-gray-600 mb-4">GCD, LCM, hypot, degrees, radians.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import math
+
+# GCD (Greatest Common Divisor)
+print(f"GCD(12, 18): {math.gcd(12, 18)}")    # Output: 6
+print(f"GCD(100, 75): {math.gcd(100, 75)}") # Output: 25
+
+# LCM (Least Common Multiple) - Python 3.9+
+# print(f"LCM(4, 5): {math.lcm(4, 5)}")      # Output: 20
+
+# Hypotenuse (teorema Pythagoras)
+print(f"hypot(3, 4): {math.hypot(3, 4)}")    # Output: 5.0
+
+# Konversi sudut
+print(f"degrees(π): {math.degrees(math.pi):.1f}°")  # Output: 180.0°
+print(f"radians(180°): {math.radians(180):.3f}")    # Output: 3.142
+
+# Absolute value
+print(f"fabs(-5.5): {math.fabs(-5.5)}")      # Output: 5.5
+print(f"fabs(5.5): {math.fabs(5.5)}")        # Output: 5.5</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Konstanta Matematika</h4>
+                    <p class="text-gray-600 mb-4">Pi, e, tau, inf, nan.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import math
+
+print("Konstanta Matematika:")
+print(f"π (pi): {math.pi}")
+print(f"e (Euler): {math.e}")
+print(f"τ (tau): {math.tau}")  # tau = 2*pi
+print(f"∞ (inf): {math.inf}")
+print(f"NaN: {math.nan}")
+
+# Penggunaan inf
+print(f"\n5 + inf = {5 + math.inf}")
+print(f"inf > 1000000: {math.inf > 1000000}")
+
+# Cek inf dan nan
+print(f"math.isinf(inf): {math.isinf(math.inf)}")
+print(f"math.isnan(nan): {math.isnan(math.nan)}")
+
+# Luas lingkaran
+def luas_lingkaran(jari_jari):
+    return math.pi * jari_jari ** 2
+
+print(f"\nLuas lingkaran jari-jari 5: {luas_lingkaran(5):.2f}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Penggunaan</h4>
+                    <p class="text-gray-600 mb-4">Program kalkulator ilmiah sederhana.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import math
+
+def kalkulator_ilmiah():
+    """Kalkulator ilmiah sederhana"""
+    print("=== KALKULATOR ILMIAH ===")
+    print("Pilih operasi:")
+    print("1. Akar kuadrat")
+    print("2. Pangkat")
+    print("3. Logaritma natural")
+    print("4. Logaritma basis 10")
+    print("5. Sinus")
+    print("6. Cosinus")
+    print("7. Tangen")
+    print("8. Faktorial")
+    print("9. Keluar")
+
+    while True:
+        try:
+            pilihan = input("\nPilih operasi (1-9): ")
+
+            if pilihan == "9":
+                print("Terima kasih!")
+                break
+
+            if pilihan in ["1", "2", "3", "4", "8"]:
+                angka = float(input("Masukkan angka: "))
+            elif pilihan in ["5", "6", "7"]:
+                derajat = float(input("Masukkan sudut (derajat): "))
+                radian = math.radians(derajat)
+
+            if pilihan == "1":
+                if angka >= 0:
+                    hasil = math.sqrt(angka)
+                    print(f"√{angka} = {hasil:.4f}")
+                else:
+                    print("Error: Angka negatif tidak bisa diakar kuadratkan")
+            elif pilihan == "2":
+                pangkat = int(input("Masukkan pangkat: "))
+                hasil = math.pow(angka, pangkat)
+                print(f"{angka}^{pangkat} = {hasil}")
+            elif pilihan == "3":
+                if angka > 0:
+                    hasil = math.log(angka)
+                    print(f"ln({angka}) = {hasil:.4f}")
+                else:
+                    print("Error: Logaritma hanya untuk angka positif")
+            elif pilihan == "4":
+                if angka > 0:
+                    hasil = math.log10(angka)
+                    print(f"log10({angka}) = {hasil:.4f}")
+                else:
+                    print("Error: Logaritma hanya untuk angka positif")
+            elif pilihan == "5":
+                hasil = math.sin(radian)
+                print(f"sin({derajat}°) = {hasil:.4f}")
+            elif pilihan == "6":
+                hasil = math.cos(radian)
+                print(f"cos({derajat}°) = {hasil:.4f}")
+            elif pilihan == "7":
+                hasil = math.tan(radian)
+                print(f"tan({derajat}°) = {hasil:.4f}")
+            elif pilihan == "8":
+                if angka >= 0 and angka == int(angka):
+                    hasil = math.factorial(int(angka))
+                    print(f"{int(angka)}! = {hasil}")
+                else:
+                    print("Error: Faktorial hanya untuk bilangan bulat non-negatif")
+
+        except ValueError:
+            print("Error: Masukkan angka yang valid!")
+        except Exception as e:
+            print(f"Error: {e}")
+
+def main():
+    kalkulator_ilmiah()
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat program yang menggunakan berbagai fungsi math.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/8VF7kX2Fn4w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Fungsi apa yang digunakan untuk menghitung akar kuadrat?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>math.square()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>math.sqrt()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>math.root()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Apa nilai dari math.pi?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>3.14</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>3.141592653589793</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>22/7</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

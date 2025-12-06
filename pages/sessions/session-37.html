@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 37: Pengenalan JSON di Python - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 37: Pengenalan JSON di Python</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara menangani data JSON dalam Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu JSON?</h4>
+                    <p class="text-gray-600 mb-4">JavaScript Object Notation - format pertukaran data ringan.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import json
+
+# JSON mirip dengan dictionary Python tapi dalam bentuk string
+json_string = '{"nama": "John", "umur": 30, "kota": "Jakarta"}'
+print(f"JSON string: {json_string}")
+print(f"Tipe: {type(json_string)}")
+
+# Mengubah JSON string ke Python dictionary
+python_dict = json.loads(json_string)
+print(f"Python dict: {python_dict}")
+print(f"Tipe: {type(python_dict)}")
+
+# Mengubah Python dictionary ke JSON string
+json_lagi = json.dumps(python_dict)
+print(f"JSON lagi: {json_lagi}")
+print(f"Tipe: {type(json_lagi)}")
+
+# Dengan indentasi untuk readability
+json_pretty = json.dumps(python_dict, indent=4)
+print("JSON dengan indentasi:")
+print(json_pretty)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Tipe Data JSON</h4>
+                    <p class="text-gray-600 mb-4">Tipe data yang didukung JSON.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import json
+
+# Semua tipe data JSON
+data = {
+    "string": "Hello World",
+    "number": 42,
+    "float": 3.14159,
+    "boolean_true": True,
+    "boolean_false": False,
+    "null": None,  # Akan menjadi null di JSON
+    "array": [1, 2, 3, "four", 5.0],
+    "object": {
+        "nested": "value",
+        "another": 123
+    }
+}
+
+# Convert ke JSON
+json_output = json.dumps(data, indent=2)
+print("Data Python ke JSON:")
+print(json_output)
+
+# Convert kembali ke Python
+python_data = json.loads(json_output)
+print(f"\nKembali ke Python: {type(python_data)}")
+print(f"String: {python_data['string']} ({type(python_data['string'])})")
+print(f"Number: {python_data['number']} ({type(python_data['number'])})")
+print(f"Boolean: {python_data['boolean_true']} ({type(python_data['boolean_true'])})")
+print(f"Null: {python_data['null']} ({type(python_data['null'])})")
+
+# Array menjadi list
+print(f"Array: {python_data['array']} ({type(python_data['array'])})")
+
+# Object menjadi dict
+print(f"Object: {python_data['object']} ({type(python_data['object'])})")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Membaca JSON dari File</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan json.load() untuk file.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import json
+
+# Buat file JSON contoh
+data_mahasiswa = [
+    {"nama": "Alice", "nim": "12345", "nilai": [85, 90, 88]},
+    {"nama": "Bob", "nim": "12346", "nilai": [78, 82, 85]},
+    {"nama": "Charlie", "nim": "12347", "nilai": [92, 88, 90]}
+]
+
+# Simpan ke file
+with open("mahasiswa.json", "w") as file:
+    json.dump(data_mahasiswa, file, indent=2)
+
+print("File mahasiswa.json telah dibuat")
+
+# Baca dari file
+with open("mahasiswa.json", "r") as file:
+    mahasiswa_data = json.load(file)
+
+print(f"\nData mahasiswa: {type(mahasiswa_data)}")
+for mahasiswa in mahasiswa_data:
+    print(f"Nama: {mahasiswa['nama']}")
+    print(f"NIM: {mahasiswa['nim']}")
+    print(f"Nilai: {mahasiswa['nilai']}")
+    print(f"Rata-rata: {sum(mahasiswa['nilai']) / len(mahasiswa['nilai']):.2f}")
+    print("-" * 30)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Menulis JSON ke File</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan json.dump() untuk menyimpan data.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import json
+
+# Data produk
+produk = {
+    "nama": "Laptop Gaming",
+    "harga": 15000000,
+    "spesifikasi": {
+        "processor": "Intel i7",
+        "ram": "16GB",
+        "storage": "512GB SSD",
+        "layar": "15.6 inch"
+    },
+    "stok": 25,
+    "kategori": ["elektronik", "gaming"]
+}
+
+# Simpan ke file dengan indentasi
+with open("produk.json", "w") as file:
+    json.dump(produk, file, indent=4)
+
+print("Data produk disimpan ke produk.json")
+
+# Simpan multiple produk
+produk_list = [
+    {
+        "id": 1,
+        "nama": "Laptop Gaming",
+        "harga": 15000000
+    },
+    {
+        "id": 2,
+        "nama": "Mouse Wireless",
+        "harga": 250000
+    },
+    {
+        "id": 3,
+        "nama": "Keyboard Mechanical",
+        "harga": 750000
+    }
+]
+
+with open("produk_list.json", "w") as file:
+    json.dump(produk_list, file, indent=2, sort_keys=True)
+
+print("List produk disimpan ke produk_list.json")
+
+# Baca dan tampilkan
+with open("produk_list.json", "r") as file:
+    data = json.load(file)
+
+print("\nDaftar Produk:")
+for item in data:
+    print(f"ID: {item['id']}, Nama: {item['nama']}, Harga: Rp{item['harga']:,}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Menambahkan Data ke File JSON</h4>
+                    <p class="text-gray-600 mb-4">Mengupdate file JSON yang sudah ada.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import json
+import os
+
+def tambah_produk_ke_file(nama_file, produk_baru):
+    """Menambah produk baru ke file JSON"""
+    # Baca data yang sudah ada
+    if os.path.exists(nama_file):
+        with open(nama_file, "r") as file:
+            try:
+                data = json.load(file)
+            except json.JSONDecodeError:
+                data = []
+    else:
+        data = []
+    
+    # Tambah produk baru
+    data.append(produk_baru)
+    
+    # Simpan kembali
+    with open(nama_file, "w") as file:
+        json.dump(data, file, indent=2)
+
+# Contoh penggunaan
+produk_baru1 = {
+    "id": 4,
+    "nama": "Monitor 24 inch",
+    "harga": 2000000
+}
+
+produk_baru2 = {
+    "id": 5,
+    "nama": "Headset Gaming",
+    "harga": 500000
+}
+
+tambah_produk_ke_file("produk_list.json", produk_baru1)
+tambah_produk_ke_file("produk_list.json", produk_baru2)
+
+print("Produk baru ditambahkan")
+
+# Baca dan tampilkan semua produk
+with open("produk_list.json", "r") as file:
+    semua_produk = json.load(file)
+
+print(f"\nTotal produk: {len(semua_produk)}")
+for produk in semua_produk:
+    print(f"- {produk['nama']} (Rp{produk['harga']:,})")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Serialisasi Object Python</h4>
+                    <p class="text-gray-600 mb-4">Mengubah object custom ke JSON.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import json
+from datetime import datetime
+
+class Mahasiswa:
+    def __init__(self, nama, nim, tanggal_lahir):
+        self.nama = nama
+        self.nim = nim
+        self.tanggal_lahir = tanggal_lahir
+    
+    def __str__(self):
+        return f"Mahasiswa(nama='{self.nama}', nim='{self.nim}')"
+
+# Fungsi untuk convert object ke dict
+def mahasiswa_to_dict(obj):
+    if isinstance(obj, Mahasiswa):
+        return {
+            "nama": obj.nama,
+            "nim": obj.nim,
+            "tanggal_lahir": obj.tanggal_lahir.isoformat() if hasattr(obj.tanggal_lahir, 'isoformat') else str(obj.tanggal_lahir)
+        }
+    raise TypeError(f"Object {type(obj)} tidak bisa diserialisasi")
+
+# Buat object mahasiswa
+mhs = Mahasiswa("Alice", "12345", datetime(2000, 5, 15))
+
+# Serialisasi dengan custom function
+json_str = json.dumps(mhs, default=mahasiswa_to_dict, indent=2)
+print("Object ke JSON:")
+print(json_str)
+
+# Menggunakan __dict__
+json_str2 = json.dumps(mhs.__dict__, indent=2)
+print("\nMenggunakan __dict__:")
+print(json_str2)
+
+# Simpan ke file
+with open("mahasiswa_custom.json", "w") as file:
+    json.dump(mhs, file, default=mahasiswa_to_dict, indent=2)
+
+print("\nObject disimpan ke mahasiswa_custom.json")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Deserialisasi Custom Object</h4>
+                    <p class="text-gray-600 mb-4">Mengubah JSON kembali ke object Python.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import json
+from datetime import datetime
+
+class Mahasiswa:
+    def __init__(self, nama, nim, tanggal_lahir):
+        self.nama = nama
+        self.nim = nim
+        self.tanggal_lahir = tanggal_lahir
+    
+    def __str__(self):
+        return f"Mahasiswa(nama='{self.nama}', nim='{self.nim}', lahir={self.tanggal_lahir})"
+
+def dict_to_mahasiswa(data_dict):
+    """Convert dict kembali ke Mahasiswa object"""
+    try:
+        tanggal = datetime.fromisoformat(data_dict['tanggal_lahir'])
+        return Mahasiswa(data_dict['nama'], data_dict['nim'], tanggal)
+    except (KeyError, ValueError) as e:
+        print(f"Error converting dict to Mahasiswa: {e}")
+        return None
+
+# Baca dari file
+with open("mahasiswa_custom.json", "r") as file:
+    data_dict = json.load(file)
+
+print("Data dari file:")
+print(json.dumps(data_dict, indent=2))
+
+# Convert ke object
+mahasiswa_obj = dict_to_mahasiswa(data_dict)
+if mahasiswa_obj:
+    print(f"\nObject berhasil dibuat: {mahasiswa_obj}")
+    print(f"Nama: {mahasiswa_obj.nama}")
+    print(f"NIM: {mahasiswa_obj.nim}")
+    print(f"Tanggal lahir: {mahasiswa_obj.tanggal_lahir.strftime('%d/%m/%Y')}")
+
+# Menggunakan object_hook
+def json_to_mahasiswa(json_str):
+    return json.loads(json_str, object_hook=dict_to_mahasiswa)
+
+# Contoh penggunaan
+json_data = '{"nama": "Bob", "nim": "12346", "tanggal_lahir": "2001-08-20"}'
+try:
+    mhs2 = json_to_mahasiswa(json_data)
+    if mhs2:
+        print(f"\nMahasiswa dari JSON: {mhs2}")
+except Exception as e:
+    print(f"Error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Error Handling</h4>
+                    <p class="text-gray-600 mb-4">Menangani error saat parsing JSON.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import json
+
+def load_json_safely(filename):
+    """Load JSON file dengan error handling"""
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        print(f"File '{filename}' tidak ditemukan")
+        return None
+    except json.JSONDecodeError as e:
+        print(f"Error parsing JSON di '{filename}': {e}")
+        return None
+    except UnicodeDecodeError as e:
+        print(f"Error encoding di '{filename}': {e}")
+        # Coba encoding lain
+        try:
+            with open(filename, 'r', encoding='latin-1') as file:
+                return json.load(file)
+        except:
+            print("Gagal load dengan encoding lain")
+            return None
+    except Exception as e:
+        print(f"Error tidak terduga: {e}")
+        return None
+
+# Test dengan file yang valid
+data_valid = load_json_safely("produk.json")
+if data_valid:
+    print("Data valid loaded successfully")
+
+# Test dengan file yang tidak ada
+data_invalid = load_json_safely("file_tidak_ada.json")
+
+# Test dengan JSON yang invalid
+json_invalid = '{"nama": "John", "umur": }'  # Syntax error
+try:
+    json.loads(json_invalid)
+except json.JSONDecodeError as e:
+    print(f"JSON invalid: {e}")
+
+# Validasi JSON string
+def is_valid_json(json_str):
+    try:
+        json.loads(json_str)
+        return True
+    except json.JSONDecodeError:
+        return False
+
+test_strings = [
+    '{"valid": "json"}',
+    '{"invalid": json}',  # Missing quotes
+    '{"incomplete": "json"',  # Missing closing brace
+    '["valid", "array"]'
+]
+
+print("\nValidasi JSON strings:")
+for s in test_strings:
+    print(f"'{s}': {'Valid' if is_valid_json(s) else 'Invalid'}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Unicode dan Encoding</h4>
+                    <p class="text-gray-600 mb-4">Menangani karakter Unicode dalam JSON.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import json
+
+# Data dengan Unicode
+data_unicode = {
+    "nama": "José María",
+    "kota": "São Paulo",
+    "pesan": "Hello 世界 🌍",
+    "emoji": "🚀⭐💻"
+}
+
+# Simpan dengan Unicode
+with open("unicode_data.json", "w", encoding="utf-8") as file:
+    json.dump(data_unicode, file, indent=2, ensure_ascii=False)
+
+print("Data Unicode disimpan")
+
+# Baca kembali
+with open("unicode_data.json", "r", encoding="utf-8") as file:
+    data_loaded = json.load(file)
+
+print("Data yang dimuat:")
+for key, value in data_loaded.items():
+    print(f"{key}: {value}")
+
+# Mengatasi masalah encoding
+def load_json_with_fallback(filename):
+    """Load JSON dengan multiple encoding fallback"""
+    encodings = ['utf-8', 'utf-16', 'latin-1', 'cp1252']
+    
+    for encoding in encodings:
+        try:
+            with open(filename, 'r', encoding=encoding) as file:
+                return json.load(file)
+        except (UnicodeDecodeError, json.JSONDecodeError):
+            continue
+    
+    raise ValueError(f"Tidak bisa load file '{filename}' dengan encoding yang tersedia")
+
+# Test fallback
+try:
+    data_fallback = load_json_with_fallback("unicode_data.json")
+    print(f"\nFallback berhasil: {data_fallback['nama']}")
+except ValueError as e:
+    print(f"Fallback gagal: {e}")
+
+# Simpan dengan ASCII (default)
+with open("ascii_data.json", "w") as file:
+    json.dump(data_unicode, file, indent=2)  # ensure_ascii=True by default
+
+print("\nData ASCII disimpan (dengan escape sequences)")
+
+# Baca file ASCII
+with open("ascii_data.json", "r") as file:
+    data_ascii = json.load(file)
+
+print("Data ASCII:")
+print(json.dumps(data_ascii, indent=2))</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Contoh Penggunaan</h4>
+                    <p class="text-gray-600 mb-4">Aplikasi pengelola kontak sederhana.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import json
+import os
+
+class ContactManager:
+    def __init__(self, filename="contacts.json"):
+        self.filename = filename
+        self.contacts = self.load_contacts()
+    
+    def load_contacts(self):
+        """Load contacts dari file"""
+        if os.path.exists(self.filename):
+            try:
+                with open(self.filename, 'r', encoding='utf-8') as file:
+                    return json.load(file)
+            except (json.JSONDecodeError, UnicodeDecodeError):
+                print("Error loading contacts file")
+                return []
+        return []
+    
+    def save_contacts(self):
+        """Simpan contacts ke file"""
+        with open(self.filename, 'w', encoding='utf-8') as file:
+            json.dump(self.contacts, file, indent=2, ensure_ascii=False)
+    
+    def add_contact(self, nama, telepon, email=None):
+        """Tambah contact baru"""
+        contact = {
+            "nama": nama,
+            "telepon": telepon,
+            "email": email
+        }
+        self.contacts.append(contact)
+        self.save_contacts()
+        print(f"Contact '{nama}' ditambahkan")
+    
+    def search_contact(self, nama):
+        """Cari contact berdasarkan nama"""
+        results = [c for c in self.contacts if nama.lower() in c['nama'].lower()]
+        return results
+    
+    def delete_contact(self, index):
+        """Hapus contact berdasarkan index"""
+        if 0 <= index < len(self.contacts):
+            deleted = self.contacts.pop(index)
+            self.save_contacts()
+            print(f"Contact '{deleted['nama']}' dihapus")
+            return True
+        return False
+    
+    def list_contacts(self):
+        """Tampilkan semua contacts"""
+        if not self.contacts:
+            print("Tidak ada contacts")
+            return
+        
+        print("Daftar Contacts:")
+        print("-" * 50)
+        for i, contact in enumerate(self.contacts, 1):
+            print(f"{i}. Nama: {contact['nama']}")
+            print(f"   Telepon: {contact['telepon']}")
+            if contact['email']:
+                print(f"   Email: {contact['email']}")
+            print("-" * 30)
+
+# Demo penggunaan
+def main():
+    manager = ContactManager()
+    
+    # Tambah beberapa contacts
+    manager.add_contact("Alice Johnson", "+6281234567890", "alice@email.com")
+    manager.add_contact("Bob Wilson", "+6281987654321")
+    manager.add_contact("Charlie Brown", "+6281122334455", "charlie@domain.org")
+    
+    # Tampilkan semua
+    manager.list_contacts()
+    
+    # Cari contact
+    results = manager.search_contact("alice")
+    print(f"\nHasil pencarian 'alice': {len(results)} ditemukan")
+    
+    # Hapus contact pertama
+    manager.delete_contact(0)
+    
+    print("\nSetelah menghapus contact pertama:")
+    manager.list_contacts()
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat program yang menggunakan JSON untuk menyimpan data.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣2️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/9N6a-VLBa2I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣3️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Method apa yang digunakan untuk mengubah JSON string ke Python object?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>json.dump()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>json.loads()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>json.load()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Tipe data Python mana yang menjadi null di JSON?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>False</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>None</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>0</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

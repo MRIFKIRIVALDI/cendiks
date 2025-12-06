@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Instalasi Python di macOS - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#3B82F6',
+                        secondary: '#10B981',
+                        accent: '#F59E0B',
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4"><img src="../images/logo_back.svg" alt="Kembali" class="w-6 h-6 inline"></button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">🍎 Instalasi Python di macOS</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">macOS juga tersedia beberapa metode instalasi. Pilih yang paling sesuai untuk Anda!</p>
+        </div>
+    </section>
+
+    <!-- Installation Methods -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <!-- Method 1: Homebrew -->
+            <div class="bg-white p-8 rounded-lg shadow-md mb-8 hover-lift bounce-in delay-1">
+                <div class="flex items-center mb-6">
+                    <div class="text-4xl mr-4">✅</div>
+                    <h3 class="text-2xl font-bold text-primary">Metode 1: Lewat Homebrew (Paling Direkomendasikan untuk macOS)</h3>
+                </div>
+                <div class="mb-6">
+                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/TgA4ObrowRg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg mb-2">Cocok buat developer atau pengguna aktif terminal.</h4>
+                        <h5 class="font-semibold mb-2">Instal Homebrew (jika belum):</h5>
+                        <code class="bg-gray-800 text-white px-3 py-1 rounded block">/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"</code>
+                        <h5 class="font-semibold mb-2 mt-4">Install Python:</h5>
+                        <code class="bg-gray-800 text-white px-3 py-1 rounded block">brew install python</code>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg mb-2">Cek versi:</h4>
+                        <code class="bg-gray-800 text-white px-3 py-1 rounded block">python3 --version</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method 2: python.org -->
+            <div class="bg-white p-8 rounded-lg shadow-md mb-8 hover-lift bounce-in delay-2">
+                <div class="flex items-center mb-6">
+                    <div class="text-4xl mr-4">🍎</div>
+                    <h3 class="text-2xl font-bold text-primary">Metode 2: Download dari python.org (Paling Mudah untuk Pemula)</h3>
+                </div>
+                <div class="mb-6">
+                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/TgA4ObrowRg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg mb-2">Langkah-langkah:</h4>
+                        <ol class="list-decimal list-inside space-y-2">
+                            <li>Buka: <a href="https://www.python.org/downloads/mac-osx/" target="_blank" class="text-primary hover:underline font-semibold">https://www.python.org/downloads/mac-osx/</a></li>
+                            <li>Download file .pkg</li>
+                            <li>Buka file tersebut → installer akan berjalan</li>
+                            <li>Klik Continue sampai selesai</li>
+                        </ol>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg mb-2">Cek instalasi:</h4>
+                        <code class="bg-gray-800 text-white px-3 py-1 rounded block">python3 --version</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method 3: Xcode Command Line Tools -->
+            <div class="bg-white p-8 rounded-lg shadow-md mb-8 hover-lift bounce-in delay-3">
+                <div class="flex items-center mb-6">
+                    <div class="text-4xl mr-4">💻</div>
+                    <h3 class="text-2xl font-bold text-primary">Metode 3: Instal via Xcode Command Line Tools</h3>
+                </div>
+                <div class="mb-6">
+                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/TgA4ObrowRg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+                <div class="space-y-4">
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg mb-2">Cara alternatif yang banyak dipakai developer macOS.</h4>
+                        <ol class="list-decimal list-inside space-y-2">
+                            <li>Buka Terminal</li>
+                            <li>Jalankan:</li>
+                        </ol>
+                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2">xcode-select --install</code>
+                        <p class="mt-2 text-sm text-gray-600">macOS menyediakan Python versi bawaan (meski biasanya lebih lama)</p>
+                    </div>
+                    <div class="bg-green-50 p-4 rounded-lg">
+                        <h4 class="font-semibold text-lg mb-2">Cek dengan:</h4>
+                        <code class="bg-gray-800 text-white px-3 py-1 rounded block">python3 --version</code>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips Section -->
+            <div class="bg-yellow-50 p-6 rounded-lg border-l-4 border-yellow-400">
+                <h4 class="font-semibold text-lg mb-2 text-yellow-800">💡 Tips Penting untuk macOS:</h4>
+                <ul class="list-disc list-inside space-y-1 text-yellow-700">
+                    <li>Homebrew adalah package manager terbaik untuk macOS</li>
+                    <li>Gunakan python3 bukan python untuk versi terbaru</li>
+                    <li>Jika ada error permission, gunakan sudo (dengan hati-hati)</li>
+                    <li>Python dari python.org sudah include pip dan IDLE</li>
+                    <li>Xcode Command Line Tools diperlukan untuk development lainnya</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

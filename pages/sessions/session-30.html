@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 30: Pengenalan Database dengan SQLite - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 30: Pengenalan Database dengan SQLite</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara menggunakan database SQLite di Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu SQLite?</h4>
+                    <p class="text-gray-600 mb-4">Database relasional yang ringan dan tidak memerlukan server.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import sqlite3
+
+# Membuat koneksi ke database
+# Jika file tidak ada, akan dibuat otomatis
+conn = sqlite3.connect('contoh.db')
+
+# Membuat cursor untuk menjalankan SQL
+cursor = conn.cursor()
+
+print("Database SQLite berhasil dibuat/dibuka")
+print(f"Database file: contoh.db")
+
+# Menutup koneksi
+conn.close()
+
+# SQLite adalah:
+# - Server-less (tidak perlu install server)
+# - File-based (database disimpan dalam file)
+# - ACID compliant
+# - Mendukung SQL standar
+# - Cross-platform
+# - Zero-configuration</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Membuat Tabel</h4>
+                    <p class="text-gray-600 mb-4">CREATE TABLE untuk membuat struktur tabel.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import sqlite3
+
+def create_tables():
+    conn = sqlite3.connect('sekolah.db')
+    cursor = conn.cursor()
+    
+    # Membuat tabel mahasiswa
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS mahasiswa (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            nama TEXT NOT NULL,
+            nim TEXT UNIQUE NOT NULL,
+            jurusan TEXT,
+            angkatan INTEGER,
+            ipk REAL DEFAULT 0.0,
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+        )
+    ''')
+    
+    # Membuat tabel mata_kuliah
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS mata_kuliah (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            kode_mk TEXT UNIQUE NOT NULL,
+            nama_mk TEXT NOT NULL,
+            sks INTEGER NOT NULL,
+            semester INTEGER
+        )
+    ''')
+    
+    # Membuat tabel nilai
+    cursor.execute('''
+        CREATE TABLE IF NOT EXISTS nilai (
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
+            mahasiswa_id INTEGER,
+            mata_kuliah_id INTEGER,
+            nilai_huruf TEXT,
+            nilai_angka REAL,
+            FOREIGN KEY (mahasiswa_id) REFERENCES mahasiswa (id),
+            FOREIGN KEY (mata_kuliah_id) REFERENCES mata_kuliah (id)
+        )
+    ''')
+    
+    conn.commit()
+    conn.close()
+    print("Tabel berhasil dibuat")
+
+# Menjalankan fungsi
+create_tables()
+
+# Menampilkan informasi tabel
+conn = sqlite3.connect('sekolah.db')
+cursor = conn.cursor()
+
+# Melihat semua tabel
+cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+tables = cursor.fetchall()
+print(f"Tabel yang ada: {[table[0] for table in tables]}")
+
+# Melihat struktur tabel mahasiswa
+cursor.execute("PRAGMA table_info(mahasiswa)")
+columns = cursor.fetchall()
+print("\nStruktur tabel mahasiswa:")
+for col in columns:
+    print(f"  {col[1]} ({col[2]}) - {'NOT NULL' if col[3] else 'NULL'}")
+
+conn.close()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ INSERT Data</h4>
+                    <p class="text-gray-600 mb-4">Menambahkan data ke tabel.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import sqlite3
+
+def insert_sample_data():
+    conn = sqlite3.connect('sekolah.db')
+    cursor = conn.cursor()
+    
+    # Insert data mahasiswa
+    mahasiswa_data = [
+        ('Alice Johnson', '12345', 'Informatika', 2020, 3.75),
+        ('Bob Wilson', '12346', 'Sistem Informasi', 2020, 3.50),
+        ('Charlie Brown', '12347', 'Teknik Elektro', 2019, 3.80),
+        ('Diana Prince', '12348', 'Informatika', 2021, 3.90),
+        ('Edward Norton', '12349', 'Sistem Informasi', 2020, 3.60)
+    ]
+    
+    cursor.executemany('''
+        INSERT INTO mahasiswa (nama, nim, jurusan, angkatan, ipk)
+        VALUES (?, ?, ?, ?, ?)
+    ''', mahasiswa_data)
+    
+    # Insert data mata kuliah
+    mk_data = [
+        ('IF101', 'Pemrograman Dasar', 3, 1),
+        ('IF102', 'Struktur Data', 3, 2),
+        ('IF201', 'Basis Data', 3, 3),
+        ('IF202', 'Pemrograman Web', 3, 4),
+        ('SI101', 'Sistem Informasi', 2, 1)
+    ]
+    
+    cursor.executemany('''
+        INSERT INTO mata_kuliah (kode_mk, nama_mk, sks, semester)
+        VALUES (?, ?, ?, ?)
+    ''', mk_data)
+    
+    # Insert data nilai
+    nilai_data = [
+        (1, 1, 'A', 4.0),
+        (1, 2, 'A-', 3.75),
+        (2, 1, 'B+', 3.25),
+        (2, 3, 'A', 4.0),
+        (3, 1, 'A', 4.0),
+        (3, 2, 'A', 4.0),
+        (4, 1, 'A+', 4.0),
+        (5, 5, 'B', 3.0)
+    ]
+    
+    cursor.executemany('''
+        INSERT INTO nilai (mahasiswa_id, mata_kuliah_id, nilai_huruf, nilai_angka)
+        VALUES (?, ?, ?, ?)
+    ''', nilai_data)
+    
+    conn.commit()
+    conn.close()
+    print("Data sample berhasil ditambahkan")
+
+# Menjalankan fungsi
+insert_sample_data()
+
+# Verifikasi data
+conn = sqlite3.connect('sekolah.db')
+cursor = conn.cursor()
+
+# Hitung jumlah data di setiap tabel
+cursor.execute("SELECT COUNT(*) FROM mahasiswa")
+print(f"Jumlah mahasiswa: {cursor.fetchone()[0]}")
+
+cursor.execute("SELECT COUNT(*) FROM mata_kuliah")
+print(f"Jumlah mata kuliah: {cursor.fetchone()[0]}")
+
+cursor.execute("SELECT COUNT(*) FROM nilai")
+print(f"Jumlah nilai: {cursor.fetchone()[0]}")
+
+conn.close()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ SELECT Data</h4>
+                    <p class="text-gray-600 mb-4">Mengambil data dari tabel.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import sqlite3
+
+def query_data():
+    conn = sqlite3.connect('sekolah.db')
+    cursor = conn.cursor()
+    
+    print("=== QUERY DATA MAHASISWA ===")
+    
+    # SELECT semua mahasiswa
+    cursor.execute("SELECT * FROM mahasiswa")
+    mahasiswa = cursor.fetchall()
+    
+    print("Semua mahasiswa:")
+    for mhs in mahasiswa:
+        print(f"ID: {mhs[0]}, Nama: {mhs[1]}, NIM: {mhs[2]}, Jurusan: {mhs[3]}, IPK: {mhs[4]}")
+    
+    print("\n=== FILTERING DATA ===")
+    
+    # Mahasiswa dengan IPK > 3.7
+    cursor.execute("SELECT nama, ipk FROM mahasiswa WHERE ipk > 3.7 ORDER BY ipk DESC")
+    high_achievers = cursor.fetchall()
+    print("Mahasiswa dengan IPK > 3.7:")
+    for name, ipk in high_achievers:
+        print(f"  {name}: {ipk}")
+    
+    # Mahasiswa Informatika angkatan 2020
+    cursor.execute("""
+        SELECT nama, nim FROM mahasiswa 
+        WHERE jurusan = 'Informatika' AND angkatan = 2020
+    """)
+    if_students = cursor.fetchall()
+    print(f"\nMahasiswa Informatika 2020: {len(if_students)} orang")
+    for name, nim in if_students:
+        print(f"  {name} ({nim})")
+    
+    print("\n=== JOIN TABLES ===")
+    
+    # Join mahasiswa dengan nilai
+    cursor.execute("""
+        SELECT m.nama, mk.nama_mk, n.nilai_huruf, n.nilai_angka
+        FROM mahasiswa m
+        JOIN nilai n ON m.id = n.mahasiswa_id
+        JOIN mata_kuliah mk ON n.mata_kuliah_id = mk.id
+        ORDER BY m.nama, mk.nama_mk
+    """)
+    
+    results = cursor.fetchall()
+    print("Nilai mahasiswa:")
+    current_student = None
+    for nama, mk, huruf, angka in results:
+        if current_student != nama:
+            print(f"\n{nama}:")
+            current_student = nama
+        print(f"  {mk}: {huruf} ({angka})")
+    
+    print("\n=== AGGREGATE FUNCTIONS ===")
+    
+    # Rata-rata IPK per jurusan
+    cursor.execute("""
+        SELECT jurusan, AVG(ipk) as avg_ipk, COUNT(*) as jumlah
+        FROM mahasiswa
+        GROUP BY jurusan
+        ORDER BY avg_ipk DESC
+    """)
+    
+    jurusan_stats = cursor.fetchall()
+    print("Statistik per jurusan:")
+    for jurusan, avg_ipk, jumlah in jurusan_stats:
+        print(f"  {jurusan}: Rata-rata IPK {avg_ipk:.2f}, {jumlah} mahasiswa")
+    
+    # Mahasiswa dengan nilai tertinggi
+    cursor.execute("""
+        SELECT m.nama, AVG(n.nilai_angka) as avg_nilai
+        FROM mahasiswa m
+        JOIN nilai n ON m.id = n.mahasiswa_id
+        GROUP BY m.id, m.nama
+        ORDER BY avg_nilai DESC
+        LIMIT 3
+    """)
+    
+    top_students = cursor.fetchall()
+    print("\nTop 3 mahasiswa berdasarkan rata-rata nilai:")
+    for i, (nama, avg) in enumerate(top_students, 1):
+        print(f"{i}. {nama}: {avg:.2f}")
+    
+    conn.close()
+
+# Menjalankan query
+query_data()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ UPDATE dan DELETE</h4>
+                    <p class="text-gray-600 mb-4">Mengubah dan menghapus data.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import sqlite3
+
+def update_and_delete():
+    conn = sqlite3.connect('sekolah.db')
+    cursor = conn.cursor()
+    
+    print("=== SEBELUM UPDATE ===")
+    cursor.execute("SELECT nama, ipk FROM mahasiswa WHERE nim = '12345'")
+    alice = cursor.fetchone()
+    print(f"Alice IPK: {alice[1]}")
+    
+    # UPDATE data
+    cursor.execute("""
+        UPDATE mahasiswa 
+        SET ipk = 3.85, jurusan = 'Teknik Informatika' 
+        WHERE nim = '12345'
+    """)
+    
+    print("\n=== SETELAH UPDATE ===")
+    cursor.execute("SELECT nama, ipk, jurusan FROM mahasiswa WHERE nim = '12345'")
+    alice_updated = cursor.fetchone()
+    print(f"Alice IPK: {alice_updated[1]}, Jurusan: {alice_updated[2]}")
+    
+    # UPDATE dengan parameter
+    new_ipk = 3.95
+    nim_target = '12346'
+    cursor.execute("UPDATE mahasiswa SET ipk = ? WHERE nim = ?", (new_ipk, nim_target))
+    
+    # Verifikasi update
+    cursor.execute("SELECT nama, ipk FROM mahasiswa WHERE nim = ?", (nim_target,))
+    bob = cursor.fetchone()
+    print(f"Bob IPK setelah update: {bob[1]}")
+    
+    print("\n=== SEBELUM DELETE ===")
+    cursor.execute("SELECT COUNT(*) FROM nilai WHERE mahasiswa_id = 5")
+    nilai_count = cursor.fetchone()[0]
+    print(f"Jumlah nilai Edward: {nilai_count}")
+    
+    # DELETE data nilai terlebih dahulu (karena foreign key)
+    cursor.execute("DELETE FROM nilai WHERE mahasiswa_id = 5")
+    
+    # DELETE mahasiswa
+    cursor.execute("DELETE FROM mahasiswa WHERE id = 5")
+    
+    print("\n=== SETELAH DELETE ===")
+    cursor.execute("SELECT COUNT(*) FROM mahasiswa WHERE id = 5")
+    remaining = cursor.fetchone()[0]
+    print(f"Sisa mahasiswa dengan ID 5: {remaining}")
+    
+    # DELETE dengan kondisi
+    cursor.execute("DELETE FROM nilai WHERE nilai_angka < 3.0")
+    print("Nilai di bawah 3.0 telah dihapus")
+    
+    conn.commit()
+    
+    # Menampilkan data akhir
+    print("\n=== DATA AKHIR ===")
+    cursor.execute("SELECT nama, ipk FROM mahasiswa ORDER BY ipk DESC")
+    final_data = cursor.fetchall()
+    for nama, ipk in final_data:
+        print(f"{nama}: {ipk}")
+    
+    conn.close()
+
+# Menjalankan fungsi
+update_and_delete()
+
+# Fungsi untuk reset database (untuk testing)
+def reset_database():
+    import os
+    if os.path.exists('sekolah.db'):
+        os.remove('sekolah.db')
+        print("Database direset")
+    
+    # Recreate tables and data
+    exec(open('create_tables.py').read())  # Asumsikan ada file create_tables.py
+    exec(open('insert_data.py').read())    # Asumsikan ada file insert_data.py
+
+# Uncomment untuk reset
+# reset_database()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Error Handling</h4>
+                    <p class="text-gray-600 mb-4">Menangani error database dengan try-except.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import sqlite3
+
+class DatabaseManager:
+    def __init__(self, db_name):
+        self.db_name = db_name
+        self.conn = None
+    
+    def connect(self):
+        """Membuat koneksi database dengan error handling"""
+        try:
+            self.conn = sqlite3.connect(self.db_name)
+            print(f"Berhasil terhubung ke {self.db_name}")
+            return True
+        except sqlite3.Error as e:
+            print(f"Error koneksi database: {e}")
+            return False
+    
+    def execute_query(self, query, params=None, fetch=False):
+        """Eksekusi query dengan error handling"""
+        if not self.conn:
+            print("Tidak ada koneksi database")
+            return None
+        
+        try:
+            cursor = self.conn.cursor()
+            
+            if params:
+                cursor.execute(query, params)
+            else:
+                cursor.execute(query)
+            
+            if fetch:
+                return cursor.fetchall()
+            else:
+                self.conn.commit()
+                return cursor.rowcount
+                
+        except sqlite3.IntegrityError as e:
+            print(f"Integrity error: {e}")
+            self.conn.rollback()
+        except sqlite3.OperationalError as e:
+            print(f"Operational error: {e}")
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+            self.conn.rollback()
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+        
+        return None
+    
+    def close(self):
+        """Menutup koneksi database"""
+        if self.conn:
+            self.conn.close()
+            print("Koneksi database ditutup")
+
+def safe_database_operations():
+    db = DatabaseManager('sekolah.db')
+    
+    if not db.connect():
+        return
+    
+    # Contoh operasi aman
+    print("\n=== OPERASI DATABASE YANG AMAN ===")
+    
+    # Insert dengan duplicate NIM (akan gagal)
+    result = db.execute_query(
+        "INSERT INTO mahasiswa (nama, nim, jurusan) VALUES (?, ?, ?)",
+        ("Test User", "12345", "Test")  # NIM 12345 sudah ada
+    )
+    
+    if result is None:
+        print("Insert gagal (seperti yang diharapkan)")
+    
+    # Insert yang valid
+    result = db.execute_query(
+        "INSERT INTO mahasiswa (nama, nim, jurusan) VALUES (?, ?, ?)",
+        ("Safe User", "99999", "Test")
+    )
+    
+    if result == 1:
+        print("Insert berhasil")
+    
+    # Query yang valid
+    mahasiswa = db.execute_query(
+        "SELECT nama, nim FROM mahasiswa WHERE nim = ?",
+        ("99999",),
+        fetch=True
+    )
+    
+    if mahasiswa:
+        print(f"Data ditemukan: {mahasiswa[0]}")
+    
+    # Query dengan syntax error
+    result = db.execute_query("SELEC * FROM mahasiswa")  # Typo
+    
+    # Cleanup - hapus data test
+    db.execute_query("DELETE FROM mahasiswa WHERE nim = ?", ("99999",))
+    
+    db.close()
+
+# Menjalankan operasi aman
+safe_database_operations()
+
+# Context manager untuk database
+class DatabaseConnection:
+    def __init__(self, db_name):
+        self.db_name = db_name
+    
+    def __enter__(self):
+        self.conn = sqlite3.connect(self.db_name)
+        return self.conn
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.conn:
+            if exc_type:
+                self.conn.rollback()
+            else:
+                self.conn.commit()
+            self.conn.close()
+
+def using_context_manager():
+    print("\n=== MENGGUNAKAN CONTEXT MANAGER ===")
+    
+    try:
+        with DatabaseConnection('sekolah.db') as conn:
+            cursor = conn.cursor()
+            
+            # Operasi database
+            cursor.execute("SELECT COUNT(*) FROM mahasiswa")
+            count = cursor.fetchone()[0]
+            print(f"Jumlah mahasiswa: {count}")
+            
+            # Jika ada exception, akan di-rollback otomatis
+            # Jika tidak ada exception, akan di-commit otomatis
+            
+    except sqlite3.Error as e:
+        print(f"Database error: {e}")
+
+using_context_manager()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Contoh Aplikasi Lengkap</h4>
+                    <p class="text-gray-600 mb-4">Sistem manajemen mahasiswa sederhana.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import sqlite3
+import os
+from datetime import datetime
+
+class StudentManagementSystem:
+    def __init__(self, db_name='student_management.db'):
+        self.db_name = db_name
+        self.init_database()
+    
+    def init_database(self):
+        """Inisialisasi database dan tabel"""
+        with sqlite3.connect(self.db_name) as conn:
+            cursor = conn.cursor()
+            
+            # Tabel mahasiswa
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS students (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    name TEXT NOT NULL,
+                    student_id TEXT UNIQUE NOT NULL,
+                    major TEXT,
+                    year INTEGER,
+                    gpa REAL DEFAULT 0.0,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                )
+            ''')
+            
+            # Tabel mata kuliah
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS courses (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    course_code TEXT UNIQUE NOT NULL,
+                    course_name TEXT NOT NULL,
+                    credits INTEGER NOT NULL
+                )
+            ''')
+            
+            # Tabel enrollment
+            cursor.execute('''
+                CREATE TABLE IF NOT EXISTS enrollments (
+                    id INTEGER PRIMARY KEY AUTOINCREMENT,
+                    student_id INTEGER,
+                    course_id INTEGER,
+                    grade TEXT,
+                    grade_point REAL,
+                    semester TEXT,
+                    FOREIGN KEY (student_id) REFERENCES students (id),
+                    FOREIGN KEY (course_id) REFERENCES courses (id)
+                )
+            ''')
+    
+    def add_student(self, name, student_id, major, year):
+        """Menambah mahasiswa baru"""
+        try:
+            with sqlite3.connect(self.db_name) as conn:
+                cursor = conn.cursor()
+                cursor.execute('''
+                    INSERT INTO students (name, student_id, major, year)
+                    VALUES (?, ?, ?, ?)
+                ''', (name, student_id, major, year))
+                
+                student_id_db = cursor.lastrowid
+                print(f"Mahasiswa '{name}' berhasil ditambahkan dengan ID: {student_id_db}")
+                return student_id_db
+                
+        except sqlite3.IntegrityError:
+            print(f"Error: Student ID '{student_id}' sudah ada")
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+        
+        return None
+    
+    def add_course(self, course_code, course_name, credits):
+        """Menambah mata kuliah"""
+        try:
+            with sqlite3.connect(self.db_name) as conn:
+                cursor = conn.cursor()
+                cursor.execute('''
+                    INSERT INTO courses (course_code, course_name, credits)
+                    VALUES (?, ?, ?)
+                ''', (course_code, course_name, credits))
+                
+                course_id = cursor.lastrowid
+                print(f"Mata kuliah '{course_name}' berhasil ditambahkan")
+                return course_id
+                
+        except sqlite3.IntegrityError:
+            print(f"Error: Course code '{course_code}' sudah ada")
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+        
+        return None
+    
+    def enroll_student(self, student_id, course_code, grade=None, semester=None):
+        """Mendaftarkan mahasiswa ke mata kuliah"""
+        try:
+            with sqlite3.connect(self.db_name) as conn:
+                cursor = conn.cursor()
+                
+                # Cari student ID
+                cursor.execute("SELECT id FROM students WHERE student_id = ?", (student_id,))
+                student = cursor.fetchone()
+                if not student:
+                    print(f"Error: Mahasiswa dengan ID '{student_id}' tidak ditemukan")
+                    return False
+                
+                # Cari course ID
+                cursor.execute("SELECT id FROM courses WHERE course_code = ?", (course_code,))
+                course = cursor.fetchone()
+                if not course:
+                    print(f"Error: Mata kuliah dengan kode '{course_code}' tidak ditemukan")
+                    return False
+                
+                # Hitung grade point
+                grade_point = self.grade_to_point(grade) if grade else None
+                
+                # Insert enrollment
+                cursor.execute('''
+                    INSERT INTO enrollments (student_id, course_id, grade, grade_point, semester)
+                    VALUES (?, ?, ?, ?, ?)
+                ''', (student[0], course[0], grade, grade_point, semester))
+                
+                print(f"Mahasiswa '{student_id}' berhasil didaftarkan ke '{course_code}'")
+                return True
+                
+        except sqlite3.IntegrityError:
+            print(f"Error: Mahasiswa sudah terdaftar di mata kuliah ini")
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+        
+        return False
+    
+    def grade_to_point(self, grade):
+        """Konversi grade huruf ke poin"""
+        grade_map = {
+            'A': 4.0, 'A-': 3.75, 'B+': 3.25, 'B': 3.0,
+            'B-': 2.75, 'C+': 2.25, 'C': 2.0, 'D': 1.0, 'F': 0.0
+        }
+        return grade_map.get(grade.upper(), 0.0)
+    
+    def calculate_gpa(self, student_id):
+        """Menghitung GPA mahasiswa"""
+        try:
+            with sqlite3.connect(self.db_name) as conn:
+                cursor = conn.cursor()
+                
+                # Cari student
+                cursor.execute("SELECT id, name FROM students WHERE student_id = ?", (student_id,))
+                student = cursor.fetchone()
+                if not student:
+                    print(f"Mahasiswa dengan ID '{student_id}' tidak ditemukan")
+                    return None
+                
+                student_db_id, name = student
+                
+                # Hitung GPA
+                cursor.execute('''
+                    SELECT AVG(grade_point), COUNT(*)
+                    FROM enrollments
+                    WHERE student_id = ? AND grade_point IS NOT NULL
+                ''', (student_db_id,))
+                
+                result = cursor.fetchone()
+                if result[1] > 0:  # Ada nilai
+                    gpa = result[0]
+                    
+                    # Update GPA di tabel students
+                    cursor.execute("UPDATE students SET gpa = ? WHERE id = ?", (gpa, student_db_id))
+                    
+                    print(f"GPA {name} ({student_id}): {gpa:.2f}")
+                    return gpa
+                else:
+                    print(f"{name} belum memiliki nilai")
+                    return 0.0
+                
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+        
+        return None
+    
+    def get_student_report(self, student_id):
+        """Mendapatkan laporan mahasiswa"""
+        try:
+            with sqlite3.connect(self.db_name) as conn:
+                cursor = conn.cursor()
+                
+                # Info mahasiswa
+                cursor.execute('''
+                    SELECT name, major, year, gpa
+                    FROM students
+                    WHERE student_id = ?
+                ''', (student_id,))
+                
+                student = cursor.fetchone()
+                if not student:
+                    print(f"Mahasiswa dengan ID '{student_id}' tidak ditemukan")
+                    return
+                
+                name, major, year, gpa = student
+                
+                print(f"\n=== LAPORAN MAHASISWA ===")
+                print(f"Nama: {name}")
+                print(f"NIM: {student_id}")
+                print(f"Jurusan: {major}")
+                print(f"Angkatan: {year}")
+                print(f"GPA: {gpa:.2f}")
+                
+                # Daftar mata kuliah
+                cursor.execute('''
+                    SELECT c.course_code, c.course_name, e.grade, e.semester
+                    FROM enrollments e
+                    JOIN courses c ON e.course_id = c.id
+                    WHERE e.student_id = (SELECT id FROM students WHERE student_id = ?)
+                    ORDER BY e.semester, c.course_name
+                ''', (student_id,))
+                
+                courses = cursor.fetchall()
+                if courses:
+                    print(f"\nMata Kuliah ({len(courses)}):")
+                    for course_code, course_name, grade, semester in courses:
+                        grade_display = grade if grade else "Belum ada nilai"
+                        print(f"  {course_code} - {course_name}")
+                        print(f"    Nilai: {grade_display}, Semester: {semester or 'N/A'}")
+                else:
+                    print("\nBelum terdaftar di mata kuliah manapun")
+                
+        except sqlite3.Error as e:
+            print(f"Database error: {e}")
+
+def main():
+    sms = StudentManagementSystem()
+    
+    # Tambah data sample
+    print("=== MENAMBAH DATA SAMPLE ===")
+    sms.add_student("Alice Wonderland", "2021001", "Computer Science", 2021)
+    sms.add_student("Bob Builder", "2021002", "Information Systems", 2021)
+    
+    sms.add_course("CS101", "Introduction to Programming", 3)
+    sms.add_course("CS102", "Data Structures", 3)
+    sms.add_course("IS101", "Information Systems", 2)
+    
+    # Enrollment
+    sms.enroll_student("2021001", "CS101", "A", "2021-1")
+    sms.enroll_student("2021001", "CS102", "A-", "2021-2")
+    sms.enroll_student("2021002", "IS101", "B+", "2021-1")
+    
+    # Hitung GPA
+    sms.calculate_gpa("2021001")
+    sms.calculate_gpa("2021002")
+    
+    # Tampilkan laporan
+    sms.get_student_report("2021001")
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat database dan tabel untuk menyimpan data siswa.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/pd-0G0MigUA" frameborder="0" allow="accelerometer; autoplay; clipbo-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Method apa yang digunakan untuk membuat koneksi ke SQLite?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>sqlite3.connect()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>sqlite3.cursor()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>sqlite3.execute()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Kata kunci SQL apa yang digunakan untuk membuat tabel?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>INSERT</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>CREATE TABLE</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>SELECT</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

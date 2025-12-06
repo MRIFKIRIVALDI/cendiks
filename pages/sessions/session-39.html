@@ -1,0 +1,764 @@
+ v<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 39: Pengenalan Web Scraping dengan Python - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 39: Pengenalan Web Scraping dengan Python</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara mengambil data dari website</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Web Scraping?</h4>
+                    <p class="text-gray-600 mb-4">Teknik mengambil data dari website secara otomatis.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import requests
+from bs4 import BeautifulSoup
+
+# Contoh sederhana web scraping
+url = "https://httpbin.org/html"
+response = requests.get(url)
+
+if response.status_code == 200:
+    print("Berhasil mengambil data dari website")
+    print(f"Panjang konten: {len(response.text)} karakter")
+    
+    # Parse HTML dengan BeautifulSoup
+    soup = BeautifulSoup(response.text, 'html.parser')
+    
+    # Cari elemen h1
+    h1_element = soup.find('h1')
+    if h1_element:
+        print(f"Judul halaman: {h1_element.text}")
+    
+    # Cari semua paragraph
+    paragraphs = soup.find_all('p')
+    print(f"Jumlah paragraph: {len(paragraphs)}")
+    
+else:
+    print(f"Gagal mengambil data. Status code: {response.status_code}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Menggunakan Requests</h4>
+                    <p class="text-gray-600 mb-4">Library untuk HTTP requests.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import requests
+
+# GET request sederhana
+response = requests.get("https://jsonplaceholder.typicode.com/posts/1")
+print(f"Status Code: {response.status_code}")
+print(f"Content-Type: {response.headers.get('content-type')}")
+
+# Mengambil JSON
+data = response.json()
+print(f"Title: {data['title']}")
+print(f"Body: {data['body'][:50]}...")
+
+# GET dengan parameters
+params = {'userId': 1}
+response = requests.get("https://jsonplaceholder.typicode.com/posts", params=params)
+posts = response.json()
+print(f"\nJumlah posts user 1: {len(posts)}")
+
+# POST request
+new_post = {
+    'title': 'Belajar Web Scraping',
+    'body': 'Ini adalah contoh POST request',
+    'userId': 1
+}
+
+response = requests.post("https://jsonplaceholder.typicode.com/posts", json=new_post)
+if response.status_code == 201:
+    created_post = response.json()
+    print(f"Post baru dibuat dengan ID: {created_post['id']}")
+
+# Headers dan User-Agent
+headers = {
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+}
+
+response = requests.get("https://httpbin.org/user-agent", headers=headers)
+print(f"\nUser-Agent yang dikirim: {response.json()['user-agent']}")
+
+# Timeout
+try:
+    response = requests.get("https://httpbin.org/delay/1", timeout=2)
+    print("Request berhasil dengan timeout")
+except requests.Timeout:
+    print("Request timeout")
+
+# Error handling
+try:
+    response = requests.get("https://nonexistent-website-12345.com")
+except requests.ConnectionError:
+    print("Connection error")
+except requests.Timeout:
+    print("Request timeout")
+except requests.RequestException as e:
+    print(f"Request error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ BeautifulSoup untuk Parsing HTML</h4>
+                    <p class="text-gray-600 mb-4">Library untuk parsing dan navigasi HTML.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from bs4 import BeautifulSoup
+import requests
+
+# HTML contoh
+html_doc = """
+<html>
+<head><title>Test Page</title></head>
+<body>
+    <h1>Welcome to Test Page</h1>
+    <div class="content">
+        <p class="intro">This is an introduction paragraph.</p>
+        <p>This is another paragraph.</p>
+        <ul id="menu">
+            <li><a href="/home">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+        </ul>
+        <div class="products">
+            <div class="product" data-price="100">
+                <h3>Laptop</h3>
+                <p>High-performance laptop</p>
+            </div>
+            <div class="product" data-price="50">
+                <h3>Mouse</h3>
+                <p>Wireless mouse</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+"""
+
+soup = BeautifulSoup(html_doc, 'html.parser')
+
+# Mencari elemen berdasarkan tag
+title = soup.find('title')
+print(f"Title: {title.text}")
+
+h1 = soup.find('h1')
+print(f"H1: {h1.text}")
+
+# Mencari berdasarkan class
+intro = soup.find('p', class_='intro')
+print(f"Intro paragraph: {intro.text}")
+
+# Mencari berdasarkan id
+menu = soup.find('ul', id='menu')
+print(f"Menu items: {len(menu.find_all('li'))}")
+
+# find_all() untuk semua elemen
+all_paragraphs = soup.find_all('p')
+print(f"Jumlah paragraph: {len(all_paragraphs)}")
+
+all_links = soup.find_all('a')
+print("Links:")
+for link in all_links:
+    print(f"  {link.text}: {link.get('href')}")
+
+# Menggunakan CSS selectors
+products = soup.select('.product')
+print(f"\nJumlah produk: {len(products)}")
+
+for product in products:
+    name = product.find('h3').text
+    desc = product.find('p').text
+    price = product.get('data-price')
+    print(f"  {name}: {desc} (Rp{price})")
+
+# Navigasi dengan parent, children, siblings
+first_product = soup.select_one('.product')
+print(f"\nFirst product parent: {first_product.parent.name}")
+print(f"First product children: {len(list(first_product.children))}")
+
+# Mengambil text saja
+all_text = soup.get_text()
+print(f"\nAll text (first 100 chars): {all_text[:100]}...")
+
+# Mengambil atribut
+first_link = soup.find('a')
+print(f"First link href: {first_link['href']}")
+print(f"First link href (get): {first_link.get('href')}")
+
+# Mencari dengan atribut tertentu
+products_by_price = soup.find_all('div', {'data-price': True})
+print(f"Products with price attribute: {len(products_by_price)}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Navigasi dan Traversal</h4>
+                    <p class="text-gray-600 mb-4">Menjelajahi struktur HTML.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from bs4 import BeautifulSoup
+
+html = """
+<div class="container">
+    <header>
+        <h1>Website Title</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <article>
+            <h2>Article Title</h2>
+            <p>First paragraph.</p>
+            <p>Second paragraph.</p>
+            <div class="author">By John Doe</div>
+        </article>
+        <aside>
+            <h3>Related Links</h3>
+            <ul>
+                <li><a href="/link1">Link 1</a></li>
+                <li><a href="/link2">Link 2</a></li>
+            </ul>
+        </aside>
+    </main>
+</div>
+"""
+
+soup = BeautifulSoup(html, 'html.parser')
+
+# descendants - semua elemen di dalam
+container = soup.find('div', class_='container')
+print("All descendants of container:")
+for desc in container.descendants:
+    if desc.name:  # skip text nodes
+        print(f"  {desc.name}: {desc.get_text(strip=True)[:30]}...")
+
+# children - elemen langsung di dalam
+main = soup.find('main')
+print(f"\nDirect children of main: {len(list(main.children))}")
+
+# next_sibling, previous_sibling
+article = soup.find('article')
+aside = article.find_next_sibling('aside')
+print(f"Article's next sibling: {aside.name}")
+
+# next_element, previous_element
+h2 = soup.find('h2')
+next_elem = h2.next_element
+print(f"Element after h2: {next_elem.name if next_elem.name else repr(next_elem)}")
+
+# parent
+author_div = soup.find('div', class_='author')
+print(f"Author div parent: {author_div.parent.name}")
+
+# ancestors
+print("Ancestors of author div:")
+for ancestor in author_div.parents:
+    if ancestor.name:
+        print(f"  {ancestor.name}")
+
+# find_next(), find_previous()
+first_p = soup.find('p')
+second_p = first_p.find_next('p')
+print(f"Second paragraph: {second_p.text}")
+
+# find_all_next(), find_all_previous()
+all_links = soup.find_all('a')
+first_link = all_links[0]
+next_links = first_link.find_all_next('a')
+print(f"Links after first link: {len(next_links)}")
+
+# Menggunakan CSS selectors untuk traversal
+nav_links = soup.select('nav a')
+print(f"Navigation links: {[link.text for link in nav_links]}")
+
+article_links = soup.select('article ~ aside a')
+print(f"Links in aside after article: {len(article_links)}")
+
+# XPath-like selectors
+main_content = soup.select_one('main > article')
+print(f"Main article: {main_content.find('h2').text}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Web Scraping Etika dan Legal</h4>
+                    <p class="text-gray-600 mb-4">Prinsip dan praktik yang benar.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import requests
+import time
+from bs4 import BeautifulSoup
+
+class EthicalScraper:
+    def __init__(self):
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'Mozilla/5.0 (Educational Bot - Learning Purpose Only)'
+        })
+    
+    def respectful_request(self, url, delay=1):
+        """Request dengan delay untuk menghormati server"""
+        time.sleep(delay)  # Delay antar request
+        
+        try:
+            response = self.session.get(url, timeout=10)
+            response.raise_for_status()  # Raise exception untuk status error
+            
+            # Cek robots.txt (simulasi)
+            if self.can_scrape(url):
+                return response
+            else:
+                print(f"Blocked by robots.txt: {url}")
+                return None
+                
+        except requests.RequestException as e:
+            print(f"Request failed: {e}")
+            return None
+    
+    def can_scrape(self, url):
+        """Cek apakah boleh scrape (simulasi)"""
+        # Dalam praktik nyata, parse robots.txt
+        # Untuk demo, izinkan semua
+        return True
+    
+    def parse_html_gently(self, html):
+        """Parse HTML dengan BeautifulSoup"""
+        soup = BeautifulSoup(html, 'html.parser')
+        
+        # Jangan ambil data yang tidak perlu
+        # Fokus pada data yang benar-benar dibutuhkan
+        
+        return soup
+
+# Contoh penggunaan ethical scraper
+scraper = EthicalScraper()
+
+# Simulasi scraping beberapa halaman
+urls = [
+    "https://httpbin.org/html",
+    "https://httpbin.org/json",
+    # Jangan scrape website nyata tanpa izin
+]
+
+for url in urls:
+    print(f"Scraping: {url}")
+    response = scraper.respectful_request(url, delay=2)
+    
+    if response:
+        if 'json' in response.headers.get('content-type', ''):
+            data = response.json()
+            print(f"  JSON data keys: {list(data.keys())}")
+        else:
+            soup = scraper.parse_html_gently(response.text)
+            title = soup.find('title')
+            if title:
+                print(f"  Page title: {title.text}")
+    
+    print("  ---")
+
+# Tips etika scraping:
+print("\n=== ETIKA WEB SCRAPING ===")
+print("1. Selalu cek robots.txt")
+print("2. Gunakan User-Agent yang jelas")
+print("3. Jangan overload server - gunakan delay")
+print("4. Hanya ambil data yang dibutuhkan")
+print("5. Patuhi Terms of Service")
+print("6. Pertimbangkan dampak pada website")
+print("7. Gunakan API jika tersedia")
+print("8. Simpan data dengan bijak")
+
+# Contoh robots.txt check (sederhana)
+def check_robots_txt(domain):
+    """Cek robots.txt (implementasi sederhana)"""
+    try:
+        robots_url = f"https://{domain}/robots.txt"
+        response = requests.get(robots_url, timeout=5)
+        
+        if response.status_code == 200:
+            print(f"Robots.txt untuk {domain}:")
+            print(response.text[:200] + "..." if len(response.text) > 200 else response.text)
+        else:
+            print(f"Tidak ada robots.txt di {domain}")
+            
+    except Exception as e:
+        print(f"Error checking robots.txt: {e}")
+
+# Demo check robots.txt
+check_robots_txt("httpbin.org")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Handling JavaScript Heavy Sites</h4>
+                    <p class="text-gray-600 mb-4">Mengatasi website dengan JavaScript.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Selenium untuk website dengan JavaScript
+# pip install selenium
+# Download webdriver (ChromeDriver, GeckoDriver, etc.)
+
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+import time
+
+def scrape_js_heavy_site(url):
+    """Scrape website yang menggunakan JavaScript"""
+    
+    # Setup Chrome driver (pastikan chromedriver.exe ada di PATH)
+    options = webdriver.ChromeOptions()
+    options.add_argument('--headless')  # Run tanpa GUI
+    options.add_argument('--no-sandbox')
+    options.add_argument('--disable-dev-shm-usage')
+    
+    try:
+        driver = webdriver.Chrome(options=options)
+        
+        # Buka halaman
+        driver.get(url)
+        
+        # Tunggu sampai elemen tertentu muncul
+        wait = WebDriverWait(driver, 10)
+        
+        # Contoh: tunggu sampai title berubah
+        wait.until(EC.title_contains("Example"))
+        
+        # Ambil data
+        title = driver.title
+        print(f"Page title: {title}")
+        
+        # Cari elemen dengan berbagai metode
+        # By ID
+        try:
+            header = driver.find_element(By.ID, "main-header")
+            print(f"Header text: {header.text}")
+        except:
+            print("Header tidak ditemukan")
+        
+        # By CSS Selector
+        try:
+            articles = driver.find_elements(By.CSS_SELECTOR, "article")
+            print(f"Jumlah artikel: {len(articles)}")
+        except:
+            print("Artikel tidak ditemukan")
+        
+        # By XPath
+        try:
+            links = driver.find_elements(By.XPATH, "//a[@href]")
+            print(f"Jumlah link: {len(links)}")
+        except:
+            print("Link tidak ditemukan")
+        
+        # Scroll untuk load more content (jika ada)
+        driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+        time.sleep(2)  # Tunggu content load
+        
+        # Ambil screenshot
+        driver.save_screenshot("screenshot.png")
+        print("Screenshot disimpan")
+        
+        return driver.page_source
+        
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+        
+    finally:
+        driver.quit()
+
+# Alternatif: menggunakan requests-html
+# pip install requests-html
+
+from requests_html import HTMLSession
+
+def scrape_with_requests_html(url):
+    """Scrape dengan requests-html (mendukung JavaScript)"""
+    
+    session = HTMLSession()
+    
+    try:
+        response = session.get(url)
+        
+        # Render JavaScript (butuh Chromium)
+        response.html.render(timeout=20)
+        
+        # Sekarang bisa akses elemen seperti BeautifulSoup
+        title = response.html.find('title', first=True)
+        if title:
+            print(f"Title: {title.text}")
+        
+        # Cari elemen dengan CSS selector
+        articles = response.html.find('article')
+        print(f"Articles found: {len(articles)}")
+        
+        return response.html.html
+        
+    except Exception as e:
+        print(f"Error: {e}")
+        return None
+
+# Demo (tidak akan berjalan tanpa setup webdriver)
+print("=== WEB SCRAPING DENGAN JAVASCRIPT ===")
+print("Untuk menjalankan kode ini, install:")
+print("1. pip install selenium")
+print("2. pip install requests-html")
+print("3. Download ChromeDriver dari https://chromedriver.chromium.org/")
+print("4. Letakkan chromedriver.exe di PATH system")
+
+# Simulasi tanpa webdriver
+print("\nSimulasi scraping:")
+print("- Membuka browser headless")
+print("- Menunggu JavaScript load")
+print("- Mengambil data dari DOM")
+print("- Menutup browser")
+
+# Tips untuk JavaScript heavy sites:
+print("\n=== TIPS UNTUK JS HEAVY SITES ===")
+print("1. Gunakan Selenium untuk full browser automation")
+print("2. Requests-HTML untuk rendering JavaScript sederhana")
+print("3. Splash (Docker) untuk server-side rendering")
+print("4. Cek API endpoints yang digunakan website")
+print("5. Gunakan browser developer tools untuk inspect XHR")
+print("6. Pertimbangkan performa dan resource usage")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Contoh Proyek Lengkap</h4>
+                    <p class="text-gray-600 mb-4">Scraper untuk mengambil berita dari website.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import requests
+from bs4 import BeautifulSoup
+import json
+import time
+from datetime import datetime
+
+class NewsScraper:
+    def __init__(self):
+        self.session = requests.Session()
+        self.session.headers.update({
+            'User-Agent': 'NewsScraper/1.0 (Educational Purpose)'
+        })
+    
+    def scrape_news(self, url, max_articles=5):
+        """Scrape berita dari website"""
+        
+        try:
+            response = self.session.get(url, timeout=10)
+            response.raise_for_status()
+            
+            soup = BeautifulSoup(response.text, 'html.parser')
+            
+            # Contoh selector untuk berbagai website
+            # Sesuaikan dengan struktur HTML website target
+            
+            articles = []
+            
+            # Cari elemen artikel (sesuaikan selector)
+            article_elements = soup.find_all('article', limit=max_articles)
+            
+            for article in article_elements:
+                try:
+                    # Ekstrak data (sesuaikan dengan struktur HTML)
+                    title_elem = article.find('h2') or article.find('h3')
+                    title = title_elem.text.strip() if title_elem else "No title"
+                    
+                    link_elem = article.find('a')
+                    link = link_elem['href'] if link_elem else ""
+                    
+                    # Buat absolute URL jika perlu
+                    if link.startswith('/'):
+                        from urllib.parse import urljoin
+                        link = urljoin(url, link)
+                    
+                    summary_elem = article.find('p')
+                    summary = summary_elem.text.strip() if summary_elem else ""
+                    
+                    # Tambah timestamp
+                    timestamp = datetime.now().isoformat()
+                    
+                    article_data = {
+                        'title': title,
+                        'link': link,
+                        'summary': summary,
+                        'timestamp': timestamp,
+                        'source': url
+                    }
+                    
+                    articles.append(article_data)
+                    
+                except Exception as e:
+                    print(f"Error parsing article: {e}")
+                    continue
+            
+            return articles
+            
+        except Exception as e:
+            print(f"Error scraping {url}: {e}")
+            return []
+    
+    def save_to_json(self, articles, filename):
+        """Simpan artikel ke file JSON"""
+        try:
+            with open(filename, 'w', encoding='utf-8') as f:
+                json.dump(articles, f, indent=2, ensure_ascii=False)
+            print(f"Berhasil menyimpan {len(articles)} artikel ke {filename}")
+        except Exception as e:
+            print(f"Error saving to file: {e}")
+    
+    def load_from_json(self, filename):
+        """Load artikel dari file JSON"""
+        try:
+            with open(filename, 'r', encoding='utf-8') as f:
+                return json.load(f)
+        except FileNotFoundError:
+            return []
+        except Exception as e:
+            print(f"Error loading from file: {e}")
+            return []
+
+def main():
+    scraper = NewsScraper()
+    
+    # Contoh URL (gunakan website yang mengizinkan scraping)
+    # Ganti dengan URL website berita yang sesuai
+    urls = [
+        "https://httpbin.org/html",  # Contoh saja
+        # "https://news.example.com",  # Ganti dengan URL nyata
+    ]
+    
+    all_articles = []
+    
+    for url in urls:
+        print(f"Scraping: {url}")
+        articles = scraper.scrape_news(url, max_articles=3)
+        all_articles.extend(articles)
+        
+        # Delay antar request
+        time.sleep(2)
+    
+    if all_articles:
+        # Simpan ke file
+        filename = f"news_scraped_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
+        scraper.save_to_json(all_articles, filename)
+        
+        # Tampilkan hasil
+        print(f"\n=== BERITA YANG DIAMBIL ({len(all_articles)}) ===")
+        for i, article in enumerate(all_articles[:5], 1):  # Tampilkan 5 pertama
+            print(f"{i}. {article['title']}")
+            print(f"   Link: {article['link']}")
+            print(f"   Summary: {article['summary'][:100]}...")
+            print()
+    else:
+        print("Tidak ada artikel yang berhasil diambil")
+
+if __name__ == "__main__":
+    main()
+
+# Catatan penting:
+print("\n=== PENTING ===")
+print("1. Selalu cek Terms of Service website target")
+print("2. Gunakan data untuk keperluan edukasi saja")
+print("3. Jangan overload server dengan request berlebihan")
+print("4. Pertimbangkan menggunakan API resmi jika tersedia")
+print("5. Simpan data dengan bijak dan patuhi copyright")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat scraper sederhana untuk mengambil data dari website.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/87Gx3U0BDlo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Library apa yang digunakan untuk HTTP requests di Python?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>urllib</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>requests</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>http</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Method apa di BeautifulSoup untuk mencari semua elemen?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>find()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>find_all()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>select()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

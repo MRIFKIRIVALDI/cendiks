@@ -1,0 +1,330 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 31: Pengenalan Modul dan Package di Python - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 31: Pengenalan Modul dan Package di Python</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara menggunakan modul dan package untuk mengorganisir kode</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Modul?</h4>
+                    <p class="text-gray-600 mb-4">File Python yang berisi definisi dan statement yang dapat digunakan kembali.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Contoh modul matematika.py
+def tambah(a, b):
+    return a + b
+
+def kurang(a, b):
+    return a - b
+
+PI = 3.14159
+
+# Menggunakan modul
+import matematika
+
+hasil = matematika.tambah(5, 3)
+print(hasil)  # Output: 8
+
+print(matematika.PI)  # Output: 3.14159</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Mengimport Modul</h4>
+                    <p class="text-gray-600 mb-4">Berbagai cara mengimport modul.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Cara 1: Import lengkap
+import math
+print(math.sqrt(16))  # Output: 4.0
+
+# Cara 2: Import dengan alias
+import math as m
+print(m.pi)  # Output: 3.141592653589793
+
+# Cara 3: Import spesifik
+from math import sqrt, pi
+print(sqrt(25))  # Output: 5.0
+print(pi)        # Output: 3.141592653589793
+
+# Cara 4: Import semua (tidak direkomendasikan)
+from math import *
+print(sin(0))    # Output: 0.0</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Membuat Modul Sendiri</h4>
+                    <p class="text-gray-600 mb-4">Cara membuat dan menggunakan modul kustom.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Buat file kalkulator.py
+def tambah(a, b):
+    return a + b
+
+def kurang(a, b):
+    return a - b
+
+def kali(a, b):
+    return a * b
+
+def bagi(a, b):
+    if b != 0:
+        return a / b
+    return "Error: Division by zero"
+
+# Gunakan modul
+import kalkulator
+
+print(kalkulator.tambah(10, 5))  # Output: 15
+print(kalkulator.kurang(10, 5))  # Output: 5
+print(kalkulator.kali(10, 5))    # Output: 50
+print(kalkulator.bagi(10, 5))    # Output: 2.0</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Modul Built-in Python</h4>
+                    <p class="text-gray-600 mb-4">Modul yang sudah tersedia dalam Python.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Modul math
+import math
+print(math.sqrt(16))    # Output: 4.0
+print(math.pi)          # Output: 3.141592653589793
+print(math.sin(math.pi/2))  # Output: 1.0
+
+# Modul random
+import random
+print(random.randint(1, 10))    # Angka random 1-10
+print(random.choice(['apel', 'jeruk', 'mangga']))  # Pilih random
+
+# Modul datetime
+import datetime
+sekarang = datetime.datetime.now()
+print(sekarang)  # Output: 2023-12-07 10:30:45.123456
+print(sekarang.year)   # Output: 2023
+print(sekarang.month)  # Output: 12</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Apa Itu Package?</h4>
+                    <p class="text-gray-600 mb-4">Direktori yang berisi modul-modul dan file __init__.py.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Struktur package:
+# mypackage/
+#   __init__.py
+#   module1.py
+#   module2.py
+#   subpackage/
+#     __init__.py
+#     module3.py
+
+# Menggunakan package
+import mypackage.module1
+mypackage.module1.function1()
+
+# Atau
+from mypackage import module1
+module1.function1()
+
+# Menggunakan subpackage
+from mypackage.subpackage import module3
+module3.function3()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Membuat Package</h4>
+                    <p class="text-gray-600 mb-4">Cara membuat package sederhana.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Buat struktur folder:
+# utilities/
+#   __init__.py
+#   math_utils.py
+#   string_utils.py
+
+# Isi __init__.py
+# from .math_utils import *
+# from .string_utils import *
+
+# Isi math_utils.py
+def factorial(n):
+    if n == 0:
+        return 1
+    return n * factorial(n-1)
+
+# Isi string_utils.py
+def reverse_string(text):
+    return text[::-1]
+
+# Menggunakan package
+from utilities import factorial, reverse_string
+
+print(factorial(5))        # Output: 120
+print(reverse_string("hello"))  # Output: olleh</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Modul vs Package</h4>
+                    <p class="text-gray-600 mb-4">Perbedaan antara modul dan package.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Modul: File Python tunggal (.py)
+# Contoh: math.py, random.py
+
+# Package: Direktori yang berisi modul-modul
+# Contoh: numpy/, pandas/, mypackage/
+
+# Package harus memiliki __init__.py
+# Modul tidak perlu file khusus
+
+# Penggunaan:
+import math          # Modul
+import numpy as np   # Package
+
+from math import sqrt     # Dari modul
+from numpy import array   # Dari package</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Penggunaan</h4>
+                    <p class="text-gray-600 mb-4">Program yang menggunakan modul dan package.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import math
+import random
+from datetime import datetime
+
+def generate_random_data():
+    """Generate data acak untuk testing"""
+    data = []
+    for _ in range(10):
+        # Generate angka random antara 1-100
+        num = random.randint(1, 100)
+        # Hitung akar kuadrat
+        sqrt_num = math.sqrt(num)
+        # Bulatkan ke 2 desimal
+        rounded = round(sqrt_num, 2)
+        data.append(rounded)
+    return data
+
+def main():
+    print("Program Demo Modul dan Package")
+    print("=" * 30)
+
+    # Generate data
+    data = generate_random_data()
+    print(f"Data yang dihasilkan: {data}")
+
+    # Hitung statistik sederhana
+    rata_rata = sum(data) / len(data)
+    maksimum = max(data)
+    minimum = min(data)
+
+    print(f"Rata-rata: {rata_rata:.2f}")
+    print(f"Nilai maksimum: {maksimum}")
+    print(f"Nilai minimum: {minimum}")
+
+    # Timestamp
+    waktu_sekarang = datetime.now()
+    print(f"Waktu eksekusi: {waktu_sekarang.strftime('%Y-%m-%d %H:%M:%S')}")
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat modul sederhana dan gunakan dalam program utama.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/sugvnHA7ElY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Apa perbedaan antara modul dan package?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Modul adalah file, package adalah direktori</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Tidak ada perbedaan</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Package lebih besar dari modul</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. File apa yang wajib ada dalam sebuah package?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>__main__.py</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>__init__.py</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>setup.py</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

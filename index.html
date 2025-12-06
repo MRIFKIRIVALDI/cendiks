@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cendiks - Platform Belajar Python Dasar</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent">Cendiks</h1>
+            <nav id="nav-menu" class="hidden md:flex space-x-4">
+                <a href="#home" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="pages/sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="pages/install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="pages/certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="pages/more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+            <button onclick="toggleContent('nav-menu')" class="md:hidden text-gray-600 hover:text-primary">
+                <div class="w-6 h-6 flex flex-col justify-center items-center">
+                    <span class="block w-5 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-5 h-0.5 bg-current mb-1"></span>
+                    <span class="block w-5 h-0.5 bg-current"></span>
+                </div>
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-blue-300 to-yellow-300 min-h-screen flex items-center justify-center">
+        <div class="container mx-auto px-4 text-center">
+            <img src="images/logo_cendiks.png" alt="Cendiks Logo" class="w-40 h-40 mx-auto mb-6">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800">Selamat Datang di Cendiks</h2>
+            <p class="text-xl mb-8 text-gray-600">Fokus pada langkah kecil. Rayakan kemenangan kecil, bahkan ketika Anda berhasil membuat program "Hello, World!" berjalan. Setiap baris kode yang Anda tulis adalah kemajuan.</p>
+            <a href="pages/sessions.html" class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300 bounce-in delay-3 pulse">Mulai Belajar</a>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4">
+            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800">Fitur Utama</h3>
+            <div class="grid md:grid-cols-4 gap-8">
+                <a href="pages/install/install.html" class="block">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center hover-lift bounce-in delay-1 cursor-pointer">
+                        <img src="images/logo_setting.png" alt="Instalasi" class="w-16 h-16 mx-auto mb-4">
+                        <h4 class="text-xl font-semibold mb-2">Instalasi Python</h4>
+                        <p class="text-gray-600">Panduan lengkap instalasi Python untuk Windows, macOS, dan Linux</p>
+                    </div>
+                </a>
+                <a href="pages/sessions.html" class="block">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center hover-lift bounce-in delay-2 cursor-pointer">
+                        <div class="text-4xl mb-4">📚</div>
+                        <h4 class="text-xl font-semibold mb-2">Materi Pembelajaran</h4>
+                        <p class="text-gray-600">Pelajari Python dari dasar dengan materi lengkap dan video tutorial</p>
+                    </div>
+                </a>
+                <div class="bg-white p-6 rounded-lg shadow-md text-center hover-lift bounce-in delay-3">
+                    <div class="text-4xl mb-4">🎓</div>
+                    <h4 class="text-xl font-semibold mb-2">Ujian Sertifikasi</h4>
+                    <p class="text-gray-600">Uji kompetensi Anda dan dapatkan sertifikat sebagai bukti kemampuan</p>
+                </div>
+                <a href="pages/more.html" class="block">
+                    <div class="bg-white p-6 rounded-lg shadow-md text-center hover-lift bounce-in delay-4 cursor-pointer">
+                        <div class="text-4xl mb-4">🌐</div>
+                        <h4 class="text-xl font-semibold mb-2">More</h4>
+                        <p class="text-gray-600">Eksplorasi materi tambahan dari berbagai sumber terpercaya</p>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>
+
