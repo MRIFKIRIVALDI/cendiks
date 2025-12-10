@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 46: Natural Language Processing dengan Transformers - Cendiks</title>
+    <title>Sesi 46: Exception, Error, Try, And Except - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 46: Natural Language Processing dengan Transformers</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari pemrosesan bahasa alami menggunakan arsitektur Transformer</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 46: Exception, Error, Try, And Except</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara menangani error dan exception dalam Python dengan try-except</p>
         </div>
     </section>
 
@@ -39,545 +39,970 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Pengenalan Natural Language Processing</h4>
-                    <p class="text-gray-600 mb-4">Memahami konsep dasar NLP dan evolusi dari RNN ke Transformers.</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Pengenalan Exception dan Error</h4>
+                    <p class="text-gray-600 mb-4">Memahami konsep dasar exception dan error handling dalam Python.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Natural Language Processing (NLP) adalah bidang AI
-# yang fokus pada interaksi antara komputer dan bahasa manusia
+                        <pre><code>print("=== Exception dan Error Handling ===")
 
-# Instalasi libraries NLP
-# pip install transformers torch sentence-transformers
+# Exception adalah kondisi abnormal yang terjadi saat runtime
+# Error adalah masalah yang terjadi saat program dijalankan
 
-import torch
-import numpy as np
-from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
-import warnings
-warnings.filterwarnings('ignore')
+# Jenis-jenis Error di Python:
+# 1. SyntaxError: Kesalahan sintaks (terjadi saat parsing)
+# 2. NameError: Variabel tidak didefinisikan
+# 3. TypeError: Operasi tidak valid untuk tipe data
+# 4. ValueError: Nilai tidak valid untuk operasi
+# 5. ZeroDivisionError: Pembagian dengan nol
+# 6. IndexError: Indeks di luar range
+# 7. KeyError: Key tidak ada di dictionary
+# 8. FileNotFoundError: File tidak ditemukan
+# 9. IOError: Kesalahan input/output
 
-print("=== Natural Language Processing ===")
+print("Contoh berbagai jenis error:")
 
-# Evolusi NLP:
-# 1. Rule-based systems (regex, grammar rules)
-# 2. Statistical methods (n-grams, TF-IDF)
-# 3. Neural Networks (Word2Vec, RNN, LSTM)
-# 4. Attention Mechanism (Transformer architecture)
-# 5. Pre-trained Language Models (BERT, GPT, T5)
+# SyntaxError (akan terjadi saat parsing)
+# print("Hello World"  # Missing closing parenthesis
 
-# Komponen utama NLP:
-# - Tokenization: Memecah teks menjadi unit-unit kecil
-# - Part-of-Speech Tagging: Menentukan jenis kata
-# - Named Entity Recognition: Mengidentifikasi entitas
-# - Sentiment Analysis: Analisis sentimen
-# - Machine Translation: Terjemahan otomatis
-# - Text Generation: Pembuatan teks
-# - Question Answering: Menjawab pertanyaan
+# NameError
+# print(undefined_variable)
 
-print("\nNLP Applications:")
-print("- Chatbots dan Virtual Assistants")
-print("- Machine Translation (Google Translate)")
-print("- Sentiment Analysis (Social media monitoring)")
-print("- Text Summarization")
-print("- Speech Recognition")
-print("- Content Classification")
-print("- Information Retrieval")
+# TypeError
+# result = "hello" + 5
 
-# Tantangan NLP:
-# - Ambiguity: Kata dengan banyak makna
-# - Context dependency: Makna tergantung konteks
-# - Sarcasm dan irony: Sulit dideteksi
-# - Multilingual processing: Berbagai bahasa
-# - Computational complexity: Model besar membutuhkan resource banyak
+# ValueError
+# int("abc")
 
-print("\nTransformer Architecture Advantages:")
-print("- Parallel processing (vs sequential RNN)")
-print("- Long-range dependencies capture")
-print("- Self-attention mechanism")
-print("- Scalable pre-training")
-print("- Transfer learning capabilities")</code></pre>
+# ZeroDivisionError
+# result = 10 / 0
+
+# IndexError
+# my_list = [1, 2, 3]
+# print(my_list[5])
+
+# KeyError
+# my_dict = {"a": 1, "b": 2}
+# print(my_dict["c"])
+
+print("\nException vs Error:")
+print("- Exception: Dapat ditangani dengan try-except")
+print("- Error: Biasanya fatal dan sulit ditangani")
+print("- Exception adalah subclass dari BaseException")
+
+print("\nBuilt-in Exceptions:")
+print("- ArithmeticError: Base class untuk arithmetic errors")
+print("- LookupError: Base class untuk IndexError dan KeyError")
+print("- OSError: Base class untuk OS related errors")
+
+# Exception Hierarchy:
+# BaseException
+# ├── SystemExit
+# ├── KeyboardInterrupt
+# ├── GeneratorExit
+# └── Exception
+#     ├── ArithmeticError
+#     │   ├── FloatingPointError
+#     │   ├── OverflowError
+#     │   └── ZeroDivisionError
+#     ├── LookupError
+#     │   ├── IndexError
+#     │   └── KeyError
+#     ├── OSError
+#     │   ├── FileExistsError
+#     │   ├── FileNotFoundError
+#     │   └── PermissionError
+#     └── ValueError
+#         └── UnicodeError
+
+print("\nBest Practices untuk Error Handling:")
+print("1. Tangani exception yang spesifik")
+print("2. Gunakan finally untuk cleanup")
+print("3. Jangan gunakan bare except")
+print("4. Raise exception dengan informasi yang jelas")
+print("5. Gunakan custom exception untuk logic bisnis")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ Text Preprocessing dan Tokenization</h4>
-                    <p class="text-gray-600 mb-4">Persiapan data teks untuk model NLP.</p>
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Try-Except Basics</h4>
+                    <p class="text-gray-600 mb-4">Dasar-dasar penggunaan try-except untuk menangani exception.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import re
-import nltk
-from nltk.corpus import stopwords
-from nltk.tokenize import word_tokenize
-from nltk.stem import WordNetLemmatizer
-import string
+                        <pre><code>print("=== Try-Except Basics ===")
 
-# Download NLTK resources (run once)
-# nltk.download('punkt')
-# nltk.download('stopwords')
-# nltk.download('wordnet')
+# Struktur dasar try-except:
+# try:
+#     # Kode yang mungkin menyebabkan exception
+#     pass
+# except ExceptionType:
+#     # Kode yang dijalankan jika exception terjadi
+#     pass
 
-print("=== Text Preprocessing ===")
+# Contoh 1: Menangani ZeroDivisionError
+print("\n1. Menangani ZeroDivisionError:")
 
-# Sample text
-text = """
-Natural Language Processing (NLP) adalah cabang dari Artificial Intelligence
-yang berfokus pada interaksi antara komputer dan bahasa manusia.
-NLP memungkinkan komputer untuk memahami, menginterpretasi, dan menghasilkan
-bahasa manusia secara alami. Teknologi ini telah berkembang pesat dengan
-adanya deep learning dan transformer architecture.
-"""
+def divide_numbers(a, b):
+    try:
+        result = a / b
+        print(f"Hasil pembagian: {result}")
+        return result
+    except ZeroDivisionError:
+        print("Error: Tidak bisa membagi dengan nol!")
+        return None
 
-print("Original text:")
-print(text)
+# Test cases
+divide_numbers(10, 2)  # Berhasil
+divide_numbers(10, 0)  # Error
 
-# 1. Text Cleaning
-print("\n1. Text Cleaning:")
+# Contoh 2: Menangani ValueError
+print("\n2. Menangani ValueError:")
 
-def clean_text(text):
-    # Convert to lowercase
-    text = text.lower()
+def convert_to_int(value):
+    try:
+        number = int(value)
+        print(f"Konversi berhasil: {number}")
+        return number
+    except ValueError:
+        print(f"Error: '{value}' tidak bisa dikonversi ke integer!")
+        return None
 
-    # Remove punctuation
-    text = text.translate(str.maketrans('', '', string.punctuation))
+convert_to_int("123")    # Berhasil
+convert_to_int("abc")    # Error
 
-    # Remove numbers
-    text = re.sub(r'\d+', '', text)
+# Contoh 3: Menangani IndexError
+print("\n3. Menangani IndexError:")
 
-    # Remove extra whitespace
-    text = ' '.join(text.split())
+def safe_list_access(my_list, index):
+    try:
+        value = my_list[index]
+        print(f"Nilai di indeks {index}: {value}")
+        return value
+    except IndexError:
+        print(f"Error: Indeks {index} di luar range list!")
+        return None
 
-    return text
+my_list = [1, 2, 3, 4, 5]
+safe_list_access(my_list, 2)  # Berhasil
+safe_list_access(my_list, 10) # Error
 
-cleaned_text = clean_text(text)
-print("Cleaned text:")
-print(cleaned_text)
+# Contoh 4: Menangani KeyError
+print("\n4. Menangani KeyError:")
 
-# 2. Tokenization
-print("\n2. Tokenization:")
+def safe_dict_access(my_dict, key):
+    try:
+        value = my_dict[key]
+        print(f"Nilai untuk key '{key}': {value}")
+        return value
+    except KeyError:
+        print(f"Error: Key '{key}' tidak ditemukan dalam dictionary!")
+        return None
 
-# Word tokenization
-try:
-    tokens = word_tokenize(cleaned_text)
-    print(f"Word tokens: {tokens[:10]}...")  # Show first 10 tokens
-    print(f"Number of tokens: {len(tokens)}")
-except:
-    # Fallback tokenization if NLTK not available
-    tokens = cleaned_text.split()
-    print(f"Simple word tokens: {tokens[:10]}...")
-    print(f"Number of tokens: {len(tokens)}")
+my_dict = {"nama": "John", "umur": 25}
+safe_dict_access(my_dict, "nama")  # Berhasil
+safe_dict_access(my_dict, "alamat") # Error
 
-# Sentence tokenization
-sentences = text.strip().split('\n')
-sentences = [s.strip() for s in sentences if s.strip()]
-print(f"\nSentences: {len(sentences)}")
-for i, sentence in enumerate(sentences, 1):
-    print(f"Sentence {i}: {sentence}")
+# Contoh 5: Multiple except blocks
+print("\n5. Multiple except blocks:")
 
-# 3. Stop Words Removal
-print("\n3. Stop Words Removal:")
+def complex_operation(x, y):
+    try:
+        # Operasi yang mungkin gagal
+        if x == "error":
+            raise ValueError("Input x tidak valid")
+        if y == 0:
+            raise ZeroDivisionError("Pembagi tidak boleh nol")
 
-try:
-    stop_words = set(stopwords.words('english'))
-    filtered_tokens = [word for word in tokens if word not in stop_words]
-    print(f"Original tokens: {len(tokens)}")
-    print(f"After stop words removal: {len(filtered_tokens)}")
-    print(f"Removed {len(tokens) - len(filtered_tokens)} stop words")
-    print(f"Filtered tokens: {filtered_tokens[:10]}...")
-except:
-    print("NLTK stopwords not available, skipping stop words removal")
-    filtered_tokens = tokens
+        result = int(x) / y
+        print(f"Hasil: {result}")
+        return result
 
-# 4. Lemmatization
-print("\n4. Lemmatization:")
+    except ValueError as e:
+        print(f"ValueError: {e}")
+        return None
+    except ZeroDivisionError as e:
+        print(f"ZeroDivisionError: {e}")
+        return None
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return None
 
-try:
-    lemmatizer = WordNetLemmatizer()
-    lemmatized_tokens = [lemmatizer.lemmatize(word) for word in filtered_tokens]
-    print("Lemmatized tokens:")
-    print(f"Original: {filtered_tokens[:5]}")
-    print(f"Lemmatized: {lemmatized_tokens[:5]}")
-except:
-    print("NLTK lemmatizer not available, skipping lemmatization")
-    lemmatized_tokens = filtered_tokens
+complex_operation("10", 2)     # Berhasil
+complex_operation("error", 2)  # ValueError
+complex_operation("10", 0)     # ZeroDivisionError
 
-# 5. Using Transformers Tokenizer
-print("\n5. Transformers Tokenizer:")
-
-try:
-    from transformers import AutoTokenizer
-
-    # Load pre-trained tokenizer
-    tokenizer = AutoTokenizer.from_pretrained('bert-base-uncased')
-
-    # Tokenize text
-    encoded = tokenizer(text, padding=True, truncation=True, return_tensors="pt")
-
-    print(f"Input text: {text[:50]}...")
-    print(f"Token IDs: {encoded['input_ids'].tolist()[0][:10]}...")
-    print(f"Attention mask: {encoded['attention_mask'].tolist()[0][:10]}...")
-
-    # Decode back to text
-    decoded = tokenizer.decode(encoded['input_ids'][0])
-    print(f"Decoded text: {decoded[:100]}...")
-
-except ImportError:
-    print("Transformers library not available")
-except Exception as e:
-    print(f"Error with transformers tokenizer: {e}")
-
-# 6. N-grams
-print("\n6. N-grams:")
-
-def generate_ngrams(tokens, n):
-    """Generate n-grams from tokens"""
-    ngrams = []
-    for i in range(len(tokens) - n + 1):
-        ngrams.append(' '.join(tokens[i:i+n]))
-    return ngrams
-
-# Generate bigrams and trigrams
-bigrams = generate_ngrams(lemmatized_tokens, 2)
-trigrams = generate_ngrams(lemmatized_tokens, 3)
-
-print(f"Bigrams: {bigrams[:5]}")
-print(f"Trigrams: {trigrams[:3]}")
-
-print("\n=== Text Preprocessing Complete ===")
-print("Preprocessed text is ready for model input!")</code></pre>
+print("\n=== Try-Except Basics Complete ===")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">3️⃣ Sentiment Analysis dengan BERT</h4>
-                    <p class="text-gray-600 mb-4">Implementasi analisis sentimen menggunakan model BERT.</p>
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Try-Except-Else-Finally</h4>
+                    <p class="text-gray-600 mb-4">Penggunaan lengkap try-except dengan else dan finally blocks.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import torch
-import numpy as np
-from transformers import pipeline, AutoTokenizer, AutoModelForSequenceClassification
-import warnings
-warnings.filterwarnings('ignore')
+                        <pre><code>print("=== Try-Except-Else-Finally ===")
 
-print("=== Sentiment Analysis with BERT ===")
+# Struktur lengkap try-except-else-finally:
+# try:
+#     # Kode yang mungkin menyebabkan exception
+#     pass
+# except ExceptionType:
+#     # Kode yang dijalankan jika exception terjadi
+#     pass
+# else:
+#     # Kode yang dijalankan jika tidak ada exception
+#     pass
+# finally:
+#     # Kode yang selalu dijalankan (cleanup code)
+#     pass
 
-# Sample texts for analysis
-texts = [
-    "I love this product! It's amazing and works perfectly.",
-    "This is the worst purchase I've ever made. Complete waste of money.",
-    "The item is okay, nothing special but does the job.",
-    "Absolutely fantastic! Highly recommend to everyone.",
-    "Terrible quality. Broke after one day. Don't buy!",
-    "Great customer service and fast delivery. Very satisfied.",
-    "Not worth the price. Overrated and disappointing.",
-    "Excellent value for money. Better than expected!"
-]
+# Contoh 1: Try-Except-Else
+print("\n1. Try-Except-Else:")
 
-print("Sample texts for sentiment analysis:")
-for i, text in enumerate(texts, 1):
-    print(f"{i}. {text}")
+def divide_with_else(a, b):
+    try:
+        result = a / b
+    except ZeroDivisionError:
+        print("Error: Tidak bisa membagi dengan nol!")
+        return None
+    else:
+        # Else block hanya dijalankan jika tidak ada exception
+        print(f"Pembagian berhasil: {a} / {b} = {result}")
+        return result
 
-try:
-    # 1. Using Pre-trained Sentiment Analysis Pipeline
-    print("\n1. Using Hugging Face Pipeline:")
+divide_with_else(10, 2)  # Berhasil - else block dijalankan
+divide_with_else(10, 0)  # Error - else block tidak dijalankan
 
-    # Load sentiment analysis pipeline
-    sentiment_pipeline = pipeline(
-        "sentiment-analysis",
-        model="cardiffnlp/twitter-roberta-base-sentiment-latest",
-        tokenizer="cardiffnlp/twitter-roberta-base-sentiment-latest"
-    )
+# Contoh 2: Try-Except-Finally
+print("\n2. Try-Except-Finally:")
 
-    print("Analyzing sentiments...")
+def file_operation_example(filename):
+    file = None
+    try:
+        file = open(filename, 'r')
+        content = file.read()
+        print(f"File berhasil dibaca: {len(content)} karakter")
+        return content
+    except FileNotFoundError:
+        print(f"Error: File '{filename}' tidak ditemukan!")
+        return None
+    finally:
+        # Finally block selalu dijalankan, bahkan jika ada exception
+        if file:
+            file.close()
+            print("File telah ditutup (finally block)")
+        else:
+            print("Tidak ada file yang perlu ditutup (finally block)")
 
-    results = []
-    for text in texts:
-        result = sentiment_pipeline(text)[0]
-        results.append({
-            'text': text,
-            'label': result['label'],
-            'confidence': result['score']
-        })
+file_operation_example("existing_file.txt")  # File tidak ada
+file_operation_example("nonexistent_file.txt")  # File tidak ada
 
-    print("\nResults:")
-    for i, result in enumerate(results, 1):
-        print(f"{i}. {result['label']} ({result['confidence']:.3f})")
-        print(f"   Text: {result['text'][:60]}...")
+# Contoh 3: Try-Except-Else-Finally Lengkap
+print("\n3. Try-Except-Else-Finally Lengkap:")
 
-    # 2. Manual Implementation with BERT
-    print("\n2. Manual BERT Implementation:")
+def complex_file_operation(filename, data):
+    file = None
+    try:
+        file = open(filename, 'w')
+        file.write(data)
+    except PermissionError:
+        print(f"Error: Tidak ada izin untuk menulis ke '{filename}'!")
+        return False
+    except Exception as e:
+        print(f"Error tidak terduga: {e}")
+        return False
+    else:
+        # Else: hanya jika tidak ada exception
+        print(f"Data berhasil ditulis ke '{filename}'")
+        return True
+    finally:
+        # Finally: selalu dijalankan
+        if file:
+            file.close()
+            print("File connection ditutup (finally)")
 
-    # Load pre-trained BERT model and tokenizer
-    model_name = "bert-base-uncased"
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModelForSequenceClassification.from_pretrained(
-        model_name,
-        num_labels=2  # Binary classification: positive/negative
-    )
+# Test cases
+complex_file_operation("test.txt", "Hello World!")  # Berhasil
+complex_file_operation("/root/test.txt", "Hello World!")  # Permission error
 
-    print(f"Model: {model_name}")
-    print(f"Number of parameters: {sum(p.numel() for p in model.parameters()):,}")
+# Contoh 4: Multiple Finally Blocks
+print("\n4. Multiple Finally Blocks dengan Nested Try:")
 
-    # Note: In practice, you'd fine-tune this model on sentiment data
-    # This is just a demonstration of the architecture
+def nested_try_example():
+    try:
+        print("Outer try block")
+        try:
+            print("Inner try block")
+            raise ValueError("Inner exception")
+        except ValueError:
+            print("Inner except block")
+            raise  # Re-raise exception
+        finally:
+            print("Inner finally block")
+    except ValueError:
+        print("Outer except block")
+    finally:
+        print("Outer finally block")
 
-    # Tokenize sample text
-    sample_text = "I absolutely love this amazing product!"
-    inputs = tokenizer(sample_text, return_tensors="pt", padding=True, truncation=True)
+nested_try_example()
 
-    print(f"\nSample text: {sample_text}")
-    print(f"Tokenized input: {inputs['input_ids']}")
-    print(f"Attention mask: {inputs['attention_mask']}")
+# Contoh 5: Finally untuk Cleanup Resources
+print("\n5. Finally untuk Cleanup Resources:")
 
-    # Forward pass (without training)
-    with torch.no_grad():
-        outputs = model(**inputs)
-        logits = outputs.logits
-        probabilities = torch.softmax(logits, dim=1)
+class DatabaseConnection:
+    def __init__(self):
+        self.connected = False
 
-    print(f"Logits: {logits}")
-    print(f"Probabilities: {probabilities}")
+    def connect(self):
+        self.connected = True
+        print("Database connected")
 
-    # 3. Custom Sentiment Analysis Function
-    print("\n3. Custom Sentiment Analysis Function:")
+    def disconnect(self):
+        if self.connected:
+            self.connected = False
+            print("Database disconnected")
 
-    def analyze_sentiment(text, pipeline_model):
-        """Analyze sentiment of a given text"""
-        result = pipeline_model(text)[0]
+    def execute_query(self, query):
+        if not self.connected:
+            raise ConnectionError("Database not connected")
+        print(f"Executing query: {query}")
+        return "Query result"
 
-        # Convert labels to more readable format
-        label_map = {
-            'LABEL_0': 'Negative',
-            'LABEL_1': 'Neutral',
-            'LABEL_2': 'Positive'
-        }
+def database_operation():
+    db = DatabaseConnection()
+    try:
+        db.connect()
+        result = db.execute_query("SELECT * FROM users")
+        print(f"Result: {result}")
+        return result
+    except ConnectionError as e:
+        print(f"Connection error: {e}")
+        return None
+    except Exception as e:
+        print(f"Query error: {e}")
+        return None
+    finally:
+        # Pastikan database selalu disconnect
+        db.disconnect()
+        print("Cleanup completed")
 
-        sentiment = label_map.get(result['label'], result['label'])
-        confidence = result['score']
+database_operation()
 
-        return {
-            'text': text,
-            'sentiment': sentiment,
-            'confidence': confidence
-        }
-
-    # Analyze custom text
-    custom_texts = [
-        "This movie is fantastic! I enjoyed every minute of it.",
-        "The food was terrible and the service was slow.",
-        "It's an average product, neither good nor bad."
-    ]
-
-    print("Custom sentiment analysis:")
-    for text in custom_texts:
-        result = analyze_sentiment(text, sentiment_pipeline)
-        print(f"Text: {result['text']}")
-        print(f"Sentiment: {result['sentiment']} (confidence: {result['confidence']:.3f})")
-        print()
-
-except ImportError as e:
-    print(f"Import error: {e}")
-    print("Please install required packages:")
-    print("pip install transformers torch")
-
-except Exception as e:
-    print(f"Error: {e}")
-    print("Note: This example requires internet connection to download models")
-
-print("\n=== Sentiment Analysis Complete ===")</code></pre>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">4️⃣ Text Generation dengan GPT</h4>
-                    <p class="text-gray-600 mb-4">Membuat model text generation menggunakan GPT-like architecture.</p>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import torch
-from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
-import warnings
-warnings.filterwarnings('ignore')
-
-print("=== Text Generation with GPT ===")
-
-try:
-    # 1. Using Pre-trained GPT Model
-    print("1. Using GPT-2 for Text Generation:")
-
-    # Load text generation pipeline
-    generator = pipeline(
-        'text-generation',
-        model='gpt2',
-        tokenizer='gpt2'
-    )
-
-    # Prompts for generation
-    prompts = [
-        "The future of artificial intelligence",
-        "In a world where robots",
-        "The most important thing about programming is",
-        "Climate change will affect"
-    ]
-
-    print("Generating text from prompts...")
-
-    for prompt in prompts:
-        print(f"\nPrompt: '{prompt}'")
-
-        # Generate text
-        generated = generator(
-            prompt,
-            max_length=50,
-            num_return_sequences=1,
-            temperature=0.7,
-            do_sample=True,
-            pad_token_id=generator.tokenizer.eos_token_id
-        )[0]['generated_text']
-
-        print(f"Generated: {generated}")
-        print("-" * 50)
-
-    # 2. Manual Implementation with GPT-2
-    print("\n2. Manual GPT-2 Implementation:")
-
-    # Load model and tokenizer
-    model_name = "gpt2"
-    tokenizer = AutoTokenizer.from_pretrained(model_name)
-    model = AutoModelForCausalLM.from_pretrained(model_name)
-
-    # Set pad token
-    tokenizer.pad_token = tokenizer.eos_token
-
-    print(f"Model: {model_name}")
-    print(f"Vocabulary size: {tokenizer.vocab_size}")
-    print(f"Model parameters: {sum(p.numel() for p in model.parameters()):,}")
-
-    # 3. Custom Text Generation Function
-    print("\n3. Custom Text Generation:")
-
-    def generate_text(prompt, max_length=50, temperature=0.7, top_k=50):
-        """Generate text from a prompt using GPT-2"""
-
-        # Tokenize input
-        inputs = tokenizer(prompt, return_tensors="pt")
-
-        # Generate text
-        with torch.no_grad():
-            outputs = model.generate(
-                inputs['input_ids'],
-                max_length=max_length,
-                temperature=temperature,
-                top_k=top_k,
-                do_sample=True,
-                num_return_sequences=1,
-                pad_token_id=tokenizer.eos_token_id
-            )
-
-        # Decode generated text
-        generated_text = tokenizer.decode(outputs[0], skip_special_tokens=True)
-
-        return generated_text
-
-    # Test custom generation
-    test_prompts = [
-        "Machine learning is",
-        "The best way to learn Python is",
-        "In the year 2050,"
-    ]
-
-    print("Custom text generation:")
-    for prompt in test_prompts:
-        generated = generate_text(prompt, max_length=30)
-        print(f"Prompt: {prompt}")
-        print(f"Generated: {generated}")
-        print()
-
-    # 4. Controlling Generation Parameters
-    print("4. Controlling Generation Parameters:")
-
-    prompt = "The benefits of exercise include"
-
-    # Different temperature settings
-    temperatures = [0.1, 0.7, 1.5]
-
-    for temp in temperatures:
-        generated = generate_text(prompt, temperature=temp, max_length=40)
-        print(f"Temperature {temp}: {generated}")
-
-    print()
-
-    # 5. Text Completion Task
-    print("5. Text Completion Example:")
-
-    incomplete_texts = [
-        "The capital of France is",
-        "Python is a programming language that is",
-        "The largest planet in our solar system is"
-    ]
-
-    print("Completing sentences:")
-    for text in incomplete_texts:
-        completion = generate_text(text, max_length=len(tokenizer.encode(text)) + 10)
-        print(f"Original: {text}")
-        print(f"Completed: {completion}")
-        print()
-
-except ImportError as e:
-    print(f"Import error: {e}")
-    print("Please install required packages:")
-    print("pip install transformers torch")
-
-except Exception as e:
-    print(f"Error: {e}")
-    print("Note: This example requires internet connection to download models")
-
-print("\n=== Text Generation Complete ===")
+print("\n=== Try-Except-Else-Finally Complete ===")
 print("Key takeaways:")
-print("- GPT models can generate coherent text")
-print("- Temperature controls creativity vs predictability")
-print("- Top-k sampling helps control output diversity")
-print("- Models should be used responsibly")</code></pre>
+print("- else block: hanya berjalan jika tidak ada exception")
+print("- finally block: selalu berjalan untuk cleanup")
+print("- finally berguna untuk memastikan resources dibersihkan")
+print("- finally dijalankan bahkan jika ada return di try/except")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Raising Custom Exceptions</h4>
+                    <p class="text-gray-600 mb-4">Cara membuat dan menggunakan custom exception untuk logic bisnis.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>print("=== Raising Custom Exceptions ===")
+
+# Custom exceptions memungkinkan kita untuk:
+# 1. Membuat exception yang spesifik untuk aplikasi kita
+# 2. Memberikan pesan error yang lebih jelas
+# 3. Mengelompokkan error berdasarkan kategori
+
+# Cara membuat custom exception:
+# class CustomExceptionName(Exception):
+#     """Docstring untuk exception"""
+#     pass
+
+# Contoh 1: Basic Custom Exception
+print("\n1. Basic Custom Exception:")
+
+class InvalidAgeError(Exception):
+    """Exception raised for invalid age values"""
+    pass
+
+def validate_age(age):
+    if age < 0:
+        raise InvalidAgeError("Umur tidak boleh negatif")
+    elif age > 150:
+        raise InvalidAgeError("Umur tidak masuk akal")
+    else:
+        print(f"Umur {age} tahun valid")
+
+# Test cases
+try:
+    validate_age(25)  # Valid
+    validate_age(-5)  # Invalid
+except InvalidAgeError as e:
+    print(f"Error: {e}")
+
+try:
+    validate_age(200)  # Invalid
+except InvalidAgeError as e:
+    print(f"Error: {e}")
+
+# Contoh 2: Custom Exception dengan Additional Info
+print("\n2. Custom Exception dengan Additional Info:")
+
+class InsufficientFundsError(Exception):
+    """Exception raised when account has insufficient funds"""
+
+    def __init__(self, balance, amount):
+        self.balance = balance
+        self.amount = amount
+        self.message = f"Saldo tidak cukup. Saldo: {balance}, Dibutuhkan: {amount}"
+        super().__init__(self.message)
+
+class BankAccount:
+    def __init__(self, balance=0):
+        self.balance = balance
+
+    def withdraw(self, amount):
+        if amount > self.balance:
+            raise InsufficientFundsError(self.balance, amount)
+        self.balance -= amount
+        print(f"Penarikan berhasil. Saldo tersisa: {self.balance}")
+
+# Test bank account
+account = BankAccount(1000)
+
+try:
+    account.withdraw(500)  # Berhasil
+    account.withdraw(800)  # Gagal
+except InsufficientFundsError as e:
+    print(f"Error: {e}")
+    print(f"Detail - Saldo: {e.balance}, Dibutuhkan: {e.amount}")
+
+# Contoh 3: Custom Exception Hierarchy
+print("\n3. Custom Exception Hierarchy:")
+
+class ValidationError(Exception):
+    """Base class for validation errors"""
+    pass
+
+class EmailValidationError(ValidationError):
+    """Exception for email validation errors"""
+    pass
+
+class PasswordValidationError(ValidationError):
+    """Exception for password validation errors"""
+    pass
+
+def validate_user(email, password):
+    # Validate email
+    if '@' not in email:
+        raise EmailValidationError("Email harus mengandung '@'")
+
+    # Validate password
+    if len(password) < 8:
+        raise PasswordValidationError("Password minimal 8 karakter")
+
+    print("User validation berhasil")
+
+# Test user validation
+try:
+    validate_user("john@example.com", "password123")  # Berhasil
+    validate_user("invalid-email", "password123")     # Email error
+except ValidationError as e:
+    print(f"Validation Error: {e}")
+
+try:
+    validate_user("john@example.com", "short")        # Password error
+except ValidationError as e:
+    print(f"Validation Error: {e}")
+
+# Contoh 4: Chaining Exceptions
+print("\n4. Chaining Exceptions:")
+
+class DataProcessingError(Exception):
+    """Exception for data processing errors"""
+    pass
+
+def process_data(data):
+    try:
+        # Simulasi processing yang bisa gagal
+        if data == "corrupt":
+            raise ValueError("Data corrupted")
+        return f"Processed: {data}"
+    except ValueError as e:
+        # Chain the exception
+        raise DataProcessingError("Data processing failed") from e
+
+try:
+    result = process_data("good_data")
+    print(result)
+except DataProcessingError as e:
+    print(f"Processing error: {e}")
+    if e.__cause__:
+        print(f"Caused by: {e.__cause__}")
+
+try:
+    result = process_data("corrupt")
+except DataProcessingError as e:
+    print(f"Processing error: {e}")
+    if e.__cause__:
+        print(f"Caused by: {e.__cause__}")
+
+# Contoh 5: Custom Exception dengan Context
+print("\n5. Custom Exception dengan Context:")
+
+class APIError(Exception):
+    """Exception for API related errors"""
+
+    def __init__(self, message, status_code=None, endpoint=None):
+        self.status_code = status_code
+        self.endpoint = endpoint
+        super().__init__(message)
+
+    def __str__(self):
+        base_msg = super().__str__()
+        if self.status_code and self.endpoint:
+            return f"{base_msg} (Status: {self.status_code}, Endpoint: {self.endpoint})"
+        return base_msg
+
+def call_api(endpoint, data):
+    # Simulate API call
+    if endpoint == "/user/999":
+        raise APIError("User not found", status_code=404, endpoint=endpoint)
+    elif endpoint == "/admin":
+        raise APIError("Access denied", status_code=403, endpoint=endpoint)
+    else:
+        return f"API call to {endpoint} successful"
+
+# Test API calls
+try:
+    result = call_api("/user/123", {"name": "John"})
+    print(result)
+except APIError as e:
+    print(f"API Error: {e}")
+
+try:
+    result = call_api("/user/999", {"name": "John"})
+except APIError as e:
+    print(f"API Error: {e}")
+
+print("\n=== Raising Custom Exceptions Complete ===")
+print("Key takeaways:")
+print("- Custom exceptions membuat error handling lebih spesifik")
+print("- Exception hierarchy membantu mengorganisir error types")
+print("- Exception chaining membantu debugging")
+print("- Tambahkan context untuk error messages yang lebih informatif")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">5️⃣ Latihan Praktis</h4>
-                    <p class="text-gray-600 mb-4">Implementasi NLP pipeline lengkap.</p>
+                    <p class="text-gray-600 mb-4">Latihan praktis exception handling dalam Python.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>print("=== Latihan Praktis Exception Handling ===")
+
+# Latihan 1: Calculator dengan Exception Handling
+print("\nLatihan 1: Calculator dengan Exception Handling")
+
+def safe_calculator():
+    """Calculator yang aman dari berbagai error"""
+    operations = {
+        '+': lambda x, y: x + y,
+        '-': lambda x, y: x - y,
+        '*': lambda x, y: x * y,
+        '/': lambda x, y: x / y,
+        '**': lambda x, y: x ** y
+    }
+
+    try:
+        # Input validation
+        num1 = input("Masukkan angka pertama: ").strip()
+        if not num1:
+            raise ValueError("Input tidak boleh kosong")
+
+        num2 = input("Masukkan angka kedua: ").strip()
+        if not num2:
+            raise ValueError("Input tidak boleh kosong")
+
+        # Convert to float
+        try:
+            num1 = float(num1)
+            num2 = float(num2)
+        except ValueError:
+            raise ValueError("Input harus berupa angka")
+
+        # Operation selection
+        op = input("Masukkan operasi (+, -, *, /, **): ").strip()
+        if op not in operations:
+            raise ValueError(f"Operasi '{op}' tidak didukung")
+
+        # Special case for division
+        if op == '/' and num2 == 0:
+            raise ZeroDivisionError("Tidak bisa membagi dengan nol")
+
+        # Special case for power
+        if op == '**' and num1 == 0 and num2 < 0:
+            raise ValueError("Tidak bisa menghitung 0 pangkat negatif")
+
+        result = operations[op](num1, num2)
+        print(f"Hasil: {num1} {op} {num2} = {result}")
+
+    except ValueError as e:
+        print(f"Error input: {e}")
+    except ZeroDivisionError as e:
+        print(f"Error matematika: {e}")
+    except Exception as e:
+        print(f"Error tidak terduga: {e}")
+
+# Uncomment untuk test
+# safe_calculator()
+
+# Latihan 2: File Processor dengan Exception Handling
+print("\nLatihan 2: File Processor dengan Exception Handling")
+
+import os
+
+class FileProcessor:
+    def __init__(self, filename):
+        self.filename = filename
+        self.file = None
+
+    def __enter__(self):
+        try:
+            self.file = open(self.filename, 'r', encoding='utf-8')
+            return self
+        except FileNotFoundError:
+            raise FileNotFoundError(f"File '{self.filename}' tidak ditemukan")
+        except PermissionError:
+            raise PermissionError(f"Tidak ada izin untuk membaca '{self.filename}'")
+        except Exception as e:
+            raise Exception(f"Error membuka file: {e}")
+
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.file:
+            self.file.close()
+
+    def process_lines(self):
+        """Process each line in the file"""
+        if not self.file:
+            raise Exception("File belum dibuka")
+
+        lines = []
+        line_number = 0
+
+        try:
+            for line in self.file:
+                line_number += 1
+                # Simulasi processing
+                processed_line = line.strip().upper()
+
+                # Simulasi error pada baris tertentu
+                if "ERROR" in processed_line:
+                    raise ValueError(f"Error pada baris {line_number}: {processed_line}")
+
+                lines.append(processed_line)
+
+        except ValueError as e:
+            print(f"Processing error: {e}")
+            return None
+        except Exception as e:
+            print(f"Unexpected error pada baris {line_number}: {e}")
+            return None
+
+        return lines
+
+def process_file_safely(filename):
+    """Process file dengan exception handling lengkap"""
+    try:
+        with FileProcessor(filename) as processor:
+            result = processor.process_lines()
+            if result:
+                print(f"Berhasil memproses {len(result)} baris")
+                return result
+            else:
+                print("Gagal memproses file")
+                return None
+
+    except FileNotFoundError as e:
+        print(f"File error: {e}")
+        return None
+    except PermissionError as e:
+        print(f"Permission error: {e}")
+        return None
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        return None
+
+# Test file processing
+# result = process_file_safely("test.txt")
+
+# Latihan 3: Custom Exception untuk Business Logic
+print("\nLatihan 3: Custom Exception untuk Business Logic")
+
+class BusinessLogicError(Exception):
+    """Base class untuk business logic errors"""
+    pass
+
+class InsufficientStockError(BusinessLogicError):
+    """Error ketika stock tidak cukup"""
+    def __init__(self, product, requested, available):
+        self.product = product
+        self.requested = requested
+        self.available = available
+        super().__init__(f"Stock {product} tidak cukup. Requested: {requested}, Available: {available}")
+
+class InvalidOrderError(BusinessLogicError):
+    """Error untuk order yang tidak valid"""
+    pass
+
+class Product:
+    def __init__(self, name, price, stock):
+        self.name = name
+        self.price = price
+        self.stock = stock
+
+    def reduce_stock(self, quantity):
+        if quantity > self.stock:
+            raise InsufficientStockError(self.name, quantity, self.stock)
+        if quantity <= 0:
+            raise InvalidOrderError("Quantity harus positif")
+        self.stock -= quantity
+
+class ShoppingCart:
+    def __init__(self):
+        self.items = {}
+
+    def add_item(self, product, quantity):
+        if quantity <= 0:
+            raise InvalidOrderError("Quantity harus positif")
+
+        if product.name in self.items:
+            self.items[product.name]['quantity'] += quantity
+        else:
+            self.items[product.name] = {
+                'product': product,
+                'quantity': quantity,
+                'price': product.price
+            }
+
+    def checkout(self):
+        total = 0
+        try:
+            for item_name, item_data in self.items.items():
+                product = item_data['product']
+                quantity = item_data['quantity']
+
+                # Check stock
+                product.reduce_stock(quantity)
+
+                # Calculate total
+                total += quantity * product.price
+
+            return total
+
+        except InsufficientStockError as e:
+            print(f"Checkout failed: {e}")
+            # Rollback stock changes (simplified)
+            raise
+        except InvalidOrderError as e:
+            print(f"Invalid order: {e}")
+            raise
+        except Exception as e:
+            print(f"Unexpected error during checkout: {e}")
+            raise
+
+# Test e-commerce system
+def test_ecommerce():
+    # Create products
+    laptop = Product("Laptop", 1000, 5)
+    mouse = Product("Mouse", 20, 10)
+
+    # Create cart
+    cart = ShoppingCart()
+
+    try:
+        # Add items
+        cart.add_item(laptop, 2)
+        cart.add_item(mouse, 3)
+
+        # Checkout
+        total = cart.checkout()
+        print(f"Checkout berhasil. Total: ${total}")
+
+    except BusinessLogicError as e:
+        print(f"Business logic error: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+# Uncomment untuk test
+# test_ecommerce()
+
+# Latihan 4: Network Request dengan Retry Logic
+print("\nLatihan 4: Network Request dengan Retry Logic")
+
+import time
+import random
+
+class NetworkError(Exception):
+    """Error untuk network related issues"""
+    pass
+
+class TimeoutError(NetworkError):
+    """Error untuk timeout"""
+    pass
+
+class ConnectionError(NetworkError):
+    """Error untuk connection issues"""
+    pass
+
+def simulate_network_request(url, max_retries=3, timeout=5):
+    """Simulasi network request dengan retry logic"""
+
+    for attempt in range(max_retries):
+        try:
+            print(f"Attempt {attempt + 1}/{max_retries} - Requesting {url}")
+
+            # Simulate network delay
+            time.sleep(random.uniform(0.1, 0.5))
+
+            # Simulate random failures
+            if random.random() < 0.3:  # 30% chance of failure
+                if random.random() < 0.5:
+                    raise TimeoutError(f"Request timeout after {timeout}s")
+                else:
+                    raise ConnectionError("Connection failed")
+
+            # Simulate processing time
+            time.sleep(random.uniform(0.2, 1.0))
+
+            # Success
+            return f"Response from {url}: Success!"
+
+        except TimeoutError as e:
+            print(f"Timeout error: {e}")
+            if attempt == max_retries - 1:
+                raise  # Re-raise on last attempt
+            time.sleep(1)  # Wait before retry
+
+        except ConnectionError as e:
+            print(f"Connection error: {e}")
+            if attempt == max_retries - 1:
+                raise  # Re-raise on last attempt
+            time.sleep(2)  # Wait longer for connection issues
+
+        except Exception as e:
+            print(f"Unexpected error: {e}")
+            if attempt == max_retries - 1:
+                raise
+            time.sleep(1)
+
+# Test network requests
+def test_network_requests():
+    urls = ["https://api.example.com/data", "https://api.example.com/users", "https://api.example.com/error"]
+
+    for url in urls:
+        try:
+            response = simulate_network_request(url)
+            print(f"Success: {response}")
+        except NetworkError as e:
+            print(f"Network error for {url}: {e}")
+        except Exception as e:
+            print(f"Unexpected error for {url}: {e}")
+        print("-" * 50)
+
+# Uncomment untuk test
+# test_network_requests()
+
+print("\n=== Latihan Praktis Selesai ===")
+print("Key takeaways dari latihan:")
+print("- Selalu validasi input user")
+print("- Gunakan context manager untuk resource management")
+print("- Buat custom exception untuk business logic")
+print("- Implement retry logic untuk operasi yang bisa gagal")
+print("- Berikan error messages yang informatif")</code></pre>
+                    </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">6️⃣ Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/SZorAJ4I-sA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/AcyUE59S53U" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">7️⃣ Kuis Interaktif</h4>
                     <div class="space-y-4">
                         <div>
-                            <p class="font-medium mb-2">1. Apa keunggulan utama Transformer dibandingkan RNN?</p>
+                            <p class="font-medium mb-2">1. Apa perbedaan utama antara Exception dan Error di Python?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="a" class="mr-2">
-                                    <span>Parallel processing dan long-range dependencies</span>
+                                    <span>Exception dapat ditangani dengan try-except, Error biasanya fatal</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="b" class="mr-2">
-                                    <span>Hanya lebih cepat training</span>
+                                    <span>Error lebih ringan daripada Exception</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="c" class="mr-2">
-                                    <span>Tidak membutuhkan attention mechanism</span>
+                                    <span>Tidak ada perbedaan, keduanya sama</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <p class="font-medium mb-2">2. Apa itu tokenization dalam NLP?</p>
+                            <p class="font-medium mb-2">2. Kapan else block dalam try-except-else dijalankan?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="a" class="mr-2">
-                                    <span>Memecah teks menjadi unit-unit kecil</span>
+                                    <span>Ketika tidak ada exception yang terjadi</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="b" class="mr-2">
-                                    <span>Menghitung frekuensi kata</span>
+                                    <span>Ketika terjadi exception</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="c" class="mr-2">
-                                    <span>Menerjemahkan bahasa</span>
+                                    <span>Selalu dijalankan seperti finally</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">3. Apa fungsi utama finally block?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="a" class="mr-2">
+                                    <span>Menjalankan kode cleanup yang selalu dijalankan</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="b" class="mr-2">
+                                    <span>Menangani exception yang belum tertangani</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="c" class="mr-2">
+                                    <span>Mengganti except block</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">4. Mengapa kita perlu custom exception?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q4" value="a" class="mr-2">
+                                    <span>Untuk membuat error handling lebih spesifik dan informatif</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q4" value="b" class="mr-2">
+                                    <span>Untuk mengganti built-in exceptions</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q4" value="c" class="mr-2">
+                                    <span>Untuk membuat program lebih lambat</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">5. Apa yang terjadi jika kita menggunakan bare except (except:)?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q5" value="a" class="mr-2">
+                                    <span>Menangkap semua exception termasuk SystemExit dan KeyboardInterrupt</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q5" value="b" class="mr-2">
+                                    <span>Hanya menangkap Exception biasa</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q5" value="c" class="mr-2">
+                                    <span>Menangkap semua exception kecuali SystemExit</span>
                                 </label>
                             </div>
                         </div>

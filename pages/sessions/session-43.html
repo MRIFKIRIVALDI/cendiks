@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 43: Pengenalan REST API dengan FastAPI - Cendiks</title>
+    <title>Sesi 43: _Main_ Sebagai Gerbang Program - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 43: Pengenalan REST API dengan FastAPI</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari framework API modern yang cepat dan mudah digunakan</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 43: _Main_ Sebagai Gerbang Program</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari konsep if __name__ == "__main__" untuk modular programming</p>
         </div>
     </section>
 
@@ -39,354 +39,470 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu FastAPI?</h4>
-                    <p class="text-gray-600 mb-4">Framework web API modern untuk Python dengan performa tinggi.</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu if __name__ == "__main__"?</h4>
+                    <p class="text-gray-600 mb-4">Konsep penting dalam Python untuk menjalankan kode hanya ketika file dieksekusi langsung.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Instalasi FastAPI
-# pip install fastapi uvicorn
+                        <pre><code># File: my_module.py
 
-from fastapi import FastAPI
+def greet(name):
+    return f"Hello, {name}!"
 
-# Membuat aplikasi FastAPI
-app = FastAPI(
-    title="My API",
-    description="Contoh API dengan FastAPI",
-    version="1.0.0"
-)
+def main():
+    print("Program dimulai!")
+    name = input("Masukkan nama: ")
+    greeting = greet(name)
+    print(greeting)
+    print("Program selesai!")
 
-# Route sederhana
-@app.get("/")
-async def read_root():
-    return {"message": "Hello World"}
+# Ini adalah "entry point" program
+if __name__ == "__main__":
+    main()
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
-
-# Menjalankan server
-# uvicorn main:app --reload
-
-# Akan tersedia di:
-# - http://127.0.0.1:8000/
-# - http://127.0.0.1:8000/docs (Swagger UI)
-# - http://127.0.0.1:8000/redoc (ReDoc)
-# - http://127.0.0.1:8000/openapi.json (OpenAPI schema)</code></pre>
+# Penjelasan:
+# - __name__ adalah variabel built-in yang berisi nama modul
+# - Ketika file dijalankan langsung: __name__ == "__main__"
+# - Ketika file diimport sebagai modul: __name__ == "nama_file"
+# - Kode di dalam if __name__ == "__main__" hanya berjalan saat file dieksekusi langsung</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ Path Parameters dan Query Parameters</h4>
-                    <p class="text-gray-600 mb-4">Menangani parameter dalam URL.</p>
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Mengapa Perlu if __name__ == "__main__"?</h4>
+                    <p class="text-gray-600 mb-4">Memahami pentingnya entry point untuk modular programming.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>from fastapi import FastAPI, Query, Path
-from typing import Optional
-from enum import Enum
+                        <pre><code># File: calculator.py
 
-app = FastAPI()
+def add(a, b):
+    return a + b
 
-class ModelName(str, Enum):
-    alexnet = "alexnet"
-    resnet = "resnet"
-    lenet = "lenet"
+def subtract(a, b):
+    return a - b
 
-# Path parameters dengan validasi
-@app.get("/items/{item_id}")
-async def read_item(
-    item_id: int = Path(..., title="The ID of the item", ge=1, le=1000)
-):
-    return {"item_id": item_id}
+def multiply(a, b):
+    return a * b
 
-# Multiple path parameters
-@app.get("/users/{user_id}/items/{item_id}")
-async def read_user_item(
-    user_id: int,
-    item_id: str,
-    q: Optional[str] = Query(None, max_length=50)
-):
-    results = {"user_id": user_id, "item_id": item_id}
-    if q:
-        results.update({"q": q})
-    return results
+def divide(a, b):
+    if b == 0:
+        raise ValueError("Cannot divide by zero")
+    return a / b
 
-# Query parameters dengan validasi
-@app.get("/items/")
-async def read_items(
-    q: Optional[str] = Query(None, min_length=3, max_length=50),
-    skip: int = Query(0, ge=0),
-    limit: Optional[int] = Query(100, le=100)
-):
-    return {"q": q, "skip": skip, "limit": limit}
+# Tanpa if __name__ == "__main__":
+# Kode di bawah akan berjalan setiap kali file diimport
+print("Calculator module loaded!")
+result = add(5, 3)
+print(f"5 + 3 = {result}")
 
-# Enum parameters
-@app.get("/models/{model_name}")
-async def get_model(model_name: ModelName):
-    if model_name == ModelName.alexnet:
-        return {"model_name": model_name, "message": "Deep Learning FTW!"}
+# Dengan if __name__ == "__main__":
+if __name__ == "__main__":
+    print("Calculator module loaded!")
+    result = add(5, 3)
+    print(f"5 + 3 = {result}")
 
-    if model_name.value == "lenet":
-        return {"model_name": model_name, "message": "LeCNN all the images"}
+    # Kode testing atau demo hanya berjalan saat file dieksekusi langsung
+    print("\n--- Calculator Demo ---")
+    print(f"10 + 5 = {add(10, 5)}")
+    print(f"10 - 5 = {subtract(10, 5)}")
+    print(f"10 * 5 = {multiply(10, 5)}")
+    print(f"10 / 5 = {divide(10, 5)}")
 
-    return {"model_name": model_name, "message": "Have some residuals"}
+# File: main.py
+# import calculator  # Ini akan menjalankan print di calculator.py
 
-# File path parameters
-@app.get("/files/{file_path:path}")
-async def read_file(file_path: str):
-    return {"file_path": file_path}
-
-# Boolean parameters
-@app.get("/items/{item_id}/public")
-async def read_item_public(item_id: str, public: bool = Query(...)):
-    return {"item_id": item_id, "public": public}</code></pre>
+# from calculator import add
+# result = add(2, 3)  # Hanya fungsi yang diimport, tidak ada print</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">3️⃣ Request Body dan Pydantic Models</h4>
-                    <p class="text-gray-600 mb-4">Menangani data yang dikirim dalam request body.</p>
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Contoh Penggunaan if __name__ == "__main__"</h4>
+                    <p class="text-gray-600 mb-4">Berbagai contoh implementasi entry point program.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field, EmailStr
-from typing import Optional, List
-from datetime import datetime
+                        <pre><code># Contoh 1: Program sederhana
+def hello_world():
+    print("Hello, World!")
 
-app = FastAPI()
+if __name__ == "__main__":
+    hello_world()
 
-# Pydantic models
-class Item(BaseModel):
-    name: str = Field(..., min_length=1, max_length=100)
-    price: float = Field(..., gt=0)
-    is_offer: Optional[bool] = None
-    tags: List[str] = []
-    description: Optional[str] = Field(None, max_length=500)
+# Contoh 2: Program dengan argumen command line
+import sys
 
-class User(BaseModel):
-    username: str = Field(..., min_length=3, max_length=50)
-    email: EmailStr
-    full_name: Optional[str] = None
-    disabled: Optional[bool] = None
+def process_files(filenames):
+    for filename in filenames:
+        print(f"Processing {filename}")
 
-class UserInDB(User):
-    hashed_password: str
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python script.py file1.txt file2.txt")
+        sys.exit(1)
 
-# In-memory database
-fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "fakehashedsecret",
-        "disabled": False,
-    },
-    "alice": {
-        "username": "alice",
-        "full_name": "Alice Wonderson",
-        "email": "alice@example.com",
-        "hashed_password": "fakehashedsecret2",
-        "disabled": True,
-    },
+    files = sys.argv[1:]
+    process_files(files)
+
+if __name__ == "__main__":
+    main()
+
+# Contoh 3: Program dengan class
+class Calculator:
+    def add(self, a, b):
+        return a + b
+
+    def multiply(self, a, b):
+        return a * b
+
+def main():
+    calc = Calculator()
+    print("Calculator Demo:")
+    print(f"5 + 3 = {calc.add(5, 3)}")
+    print(f"5 * 3 = {calc.multiply(5, 3)}")
+
+if __name__ == "__main__":
+    main()
+
+# Contoh 4: Program dengan konfigurasi
+import json
+
+CONFIG = {
+    "debug": True,
+    "max_connections": 100
 }
 
-# POST endpoint dengan request body
-@app.post("/items/")
-async def create_item(item: Item):
-    return item
+def load_config():
+    try:
+        with open("config.json", "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return CONFIG
 
-# PUT endpoint
-@app.put("/items/{item_id}")
-async def update_item(item_id: int, item: Item):
-    return {"item_id": item_id, **item.dict()}
+def save_config(config):
+    with open("config.json", "w") as f:
+        json.dump(config, f, indent=2)
 
-# Response models
-class ItemResponse(BaseModel):
-    id: int
-    name: str
-    price: float
-    created_at: datetime
+def main():
+    config = load_config()
+    print(f"Debug mode: {config['debug']}")
+    print(f"Max connections: {config['max_connections']}")
 
-# Simulasi database
-fake_items_db = [
-    {"id": 1, "name": "Foo", "price": 50.2},
-    {"id": 2, "name": "Bar", "price": 62.0},
-]
+    # Simpan konfigurasi baru
+    config["debug"] = False
+    save_config(config)
+    print("Configuration saved!")
 
-@app.post("/items/", response_model=ItemResponse)
-async def create_item(item: Item):
-    # Simulasi create item
-    new_item = {
-        "id": len(fake_items_db) + 1,
-        "name": item.name,
-        "price": item.price,
-        "created_at": datetime.now()
-    }
-    fake_items_db.append(new_item)
-    return new_item
+if __name__ == "__main__":
+    main()
 
-@app.get("/items/{item_id}", response_model=ItemResponse)
-async def read_item(item_id: int):
-    if item_id < 1 or item_id > len(fake_items_db):
-        raise HTTPException(status_code=404, detail="Item not found")
+# Contoh 5: Program dengan logging
+import logging
 
-    item = fake_items_db[item_id - 1]
-    return {
-        "id": item["id"],
-        "name": item["name"],
-        "price": item["price"],
-        "created_at": datetime.now()
-    }
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
-@app.put("/items/{item_id}")
-async def update_item(item_id: int, item: Item):
-    if item_id < 1 or item_id > len(fake_items_db):
-        raise HTTPException(status_code=404, detail="Item not found")
+def setup():
+    logger.info("Setting up application...")
 
-    fake_items_db[item_id - 1] = {
-        "id": item_id,
-        "name": item.name,
-        "price": item.price
-    }
-    return {"message": "Item updated successfully"}
+def run():
+    logger.info("Running application...")
 
-@app.delete("/items/{item_id}")
-async def delete_item(item_id: int):
-    if item_id < 1 or item_id > len(fake_items_db):
-        raise HTTPException(status_code=404, detail="Item not found")
+def cleanup():
+    logger.info("Cleaning up...")
 
-    del fake_items_db[item_id - 1]
-    return {"message": "Item deleted successfully"}</code></pre>
+def main():
+    try:
+        setup()
+        run()
+    finally:
+        cleanup()
+
+if __name__ == "__main__":
+    main()</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">4️⃣ Authentication dan Security</h4>
-                    <p class="text-gray-600 mb-4">Mengamankan API dengan authentication.</p>
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Best Practices dengan if __name__ == "__main__"</h4>
+                    <p class="text-gray-600 mb-4">Praktik terbaik dalam menggunakan entry point program.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from pydantic import BaseModel
-import secrets
+                        <pre><code># File: my_module.py
 
-app = FastAPI()
+# 1. Import statements di atas
+import sys
+import os
 
-security = HTTPBasic()
+# 2. Konstanta global
+VERSION = "1.0.0"
+AUTHOR = "Your Name"
 
-# Simulasi database user
-fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "fakehashedsecret",
-        "disabled": False,
-    },
-    "alice": {
-        "username": "alice",
-        "full_name": "Alice Wonderson",
-        "email": "alice@example.com",
-        "hashed_password": "fakehashedsecret2",
-        "disabled": True,
-    },
-}
+# 3. Fungsi dan class definitions
+def get_version():
+    """Mengembalikan versi program"""
+    return VERSION
 
-class User(BaseModel):
-    username: str
-    email: str | None = None
-    full_name: str | None = None
-    disabled: bool | None = None
+def validate_input(data):
+    """Validasi input data"""
+    if not data:
+        raise ValueError("Data tidak boleh kosong")
+    return True
 
-class UserInDB(User):
-    hashed_password: str
+class DataProcessor:
+    def __init__(self, data):
+        self.data = data
 
-def get_user(db, username: str):
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
+    def process(self):
+        """Memproses data"""
+        validate_input(self.data)
+        # Logika pemrosesan
+        return f"Data '{self.data}' berhasil diproses"
 
-async def get_current_user(credentials: HTTPBasicCredentials = Depends(security)):
-    user = get_user(fake_users_db, credentials.username)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    if not secrets.compare_digest(credentials.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    return user
+# 4. Main function
+def main():
+    """Fungsi utama program"""
+    print(f"Program v{get_version()} oleh {AUTHOR}")
+    print("=" * 40)
 
-async def get_current_active_user(current_user: User = Depends(get_current_user)):
-    if current_user.disabled:
-        raise HTTPException(status_code=400, detail="Inactive user")
-    return current_user
+    try:
+        # Parsing command line arguments
+        if len(sys.argv) > 1:
+            data = sys.argv[1]
+        else:
+            data = input("Masukkan data untuk diproses: ")
 
-@app.post("/token")
-async def login(credentials: HTTPBasicCredentials = Depends(security)):
-    user = get_user(fake_users_db, credentials.username)
-    if not user or not secrets.compare_digest(credentials.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    return {"access_token": user.username, "token_type": "bearer"}
+        # Proses data
+        processor = DataProcessor(data)
+        result = processor.process()
 
-@app.get("/users/me")
-async def read_users_me(current_user: User = Depends(get_current_active_user)):
-    return current_user
+        print(result)
+        print("Program selesai dengan sukses!")
 
-@app.get("/users/me/items/")
-async def read_own_items(current_user: User = Depends(get_current_active_user)):
-    return [{"item_id": "Foo", "owner": current_user.username}]</code></pre>
+    except ValueError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+    except KeyboardInterrupt:
+        print("\nProgram dihentikan oleh user")
+        sys.exit(0)
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        sys.exit(1)
+
+# 5. Entry point
+if __name__ == "__main__":
+    main()
+
+# Best Practices:
+# 1. Letakkan semua import di atas file
+# 2. Definisi fungsi dan class sebelum main()
+# 3. Gunakan main() function untuk mengorganisir kode
+# 4. Handle exceptions dengan baik
+# 5. Berikan exit codes yang sesuai
+# 6. Gunakan docstrings untuk dokumentasi
+# 7. Parse command line arguments jika diperlukan</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">5️⃣ Latihan Praktis</h4>
-                    <p class="text-gray-600 mb-4">Buat API sederhana dengan FastAPI.</p>
+                    <p class="text-gray-600 mb-4">Buat program Python modular dengan if __name__ == "__main__".</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Buat file: todo_app.py
+
+import json
+import os
+import sys
+from datetime import datetime
+
+class TodoApp:
+    def __init__(self, filename="todos.json"):
+        self.filename = filename
+        self.todos = self.load_todos()
+
+    def load_todos(self):
+        if os.path.exists(self.filename):
+            with open(self.filename, 'r') as f:
+                return json.load(f)
+        return []
+
+    def save_todos(self):
+        with open(self.filename, 'w') as f:
+            json.dump(self.todos, f, indent=2, default=str)
+
+    def add_todo(self, task):
+        todo = {
+            "id": len(self.todos) + 1,
+            "task": task,
+            "completed": False,
+            "created_at": datetime.now()
+        }
+        self.todos.append(todo)
+        self.save_todos()
+        print(f"✓ Todo '{task}' ditambahkan!")
+
+    def list_todos(self):
+        if not self.todos:
+            print("Tidak ada todo.")
+            return
+
+        print("\n📝 Daftar Todo:")
+        print("-" * 50)
+        for todo in self.todos:
+            status = "✓" if todo["completed"] else "○"
+            print(f"{todo['id']}. [{status}] {todo['task']}")
+
+    def complete_todo(self, todo_id):
+        for todo in self.todos:
+            if todo["id"] == todo_id:
+                todo["completed"] = True
+                self.save_todos()
+                print(f"✓ Todo '{todo['task']}' selesai!")
+                return
+        print(f"Todo dengan ID {todo_id} tidak ditemukan.")
+
+    def delete_todo(self, todo_id):
+        for i, todo in enumerate(self.todos):
+            if todo["id"] == todo_id:
+                removed = self.todos.pop(i)
+                self.save_todos()
+                print(f"🗑️ Todo '{removed['task']}' dihapus!")
+                return
+        print(f"Todo dengan ID {todo_id} tidak ditemukan.")
+
+def print_help():
+    print("""
+🐍 Todo App - Aplikasi Manajemen Tugas
+
+Penggunaan:
+  python todo_app.py add "tugas baru"    - Tambah todo baru
+  python todo_app.py list                 - Lihat semua todo
+  python todo_app.py complete ID          - Selesaikan todo
+  python todo_app.py delete ID            - Hapus todo
+  python todo_app.py help                 - Tampilkan bantuan
+
+Contoh:
+  python todo_app.py add "Belajar Python"
+  python todo_app.py list
+  python todo_app.py complete 1
+  python todo_app.py delete 1
+""")
+
+def main():
+    app = TodoApp()
+
+    if len(sys.argv) < 2:
+        print_help()
+        return
+
+    command = sys.argv[1].lower()
+
+    try:
+        if command == "add":
+            if len(sys.argv) < 3:
+                print("Error: Masukkan tugas yang akan ditambahkan.")
+                print('Contoh: python todo_app.py add "Belajar Python"')
+                return
+            task = sys.argv[2]
+            app.add_todo(task)
+
+        elif command == "list":
+            app.list_todos()
+
+        elif command == "complete":
+            if len(sys.argv) < 3:
+                print("Error: Masukkan ID todo yang akan diselesaikan.")
+                return
+            todo_id = int(sys.argv[2])
+            app.complete_todo(todo_id)
+
+        elif command == "delete":
+            if len(sys.argv) < 3:
+                print("Error: Masukkan ID todo yang akan dihapus.")
+                return
+            todo_id = int(sys.argv[2])
+            app.delete_todo(todo_id)
+
+        elif command == "help":
+            print_help()
+
+        else:
+            print(f"Perintah '{command}' tidak dikenal.")
+            print_help()
+
+    except ValueError:
+        print("Error: ID todo harus berupa angka.")
+    except Exception as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h5 class="font-semibold mb-2">📝 Instruksi:</h5>
+                        <ol class="list-decimal list-inside space-y-1 text-sm">
+                            <li>Salin kode di atas ke file <code>todo_app.py</code></li>
+                            <li>Jalankan <code>python todo_app.py help</code> untuk melihat bantuan</li>
+                            <li>Coba tambah todo: <code>python todo_app.py add "Belajar Python"</code></li>
+                            <li>Lihat daftar todo: <code>python todo_app.py list</code></li>
+                            <li>Selesaikan todo: <code>python todo_app.py complete 1</code></li>
+                            <li>Import sebagai modul: <code>from todo_app import TodoApp</code></li>
+                        </ol>
+                    </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">6️⃣ Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/rHux0gMZ3Eg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <p class="text-gray-600 mb-4">Pelajari lebih dalam tentang konsep if __name__ == "__main__" dalam Python.</p>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/wQwf5eKpxqs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <p class="text-sm text-gray-500 mt-2">Video tutorial tentang entry points dan modular programming di Python</p>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">7️⃣ Kuis Interaktif</h4>
                     <div class="space-y-4">
                         <div>
-                            <p class="font-medium mb-2">1. Apa keunggulan utama FastAPI?</p>
+                            <p class="font-medium mb-2">1. Kapan kode di dalam if __name__ == "__main__" akan dieksekusi?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="a" class="mr-2">
-                                    <span>Performa tinggi dan auto documentation</span>
+                                    <span>Ketika file diimport sebagai modul</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="b" class="mr-2">
-                                    <span>Hanya untuk machine learning</span>
+                                    <span>Ketika file dijalankan langsung</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="c" class="mr-2">
-                                    <span>Tidak mendukung async</span>
+                                    <span>Selalu dieksekusi</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <p class="font-medium mb-2">2. Command apa yang digunakan untuk menjalankan FastAPI?</p>
+                            <p class="font-medium mb-2">2. Apa nilai __name__ ketika file dijalankan langsung?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="a" class="mr-2">
-                                    <span>python app.py</span>
+                                    <span>__main__</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="b" class="mr-2">
-                                    <span>uvicorn main:app --reload</span>
+                                    <span>nama_file</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="c" class="mr-2">
-                                    <span>fastapi run</span>
+                                    <span>main</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">3. Mengapa if __name__ == "__main__" penting untuk modular programming?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="a" class="mr-2">
+                                    <span>Mencegah kode demo berjalan saat diimport</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="b" class="mr-2">
+                                    <span>Mempercepat loading modul</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="c" class="mr-2">
+                                    <span>Mengubah nama file</span>
                                 </label>
                             </div>
                         </div>

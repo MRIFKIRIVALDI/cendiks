@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 32: Pengenalan Flask untuk Web Development - Cendiks</title>
+    <title>Sesi 32: **Kwargs Pada Fungsi - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 32: Pengenalan Flask untuk Web Development</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari framework web Python yang ringan dan powerful</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 32: **Kwargs Pada Fungsi</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara menggunakan **kwargs untuk menerima argumen keyword variabel dalam fungsi</p>
         </div>
     </section>
 
@@ -39,402 +39,393 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Flask?</h4>
-                    <p class="text-gray-600 mb-4">Micro web framework untuk Python yang mudah digunakan.</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Pengenalan **kwargs</h4>
+                    <p class="text-gray-600 mb-4">**kwargs adalah parameter khusus dalam Python yang memungkinkan fungsi menerima argumen keyword variabel. Kata "kwargs" adalah singkatan dari "keyword arguments".</p>
+                    <p class="text-gray-600 mb-4">Bayangkan Anda sedang membuat sistem konfigurasi. Tanpa **kwargs, Anda harus membuat fungsi dengan parameter tetap seperti config(nama, umur, kota). Dengan **kwargs, pengguna bisa memberikan konfigurasi apa saja: config(nama="Alice", email="alice@example.com", tema="dark", notifikasi=True).</p>
+                    <p class="text-gray-600 mb-4"><strong>Kenapa **kwargs berguna?</strong></p>
+                    <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                        <li><strong>Fleksibilitas maksimal:</strong> Fungsi bisa menerima konfigurasi apa saja tanpa perlu mengubah definisi fungsi</li>
+                        <li><strong>Backward compatibility:</strong> Bisa menambah parameter baru tanpa merusak kode yang sudah ada</li>
+                        <li><strong>Konfigurasi dinamis:</strong> Bagus untuk settings, options, dan preferences</li>
+                        <li><strong>API yang bersih:</strong> Tidak perlu parameter yang tidak digunakan</li>
+                    </ul>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Instalasi Flask
-# pip install flask
+                        <pre><code># **kwargs memungkinkan fungsi menerima argumen keyword yang tidak terbatas
 
-from flask import Flask
+def sapa(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
 
-# Membuat aplikasi Flask
-app = Flask(__name__)
+# Pemanggilan fungsi
+sapa(nama="Alice", umur=25, kota="Jakarta")
+# Output:
+# nama: Alice
+# umur: 25
+# kota: Jakarta</code></pre>
+                    </div>
+                    <p class="text-gray-600 mb-4"><strong>Bagaimana **kwargs bekerja?</strong> Di dalam fungsi, **kwargs menjadi dictionary yang berisi semua argumen keyword yang diberikan. Dictionary adalah struktur data yang menyimpan pasangan key-value.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Tanpa **kwargs, kita harus mendefinisikan semua parameter
+def sapa_manual(nama=None, umur=None, kota=None):
+    if nama:
+        print(f"nama: {nama}")
+    if umur:
+        print(f"umur: {umur}")
+    if kota:
+        print(f"kota: {kota}")
 
-# Route sederhana
-@app.route('/')
-def home():
-    return 'Hello, World!'
+# Dengan **kwargs - jauh lebih fleksibel!
+def sapa_fleksibel(**kwargs):
+    for key, value in kwargs.items():
+        print(f"{key}: {value}")
 
-@app.route('/about')
-def about():
-    return 'Ini adalah halaman About'
-
-# Menjalankan aplikasi
-if __name__ == '__main__':
-    app.run(debug=True)
-
-# Jalankan dengan: python app.py
-# Buka browser ke: http://127.0.0.1:5000/</code></pre>
+# Bisa dipanggil dengan berbagai kombinasi
+sapa_fleksibel(nama="Alice", umur=25)           # Hanya nama dan umur
+sapa_fleksibel(kota="Jakarta", pekerjaan="Programmer")  # Field yang berbeda
+sapa_fleksibel(nama="Bob", email="bob@example.com", aktif=True)  # Field tambahan</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ Routing dan URL</h4>
-                    <p class="text-gray-600 mb-4">Menangani berbagai URL dan HTTP methods.</p>
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Menggunakan **kwargs dalam Fungsi</h4>
+                    <p class="text-gray-600 mb-4">Cara menggunakan **kwargs untuk menerima dan memproses argumen keyword. Mari kita lihat berbagai pola penggunaan yang umum.</p>
+                    <p class="text-gray-600 mb-4"><strong>Mengiterasi **kwargs:</strong> Karena **kwargs adalah dictionary, kita bisa menggunakan loop untuk memproses setiap key-value pair. Ini seperti membuka kotak hadiah - kita tidak tahu apa isinya sampai kita buka satu per satu.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>from flask import Flask, request
+                        <pre><code># **kwargs sebagai dictionary - seperti membuka kotak hadiah
+def cetak_info(**kwargs):
+    print("Informasi yang diterima:")
+    for key, value in kwargs.items():
+        print(f"  {key}: {value}")
 
-app = Flask(__name__)
+cetak_info(nama="Alice", umur=25, pekerjaan="Programmer")
+# Output:
+# Informasi yang diterima:
+#   nama: Alice
+#   umur: 25
+#   pekerjaan: Programmer</code></pre>
+                    </div>
+                    <p class="text-gray-600 mb-4"><strong>Membuat objek dengan default values:</strong> Gunakan <code>kwargs.get('key', default)</code> untuk memberikan nilai default. Ini seperti formulir yang sudah diisi sebagian - field yang tidak diisi akan menggunakan nilai standar.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Menggunakan **kwargs untuk membuat objek dengan default values
+def buat_orang(**kwargs):
+    orang = {
+        'nama': kwargs.get('nama', 'Tidak diketahui'),
+        'umur': kwargs.get('umur', 0),
+        'kota': kwargs.get('kota', 'Tidak diketahui')
+    }
+    return orang
 
-# Route dengan parameter
-@app.route('/user/<username>')
-def show_user(username):
-    return f'User: {username}'
+person1 = buat_orang(nama="Bob", umur=30, kota="Jakarta")
+person2 = buat_orang(nama="Charlie", kota="Bandung")  # umur menggunakan default 0
+print(person1)  # {'nama': 'Bob', 'umur': 30, 'kota': 'Jakarta'}
+print(person2)  # {'nama': 'Charlie', 'umur': 0, 'kota': 'Bandung'}</code></pre>
+                    </div>
+                    <p class="text-gray-600 mb-4"><strong>Menggabungkan parameter wajib dan **kwargs:</strong> Parameter normal tetap wajib, sementara **kwargs menangani opsi tambahan. Ini seperti restoran yang punya menu tetap plus menu pilihan.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># **kwargs dengan parameter wajib - menu tetap + pilihan
+def daftar_karyawan(id_karyawan, **kwargs):  # id_karyawan wajib
+    karyawan = {'id': id_karyawan}  # Mulai dengan data wajib
+    karyawan.update(kwargs)  # Tambahkan opsi tambahan
+    return karyawan
 
-@app.route('/post/<int:post_id>')
-def show_post(post_id):
-    return f'Post ID: {post_id}'
-
-# Route dengan methods berbeda
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        return 'Processing login...'
-    return 'Login form'
-
-# Route dengan query parameters
-@app.route('/search')
-def search():
-    query = request.args.get('q', '')
-    page = request.args.get('page', 1, type=int)
-    return f'Searching for: {query}, Page: {page}'
-
-# Route dengan subdomain (advanced)
-@app.route('/', subdomain="<company>")
-def company_home(company):
-    return f"Welcome to {company} homepage"
-
-# Error handling
-@app.errorhandler(404)
-def page_not_found(error):
-    return 'Page not found', 404
-
-@app.errorhandler(500)
-def internal_error(error):
-    return 'Internal server error', 500
-
-if __name__ == '__main__':
-    app.run(debug=True)</code></pre>
+karyawan1 = daftar_karyawan(1001, nama="Diana", departemen="IT", gaji=5000000)
+karyawan2 = daftar_karyawan(1002, nama="Eva")  # Hanya nama, tanpa departemen/gaji
+print(karyawan1)
+# {'id': 1001, 'nama': 'Diana', 'departemen': 'IT', 'gaji': 5000000}
+print(karyawan2)
+# {'id': 1002, 'nama': 'Eva'}</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">3️⃣ Templates dengan Jinja2</h4>
-                    <p class="text-gray-600 mb-4">Rendering HTML dengan template engine.</p>
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ **kwargs dengan *args</h4>
+                    <p class="text-gray-600 mb-4">Menggabungkan **kwargs dengan *args untuk fleksibilitas maksimal. *args menangkap positional arguments, **kwargs menangkap keyword arguments.</p>
+
+                    <p class="text-gray-600 mb-4"><strong>Urutan parameter:</strong> *args harus datang sebelum **kwargs. Python memproses dari kiri ke kanan.</p>
+
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>from flask import Flask, render_template
+                        <pre><code>def func(*args, **kwargs):
+    print("Args:", args)
+    print("Kwargs:", kwargs)
 
-app = Flask(__name__)
+func(1, 2, nama="Alice", umur=25)
+# Output:
+# Args: (1, 2)
+# Kwargs: {'nama': 'Alice', 'umur': 25}</code></pre>
+                    </div>
 
-# Data contoh
-users = [
-    {'name': 'Alice', 'age': 25, 'city': 'Jakarta'},
-    {'name': 'Bob', 'age': 30, 'city': 'Bandung'},
-    {'name': 'Charlie', 'age': 35, 'city': 'Surabaya'}
-]
+                    <p class="text-gray-600 mb-4"><strong>Contoh praktis:</strong> Fungsi yang menerima data wajib dan opsi tambahan.</p>
 
-@app.route('/')
-def index():
-    return render_template('index.html', title='Home', users=users)
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def buat_user(nama, *tags, **info):
+    user = {'nama': nama, 'tags': tags}
+    user.update(info)
+    return user
 
-@app.route('/user/<name>')
-def user_profile(name):
-    user = next((u for u in users if u['name'] == name), None)
-    if user:
-        return render_template('user.html', user=user)
-    return 'User not found', 404
+user = buat_user("Alice", "admin", "active", umur=25, kota="Jakarta")
+print(user)
+# {'nama': 'Alice', 'tags': ('admin', 'active'), 'umur': 25, 'kota': 'Jakarta'}</code></pre>
+                    </div>
 
-@app.route('/about')
-def about():
-    return render_template('about.html', 
-                         title='About Us',
-                         company='Cendiks',
-                         year=2023)
+                    <p class="text-gray-600 mb-4"><strong>Kegunaan:</strong> Berguna untuk decorator, factory functions, dan API yang fleksibel.</p>
+                </div>
 
-if __name__ == '__main__':
-    app.run(debug=True)
-
-# File templates/index.html
-"""
-<!DOCTYPE html>
-<html>
-<head>
-    <title>{{ title }}</title>
-</head>
-<body>
-    <h1>Welcome to {{ title }}</h1>
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ **kwargs untuk Validasi dan Default Values</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan **kwargs untuk validasi input dan nilai default yang fleksibel.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># **kwargs dengan validasi
+def buat_pengguna(**kwargs):
+    required_fields = ['nama', 'email']
+    optional_fields = ['umur', 'kota', 'telepon']
     
-    <h2>Users:</h2>
-    <ul>
-    {% for user in users %}
-        <li>{{ user.name }} - {{ user.age }} years old, from {{ user.city }}</li>
-    {% endfor %}
-    </ul>
+    # Validasi field wajib
+    for field in required_fields:
+        if field not in kwargs:
+            raise ValueError(f"Field '{field}' wajib diisi")
+        if not kwargs[field]:
+            raise ValueError(f"Field '{field}' tidak boleh kosong")
     
-    {% if users %}
-        <p>We have {{ users|length }} users.</p>
-    {% else %}
-        <p>No users found.</p>
-    {% endif %}
-</body>
-</html>
-"""
+    # Validasi email
+    if '@' not in kwargs['email']:
+        raise ValueError("Email tidak valid")
+    
+    # Validasi umur jika ada
+    if 'umur' in kwargs and kwargs['umur'] is not None:
+        if not isinstance(kwargs['umur'], int) or kwargs['umur'] < 0:
+            raise ValueError("Umur harus berupa angka positif")
+    
+    # Buat objek pengguna dengan default values
+    pengguna = {
+        'nama': kwargs['nama'],
+        'email': kwargs['email'],
+        'umur': kwargs.get('umur', 0),
+        'kota': kwargs.get('kota', 'Tidak diketahui'),
+        'telepon': kwargs.get('telepon', None),
+        'aktif': kwargs.get('aktif', True)
+    }
+    
+    return pengguna
 
-# File templates/user.html
-"""
-<!DOCTYPE html>
-<html>
-<head>
-    <title>User Profile</title>
-</head>
-<body>
-    <h1>{{ user.name }}'s Profile</h1>
-    <p>Age: {{ user.age }}</p>
-    <p>City: {{ user.city }}</p>
-    <a href="/">Back to home</a>
-</body>
-</html>
-"""</code></pre>
+# Contoh penggunaan
+try:
+    user1 = buat_pengguna(nama="Alice", email="alice@example.com", umur=25, kota="Jakarta")
+    user2 = buat_pengguna(nama="Bob", email="bob@example.com")  # tanpa optional fields
+    print(user1)
+    print(user2)
+except ValueError as e:
+    print(f"Error: {e}")
+
+# **kwargs untuk konfigurasi API
+def api_request(endpoint, method='GET', **options):
+    config = {
+        'endpoint': endpoint,
+        'method': method.upper(),
+        'headers': options.get('headers', {}),
+        'params': options.get('params', {}),
+        'data': options.get('data', None),
+        'timeout': options.get('timeout', 30),
+        'auth': options.get('auth', None)
+    }
+    
+    # Validasi method
+    valid_methods = ['GET', 'POST', 'PUT', 'DELETE', 'PATCH']
+    if config['method'] not in valid_methods:
+        raise ValueError(f"Method {config['method']} tidak valid")
+    
+    print(f"Making {config['method']} request to {config['endpoint']}")
+    return config
+
+# Contoh API calls
+api_request('/users', method='GET', timeout=60)
+api_request('/users', method='POST', data={'name': 'John'}, headers={'Content-Type': 'application/json'})
+
+# **kwargs untuk logging dengan level
+def log_message(level='INFO', **kwargs):
+    import datetime
+    
+    log_entry = {
+        'timestamp': datetime.datetime.now().isoformat(),
+        'level': level.upper(),
+        'message': kwargs.get('message', ''),
+        'user': kwargs.get('user', 'system'),
+        'module': kwargs.get('module', 'unknown'),
+        'extra': {k: v for k, v in kwargs.items() if k not in ['message', 'user', 'module']}
+    }
+    
+    # Format log message
+    formatted = f"[{log_entry['timestamp']}] {log_entry['level']} - {log_entry['module']} - {log_entry['user']}: {log_entry['message']}"
+    
+    if log_entry['extra']:
+        formatted += f" | Extra: {log_entry['extra']}"
+    
+    print(formatted)
+    return log_entry
+
+# Contoh logging
+log_message(message="User logged in", user="alice", module="auth")
+log_message(level="ERROR", message="Database connection failed", module="db", retry_count=3, error_code=500)</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">4️⃣ Static Files dan Assets</h4>
-                    <p class="text-gray-600 mb-4">Menangani CSS, JavaScript, dan gambar.</p>
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ **kwargs untuk Factory Functions dan Builders</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan **kwargs untuk membuat factory functions dan builder patterns.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>from flask import Flask, render_template, url_for
-
-app = Flask(__name__)
-
-# Mengakses static files
-@app.route('/')
-def home():
-    return render_template('home.html')
-
-@app.route('/dashboard')
-def dashboard():
-    return render_template('dashboard.html')
-
-# URL untuk static files
-@app.route('/assets')
-def show_assets():
-    css_url = url_for('static', filename='css/style.css')
-    js_url = url_for('static', filename='js/app.js')
-    img_url = url_for('static', filename='images/logo.png')
+                        <pre><code># Factory function dengan **kwargs
+def buat_koneksi_db(driver='sqlite', **kwargs):
+    """Factory function untuk membuat koneksi database"""
     
-    return f'''
-    <h1>Static Files URLs</h1>
-    <p>CSS: {css_url}</p>
-    <p>JavaScript: {js_url}</p>
-    <p>Image: {img_url}</p>
-    '''
-
-if __name__ == '__main__':
-    app.run(debug=True)
-
-# Struktur folder:
-"""
-myapp/
-├── app.py
-├── static/
-│   ├── css/
-│   │   └── style.css
-│   ├── js/
-│   │   └── app.js
-│   └── images/
-│       └── logo.png
-└── templates/
-    ├── home.html
-    └── dashboard.html
-"""
-
-# File static/css/style.css
-"""
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-"""
-
-# File static/js/app.js
-"""
-document.addEventListener('DOMContentLoaded', function() {
-    console.log('Flask app loaded!');
+    if driver == 'sqlite':
+        config = {
+            'driver': 'sqlite',
+            'database': kwargs.get('database', ':memory:'),
+            'timeout': kwargs.get('timeout', 5.0)
+        }
+    elif driver == 'postgresql':
+        config = {
+            'driver': 'postgresql',
+            'host': kwargs.get('host', 'localhost'),
+            'port': kwargs.get('port', 5432),
+            'database': kwargs.get('database', 'postgres'),
+            'user': kwargs.get('user', 'postgres'),
+            'password': kwargs.get('password', ''),
+            'sslmode': kwargs.get('sslmode', 'prefer')
+        }
+    elif driver == 'mysql':
+        config = {
+            'driver': 'mysql',
+            'host': kwargs.get('host', 'localhost'),
+            'port': kwargs.get('port', 3306),
+            'database': kwargs.get('database', 'mysql'),
+            'user': kwargs.get('user', 'root'),
+            'password': kwargs.get('password', ''),
+            'charset': kwargs.get('charset', 'utf8mb4')
+        }
+    else:
+        raise ValueError(f"Driver {driver} tidak didukung")
     
-    // Contoh interaktivitas
-    const buttons = document.querySelectorAll('.btn');
-    buttons.forEach(btn => {
-        btn.addEventListener('click', function() {
-            alert('Button clicked!');
-        });
-    });
-});
-"""
+    # Tambahkan opsi tambahan
+    config.update({k: v for k, v in kwargs.items() if k not in config})
+    
+    return config
 
-# File templates/home.html
-"""
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Home</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body>
-    <div class="container">
-        <h1>Welcome to Flask App</h1>
-        <img src="{{ url_for('static', filename='images/logo.png') }}" alt="Logo">
-        <button class="btn">Click me!</button>
-    </div>
-    <script src="{{ url_for('static', filename='js/app.js') }}"></script>
-</body>
-</html>
-"""</code></pre>
-                    </div>
-                </div>
+# Contoh penggunaan factory
+sqlite_conn = buat_koneksi_db('sqlite', database='app.db')
+postgres_conn = buat_koneksi_db('postgresql', host='db.example.com', user='app_user', password='secret')
+mysql_conn = buat_koneksi_db('mysql', host='mysql.example.com', database='app_db')
 
-                <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">5️⃣ Forms dan Input Data</h4>
-                    <p class="text-gray-600 mb-4">Menangani form HTML dan input pengguna.</p>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>from flask import Flask, render_template, request, redirect, url_for, flash
-
-app = Flask(__name__)
-app.secret_key = 'your-secret-key-here'  # Diperlukan untuk flash messages
-
-# Data storage sederhana (dalam praktik pakai database)
-users = []
-
-@app.route('/')
-def index():
-    return render_template('index.html', users=users)
-
-@app.route('/add_user', methods=['GET', 'POST'])
-def add_user():
-    if request.method == 'POST':
-        name = request.form.get('name')
-        email = request.form.get('email')
-        age = request.form.get('age', type=int)
+# Builder pattern dengan **kwargs
+class QueryBuilder:
+    def __init__(self, table):
+        self.table = table
+        self.select_fields = ['*']
+        self.where_conditions = []
+        self.order_by = []
+        self.limit_value = None
+        self.offset_value = None
+    
+    def select(self, *fields):
+        self.select_fields = list(fields) if fields else ['*']
+        return self
+    
+    def where(self, **conditions):
+        for field, value in conditions.items():
+            self.where_conditions.append(f"{field} = '{value}'")
+        return self
+    
+    def order_by(self, *fields):
+        self.order_by.extend(fields)
+        return self
+    
+    def limit(self, n):
+        self.limit_value = n
+        return self
+    
+    def offset(self, n):
+        self.offset_value = n
+        return self
+    
+    def build(self):
+        query = f"SELECT {', '.join(self.select_fields)} FROM {self.table}"
         
-        # Validasi sederhana
-        if not name or not email:
-            flash('Name and email are required!', 'error')
-            return redirect(url_for('add_user'))
+        if self.where_conditions:
+            query += f" WHERE {' AND '.join(self.where_conditions)}"
         
-        # Cek email unik
-        if any(user['email'] == email for user in users):
-            flash('Email already exists!', 'error')
-            return redirect(url_for('add_user'))
+        if self.order_by:
+            query += f" ORDER BY {', '.join(self.order_by)}"
         
-        # Tambah user
-        users.append({
-            'name': name,
-            'email': email,
-            'age': age
-        })
+        if self.limit_value:
+            query += f" LIMIT {self.limit_value}"
         
-        flash('User added successfully!', 'success')
-        return redirect(url_for('index'))
-    
-    return render_template('add_user.html')
+        if self.offset_value:
+            query += f" OFFSET {self.offset_value}"
+        
+        return query
 
-@app.route('/user/<int:user_id>')
-def user_detail(user_id):
-    if 0 <= user_id < len(users):
-        user = users[user_id]
-        return render_template('user_detail.html', user=user, user_id=user_id)
-    return 'User not found', 404
+# Contoh penggunaan builder
+qb = QueryBuilder('users')
+query1 = qb.select('name', 'email').where(status='active', role='admin').order_by('name').limit(10).build()
+query2 = qb.select().where(city='Jakarta').build()
 
-@app.route('/delete_user/<int:user_id>', methods=['POST'])
-def delete_user(user_id):
-    if 0 <= user_id < len(users):
-        deleted_user = users.pop(user_id)
-        flash(f'User {deleted_user["name"]} deleted!', 'success')
-    return redirect(url_for('index'))
+print(query1)  # SELECT name, email FROM users WHERE status = 'active' AND role = 'admin' ORDER BY name LIMIT 10
+print(query2)  # SELECT * FROM users WHERE city = 'Jakarta'
 
-if __name__ == '__main__':
-    app.run(debug=True)
+# **kwargs untuk membuat objek dengan fluent interface
+class EmailBuilder:
+    def __init__(self):
+        self._to = []
+        self._cc = []
+        self._bcc = []
+        self._subject = ""
+        self._body = ""
+        self._attachments = []
+    
+    def to(self, *emails):
+        self._to.extend(emails)
+        return self
+    
+    def cc(self, *emails):
+        self._cc.extend(emails)
+        return self
+    
+    def bcc(self, *emails):
+        self._bcc.extend(emails)
+        return self
+    
+    def subject(self, subject):
+        self._subject = subject
+        return self
+    
+    def body(self, body):
+        self._body = body
+        return self
+    
+    def attach(self, **files):
+        for filename, content in files.items():
+            self._attachments.append({'filename': filename, 'content': content})
+        return self
+    
+    def build(self):
+        return {
+            'to': self._to,
+            'cc': self._cc,
+            'bcc': self._bcc,
+            'subject': self._subject,
+            'body': self._body,
+            'attachments': self._attachments
+        }
 
-# File templates/index.html
-"""
-<!DOCTYPE html>
-<html>
-<head>
-    <title>User Management</title>
-    <style>
-        .flash { padding: 10px; margin: 10px 0; border-radius: 5px; }
-        .success { background-color: #d4edda; color: #155724; }
-        .error { background-color: #f8d7da; color: #721c24; }
-    </style>
-</head>
-<body>
-    <h1>User Management System</h1>
-    
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="flash {{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    
-    <a href="{{ url_for('add_user') }}">Add New User</a>
-    
-    <h2>Users ({{ users|length }}):</h2>
-    {% if users %}
-        <ul>
-        {% for user in users %}
-            <li>
-                <a href="{{ url_for('user_detail', user_id=loop.index0) }}">
-                    {{ user.name }} ({{ user.email }})
-                </a>
-                <form method="post" action="{{ url_for('delete_user', user_id=loop.index0) }}" style="display: inline;">
-                    <button type="submit" onclick="return confirm('Delete this user?')">Delete</button>
-                </form>
-            </li>
-        {% endfor %}
-        </ul>
-    {% else %}
-        <p>No users yet.</p>
-    {% endif %}
-</body>
-</html>
-"""
+# Contoh penggunaan fluent builder
+email = (EmailBuilder()
+         .to('alice@example.com', 'bob@example.com')
+         .cc('manager@example.com')
+         .subject('Laporan Mingguan')
+         .body('Berikut adalah laporan mingguan...')
+         .attach(report_pdf='PDF content here', chart_png='PNG content here')
+         .build())
 
-# File templates/add_user.html
-"""
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add User</title>
-</head>
-<body>
-    <h1>Add New User</h1>
-    
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            {% for category, message in messages %}
-                <div class="flash {{ category }}">{{ message }}</div>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
-    
-    <form method="post">
-        <label>Name: <input type="text" name="name" required></label><br>
-        <label>Email: <input type="email" name="email" required></label><br>
-        <label>Age: <input type="number" name="age" min="1" max="120"></label><br>
-        <button type="submit">Add User</button>
-    </form>
-    
-    <a href="{{ url_for('index') }}">Back to list</a>
-</body>
-</html>
-"""</code></pre>
+print(email)</code></pre>
                     </div>
                 </div>
 
@@ -553,189 +544,702 @@ if __name__ == '__main__':
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">7️⃣ Blueprints dan Struktur Aplikasi</h4>
-                    <p class="text-gray-600 mb-4">Mengorganisir aplikasi Flask yang besar.</p>
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ **kwargs untuk Event Handling dan Callbacks</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan **kwargs untuk sistem event handling dan callback functions.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Struktur aplikasi Flask dengan Blueprints
-"""
-myapp/
-├── app/
-│   ├── __init__.py
-│   ├── models.py
-│   ├── auth/
-│   │   ├── __init__.py
-│   │   ├── routes.py
-│   │   └── forms.py
-│   ├── blog/
-│   │   ├── __init__.py
-│   │   ├── routes.py
-│   │   └── forms.py
-│   └── main/
-│       ├── __init__.py
-│       └── routes.py
-├── templates/
-├── static/
-└── config.py
-"""
-
-# File app/__init__.py
-from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
-from .auth import auth_bp
-from .blog import blog_bp
-from .main import main_bp
-
-db = SQLAlchemy()
-
-def create_app(config_class='config.Config'):
-    app = Flask(__name__)
-    app.config.from_object(config_class)
+                        <pre><code># Event system dengan **kwargs
+class EventEmitter:
+    def __init__(self):
+        self.listeners = {}
     
-    db.init_app(app)
-    
-    # Register blueprints
-    app.register_blueprint(auth_bp, url_prefix='/auth')
-    app.register_blueprint(blog_bp, url_prefix='/blog')
-    app.register_blueprint(main_bp)
-    
-    with app.app_context():
-        db.create_all()
-    
-    return app
-
-# File app/auth/__init__.py
-from flask import Blueprint
-
-auth_bp = Blueprint('auth', __name__, template_folder='templates')
-
-from . import routes
-
-# File app/auth/routes.py
-from flask import render_template, redirect, url_for, request, flash
-from . import auth_bp
-
-@auth_bp.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
+    def on(self, event, callback, **options):
+        """Register event listener dengan opsi"""
+        if event not in self.listeners:
+            self.listeners[event] = []
         
-        # Logic autentikasi di sini
-        if username == 'admin' and password == 'password':
-            flash('Login successful!', 'success')
-            return redirect(url_for('main.index'))
-        else:
-            flash('Invalid credentials', 'error')
+        self.listeners[event].append({
+            'callback': callback,
+            'options': options,
+            'once': options.get('once', False),
+            'priority': options.get('priority', 0)
+        })
+        
+        # Sort by priority (higher priority first)
+        self.listeners[event].sort(key=lambda x: x['priority'], reverse=True)
     
-    return render_template('auth/login.html')
+    def off(self, event, callback=None):
+        """Remove event listener"""
+        if event in self.listeners:
+            if callback is None:
+                del self.listeners[event]
+            else:
+                self.listeners[event] = [l for l in self.listeners[event] if l['callback'] != callback]
+    
+    def emit(self, event, **kwargs):
+        """Emit event dengan data"""
+        if event in self.listeners:
+            listeners_to_remove = []
+            
+            for i, listener in enumerate(self.listeners[event]):
+                try:
+                    listener['callback'](**kwargs)
+                    
+                    if listener['once']:
+                        listeners_to_remove.append(i)
+                except Exception as e:
+                    print(f"Error in event listener: {e}")
+            
+            # Remove 'once' listeners
+            for i in reversed(listeners_to_remove):
+                del self.listeners[event][i]
 
-@auth_bp.route('/logout')
-def logout():
-    # Logic logout
-    flash('Logged out successfully', 'info')
-    return redirect(url_for('main.index'))
+# Contoh penggunaan event system
+emitter = EventEmitter()
 
-# File app/blog/__init__.py
-from flask import Blueprint
+def user_login_handler(**data):
+    print(f"User {data['username']} logged in from {data.get('ip', 'unknown')}")
 
-blog_bp = Blueprint('blog', __name__, template_folder='templates')
+def audit_log_handler(**data):
+    print(f"AUDIT: {data['action']} by {data['user']} at {data.get('timestamp', 'now')}")
 
-from . import routes
+def notification_handler(**data):
+    if data.get('send_email', False):
+        print(f"Sending email notification to {data['email']}")
 
-# File app/blog/routes.py
-from flask import render_template, request, redirect, url_for
-from . import blog_bp
-from ..models import Post
+# Register listeners dengan opsi
+emitter.on('user_login', user_login_handler, priority=10)
+emitter.on('user_action', audit_log_handler, once=False)
+emitter.on('user_login', notification_handler, priority=5, send_email=True)
 
-@blog_bp.route('/')
-def index():
-    posts = Post.query.all()
-    return render_template('blog/index.html', posts=posts)
+# Emit events
+emitter.emit('user_login', username='alice', ip='192.168.1.1', email='alice@example.com')
+emitter.emit('user_action', action='file_upload', user='alice', timestamp='2023-12-01 10:00:00')
 
-@blog_bp.route('/post/<int:post_id>')
-def post(post_id):
-    post = Post.query.get_or_404(post_id)
-    return render_template('blog/post.html', post=post)
+# Callback system untuk async operations
+class AsyncTask:
+    def __init__(self):
+        self.callbacks = {
+            'success': [],
+            'error': [],
+            'progress': []
+        }
+    
+    def on_success(self, callback, **options):
+        self.callbacks['success'].append({'callback': callback, 'options': options})
+    
+    def on_error(self, callback, **options):
+        self.callbacks['error'].append({'callback': callback, 'options': options})
+    
+    def on_progress(self, callback, **options):
+        self.callbacks['progress'].append({'callback': callback, 'options': options})
+    
+    def execute(self, **kwargs):
+        try:
+            # Simulate progress
+            for i in range(0, 101, 25):
+                for cb in self.callbacks['progress']:
+                    cb['callback'](progress=i, **kwargs)
+                import time
+                time.sleep(0.1)
+            
+            # Simulate success
+            result = f"Task completed with data: {kwargs}"
+            
+            for cb in self.callbacks['success']:
+                cb['callback'](result=result, **kwargs)
+                
+        except Exception as e:
+            for cb in self.callbacks['error']:
+                cb['callback'](error=str(e), **kwargs)
 
-# File app/main/__init__.py
-from flask import Blueprint
+# Contoh async task dengan callbacks
+def on_task_success(**data):
+    print(f"✅ Task succeeded: {data['result']}")
 
-main_bp = Blueprint('main', __name__)
+def on_task_error(**data):
+    print(f"❌ Task failed: {data['error']}")
 
-from . import routes
+def on_task_progress(**data):
+    print(f"📊 Progress: {data['progress']}%")
 
-# File app/main/routes.py
-from flask import render_template
-from . import main_bp
+task = AsyncTask()
+task.on_success(on_task_success)
+task.on_error(on_task_error)
+task.on_progress(on_task_progress)
 
-@main_bp.route('/')
-def index():
-    return render_template('main/index.html')
+# Execute task
+task.execute(task_id='upload_file', filename='document.pdf', user='alice')
 
-# File config.py
-class Config:
-    SECRET_KEY = 'your-secret-key'
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///app.db'
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+# **kwargs untuk middleware pattern
+class MiddlewareChain:
+    def __init__(self):
+        self.middlewares = []
+    
+    def use(self, middleware, **options):
+        """Add middleware dengan opsi"""
+        self.middlewares.append({
+            'func': middleware,
+            'options': options
+        })
+    
+    def execute(self, **context):
+        """Execute middleware chain"""
+        def next_middleware(index=0):
+            if index < len(self.middlewares):
+                middleware = self.middlewares[index]
+                try:
+                    middleware['func'](context, lambda: next_middleware(index + 1), **middleware['options'])
+                except Exception as e:
+                    print(f"Middleware error: {e}")
+            else:
+                print("All middlewares executed successfully")
+        
+        next_middleware()
 
-# File run.py
-from app import create_app
+# Contoh middleware
+def auth_middleware(context, next_func, **options):
+    required_role = options.get('role', 'user')
+    user_role = context.get('user_role', 'guest')
+    
+    if user_role == required_role or user_role == 'admin':
+        print(f"Auth passed for role: {user_role}")
+        next_func()
+    else:
+        print(f"Auth failed: required {required_role}, got {user_role}")
 
-app = create_app()
+def logging_middleware(context, next_func, **options):
+    action = context.get('action', 'unknown')
+    print(f"LOG: Executing {action}")
+    next_func()
+    print(f"LOG: Completed {action}")
 
-if __name__ == '__main__':
-    app.run(debug=True)</code></pre>
+def rate_limit_middleware(context, next_func, **options):
+    max_requests = options.get('max_requests', 10)
+    current_requests = context.get('request_count', 0)
+    
+    if current_requests < max_requests:
+        print(f"Rate limit OK: {current_requests}/{max_requests}")
+        next_func()
+    else:
+        print("Rate limit exceeded")
+
+# Setup middleware chain
+chain = MiddlewareChain()
+chain.use(logging_middleware)
+chain.use(auth_middleware, role='admin')
+chain.use(rate_limit_middleware, max_requests=5)
+
+# Execute dengan context berbeda
+chain.execute(action='delete_user', user_role='admin', request_count=3)
+chain.execute(action='view_dashboard', user_role='user', request_count=2)</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">8️⃣ Latihan Praktis</h4>
-                    <p class="text-gray-600 mb-4">Buat aplikasi Flask sederhana dengan routing dan templates.</p>
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ **kwargs untuk Configuration Management</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan **kwargs untuk mengelola konfigurasi aplikasi yang fleksibel.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Configuration class dengan **kwargs
+class AppConfig:
+    def __init__(self, **kwargs):
+        # Default configurations
+        self.defaults = {
+            'debug': False,
+            'host': 'localhost',
+            'port': 5000,
+            'database_url': 'sqlite:///app.db',
+            'session_timeout': 3600,
+            'max_connections': 10,
+            'log_level': 'INFO'
+        }
+        
+        # Update dengan kwargs
+        self.config = self.defaults.copy()
+        self.config.update(kwargs)
+    
+    def get(self, key, default=None):
+        """Get configuration value"""
+        return self.config.get(key, default)
+    
+    def set(self, key, value):
+        """Set configuration value"""
+        self.config[key] = value
+    
+    def update(self, **kwargs):
+        """Update multiple configurations"""
+        self.config.update(kwargs)
+    
+    def __getitem__(self, key):
+        return self.config[key]
+    
+    def __setitem__(self, key, value):
+        self.config[key] = value
+    
+    def __repr__(self):
+        return f"AppConfig({self.config})"
+
+# Contoh penggunaan
+config = AppConfig(debug=True, host='0.0.0.0', port=8080, max_connections=20)
+
+print(f"Debug mode: {config.get('debug')}")
+print(f"Host: {config['host']}")
+print(f"Database URL: {config.get('database_url')}")
+
+# Update konfigurasi
+config.update(log_level='DEBUG', session_timeout=7200)
+config.set('max_connections', 50)
+
+print(f"Updated config: {config}")
+
+# **kwargs untuk environment-based config
+def load_config_from_env(**overrides):
+    """Load configuration from environment variables dengan overrides"""
+    import os
+    
+    config = {
+        'debug': os.getenv('DEBUG', 'False').lower() == 'true',
+        'host': os.getenv('HOST', 'localhost'),
+        'port': int(os.getenv('PORT', '5000')),
+        'database_url': os.getenv('DATABASE_URL', 'sqlite:///app.db'),
+        'secret_key': os.getenv('SECRET_KEY', 'dev-secret-key'),
+        'api_key': os.getenv('API_KEY'),
+        'redis_url': os.getenv('REDIS_URL')
+    }
+    
+    # Override dengan kwargs
+    config.update({k: v for k, v in overrides.items() if v is not None})
+    
+    return AppConfig(**config)
+
+# Contoh loading config
+app_config = load_config_from_env(debug=True, port=3000)
+print(f"Loaded config: {app_config}")
+
+# **kwargs untuk nested configurations
+class DatabaseConfig:
+    def __init__(self, **kwargs):
+        self.host = kwargs.get('host', 'localhost')
+        self.port = kwargs.get('port', 5432)
+        self.database = kwargs.get('database', 'app')
+        self.user = kwargs.get('user', 'app_user')
+        self.password = kwargs.get('password', '')
+        self.pool_size = kwargs.get('pool_size', 10)
+        self.ssl_mode = kwargs.get('ssl_mode', 'prefer')
+        self.connection_timeout = kwargs.get('connection_timeout', 30)
+    
+    def get_connection_string(self):
+        return f"postgresql://{self.user}:{self.password}@{self.host}:{self.port}/{self.database}"
+
+class CacheConfig:
+    def __init__(self, **kwargs):
+        self.host = kwargs.get('host', 'localhost')
+        self.port = kwargs.get('port', 6379)
+        self.db = kwargs.get('db', 0)
+        self.password = kwargs.get('password')
+        self.max_connections = kwargs.get('max_connections', 20)
+    
+    def get_connection_string(self):
+        auth = f":{self.password}@" if self.password else ""
+        return f"redis://{auth}{self.host}:{self.port}/{self.db}"
+
+class AppConfigAdvanced:
+    def __init__(self, **kwargs):
+        self.app = AppConfig(**kwargs.get('app', {}))
+        self.database = DatabaseConfig(**kwargs.get('database', {}))
+        self.cache = CacheConfig(**kwargs.get('cache', {}))
+        self.features = kwargs.get('features', {})
+    
+    def __repr__(self):
+        return f"AppConfigAdvanced(app={self.app}, database={self.database}, cache={self.cache})"
+
+# Contoh nested config
+advanced_config = AppConfigAdvanced(
+    app={'debug': True, 'host': '0.0.0.0'},
+    database={'host': 'db.example.com', 'user': 'app', 'password': 'secret'},
+    cache={'host': 'redis.example.com', 'password': 'redis_pass'},
+    features={'notifications': True, 'analytics': False}
+)
+
+print(f"Database connection: {advanced_config.database.get_connection_string()}")
+print(f"Cache connection: {advanced_config.cache.get_connection_string()}")
+
+# **kwargs untuk feature flags
+class FeatureFlags:
+    def __init__(self, **kwargs):
+        self.flags = {
+            'new_ui': False,
+            'beta_features': False,
+            'analytics': True,
+            'notifications': True,
+            'dark_mode': False,
+            'api_v2': False
+        }
+        self.flags.update(kwargs)
+    
+    def is_enabled(self, feature):
+        return self.flags.get(feature, False)
+    
+    def enable(self, feature):
+        self.flags[feature] = True
+    
+    def disable(self, feature):
+        self.flags[feature] = False
+    
+    def toggle(self, feature):
+        self.flags[feature] = not self.flags.get(feature, False)
+    
+    def __repr__(self):
+        return f"FeatureFlags({self.flags})"
+
+# Contoh feature flags
+features = FeatureFlags(new_ui=True, beta_features=True, dark_mode=True)
+
+print(f"New UI enabled: {features.is_enabled('new_ui')}")
+print(f"Analytics enabled: {features.is_enabled('analytics')}")
+
+features.disable('notifications')
+print(f"Features after disable: {features}")</code></pre>
+                    </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">9️⃣ Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/Z1RJmh_OqeA" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ **kwargs untuk API Clients dan Data Processing</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan **kwargs untuk membuat API clients yang fleksibel dan pemrosesan data.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># **kwargs untuk HTTP API client
+class APIClient:
+    def __init__(self, base_url, **defaults):
+        self.base_url = base_url.rstrip('/')
+        self.defaults = {
+            'timeout': 30,
+            'headers': {'Content-Type': 'application/json'},
+            'auth': None,
+            'verify_ssl': True
+        }
+        self.defaults.update(defaults)
+    
+    def request(self, method, endpoint, **kwargs):
+        """Make HTTP request dengan **kwargs untuk fleksibilitas"""
+        import requests
+        
+        # Merge defaults dengan kwargs
+        config = self.defaults.copy()
+        config.update(kwargs)
+        
+        url = f"{self.base_url}/{endpoint.lstrip('/')}"
+        
+        # Prepare request parameters
+        request_kwargs = {
+            'method': method.upper(),
+            'url': url,
+            'timeout': config['timeout'],
+            'headers': config['headers'].copy(),
+            'verify': config['verify_ssl']
+        }
+        
+        # Add auth if provided
+        if config['auth']:
+            request_kwargs['auth'] = config['auth']
+        
+        # Add data/payload
+        if 'data' in config:
+            if isinstance(config['data'], dict):
+                import json
+                request_kwargs['data'] = json.dumps(config['data'])
+            else:
+                request_kwargs['data'] = config['data']
+        
+        if 'json' in config:
+            request_kwargs['json'] = config['json']
+        
+        if 'params' in config:
+            request_kwargs['params'] = config['params']
+        
+        if 'files' in config:
+            request_kwargs['files'] = config['files']
+        
+        # Update headers if provided
+        if 'extra_headers' in config:
+            request_kwargs['headers'].update(config['extra_headers'])
+        
+        print(f"Making {method.upper()} request to {url}")
+        # return requests.request(**request_kwargs)  # Uncomment untuk implementasi nyata
+        
+        return {"status": "success", "method": method, "url": url, "config": config}
+
+# Contoh penggunaan API client
+api = APIClient('https://api.example.com', timeout=60, headers={'Authorization': 'Bearer token123'})
+
+# GET request
+response = api.request('GET', '/users', params={'page': 1, 'limit': 10})
+
+# POST request dengan data
+response = api.request('POST', '/users', json={'name': 'John', 'email': 'john@example.com'})
+
+# PUT request dengan custom headers
+response = api.request('PUT', '/users/123', 
+                      json={'name': 'John Updated'}, 
+                      extra_headers={'X-API-Version': 'v2'})
+
+# **kwargs untuk data processing pipeline
+class DataProcessor:
+    def __init__(self):
+        self.steps = []
+    
+    def add_step(self, func, **options):
+        """Add processing step dengan opsi"""
+        self.steps.append({
+            'func': func,
+            'options': options
+        })
+    
+    def process(self, data, **context):
+        """Process data melalui pipeline"""
+        result = data
+        for step in self.steps:
+            try:
+                result = step['func'](result, **step['options'], **context)
+            except Exception as e:
+                print(f"Error in processing step: {e}")
+                if not step['options'].get('continue_on_error', False):
+                    raise
+        return result
+
+# Contoh data processing functions
+def validate_data(data, **options):
+    """Validate data structure"""
+    required_fields = options.get('required_fields', [])
+    for field in required_fields:
+        if field not in data:
+            raise ValueError(f"Missing required field: {field}")
+    return data
+
+def clean_data(data, **options):
+    """Clean and normalize data"""
+    strip_strings = options.get('strip_strings', True)
+    lowercase_keys = options.get('lowercase_keys', False)
+    
+    if isinstance(data, dict):
+        cleaned = {}
+        for key, value in data.items():
+            new_key = key.lower() if lowercase_keys else key
+            if isinstance(value, str) and strip_strings:
+                cleaned[new_key] = value.strip()
+            else:
+                cleaned[new_key] = value
+        return cleaned
+    return data
+
+def enrich_data(data, **options):
+    """Enrich data dengan additional fields"""
+    enrichments = options.get('enrichments', {})
+    enriched = data.copy()
+    enriched.update(enrichments)
+    return enriched
+
+# Contoh penggunaan data processor
+processor = DataProcessor()
+
+processor.add_step(validate_data, required_fields=['name', 'email'])
+processor.add_step(clean_data, strip_strings=True, lowercase_keys=True)
+processor.add_step(enrich_data, enrichments={'processed_at': '2023-12-01', 'source': 'api'})
+
+# Process sample data
+sample_data = {'Name': '  John Doe  ', 'Email': ' john@example.com ', 'Age': 30}
+
+try:
+    processed = processor.process(sample_data)
+    print("Processed data:", processed)
+except ValueError as e:
+    print(f"Validation error: {e}")
+
+# **kwargs untuk data transformation
+def transform_data(data, **transformations):
+    """Transform data berdasarkan aturan yang diberikan"""
+    result = data.copy() if isinstance(data, dict) else {'value': data}
+    
+    for key, transformation in transformations.items():
+        if callable(transformation):
+            if key in result:
+                result[key] = transformation(result[key])
+        elif isinstance(transformation, dict):
+            # Nested transformation
+            if key in result and isinstance(result[key], dict):
+                result[key] = transform_data(result[key], **transformation)
+        else:
+            # Direct value replacement
+            result[key] = transformation
+    
+    return result
+
+# Contoh transformations
+def uppercase(value):
+    return str(value).upper()
+
+def add_prefix(prefix):
+    return lambda value: f"{prefix}{value}"
+
+# Contoh penggunaan
+data = {
+    'name': 'john doe',
+    'email': 'john@example.com',
+    'profile': {
+        'age': 30,
+        'city': 'jakarta'
+    }
+}
+
+transformed = transform_data(data,
+    name=uppercase,
+    email=add_prefix('mailto:'),
+    profile={
+        'city': uppercase
+    },
+    status='active'  # Direct value
+)
+
+print("Transformed data:", transformed)
+
+# **kwargs untuk batch processing
+def batch_process(items, batch_size=10, **processing_options):
+    """Process items in batches dengan opsi"""
+    batches = []
+    
+    for i in range(0, len(items), batch_size):
+        batch = items[i:i + batch_size]
+        batches.append(batch)
+    
+    results = []
+    for batch in batches:
+        # Simulate processing dengan opsi
+        processed_batch = []
+        for item in batch:
+            # Apply processing options
+            processed_item = item.copy() if isinstance(item, dict) else item
+            
+            if processing_options.get('add_timestamp', False):
+                import datetime
+                processed_item['processed_at'] = datetime.datetime.now().isoformat()
+            
+            if 'transform' in processing_options:
+                processed_item = processing_options['transform'](processed_item)
+            
+            processed_batch.append(processed_item)
+        
+        results.extend(processed_batch)
+    
+    return results
+
+# Contoh batch processing
+items = [
+    {'id': 1, 'name': 'Item 1'},
+    {'id': 2, 'name': 'Item 2'},
+    {'id': 3, 'name': 'Item 3'},
+    {'id': 4, 'name': 'Item 4'},
+    {'id': 5, 'name': 'Item 5'}
+]
+
+processed_items = batch_process(items, batch_size=2, add_timestamp=True)
+
+for item in processed_items:
+    print(item)</code></pre>
+                    </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">🔟 Kuis Interaktif</h4>
+                    <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/gyO6OzzMtJs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif **kwargs</h4>
                     <div class="space-y-4">
                         <div>
-                            <p class="font-medium mb-2">1. Method apa yang digunakan untuk mendefinisikan route di Flask?</p>
+                            <p class="font-medium mb-2">1. Apa fungsi utama **kwargs dalam Python?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="a" class="mr-2">
-                                    <span>@app.route()</span>
+                                    <span>Menerima argumen positional variabel</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="b" class="mr-2">
-                                    <span>@app.url()</span>
+                                    <span>Menerima argumen keyword variabel</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="c" class="mr-2">
-                                    <span>@app.path()</span>
+                                    <span>Mengembalikan nilai dari fungsi</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <p class="font-medium mb-2">2. Template engine apa yang digunakan Flask secara default?</p>
+                            <p class="font-medium mb-2">2. Bagaimana cara mengakses nilai dari **kwargs di dalam fungsi?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="a" class="mr-2">
-                                    <span>Django Templates</span>
+                                    <span>Menggunakan kwargs['key']</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="b" class="mr-2">
-                                    <span>Jinja2</span>
+                                    <span>Menggunakan kwargs.key</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="c" class="mr-2">
-                                    <span>Mako</span>
+                                    <span>Menggunakan kwargs.get('key')</span>
                                 </label>
                             </div>
                         </div>
-                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div>
+                            <p class="font-medium mb-2">3. Mana yang benar tentang **kwargs?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="a" class="mr-2">
+                                    <span>**kwargs harus selalu ditempatkan sebelum *args</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="b" class="mr-2">
+                                    <span>**kwargs harus selalu ditempatkan setelah *args</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="c" class="mr-2">
+                                    <span>**kwargs bisa ditempatkan di posisi manapun</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">4. Apa tipe data dari **kwargs di dalam fungsi?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q4" value="a" class="mr-2">
+                                    <span>List</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q4" value="b" class="mr-2">
+                                    <span>Tuple</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q4" value="c" class="mr-2">
+                                    <span>Dictionary</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">5. Mana yang merupakan penggunaan yang tepat untuk **kwargs?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q5" value="a" class="mr-2">
+                                    <span>def func(**kwargs): pass</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q5" value="b" class="mr-2">
+                                    <span>def func(*kwargs): pass</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q5" value="c" class="mr-2">
+                                    <span>def func(&kwargs): pass</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkKwargsQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
                         <div id="quiz-result" class="mt-4"></div>
                     </div>
                 </div>

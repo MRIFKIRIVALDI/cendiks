@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 35: Pengenalan File I/O di Python - Cendiks</title>
+    <title>Sesi 35: Import Statement - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 35: Pengenalan File I/O di Python</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara membaca dan menulis file</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 35: Import Statement</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara mengimpor modul dan package dalam Python</p>
         </div>
     </section>
 
@@ -39,371 +39,215 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Membuka dan Menutup File</h4>
-                    <p class="text-gray-600 mb-4">Fungsi open() dan close() untuk file handling.</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Import Statement?</h4>
+                    <p class="text-gray-600 mb-4">Import: panggil teman-teman superpower dari luar! 🦸‍♂️✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Membuka file
-file = open("contoh.txt", "r")  # mode read
-print("File berhasil dibuka")
+                        <pre><code>import math
+print(math.sqrt(16))  # 4.0
 
-# Menutup file
-file.close()
-print("File berhasil ditutup")
+import math as m
+print(m.pi)  # 3.14...
 
-# Menggunakan with statement (recommended)
-with open("contoh.txt", "r") as file:
-    print("File dibuka dengan with statement")
-    # File akan otomatis ditutup di sini
-
-print("File otomatis ditutup")</code></pre>
+from math import sqrt
+print(sqrt(25))  # 5.0</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ Mode File</h4>
-                    <p class="text-gray-600 mb-4">Berbagai mode untuk membuka file.</p>
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Membuat Modul Sendiri</h4>
+                    <p class="text-gray-600 mb-4">Buat modul sendiri: kotak ajaib kode reusable! 📦✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Mode-mode file:
-# "r"  - Read (default) - baca file
-# "w"  - Write - tulis file (overwrite jika ada)
-# "a"  - Append - tambah ke akhir file
-# "x"  - Create - buat file baru (error jika sudah ada)
-# "r+" - Read + Write
-# "w+" - Write + Read (overwrite)
-# "a+" - Append + Read
+                        <pre><code># File: kalkulator.py
+def tambah(a, b):
+    return a + b
 
-# Text mode (default)
-with open("file.txt", "r") as f:
-    pass
+PI = 3.14159
 
-# Binary mode
-with open("file.jpg", "rb") as f:
-    pass
+# File: main.py
+import kalkulator
+print(kalkulator.tambah(5, 3))  # 8
 
-# Specify encoding
-with open("file.txt", "r", encoding="utf-8") as f:
-    pass</code></pre>
+from kalkulator import PI
+print(PI)  # 3.14159</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">3️⃣ Membaca File</h4>
-                    <p class="text-gray-600 mb-4">Berbagai cara membaca isi file.</p>
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Package dan Submodul</h4>
+                    <p class="text-gray-600 mb-4">Package: rumah besar untuk modul-modul! 🏠📚</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Membuat file contoh terlebih dahulu
-with open("contoh.txt", "w") as f:
-    f.write("Baris pertama\n")
-    f.write("Baris kedua\n")
-    f.write("Baris ketiga\n")
+                        <pre><code># mypackage/matematika/aritmatika.py
+def tambah(a, b):
+    return a + b
 
-# 1. Membaca seluruh file
-with open("contoh.txt", "r") as file:
-    isi = file.read()
-    print("Seluruh isi file:")
-    print(repr(isi))
-
-# 2. Membaca per baris
-with open("contoh.txt", "r") as file:
-    print("\nMembaca per baris:")
-    for baris in file:
-        print(repr(baris))
-
-# 3. Membaca semua baris ke list
-with open("contoh.txt", "r") as file:
-    baris_list = file.readlines()
-    print("\nList baris:")
-    print(baris_list)
-
-# 4. Membaca baris tertentu
-with open("contoh.txt", "r") as file:
-    baris_pertama = file.readline()
-    baris_kedua = file.readline()
-    print(f"\nBaris pertama: {repr(baris_pertama)}")
-    print(f"Baris kedua: {repr(baris_kedua)}")</code></pre>
+# main.py
+from mypackage.matematika import aritmatika
+print(aritmatika.tambah(5, 3))  # 8</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">4️⃣ Menulis File</h4>
-                    <p class="text-gray-600 mb-4">Menulis teks ke file.</p>
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Import dengan from</h4>
+                    <p class="text-gray-600 mb-4">From: ambil langsung yang dibutuhkan! 🎯✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># 1. Menulis file (mode "w")
-with open("output.txt", "w") as file:
-    file.write("Ini adalah baris pertama\n")
-    file.write("Ini adalah baris kedua\n")
-    file.write("Ini adalah baris ketiga\n")
+                        <pre><code>from math import sqrt, pi
+print(sqrt(16))  # 4.0
+print(pi)        # 3.14...
 
-# 2. Menambahkan ke file (mode "a")
-with open("output.txt", "a") as file:
-    file.write("Ini adalah baris tambahan\n")
+from math import sqrt as akar
+print(akar(25))  # 5.0
 
-# 3. Menulis list ke file
-data = ["Alice", "Bob", "Charlie", "David"]
-with open("nama.txt", "w") as file:
-    for nama in data:
-        file.write(nama + "\n")
-
-# 4. Menggunakan writelines()
-data2 = ["Python\n", "Java\n", "JavaScript\n"]
-with open("bahasa.txt", "w") as file:
-    file.writelines(data2)</code></pre>
+from datetime import datetime
+print(datetime.now())</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">5️⃣ File Position</h4>
-                    <p class="text-gray-600 mb-4">tell() dan seek() untuk navigasi posisi file.</p>
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ sys.path dan Module Search Path</h4>
+                    <p class="text-gray-600 mb-4">Python cari modul di mana? Di sys.path! 🗺️🔍</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>with open("contoh.txt", "r") as file:
-    # Posisi awal
-    print(f"Posisi awal: {file.tell()}")
+                        <pre><code>import sys
+print(sys.path)  # List path pencarian
 
-    # Membaca beberapa karakter
-    data = file.read(10)
-    print(f"Data: {repr(data)}")
-    print(f"Posisi setelah baca: {file.tell()}")
+sys.path.append("/my/custom/path")
 
-    # Pindah ke posisi tertentu
-    file.seek(0)  # Kembali ke awal
-    print(f"Posisi setelah seek(0): {file.tell()}")
-
-    # Seek dari akhir file
-    file.seek(-10, 2)  # 10 karakter dari akhir
-    data_akhir = file.read()
-    print(f"10 karakter terakhir: {repr(data_akhir)}")
-
-    # Seek relatif dari posisi saat ini
-    file.seek(5, 1)  # 5 karakter maju dari posisi saat ini
-    data_relatif = file.read(5)
-    print(f"Data relatif: {repr(data_relatif)}")</code></pre>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">6️⃣ Error Handling</h4>
-                    <p class="text-gray-600 mb-4">Menangani error saat bekerja dengan file.</p>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>def baca_file(nama_file):
-    try:
-        with open(nama_file, "r") as file:
-            return file.read()
-    except FileNotFoundError:
-        print(f"Error: File '{nama_file}' tidak ditemukan")
-        return None
-    except PermissionError:
-        print(f"Error: Tidak ada izin untuk membaca '{nama_file}'")
-        return None
-    except Exception as e:
-        print(f"Error tidak terduga: {e}")
-        return None
-
-# Menggunakan fungsi
-isi = baca_file("contoh.txt")
-if isi:
-    print("Isi file:")
-    print(isi)
-
-isi2 = baca_file("file_tidak_ada.txt")  # Akan menampilkan error
-
-# Cek apakah file ada sebelum membuka
 import os
-if os.path.exists("contoh.txt"):
-    print("File ada, bisa dibuka")
-else:
-    print("File tidak ada")
-
-# Cek apakah bisa ditulis
-if os.access("contoh.txt", os.W_OK):
-    print("File bisa ditulis")
-else:
-    print("File tidak bisa ditulis")</code></pre>
+print(os.getcwd())  # Direktori saat ini</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">7️⃣ Bekerja dengan Path</h4>
-                    <p class="text-gray-600 mb-4">Menggunakan os.path dan pathlib.</p>
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Relatif Import</h4>
+                    <p class="text-gray-600 mb-4">Relatif import: panggil saudara dalam package! 👨‍👩‍👧‍👦✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Dalam package myapp/utils/validators.py
+from .helpers import format_name  # Import dari saudara
+
+# Dalam package myapp/main.py
+from utils.validators import validate_name</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Built-in Modules</h4>
+                    <p class="text-gray-600 mb-4">Modul bawaan Python: toolkit siap pakai! 🧰✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import os
-from pathlib import Path
+print(os.getcwd())  # Direktori saat ini
 
-# Menggunakan os.path
-nama_file = "data/contoh.txt"
+import sys
+print(sys.version)  # Versi Python
 
-# Mendapatkan direktori
-direktori = os.path.dirname(nama_file)
-print(f"Direktori: {direktori}")
+import json
+data = {"nama": "Alice"}
+print(json.dumps(data))  # {"nama": "Alice"}
 
-# Mendapatkan nama file
-nama = os.path.basename(nama_file)
-print(f"Nama file: {nama}")
-
-# Gabung path
-path_lengkap = os.path.join("folder", "subfolder", "file.txt")
-print(f"Path lengkap: {path_lengkap}")
-
-# Normalisasi path
-path = "folder/../data/./file.txt"
-normalized = os.path.normpath(path)
-print(f"Path normalized: {normalized}")
-
-# Menggunakan pathlib (Python 3.4+)
-path_obj = Path("data/contoh.txt")
-print(f"Parent: {path_obj.parent}")
-print(f"Name: {path_obj.name}")
-print(f"Suffix: {path_obj.suffix}")
-
-# Operasi path dengan pathlib
-new_path = path_obj.with_suffix(".bak")
-print(f"New path: {new_path}")
-
-# Cek apakah file ada
-if path_obj.exists():
-    print("File ada")
-else:
-    print("File tidak ada")</code></pre>
+import random
+print(random.randint(1, 10))  # Angka acak</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Penggunaan</h4>
-                    <p class="text-gray-600 mb-4">Program sederhana untuk mengelola daftar tugas.</p>
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Error Handling dalam Import</h4>
+                    <p class="text-gray-600 mb-4">Import gagal? Tangani dengan try-except! 🛡️✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>def load_tasks(filename="tasks.txt"):
-    """Memuat daftar tugas dari file"""
-    try:
-        with open(filename, "r") as file:
-            tasks = [line.strip() for line in file if line.strip()]
-        return tasks
-    except FileNotFoundError:
-        return []
+                        <pre><code>try:
+    import some_module
+    print("Berhasil!")
+except ImportError:
+    print("Module tidak ada")
 
-def save_tasks(tasks, filename="tasks.txt"):
-    """Menyimpan daftar tugas ke file"""
-    with open(filename, "w") as file:
-        for task in tasks:
-            file.write(task + "\n")
+# Fallback import
+try:
+    import ujson as json
+except ImportError:
+    import json
 
-def add_task(tasks, task):
-    """Menambah tugas baru"""
-    tasks.append(task)
-    print(f"Tugas '{task}' ditambahkan")
-
-def remove_task(tasks, index):
-    """Menghapus tugas berdasarkan index"""
-    if 0 <= index < len(tasks):
-        removed = tasks.pop(index)
-        print(f"Tugas '{removed}' dihapus")
-        return True
-    else:
-        print("Index tidak valid")
-        return False
-
-def show_tasks(tasks):
-    """Menampilkan semua tugas"""
-    if not tasks:
-        print("Tidak ada tugas")
-        return
-
-    print("Daftar Tugas:")
-    for i, task in enumerate(tasks, 1):
-        print(f"{i}. {task}")
-
-def main():
-    tasks = load_tasks()
-
-    while True:
-        print("\n=== APLIKASI DAFTAR TUGAS ===")
-        print("1. Tampilkan tugas")
-        print("2. Tambah tugas")
-        print("3. Hapus tugas")
-        print("4. Simpan dan keluar")
-
-        try:
-            pilihan = input("Pilih menu (1-4): ")
-
-            if pilihan == "1":
-                show_tasks(tasks)
-            elif pilihan == "2":
-                task = input("Masukkan tugas baru: ")
-                if task.strip():
-                    add_task(tasks, task.strip())
-                else:
-                    print("Tugas tidak boleh kosong")
-            elif pilihan == "3":
-                show_tasks(tasks)
-                if tasks:
-                    index = int(input("Masukkan nomor tugas yang akan dihapus: ")) - 1
-                    remove_task(tasks, index)
-            elif pilihan == "4":
-                save_tasks(tasks)
-                print("Tugas disimpan. Terima kasih!")
-                break
-            else:
-                print("Pilihan tidak valid")
-
-        except ValueError:
-            print("Masukkan angka yang valid")
-        except KeyboardInterrupt:
-            save_tasks(tasks)
-            print("\nProgram dihentikan. Tugas disimpan.")
-            break
-
-if __name__ == "__main__":
-    main()</code></pre>
+print(json.loads('{"ok": true}'))</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">9️⃣ Latihan Praktis</h4>
-                    <p class="text-gray-600 mb-4">Buat program yang dapat membaca dan menulis file.</p>
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Best Practices Import</h4>
+                    <p class="text-gray-600 mb-4">Import rapi: kode bersih, mudah baca! 📋✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># ✅ Import di atas file
+import os
+import sys
+from datetime import datetime
+
+# ❌ Jangan: from math import *
+# ✅ Baik: from math import sqrt, pi
+
+# Import dalam fungsi untuk optional
+def process_image():
+    try:
+        from PIL import Image
+        # Process...
+    except ImportError:
+        print("PIL needed")</code></pre>
+                    </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/Uh2ebFW8OYM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/Z0hbtSr-Oaw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
                 </div>
 
+                <!-- Quiz Section -->
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif</h4>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif: Import Statement</h4>
+                    <p class="text-gray-600 mb-4">Uji pemahaman Anda tentang import statement dalam Python!</p>
+
                     <div class="space-y-4">
                         <div>
-                            <p class="font-medium mb-2">1. Mode file apa yang digunakan untuk menambahkan data ke akhir file?</p>
-                            <div class="space-y-2">
-                                <label class="flex items-center">
-                                    <input type="radio" name="q1" value="a" class="mr-2">
-                                    <span>"r"</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="radio" name="q1" value="b" class="mr-2">
-                                    <span>"w"</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="radio" name="q1" value="c" class="mr-2">
-                                    <span>"a"</span>
-                                </label>
+                            <p class="font-semibold">1. Statement yang benar untuk import modul math adalah:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q1" value="a"> a) import math as m</label><br>
+                                <label><input type="radio" name="q1" value="b"> b) from math import *</label><br>
+                                <label><input type="radio" name="q1" value="c"> c) import math</label>
                             </div>
                         </div>
+
                         <div>
-                            <p class="font-medium mb-2">2. Method apa yang digunakan untuk membaca seluruh isi file sekaligus?</p>
-                            <div class="space-y-2">
-                                <label class="flex items-center">
-                                    <input type="radio" name="q2" value="a" class="mr-2">
-                                    <span>readline()</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="radio" name="q2" value="b" class="mr-2">
-                                    <span>read()</span>
-                                </label>
-                                <label class="flex items-center">
-                                    <input type="radio" name="q2" value="c" class="mr-2">
-                                    <span>readlines()</span>
-                                </label>
+                            <p class="font-semibold">2. Untuk import spesifik dari modul, kita menggunakan:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q2" value="a"> a) import modul</label><br>
+                                <label><input type="radio" name="q2" value="b"> b) from modul import fungsi</label><br>
+                                <label><input type="radio" name="q2" value="c"> c) import modul.fungsi</label>
                             </div>
                         </div>
-                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
-                        <div id="quiz-result" class="mt-4"></div>
+
+                        <div>
+                            <p class="font-semibold">3. Import relatif menggunakan notasi:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q3" value="a"> a) from .modul import fungsi</label><br>
+                                <label><input type="radio" name="q3" value="b"> b) import .modul</label><br>
+                                <label><input type="radio" name="q3" value="c"> c) from modul import .fungsi</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold">4. sys.path berisi:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q4" value="a"> a) Daftar modul yang sudah di-import</label><br>
+                                <label><input type="radio" name="q4" value="b"> b) Path pencarian modul Python</label><br>
+                                <label><input type="radio" name="q4" value="c"> c) Daftar fungsi built-in</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold">5. Praktik terbaik import adalah:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q5" value="a"> a) Import di dalam fungsi</label><br>
+                                <label><input type="radio" name="q5" value="b"> b) Import di atas file dengan grouping</label><br>
+                                <label><input type="radio" name="q5" value="c"> c) Menggunakan from modul import * selalu</label>
+                            </div>
+                        </div>
                     </div>
+
+                    <button onclick="checkImportQuiz()" class="mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                    <div id="quiz-result" class="mt-4"></div>
                 </div>
             </div>
         </div>

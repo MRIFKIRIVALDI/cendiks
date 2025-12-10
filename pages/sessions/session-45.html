@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 45: Deep Learning dengan TensorFlow - Cendiks</title>
+    <title>Sesi 45: Write External File - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 45: Deep Learning dengan TensorFlow</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari neural networks dan deep learning menggunakan TensorFlow</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 45: Write External File</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara menulis data ke file eksternal menggunakan berbagai teknik Python</p>
         </div>
     </section>
 
@@ -39,379 +39,599 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Pengenalan Deep Learning</h4>
-                    <p class="text-gray-600 mb-4">Memahami konsep dasar neural networks dan deep learning.</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Pengenalan File Writing</h4>
+                    <p class="text-gray-600 mb-4">Memahami cara menulis data ke file eksternal menggunakan Python.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Deep Learning adalah subbidang Machine Learning
-# yang menggunakan neural networks dengan banyak layer
+                        <pre><code># File writing adalah proses menyimpan data ke file eksternal
+# Mengapa penting?
+# - Menyimpan data secara permanen
+# - Membuat laporan dan log
+# - Export data untuk aplikasi lain
+# - Backup data penting
+# - Membuat file konfigurasi
 
-# Instalasi TensorFlow
-# pip install tensorflow
+# Mode writing yang tersedia:
+# 'w'  - Write (menimpa file jika ada)
+# 'a'  - Append (menambah ke file yang ada)
+# 'x'  - Create (error jika file sudah ada)
+# 'w+' - Write + Read
+# 'a+' - Append + Read
 
-import tensorflow as tf
-import numpy as np
-import matplotlib.pyplot as plt
+# Contoh dasar menulis file
+print("=== Menulis File Dasar ===")
 
-print("TensorFlow version:", tf.__version__)
+# Menggunakan mode 'w' (write)
+with open('output.txt', 'w', encoding='utf-8') as file:
+    file.write("Ini adalah baris pertama\n")
+    file.write("Ini adalah baris kedua\n")
+    file.write("Ini adalah baris ketiga\n")
 
-# Konsep Dasar Neural Network:
-# - Neuron: Unit komputasi dasar
-# - Layer: Kumpulan neuron
-# - Weight: Parameter yang dipelajari
-# - Bias: Offset untuk setiap neuron
-# - Activation Function: Fungsi non-linear
+print("File output.txt berhasil dibuat")
 
-# Contoh struktur neural network sederhana:
-# Input Layer (784 neurons untuk MNIST) -> Hidden Layer (128 neurons) -> Output Layer (10 neurons)
+# Menggunakan mode 'a' (append)
+with open('output.txt', 'a', encoding='utf-8') as file:
+    file.write("Baris yang ditambahkan\n")
+    file.write("Baris lagi yang ditambahkan\n")
 
-# Arsitektur Deep Learning:
-# 1. Feedforward Neural Networks (FNN)
-# 2. Convolutional Neural Networks (CNN) - untuk gambar
-# 3. Recurrent Neural Networks (RNN) - untuk sequence
-# 4. Transformer - untuk NLP
+print("Data berhasil ditambahkan ke file")
 
-# Keunggulan Deep Learning:
-# - Automatic feature extraction
-# - High accuracy untuk data kompleks
-# - Scalable untuk big data
-# - End-to-end learning
+# Membaca file yang sudah dibuat
+print("\nIsi file output.txt:")
+with open('output.txt', 'r', encoding='utf-8') as file:
+    print(file.read())
 
-# Tantangan:
-# - Membutuhkan banyak data
-# - Komputasi intensif
-# - Sulit diinterpretasikan (black box)
-# - Overfitting risk
+# Mode 'x' - create new file (akan error jika file sudah ada)
+print("\n=== Menggunakan Mode 'x' ===")
+try:
+    with open('new_file.txt', 'x', encoding='utf-8') as file:
+        file.write("File baru yang dibuat dengan mode 'x'\n")
+    print("File new_file.txt berhasil dibuat")
+except FileExistsError:
+    print("File sudah ada, tidak bisa menggunakan mode 'x'")
 
-print("\nDeep Learning Applications:")
-print("- Computer Vision: Image classification, object detection")
-print("- Natural Language Processing: Translation, sentiment analysis")
-print("- Speech Recognition: Voice assistants")
-print("- Recommendation Systems: Netflix, Amazon")
-print("- Medical Diagnosis: Cancer detection")
-print("- Autonomous Vehicles: Self-driving cars")</code></pre>
+# Mode 'w+' - write and read
+print("\n=== Mode 'w+' (Write + Read) ===")
+with open('rw_file.txt', 'w+', encoding='utf-8') as file:
+    # Menulis data
+    file.write("Baris pertama\n")
+    file.write("Baris kedua\n")
+
+    # Membaca data yang sudah ditulis
+    file.seek(0)  # Kembali ke awal file
+    content = file.read()
+    print("Isi file yang baru ditulis:")
+    print(content)
+
+print("File writing memungkinkan penyimpanan data permanen!")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ TensorFlow Fundamentals</h4>
-                    <p class="text-gray-600 mb-4">Dasar-dasar TensorFlow dan tensor operations.</p>
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Menulis Data Terstruktur</h4>
+                    <p class="text-gray-600 mb-4">Menulis data dalam format terstruktur seperti CSV, JSON, dan XML.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import tensorflow as tf
-import numpy as np
+                        <pre><code>import csv
+import json
+import xml.etree.ElementTree as ET
+from datetime import datetime
 
-print("=== TensorFlow Fundamentals ===")
+print("=== Menulis Data Terstruktur ===")
 
-# 1. Tensors - struktur data dasar di TensorFlow
-print("\n1. Tensors:")
+# 1. Menulis file CSV
+print("\n1. Menulis File CSV:")
+data = [
+    ['Nama', 'Umur', 'Kota'],
+    ['Alice', 25, 'Jakarta'],
+    ['Bob', 30, 'Bandung'],
+    ['Charlie', 35, 'Surabaya'],
+    ['Diana', 28, 'Yogyakarta']
+]
 
-# Scalar (0D tensor)
-scalar = tf.constant(5)
-print(f"Scalar: {scalar}")
-print(f"Shape: {scalar.shape}")
-print(f"Rank: {scalar.ndim}")
+with open('data.csv', 'w', newline='', encoding='utf-8') as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
 
-# Vector (1D tensor)
-vector = tf.constant([1, 2, 3, 4, 5])
-print(f"\nVector: {vector}")
-print(f"Shape: {vector.shape}")
-print(f"Rank: {vector.ndim}")
+print("File CSV berhasil dibuat")
 
-# Matrix (2D tensor)
-matrix = tf.constant([[1, 2, 3], [4, 5, 6]])
-print(f"\nMatrix: {matrix}")
-print(f"Shape: {matrix.shape}")
-print(f"Rank: {matrix.ndim}")
+# Membaca file CSV yang dibuat
+print("\nIsi file CSV:")
+with open('data.csv', 'r', encoding='utf-8') as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
 
-# 3D tensor
-tensor_3d = tf.constant([[[1, 2], [3, 4]], [[5, 6], [7, 8]]])
-print(f"\n3D Tensor: {tensor_3d}")
-print(f"Shape: {tensor_3d.shape}")
-print(f"Rank: {tensor_3d.ndim}")
+# 2. Menulis file JSON
+print("\n2. Menulis File JSON:")
+employee_data = {
+    "company": "PT. Tech Solutions",
+    "employees": [
+        {
+            "id": 1,
+            "name": "Alice Johnson",
+            "position": "Software Engineer",
+            "salary": 8500000,
+            "skills": ["Python", "JavaScript", "React"]
+        },
+        {
+            "id": 2,
+            "name": "Bob Smith",
+            "position": "Data Analyst",
+            "salary": 7500000,
+            "skills": ["Python", "SQL", "Tableau"]
+        },
+        {
+            "id": 3,
+            "name": "Charlie Brown",
+            "position": "Project Manager",
+            "salary": 9500000,
+            "skills": ["Agile", "Scrum", "Leadership"]
+        }
+    ],
+    "created_at": datetime.now().isoformat()
+}
 
-# 2. Tensor Operations
-print("\n2. Tensor Operations:")
+with open('employees.json', 'w', encoding='utf-8') as file:
+    json.dump(employee_data, file, indent=2, ensure_ascii=False)
 
-a = tf.constant([[1, 2], [3, 4]])
-b = tf.constant([[5, 6], [7, 8]])
+print("File JSON berhasil dibuat")
 
-print(f"a + b = {a + b}")
-print(f"a * b = {a * b}")  # Element-wise multiplication
-print(f"tf.matmul(a, b) = {tf.matmul(a, b)}")  # Matrix multiplication
+# Membaca file JSON
+print("\nIsi file JSON:")
+with open('employees.json', 'r', encoding='utf-8') as file:
+    data = json.load(file)
+    print(json.dumps(data, indent=2, ensure_ascii=False))
 
-# 3. Variables (trainable tensors)
-print("\n3. Variables:")
-variable = tf.Variable([[1, 2], [3, 4]])
-print(f"Variable: {variable}")
-print(f"Is trainable: {variable.trainable}")
+# 3. Menulis file XML
+print("\n3. Menulis File XML:")
 
-# Update variable
-variable.assign([[5, 6], [7, 8]])
-print(f"Updated variable: {variable}")
+# Membuat root element
+root = ET.Element("library")
 
-# 4. Automatic Differentiation
-print("\n4. Automatic Differentiation:")
+# Membuat sub-elements
+books = [
+    {"title": "Python Programming", "author": "John Doe", "year": "2023", "genre": "Programming"},
+    {"title": "Data Science Handbook", "author": "Jane Smith", "year": "2022", "genre": "Data Science"},
+    {"title": "Machine Learning Basics", "author": "Bob Johnson", "year": "2021", "genre": "AI"}
+]
 
-x = tf.Variable(3.0)
+for book in books:
+    book_elem = ET.SubElement(root, "book")
+    for key, value in book.items():
+        child = ET.SubElement(book_elem, key)
+        child.text = value
 
-with tf.GradientTape() as tape:
-    y = x**2
+# Menulis ke file XML
+tree = ET.ElementTree(root)
+tree.write('library.xml', encoding='utf-8', xml_declaration=True)
 
-dy_dx = tape.gradient(y, x)
-print(f"dy/dx at x=3: {dy_dx}")
+print("File XML berhasil dibuat")
 
-# 5. Common TensorFlow operations
-print("\n5. Common Operations:")
+# Membaca file XML
+print("\nIsi file XML:")
+tree = ET.parse('library.xml')
+root = tree.getroot()
 
-# Reshaping
-tensor = tf.constant([[1, 2, 3], [4, 5, 6]])
-reshaped = tf.reshape(tensor, [6])
-print(f"Original shape: {tensor.shape}")
-print(f"Reshaped: {reshaped}")
-print(f"New shape: {reshaped.shape}")
+for book in root:
+    print(f"Book: {book.find('title').text}")
+    print(f"Author: {book.find('author').text}")
+    print(f"Year: {book.find('year').text}")
+    print(f"Genre: {book.find('genre').text}")
+    print("-" * 30)
 
-# Slicing
-sliced = tensor[:, 1]  # Second column
-print(f"Sliced tensor: {sliced}")
-
-# Concatenation
-concatenated = tf.concat([tensor, tensor], axis=0)  # Concatenate along rows
-print(f"Concatenated shape: {concatenated.shape}")
-
-# Reduction operations
-sum_all = tf.reduce_sum(tensor)
-mean_all = tf.reduce_mean(tf.cast(tensor, tf.float32))
-max_val = tf.reduce_max(tensor)
-print(f"Sum: {sum_all}, Mean: {mean_all}, Max: {max_val}")</code></pre>
+print("Data terstruktur berhasil disimpan dalam berbagai format!")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">3️⃣ Membangun Neural Network Sederhana</h4>
-                    <p class="text-gray-600 mb-4">Implementasi feedforward neural network untuk klasifikasi.</p>
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Logging dan Error Handling</h4>
+                    <p class="text-gray-600 mb-4">Membuat sistem logging dan menangani error saat menulis file.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import tensorflow as tf
-import numpy as np
-import matplotlib.pyplot as plt
-from sklearn.datasets import make_classification
-from sklearn.model_selection import train_test_split
-from sklearn.preprocessing import StandardScaler
+                        <pre><code>import logging
+import os
+from datetime import datetime
+import traceback
 
-print("=== Building Simple Neural Network ===")
+print("=== Logging dan Error Handling ===")
 
-# 1. Generate synthetic dataset
-print("\n1. Dataset Preparation:")
-X, y = make_classification(
-    n_samples=1000,
-    n_features=20,
-    n_informative=10,
-    n_redundant=10,
-    n_classes=2,
-    random_state=42
+# 1. Setup logging
+print("\n1. Setup Logging System:")
+logging.basicConfig(
+    filename='file_operations.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
 )
 
-print(f"Dataset shape: {X.shape}")
-print(f"Number of classes: {len(np.unique(y))}")
+# Custom logger
+logger = logging.getLogger('FileWriter')
 
-# Split data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+# Handler untuk console output
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(levelname)s: %(message)s')
+console_handler.setFormatter(formatter)
+logger.addHandler(console_handler)
 
-# Standardize features
-scaler = StandardScaler()
-X_train_scaled = scaler.fit_transform(X_train)
-X_test_scaled = scaler.transform(X_test)
+print("Logging system berhasil diinisialisasi")
 
-print(f"Training set: {X_train_scaled.shape}")
-print(f"Test set: {X_test_scaled.shape}")
+# 2. Safe file writing function with error handling
+print("\n2. Safe File Writing Function:")
 
-# 2. Build Neural Network Model
-print("\n2. Building Neural Network:")
+def safe_write_file(filename, content, mode='w'):
+    """
+    Fungsi aman untuk menulis file dengan error handling
+    """
+    try:
+        # Buat direktori jika belum ada
+        directory = os.path.dirname(filename)
+        if directory and not os.path.exists(directory):
+            os.makedirs(directory)
+            logger.info(f"Direktori {directory} berhasil dibuat")
 
-model = tf.keras.Sequential([
-    # Input layer + First hidden layer
-    tf.keras.layers.Dense(64, activation='relu', input_shape=(20,)),
-    # Second hidden layer
-    tf.keras.layers.Dense(32, activation='relu'),
-    # Third hidden layer
-    tf.keras.layers.Dense(16, activation='relu'),
-    # Output layer (binary classification)
-    tf.keras.layers.Dense(1, activation='sigmoid')
-])
+        # Tulis file
+        with open(filename, mode, encoding='utf-8') as file:
+            if isinstance(content, list):
+                for line in content:
+                    file.write(str(line) + '\n')
+            else:
+                file.write(str(content))
 
-# Display model summary
-model.summary()
+        logger.info(f"File {filename} berhasil ditulis dengan mode '{mode}'")
+        return True
 
-# 3. Compile Model
-print("\n3. Compiling Model:")
-model.compile(
-    optimizer='adam',
-    loss='binary_crossentropy',
-    metrics=['accuracy']
-)
+    except PermissionError:
+        error_msg = f"Permission denied: Tidak ada izin untuk menulis file {filename}"
+        logger.error(error_msg)
+        print(f"Error: {error_msg}")
+        return False
 
-# 4. Train Model
-print("\n4. Training Model:")
-history = model.fit(
-    X_train_scaled, y_train,
-    epochs=50,
-    batch_size=32,
-    validation_split=0.2,
-    verbose=1
-)
+    except OSError as e:
+        error_msg = f"OS Error: {str(e)}"
+        logger.error(error_msg)
+        print(f"Error: {error_msg}")
+        return False
 
-# 5. Evaluate Model
-print("\n5. Model Evaluation:")
-test_loss, test_accuracy = model.evaluate(X_test_scaled, y_test, verbose=0)
-print(f"Test Loss: {test_loss:.4f}")
-print(f"Test Accuracy: {test_accuracy:.4f}")
+    except Exception as e:
+        error_msg = f"Unexpected error: {str(e)}"
+        logger.error(error_msg)
+        logger.error(traceback.format_exc())
+        print(f"Error: {error_msg}")
+        return False
 
-# 6. Make Predictions
-print("\n6. Making Predictions:")
-predictions = model.predict(X_test_scaled[:5])
-predicted_classes = (predictions > 0.5).astype(int).flatten()
+# 3. Test safe writing functions
+print("\n3. Testing Safe Writing:")
 
-print("First 5 predictions:")
-for i, (pred, actual) in enumerate(zip(predicted_classes, y_test[:5])):
-    print(f"Sample {i+1}: Predicted={pred}, Actual={actual}")
+# Test normal file writing
+success = safe_write_file('test_file.txt', 'Ini adalah test file')
+print(f"Normal write: {'Success' if success else 'Failed'}")
 
-# 7. Visualize Training History
-print("\n7. Training Visualization:")
+# Test writing list
+data_list = ['Baris 1', 'Baris 2', 'Baris 3', 'Baris 4']
+success = safe_write_file('list_data.txt', data_list)
+print(f"List write: {'Success' if success else 'Failed'}")
 
-plt.figure(figsize=(12, 4))
+# Test writing to subdirectory
+success = safe_write_file('logs/app_log.txt', f'Log entry at {datetime.now()}')
+print(f"Subdir write: {'Success' if success else 'Failed'}")
 
-# Plot accuracy
-plt.subplot(1, 2, 1)
-plt.plot(history.history['accuracy'], label='Training Accuracy')
-plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
-plt.title('Model Accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.legend()
+# Test append mode
+success = safe_write_file('test_file.txt', '\nBaris yang ditambahkan', mode='a')
+print(f"Append write: {'Success' if success else 'Failed'}")
 
-# Plot loss
-plt.subplot(1, 2, 2)
-plt.plot(history.history['loss'], label='Training Loss')
-plt.plot(history.history['val_loss'], label='Validation Loss')
-plt.title('Model Loss')
-plt.xlabel('Epoch')
-plt.ylabel('Loss')
-plt.legend()
+# 4. File backup function
+print("\n4. File Backup Function:")
 
-plt.tight_layout()
-plt.show()
+def backup_file(filename):
+    """
+    Membuat backup file sebelum menimpa
+    """
+    if os.path.exists(filename):
+        # Buat nama backup dengan timestamp
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        backup_name = f"{filename}.backup_{timestamp}"
 
-# 8. Save and Load Model
-print("\n8. Saving Model:")
-model.save('simple_nn_model.h5')
-print("Model saved as 'simple_nn_model.h5'")
+        try:
+            # Copy file
+            with open(filename, 'rb') as src, open(backup_name, 'wb') as dst:
+                dst.write(src.read())
 
-# Load model (demonstration)
-# loaded_model = tf.keras.models.load_model('simple_nn_model.h5')
-# print("Model loaded successfully")</code></pre>
+            logger.info(f"Backup berhasil dibuat: {backup_name}")
+            return backup_name
+
+        except Exception as e:
+            logger.error(f"Gagal membuat backup: {str(e)}")
+            return None
+    else:
+        logger.info(f"File {filename} tidak ada, tidak perlu backup")
+        return None
+
+# Test backup
+backup_name = backup_file('test_file.txt')
+if backup_name:
+    print(f"Backup dibuat: {backup_name}")
+
+# 5. Batch file operations
+print("\n5. Batch File Operations:")
+
+def write_multiple_files(file_data_dict):
+    """
+    Menulis multiple files sekaligus
+    """
+    results = {}
+    for filename, content in file_data_dict.items():
+        success = safe_write_file(filename, content)
+        results[filename] = success
+        status = "Success" if success else "Failed"
+        print(f"File {filename}: {status}")
+
+    return results
+
+# Test batch writing
+files_to_write = {
+    'config.ini': '[Settings]\napp_name=Cendiks\nversion=1.0',
+    'data/numbers.txt': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    'reports/summary.txt': f'Report generated at {datetime.now()}\nTotal files processed: {len(files_to_write)}'
+}
+
+print("Writing multiple files:")
+results = write_multiple_files(files_to_write)
+
+# Summary
+successful = sum(results.values())
+total = len(results)
+print(f"\nSummary: {successful}/{total} files berhasil ditulis")
+
+# 6. Check log file
+print("\n6. Checking Log File:")
+try:
+    with open('file_operations.log', 'r', encoding='utf-8') as log_file:
+        lines = log_file.readlines()
+        print(f"Total log entries: {len(lines)}")
+        print("Last 3 entries:")
+        for line in lines[-3:]:
+            print(line.strip())
+except FileNotFoundError:
+    print("Log file belum dibuat")
+
+print("\nError handling dan logging berhasil diimplementasikan!")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">4️⃣ Convolutional Neural Networks (CNN)</h4>
-                    <p class="text-gray-600 mb-4">Arsitektur khusus untuk processing gambar.</p>
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Advanced File Writing Techniques</h4>
+                    <p class="text-gray-600 mb-4">Teknik lanjutan untuk menulis file dengan performa optimal dan fitur canggih.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import tensorflow as tf
-import numpy as np
-import matplotlib.pyplot as plt
-from tensorflow.keras.datasets import mnist
-from tensorflow.keras.utils import to_categorical
+                        <pre><code>import os
+import pickle
+import shelve
+from contextlib import contextmanager
+from collections import defaultdict
+import time
 
-print("=== Convolutional Neural Networks ===")
+print("=== Advanced File Writing Techniques ===")
 
-# 1. Load MNIST dataset
-print("\n1. Loading MNIST Dataset:")
-(X_train, y_train), (X_test, y_test) = mnist.load_data()
+# 1. Context manager untuk file operations
+print("\n1. Custom Context Manager:")
 
-print(f"Training data shape: {X_train.shape}")
-print(f"Test data shape: {X_test.shape}")
-print(f"Number of classes: {len(np.unique(y_train))}")
+@contextmanager
+def smart_open(filename, mode='w', encoding='utf-8'):
+    """
+    Context manager yang lebih cerdas untuk file operations
+    """
+    file = None
+    try:
+        file = open(filename, mode, encoding=encoding)
+        yield file
+    finally:
+        if file and not file.closed:
+            file.close()
 
-# 2. Preprocess data
-print("\n2. Data Preprocessing:")
+# Menggunakan context manager custom
+print("Testing custom context manager:")
+with smart_open('smart_file.txt', 'w') as f:
+    f.write("File ditulis menggunakan smart context manager\n")
+    f.write("Ini lebih aman dan fleksibel\n")
 
-# Reshape for CNN input (add channel dimension)
-X_train = X_train.reshape(X_train.shape[0], 28, 28, 1)
-X_test = X_test.reshape(X_test.shape[0], 28, 28, 1)
+print("File berhasil ditulis dengan context manager")
 
-# Normalize pixel values
-X_train = X_train.astype('float32') / 255.0
-X_test = X_test.astype('float32') / 255.0
+# 2. Binary file writing dengan pickle
+print("\n2. Binary File Writing (Pickle):")
 
-# Convert labels to one-hot encoding
-y_train_cat = to_categorical(y_train, 10)
-y_test_cat = to_categorical(y_test, 10)
+# Data kompleks untuk disimpan
+complex_data = {
+    'users': [
+        {'id': 1, 'name': 'Alice', 'scores': [85, 92, 78]},
+        {'id': 2, 'name': 'Bob', 'scores': [76, 88, 95]},
+        {'id': 3, 'name': 'Charlie', 'scores': [90, 85, 87]}
+    ],
+    'metadata': {
+        'version': '1.0',
+        'created': time.time(),
+        'description': 'Sample user data'
+    },
+    'statistics': {
+        'total_users': 3,
+        'avg_score': 86.2,
+        'highest_score': 95
+    }
+}
 
-print(f"Reshaped training data: {X_train.shape}")
-print(f"One-hot encoded labels shape: {y_train_cat.shape}")
+# Menyimpan dengan pickle
+with open('data.pkl', 'wb') as file:
+    pickle.dump(complex_data, file)
 
-# 3. Build CNN Model
-print("\n3. Building CNN Model:")
+print("Data kompleks berhasil disimpan dengan pickle")
 
-model = tf.keras.Sequential([
-    # Convolutional layers
-    tf.keras.layers.Conv2D(32, (3, 3), activation='relu', input_shape=(28, 28, 1)),
-    tf.keras.layers.MaxPooling2D((2, 2)),
+# Membaca data pickle
+with open('data.pkl', 'rb') as file:
+    loaded_data = pickle.load(file)
 
-    tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
-    tf.keras.layers.MaxPooling2D((2, 2)),
+print("Data yang dimuat:")
+print(f"Total users: {loaded_data['statistics']['total_users']}")
+print(f"Average score: {loaded_data['statistics']['avg_score']}")
 
-    tf.keras.layers.Conv2D(64, (3, 3), activation='relu'),
+# 3. Shelve untuk persistent dictionary
+print("\n3. Shelve untuk Persistent Storage:")
 
-    # Flatten for dense layers
-    tf.keras.layers.Flatten(),
+# Membuat shelve database
+with shelve.open('user_database') as db:
+    # Menyimpan data
+    db['user_1'] = {'name': 'Alice', 'email': 'alice@example.com', 'active': True}
+    db['user_2'] = {'name': 'Bob', 'email': 'bob@example.com', 'active': False}
+    db['user_3'] = {'name': 'Charlie', 'email': 'charlie@example.com', 'active': True}
 
-    # Dense layers
-    tf.keras.layers.Dense(64, activation='relu'),
-    tf.keras.layers.Dropout(0.5),  # Prevent overfitting
+    # Menambah data baru
+    db['settings'] = {'theme': 'dark', 'language': 'id', 'notifications': True}
 
-    # Output layer
-    tf.keras.layers.Dense(10, activation='softmax')
-])
+print("Database shelve berhasil dibuat")
 
-model.summary()
+# Membaca dari shelve
+with shelve.open('user_database') as db:
+    print("Users in database:")
+    for key in db:
+        if key.startswith('user_'):
+            user = db[key]
+            status = "Active" if user['active'] else "Inactive"
+            print(f"- {user['name']}: {user['email']} ({status})")
 
-# 4. Compile and Train
-print("\n4. Training CNN:")
-model.compile(
-    optimizer='adam',
-    loss='categorical_crossentropy',
-    metrics=['accuracy']
-)
+    settings = db.get('settings', {})
+    print(f"\nSettings: Theme={settings.get('theme', 'default')}")
 
-# Use smaller dataset for faster training (optional)
-X_train_small = X_train[:10000]
-y_train_small = y_train_cat[:10000]
+# 4. Buffered writing untuk performa
+print("\n4. Buffered Writing untuk Performance:")
 
-history = model.fit(
-    X_train_small, y_train_small,
-    epochs=10,
-    batch_size=64,
-    validation_split=0.2,
-    verbose=1
-)
+def generate_large_dataset(num_records=10000):
+    """Generate large dataset untuk testing"""
+    import random
+    data = []
+    for i in range(num_records):
+        data.append({
+            'id': i + 1,
+            'name': f'User_{i+1}',
+            'age': random.randint(18, 65),
+            'city': random.choice(['Jakarta', 'Bandung', 'Surabaya', 'Yogyakarta']),
+            'score': round(random.uniform(50, 100), 2)
+        })
+    return data
 
-# 5. Evaluate
-print("\n5. Evaluation:")
-test_loss, test_accuracy = model.evaluate(X_test, y_test_cat, verbose=0)
-print(f"Test Loss: {test_loss:.4f}")
-print(f"Test Accuracy: {test_accuracy:.4f}")
+# Test buffered vs unbuffered writing
+print("Testing buffered writing performance:")
 
-# 6. Visualize Results
-print("\n6. Visualizing Results:")
+# Generate data
+large_data = generate_large_dataset(5000)
 
-# Plot training history
-plt.figure(figsize=(12, 4))
+# Buffered writing (default)
+start_time = time.time()
+with open('buffered_output.txt', 'w', encoding='utf-8') as file:
+    for record in large_data:
+        file.write(f"{record['id']},{record['name']},{record['age']},{record['city']},{record['score']}\n")
 
-plt.subplot(1, 2, 1)
-plt.plot(history.history['accuracy'], label='Training Accuracy')
-plt.plot(history.history['val_accuracy'], label='Validation Accuracy')
-plt.title('CNN Accuracy')
-plt.xlabel('Epoch')
-plt.ylabel('Accuracy')
-plt.legend()
+buffered_time = time.time() - start_time
+print(".4f")
 
-plt.subplot(1, 2
+# 5. Atomic file writing (prevent corruption)
+print("\n5. Atomic File Writing:")
+
+def atomic_write(filename, content):
+    """
+    Atomic write - tulis ke temporary file dulu, lalu rename
+    """
+    temp_filename = filename + '.tmp'
+
+    try:
+        # Tulis ke temporary file
+        with open(temp_filename, 'w', encoding='utf-8') as file:
+            file.write(content)
+            file.flush()  # Pastikan data ditulis ke disk
+            os.fsync(file.fileno())  # Force write to disk
+
+        # Atomic rename
+        os.rename(temp_filename, filename)
+        return True
+
+    except Exception as e:
+        # Cleanup temporary file jika ada error
+        if os.path.exists(temp_filename):
+            os.remove(temp_filename)
+        raise e
+
+# Test atomic writing
+critical_data = """[CRITICAL_CONFIG]
+database_host=localhost
+database_port=5432
+api_key=super_secret_key
+max_connections=100
+timeout=30
+"""
+
+success = atomic_write('critical_config.ini', critical_data)
+print(f"Atomic write: {'Success' if success else 'Failed'}")
+
+# Verifikasi file
+if os.path.exists('critical_config.ini'):
+    with open('critical_config.ini', 'r', encoding='utf-8') as file:
+        print("Critical config content:")
+        print(file.read()[:100] + "...")
+
+# 6. File rotation untuk logs
+print("\n6. Simple Log Rotation:")
+
+class RotatingFileHandler:
+    def __init__(self, base_filename, max_size=1024*1024):  # 1MB default
+        self.base_filename = base_filename
+        self.max_size = max_size
+        self.current_file = base_filename
+
+    def write(self, message):
+        # Check if rotation needed
+        if os.path.exists(self.current_file) and os.path.getsize(self.current_file) > self.max_size:
+            self._rotate()
+
+        # Write message
+        with open(self.current_file, 'a', encoding='utf-8') as file:
+            timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+            file.write(f"[{timestamp}] {message}\n")
+
+    def _rotate(self):
+        """Rotate log files"""
+        # Find next available number
+        counter = 1
+        while os.path.exists(f"{self.base_filename}.{counter}"):
+            counter += 1
+
+        # Rename current file
+        os.rename(self.current_file, f"{self.base_filename}.{counter}")
+        print(f"Log rotated: {self.current_file} -> {self.base_filename}.{counter}")
+
+# Test log rotation
+log_handler = RotatingFileHandler('app.log', max_size=500)  # Small size for testing
+
+for i in range(20):
+    log_handler.write(f"Log message number {i+1}: This is a test message with some additional content to make it longer")
+
+print("Log rotation test completed")
+
+# Check created files
+log_files = [f for f in os.listdir('.') if f.startswith('app.log')]
+print(f"Log files created: {sorted(log_files)}")
+
+print("\nAdvanced file writing techniques berhasil diimplementasikan!")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/dZGr1bbfHZU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

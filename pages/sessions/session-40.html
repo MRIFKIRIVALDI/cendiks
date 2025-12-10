@@ -1,9 +1,9 @@
- <!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 40: Pengenalan API Development dengan FastAPI - Cendiks</title>
+    <title>Sesi 40: Mengenal Pip - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 40: Pengenalan API Development dengan FastAPI</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari framework API modern yang cepat dan mudah</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 40: Mengenal Pip</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari package manager resmi Python untuk mengelola dependencies</p>
         </div>
     </section>
 
@@ -39,330 +39,340 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu FastAPI?</h4>
-                    <p class="text-gray-600 mb-4">Framework web API modern untuk Python dengan performa tinggi.</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Pip?</h4>
+                    <p class="text-gray-600 mb-4">Pip adalah package manager resmi untuk Python yang digunakan untuk menginstall, upgrade, dan mengelola packages dari Python Package Index (PyPI).</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Instalasi FastAPI
-# pip install fastapi uvicorn
+                        <pre><code># Cek versi pip
+pip --version
 
-from fastapi import FastAPI
+# Update pip ke versi terbaru
+python -m pip install --upgrade pip
 
-# Membuat aplikasi FastAPI
-app = FastAPI(
-    title="My API",
-    description="Contoh API dengan FastAPI",
-    version="1.0.0"
-)
+# Install package
+pip install requests
 
-# Route sederhana
-@app.get("/")
-async def read_root():
-    return {"message": "Hello World"}
+# Install package dengan versi spesifik
+pip install requests==2.28.0
 
-@app.get("/items/{item_id}")
-async def read_item(item_id: int, q: str = None):
-    return {"item_id": item_id, "q": q}
+# Install dari file requirements.txt
+pip install -r requirements.txt
 
-# Menjalankan server
-# uvicorn main:app --reload
+# Uninstall package
+pip uninstall requests
 
-# FastAPI features:
-# - Fast: Sangat cepat, setara dengan NodeJS dan Go
-# - Fast to code: Meningkatkan development speed 200-300%
-# - Fewer bugs: Mengurangi human-induced errors 40%
-# - Intuitive: Excellent editor support dengan autocompletion
-# - Easy: Designed to be easy to use and learn
-# - Short: Minimize code duplication
-# - Robust: Dapatkan production-ready code dengan auto docs
-# - Standards-based: OpenAPI dan JSON Schema</code></pre>
+# List packages yang terinstall
+pip list
+
+# Show informasi package
+pip show requests
+
+# Search package di PyPI
+pip search beautifulsoup4
+
+# Upgrade package
+pip install --upgrade requests
+
+# Install package dalam development mode
+pip install -e .
+
+# Install dari Git repository
+pip install git+https://github.com/user/repo.git
+
+# Install dengan dependencies minimal
+pip install --no-deps package-name</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ Path Parameters dan Query Parameters</h4>
-                    <p class="text-gray-600 mb-4">Menangani parameter dalam URL.</p>
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Virtual Environments</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan virtual environment untuk mengisolasi dependencies project.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>from fastapi import FastAPI, Query, Path
-from typing import Optional
-from enum import Enum
+                        <pre><code># Membuat virtual environment
+python -m venv myproject
 
-app = FastAPI()
+# Aktivasi virtual environment (Windows)
+myproject\Scripts\activate
 
-class ModelName(str, Enum):
-    alexnet = "alexnet"
-    resnet = "resnet"
-    lenet = "lenet"
+# Aktivasi virtual environment (macOS/Linux)
+source myproject/bin/activate
 
-# Path parameters dengan validasi
-@app.get("/models/{model_name}")
-async def get_model(model_name: ModelName):
-    if model_name == ModelName.alexnet:
-        return {"model_name": model_name, "message": "Deep Learning FTW!"}
+# Deaktivasi virtual environment
+deactivate
 
-    if model_name.value == "lenet":
-        return {"model_name": model_name, "message": "LeCNN all the images"}
+# Install packages dalam virtual environment
+pip install requests flask
 
-    return {"model_name": model_name, "message": "Have some residuals"}
+# Membuat requirements.txt
+pip freeze > requirements.txt
 
-# Path parameters dengan tipe data
-@app.get("/items/{item_id}")
-async def read_item(
-    item_id: int = Path(..., title="The ID of the item", ge=1, le=1000)
-):
-    return {"item_id": item_id}
+# Install dari requirements.txt
+pip install -r requirements.txt
 
-# Query parameters
-@app.get("/items/")
-async def read_items(
-    q: Optional[str] = Query(None, max_length=50, description="Query string")
-):
-    results = {"items": [{"item_id": "Foo"}, {"item_id": "Bar"}]}
-    if q:
-        results.update({"q": q})
-    return results
+# Menggunakan pipenv (alternatif modern)
+pip install pipenv
 
-# Multiple query parameters
-@app.get("/users/")
-async def read_users(
-    limit: int = Query(10, description="Number of users to return"),
-    offset: int = Query(0, description="Number of users to skip"),
-    sort: Optional[str] = Query(None, regex="^(asc|desc)$")
-):
-    return {
-        "limit": limit,
-        "offset": offset,
-        "sort": sort,
-        "users": ["user1", "user2", "user3"]
-    }</code></pre>
+# Membuat virtual environment dengan pipenv
+pipenv install
+
+# Install package dengan pipenv
+pipenv install requests
+
+# Install dev dependencies
+pipenv install --dev pytest
+
+# Activate pipenv shell
+pipenv shell
+
+# Jalankan script dalam pipenv
+pipenv run python app.py
+
+# Menggunakan conda (untuk data science)
+conda create -n myenv python=3.9
+conda activate myenv
+conda install numpy pandas</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">3️⃣ Request Body dan Pydantic Models</h4>
-                    <p class="text-gray-600 mb-4">Menangani data dari request body.</p>
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Requirements.txt dan Dependency Management</h4>
+                    <p class="text-gray-600 mb-4">Mengelola dependencies project dengan requirements.txt dan best practices.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>from fastapi import FastAPI, HTTPException
-from pydantic import BaseModel, Field, EmailStr
-from typing import Optional, List
-from datetime import datetime
+                        <pre><code># Contoh requirements.txt
+requests==2.28.0
+flask==2.2.2
+pandas>=1.5.0
+numpy>=1.21.0
+matplotlib
+scikit-learn==1.1.3
 
-app = FastAPI()
+# Dengan komentar
+# Web framework
+flask==2.2.2
+# HTTP requests
+requests==2.28.0
 
-# Pydantic models untuk request/response
-class Item(BaseModel):
-    name: str = Field(..., example="Foo")
-    price: float = Field(..., gt=0, description="The price must be greater than zero")
-    is_offer: Optional[bool] = None
-    tags: List[str] = []
+# Install dari requirements.txt
+pip install -r requirements.txt
 
-class User(BaseModel):
-    username: str = Field(..., min_length=3, max_length=50)
-    email: EmailStr
-    full_name: Optional[str] = None
-    disabled: bool = False
+# Membuat requirements.txt dari environment
+pip freeze > requirements.txt
 
-class UserInDB(User):
-    hashed_password: str
+# Hanya packages yang diinstall secara eksplisit
+pip list --format=freeze > requirements.txt
 
-# Response models
-class ItemResponse(BaseModel):
-    id: int
-    name: str
-    price: float
-    created_at: datetime
+# Menggunakan pip-tools untuk dependency locking
+pip install pip-tools
 
-# Simulasi database
-fake_items_db = [
-    {"id": 1, "name": "Foo", "price": 50.2},
-    {"id": 2, "name": "Bar", "price": 62.0},
-]
+# Membuat requirements.in
+echo "requests" > requirements.in
+echo "flask" >> requirements.in
 
-@app.post("/items/", response_model=ItemResponse)
-async def create_item(item: Item):
-    # Simulasi create item
-    new_item = {
-        "id": len(fake_items_db) + 1,
-        "name": item.name,
-        "price": item.price,
-        "created_at": datetime.now()
-    }
-    fake_items_db.append(new_item)
-    return new_item
+# Generate requirements.txt dengan versi terbaru
+pip-compile requirements.in
 
-@app.get("/items/{item_id}", response_model=ItemResponse)
-async def read_item(item_id: int):
-    if item_id < 1 or item_id > len(fake_items_db):
-        raise HTTPException(status_code=404, detail="Item not found")
+# Upgrade semua dependencies
+pip-compile --upgrade requirements.in
 
-    item = fake_items_db[item_id - 1]
-    return {
-        "id": item["id"],
-        "name": item["name"],
-        "price": item["price"],
-        "created_at": datetime.now()  # Dalam praktik, ambil dari DB
-    }
+# Install dari compiled requirements
+pip install -r requirements.txt
 
-@app.put("/items/{item_id}")
-async def update_item(item_id: int, item: Item):
-    if item_id < 1 or item_id > len(fake_items_db):
-        raise HTTPException(status_code=404, detail="Item not found")
+# Menggunakan Poetry (modern dependency management)
+pip install poetry
 
-    fake_items_db[item_id - 1] = {
-        "id": item_id,
-        "name": item.name,
-        "price": item.price
-    }
-    return {"message": "Item updated successfully"}
+# Inisialisasi project
+poetry init
 
-@app.delete("/items/{item_id}")
-async def delete_item(item_id: int):
-    if item_id < 1 or item_id > len(fake_items_db):
-        raise HTTPException(status_code=404, detail="Item not found")
+# Add dependencies
+poetry add requests flask
 
-    del fake_items_db[item_id - 1]
-    return {"message": "Item deleted successfully"}</code></pre>
+# Add dev dependencies
+poetry add --group dev pytest black
+
+# Install dependencies
+poetry install
+
+# Jalankan command dalam poetry shell
+poetry run python app.py</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">4️⃣ Authentication dan Security</h4>
-                    <p class="text-gray-600 mb-4">Mengamankan API dengan authentication.</p>
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Troubleshooting dan Common Issues</h4>
+                    <p class="text-gray-600 mb-4">Mengatasi masalah umum saat menggunakan Pip.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>from fastapi import FastAPI, Depends, HTTPException, status
-from fastapi.security import HTTPBasic, HTTPBasicCredentials
-from pydantic import BaseModel
-import secrets
+                        <pre><code># Error: pip is not recognized
+# Solusi: Pastikan Python sudah terinstall dengan benar
+python -m pip --version
 
-app = FastAPI()
+# Error: Permission denied
+# Solusi: Gunakan --user flag atau jalankan sebagai admin
+pip install --user package-name
 
-security = HTTPBasic()
+# Error: Package not found
+# Solusi: Cek nama package yang benar
+pip search package-name
+pip install package-name
 
-# Simulasi database user
-fake_users_db = {
-    "johndoe": {
-        "username": "johndoe",
-        "full_name": "John Doe",
-        "email": "johndoe@example.com",
-        "hashed_password": "fakehashedsecret",
-        "disabled": False,
-    },
-    "alice": {
-        "username": "alice",
-        "full_name": "Alice Wonderson",
-        "email": "alice@example.com",
-        "hashed_password": "fakehashedsecret2",
-        "disabled": True,
-    },
-}
+# Error: SSL certificate verify failed
+# Solusi: Disable SSL verification (tidak recommended untuk production)
+pip install --trusted-host pypi.org --trusted-host files.pythonhosted.org package-name
 
-class User(BaseModel):
-    username: str
-    email: str | None = None
-    full_name: str | None = None
-    disabled: bool | None = None
+# Error: Microsoft Visual C++ 14.0 is required
+# Solusi: Install Build Tools atau gunakan pre-compiled wheels
+pip install --only-binary=all package-name
 
-class UserInDB(User):
-    hashed_password: str
+# Error: pip install --upgrade pip gagal
+# Solusi: Gunakan python -m pip
+python -m pip install --upgrade pip
 
-def get_user(db, username: str):
-    if username in db:
-        user_dict = db[username]
-        return UserInDB(**user_dict)
+# Error: ModuleNotFoundError setelah install
+# Solusi: Pastikan menggunakan virtual environment yang benar
+# atau install dengan --user flag
 
-def fake_hash_password(password: str):
-    return "fakehashed" + password
+# Error: Conflicting dependencies
+# Solusi: Gunakan pip-tools atau Poetry untuk dependency resolution
+pip install pip-tools
+pip-compile requirements.in
 
-def fake_decode_token(token):
-    # Simulasi decode JWT token
-    user = get_user(fake_users_db, token)
-    return user
+# Error: Slow download
+# Solusi: Gunakan mirror atau cache
+pip install --cache-dir /path/to/cache package-name
+pip install -i https://pypi.tuna.tsinghua.edu.cn/simple package-name
 
-async def get_current_user(credentials: HTTPBasicCredentials = Depends(security)):
-    user = get_user(fake_users_db, credentials.username)
-    if not user:
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    if not secrets.compare_digest(credentials.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    return user
+# Error: Disk space full
+# Solusi: Bersihkan pip cache
+pip cache purge
 
-async def get_current_active_user(current_user: User = Depends(get_current_user)):
-    if current_user.disabled:
-        raise HTTPException(status_code=400, detail="Inactive user")
-    return current_user
+# Error: ImportError setelah upgrade
+# Solusi: Reinstall package atau gunakan versi yang kompatibel
+pip install --force-reinstall --no-deps package-name
 
-@app.post("/token")
-async def login(credentials: HTTPBasicCredentials = Depends(security)):
-    user = get_user(fake_users_db, credentials.username)
-    if not user or not secrets.compare_digest(credentials.password, user.hashed_password):
-        raise HTTPException(
-            status_code=status.HTTP_401_UNAUTHORIZED,
-            detail="Incorrect username or password",
-            headers={"WWW-Authenticate": "Basic"},
-        )
-    return {"access_token": user.username, "token_type": "bearer"}
-
-@app.get("/users/me")
-async def read_users_me(current_user: User = Depends(get_current_active_user)):
-    return current_user
-
-@app.get("/users/me/items/")
-async def read_own_items(current_user: User = Depends(get_current_active_user)):
-    return [{"item_id": "Foo", "owner": current_user.username}]</code></pre>
+# Error: pip freeze shows too many packages
+# Solusi: Gunakan pip list --format=freeze untuk packages yang diinstall eksplisit
+pip list --format=freeze > requirements.txt</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">5️⃣ Latihan Praktis</h4>
-                    <p class="text-gray-600 mb-4">Buat API sederhana dengan FastAPI.</p>
+                    <p class="text-gray-600 mb-4">Buat project Python dengan dependency management yang baik.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># 1. Buat direktori project
+mkdir my-python-project
+cd my-python-project
+
+# 2. Buat virtual environment
+python -m venv venv
+
+# 3. Aktivasi virtual environment
+# Windows:
+venv\Scripts\activate
+# macOS/Linux:
+source venv/bin/activate
+
+# 4. Install dependencies awal
+pip install requests flask
+
+# 5. Buat requirements.txt
+pip freeze > requirements.txt
+
+# 6. Buat file setup.py untuk package
+echo 'from setuptools import setup, find_packages
+
+setup(
+    name="my-python-project",
+    version="0.1.0",
+    packages=find_packages(),
+    install_requires=[
+        "requests>=2.28.0",
+        "flask>=2.2.0",
+    ],
+)' > setup.py
+
+# 7. Install package dalam development mode
+pip install -e .
+
+# 8. Buat file .gitignore
+echo '__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.coverage
+.pytest_cache/
+' > .gitignore
+
+# 9. Menggunakan pip-tools untuk dependency management
+pip install pip-tools
+echo 'requests
+flask
+pytest' > requirements.in
+pip-compile requirements.in
+pip install -r requirements.txt</code></pre>
+                    </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">6️⃣ Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/rHux0gMZ3Eg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/WLHNJCW62qo" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">7️⃣ Kuis Interaktif</h4>
                     <div class="space-y-4">
                         <div>
-                            <p class="font-medium mb-2">1. Apa keunggulan utama FastAPI?</p>
+                            <p class="font-medium mb-2">1. Apa fungsi utama dari Pip?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="a" class="mr-2">
-                                    <span>Performa tinggi dan auto documentation</span>
+                                    <span>Package manager resmi untuk Python</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="b" class="mr-2">
-                                    <span>Hanya untuk machine learning</span>
+                                    <span>Web framework untuk Python</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="c" class="mr-2">
-                                    <span>Tidak mendukung async</span>
+                                    <span>Database untuk Python</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <p class="font-medium mb-2">2. Command apa yang digunakan untuk menjalankan FastAPI?</p>
+                            <p class="font-medium mb-2">2. Command apa yang digunakan untuk membuat virtual environment?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="a" class="mr-2">
-                                    <span>python app.py</span>
+                                    <span>python -m venv myenv</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="b" class="mr-2">
-                                    <span>uvicorn main:app --reload</span>
+                                    <span>pip create venv</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="c" class="mr-2">
-                                    <span>fastapi run</span>
+                                    <span>python venv myenv</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">3. File apa yang digunakan untuk menyimpan dependencies project?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="a" class="mr-2">
+                                    <span>requirements.txt</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="b" class="mr-2">
+                                    <span>dependencies.py</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="c" class="mr-2">
+                                    <span>packages.json</span>
                                 </label>
                             </div>
                         </div>

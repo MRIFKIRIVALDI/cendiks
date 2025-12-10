@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
@@ -40,7 +40,7 @@
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">1️⃣ Pengenalan Modul Math</h4>
-                    <p class="text-gray-600 mb-4">Modul untuk operasi matematika lanjutan.</p>
+                    <p class="text-gray-600 mb-4">Modul math: gudang senjata matematika Python! 🧮</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import math
 
@@ -58,7 +58,7 @@ print(f"Faktorial 5: {math.factorial(5)}") # Output: 120</code></pre>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">2️⃣ Fungsi Trigonometri</h4>
-                    <p class="text-gray-600 mb-4">Sin, cos, tan dan fungsi inversnya.</p>
+                    <p class="text-gray-600 mb-4">Sin, cos, tan - teman baik matematika untuk menghitung sudut! 📐</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import math
 
@@ -86,7 +86,7 @@ print(f"{derajat}° = {radian:.3f} radian")</code></pre>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">3️⃣ Fungsi Logaritma dan Eksponensial</h4>
-                    <p class="text-gray-600 mb-4">Log, ln, exp, pow.</p>
+                    <p class="text-gray-600 mb-4">Logaritma dan eksponensial - rahasia pertumbuhan dan peluruhan! 📈📉</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import math
 
@@ -114,7 +114,7 @@ print(f"10^2: {math.pow(10, 2)}")  # Output: 100.0</code></pre>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">4️⃣ Fungsi Pembulatan</h4>
-                    <p class="text-gray-600 mb-4">Ceil, floor, round, trunc.</p>
+                    <p class="text-gray-600 mb-4">Ceil, floor, round, trunc - atur angka dengan presisi! 🔢</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import math
 
@@ -139,7 +139,7 @@ print(f"round(2.5): {round(2.5)}")      # Built-in round</code></pre>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">5️⃣ Fungsi Kombinatorik</h4>
-                    <p class="text-gray-600 mb-4">Permutasi dan kombinasi.</p>
+                    <p class="text-gray-600 mb-4">Permutasi dan kombinasi - hitung peluang dan kemungkinan! 🎲</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import math
 
@@ -167,7 +167,7 @@ print(f"Total kombinasi lotere: {total_kombinasi:,}")</code></pre>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">6️⃣ Fungsi Lainnya</h4>
-                    <p class="text-gray-600 mb-4">GCD, LCM, hypot, degrees, radians.</p>
+                    <p class="text-gray-600 mb-4">GCD, LCM, hypot, degrees, radians - alat matematika serbaguna! 🛠️</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import math
 
@@ -193,7 +193,7 @@ print(f"fabs(5.5): {math.fabs(5.5)}")        # Output: 5.5</code></pre>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">7️⃣ Konstanta Matematika</h4>
-                    <p class="text-gray-600 mb-4">Pi, e, tau, inf, nan.</p>
+                    <p class="text-gray-600 mb-4">Pi, e, tau, inf, nan - angka-angka ajaib matematika! ✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import math
 
@@ -222,97 +222,44 @@ print(f"\nLuas lingkaran jari-jari 5: {luas_lingkaran(5):.2f}")</code></pre>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Penggunaan</h4>
-                    <p class="text-gray-600 mb-4">Program kalkulator ilmiah sederhana.</p>
+                    <p class="text-gray-600 mb-4">Hitung luas pizza dengan math.pi - matematika yang enak! 🍕</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import math
 
-def kalkulator_ilmiah():
-    """Kalkulator ilmiah sederhana"""
-    print("=== KALKULATOR ILMIAH ===")
-    print("Pilih operasi:")
-    print("1. Akar kuadrat")
-    print("2. Pangkat")
-    print("3. Logaritma natural")
-    print("4. Logaritma basis 10")
-    print("5. Sinus")
-    print("6. Cosinus")
-    print("7. Tangen")
-    print("8. Faktorial")
-    print("9. Keluar")
+def luas_pizza(diameter):
+    jari_jari = diameter / 2
+    return math.pi * jari_jari ** 2
 
-    while True:
-        try:
-            pilihan = input("\nPilih operasi (1-9): ")
-
-            if pilihan == "9":
-                print("Terima kasih!")
-                break
-
-            if pilihan in ["1", "2", "3", "4", "8"]:
-                angka = float(input("Masukkan angka: "))
-            elif pilihan in ["5", "6", "7"]:
-                derajat = float(input("Masukkan sudut (derajat): "))
-                radian = math.radians(derajat)
-
-            if pilihan == "1":
-                if angka >= 0:
-                    hasil = math.sqrt(angka)
-                    print(f"√{angka} = {hasil:.4f}")
-                else:
-                    print("Error: Angka negatif tidak bisa diakar kuadratkan")
-            elif pilihan == "2":
-                pangkat = int(input("Masukkan pangkat: "))
-                hasil = math.pow(angka, pangkat)
-                print(f"{angka}^{pangkat} = {hasil}")
-            elif pilihan == "3":
-                if angka > 0:
-                    hasil = math.log(angka)
-                    print(f"ln({angka}) = {hasil:.4f}")
-                else:
-                    print("Error: Logaritma hanya untuk angka positif")
-            elif pilihan == "4":
-                if angka > 0:
-                    hasil = math.log10(angka)
-                    print(f"log10({angka}) = {hasil:.4f}")
-                else:
-                    print("Error: Logaritma hanya untuk angka positif")
-            elif pilihan == "5":
-                hasil = math.sin(radian)
-                print(f"sin({derajat}°) = {hasil:.4f}")
-            elif pilihan == "6":
-                hasil = math.cos(radian)
-                print(f"cos({derajat}°) = {hasil:.4f}")
-            elif pilihan == "7":
-                hasil = math.tan(radian)
-                print(f"tan({derajat}°) = {hasil:.4f}")
-            elif pilihan == "8":
-                if angka >= 0 and angka == int(angka):
-                    hasil = math.factorial(int(angka))
-                    print(f"{int(angka)}! = {hasil}")
-                else:
-                    print("Error: Faktorial hanya untuk bilangan bulat non-negatif")
-
-        except ValueError:
-            print("Error: Masukkan angka yang valid!")
-        except Exception as e:
-            print(f"Error: {e}")
-
-def main():
-    kalkulator_ilmiah()
-
-if __name__ == "__main__":
-    main()</code></pre>
+# Hitung luas pizza medium (12 inch)
+luas = luas_pizza(12)
+print(f"Luas pizza 12 inch: {luas:.1f} inch²")
+print(f"Cukup untuk {int(luas/10)} orang!")  # Asumsi 10 inch² per orang</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">9️⃣ Latihan Praktis</h4>
-                    <p class="text-gray-600 mb-4">Buat program yang menggunakan berbagai fungsi math.</p>
+                    <p class="text-gray-600 mb-4">Hitung jarak antara dua titik dengan math.hypot - seperti GPS! 📍</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import math
+
+def jarak_antar_titik(x1, y1, x2, y2):
+    return math.hypot(x2 - x1, y2 - y1)
+
+# Hitung jarak dari rumah ke sekolah
+jarak = jarak_antar_titik(0, 0, 3, 4)
+print(f"Jarak rumah ke sekolah: {jarak:.1f} km")
+
+# Hitung jarak tempuh sepeda
+kecepatan = 15  # km/jam
+waktu = jarak / kecepatan
+print(f"Waktu tempuh: {waktu:.1f} jam")</code></pre>
+                    </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/8VF7kX2Fn4w" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/cS-VYthhO9A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
                 </div>
 
                 <div class="mb-8">

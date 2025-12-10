@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 38: Pengenalan Regular Expression (Regex) di Python - Cendiks</title>
+    <title>Sesi 38: Menggunakan Standard Library - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 38: Pengenalan Regular Expression (Regex) di Python</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari pola pencarian teks yang powerful</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 38: Menggunakan Standard Library</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari modul-modul built-in Python yang powerful</p>
         </div>
     </section>
 
@@ -40,494 +40,204 @@
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Regular Expression?</h4>
-                    <p class="text-gray-600 mb-4">Pola untuk mencocokkan dan memanipulasi teks.</p>
+                    <p class="text-gray-600 mb-4">Regex: detektif teks super canggih! 🔍✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import re
 
-# Contoh sederhana: mencari kata "Python" dalam teks
-teks = "Saya sedang belajar Python programming"
-pola = r"Python"
+text = "Saya suka Python"
+print(re.search(r"Python", text).group())  # Python
 
-hasil = re.search(pola, teks)
-if hasil:
-    print(f"Ditemukan '{hasil.group()}' pada posisi {hasil.start()}-{hasil.end()}")
-else:
-    print("Tidak ditemukan")
-
-# Menggunakan findall untuk menemukan semua kemunculan
-teks2 = "Python adalah bahasa programming. Python sangat powerful."
-hasil_semua = re.findall(pola, teks2)
-print(f"Jumlah kemunculan: {len(hasil_semua)}")
-print(f"Hasil: {hasil_semua}")
-
-# Menggunakan match (hanya di awal string)
-hasil_match = re.match(r"Saya", teks)
-if hasil_match:
-    print("String dimulai dengan 'Saya'")
-else:
-    print("String tidak dimulai dengan 'Saya'")</code></pre>
+# Cari semua
+text2 = "Python keren. Python mudah."
+print(re.findall(r"Python", text2))  # ['Python', 'Python']</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">2️⃣ Karakter Literal dan Meta</h4>
-                    <p class="text-gray-600 mb-4">Dasar-dasar pola regex.</p>
+                    <p class="text-gray-600 mb-4">Karakter spesial regex: titik-titik ajaib! ✨🔮</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import re
 
-teks = "Halo dunia! Saya belajar Python123."
+text = "Halo Python123!"
 
-# Karakter literal (cocok persis)
-print("1. Karakter literal:")
-print(re.findall(r"Python", teks))  # ['Python']
+# Literal: cocok persis
+print(re.findall(r"Python", text))  # ['Python']
 
-# Meta karakter . (dot) - cocok dengan karakter apapun
-print("\n2. Meta karakter dot:")
-print(re.findall(r"P.th.n", teks))  # ['Python']
+# . (dot): karakter apa saja
+print(re.findall(r"P.th.n", text))  # ['Python']
 
-# Meta karakter ^ (caret) - awal string
-print("\n3. Meta karakter caret:")
-print(re.findall(r"^Halo", teks))  # ['Halo']
+# \d: angka 0-9
+print(re.findall(r"\d+", text))  # ['123']
 
-# Meta karakter $ (dollar) - akhir string
-print("\n4. Meta karakter dollar:")
-print(re.findall(r"Python123.$", teks))  # ['Python123.']
-
-# Meta karakter * (asterisk) - 0 atau lebih kemunculan
-print("\n5. Meta karakter asterisk:")
-print(re.findall(r"Pyth.*", teks))  # ['Python123.']
-
-# Meta karakter + (plus) - 1 atau lebih kemunculan
-print("\n6. Meta karakter plus:")
-print(re.findall(r"Pyth.+", teks))  # ['Python123.']
-
-# Meta karakter ? (question) - 0 atau 1 kemunculan
-print("\n7. Meta karakter question:")
-print(re.findall(r"Python\d?", teks))  # ['Python1'] (karena diikuti angka)
-
-# Meta karakter \d - digit (0-9)
-print("\n8. Meta karakter \\d:")
-print(re.findall(r"\d+", teks))  # ['123']
-
-# Meta karakter \w - word character (a-z, A-Z, 0-9, _)
-print("\n9. Meta karakter \\w:")
-print(re.findall(r"\w+", teks))  # ['Halo', 'dunia', 'Saya', 'belajar', 'Python123']
-
-# Meta karakter \s - whitespace
-print("\n10. Meta karakter \\s:")
-print(re.findall(r"\s+", teks))  # [' ', ' ', ' ']</code></pre>
+# \w: huruf/angka/underscore
+print(re.findall(r"\w+", text))  # ['Halo', 'Python123']</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">3️⃣ Character Classes</h4>
-                    <p class="text-gray-600 mb-4">Mencocokkan karakter dari set tertentu.</p>
+                    <p class="text-gray-600 mb-4">Kumpulan karakter: pilih satu dari banyak! 🎯</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import re
 
-teks = "Email: user@example.com, Phone: 08123456789, Date: 25-12-2023"
+text = "Email: user@example.com, Phone: 08123456789"
 
-# Character class [abc] - salah satu dari a, b, atau c
-print("1. Character class [abc]:")
-print(re.findall(r"[aeiou]", teks))  # ['a', 'e', 'a', 'e', 'o', 'e']
+# [abc] - salah satu huruf
+print(re.findall(r"[aeiou]", text))  # ['a', 'e', 'a', 'e', 'o', 'e']
 
-# Character class [a-z] - range huruf kecil
-print("\n2. Character class [a-z]:")
-print(re.findall(r"[a-z]+", teks))  # ['mail', 'user', 'example', 'com', 'hone', 'ate']
+# [a-z] - huruf kecil
+print(re.findall(r"[a-z]+", text))  # ['mail', 'user', 'example', 'com', 'hone']
 
-# Character class [A-Z] - range huruf besar
-print("\n3. Character class [A-Z]:")
-print(re.findall(r"[A-Z][a-z]+", teks))  # ['Email', 'Phone', 'Date']
+# \d - angka (0-9)
+print(re.findall(r"\d+", text))  # ['08123456789']
 
-# Character class [0-9] - digit
-print("\n4. Character class [0-9]:")
-print(re.findall(r"[0-9]+", teks))  # ['08123456789', '25', '12', '2023']
-
-# Character class [^abc] - negasi (bukan a, b, atau c)
-print("\n5. Character class [^abc]:")
-print(re.findall(r"[^aeiou\s:,-]+", teks))  # karakter non-vokal, non-spasi, dll
-
-# Predefined character classes
-print("\n6. Predefined classes:")
-print("Digits:", re.findall(r"\d+", teks))      # ['08123456789', '25', '12', '2023']
-print("Words:", re.findall(r"\w+", teks))       # ['Email', 'user', 'example', 'com', 'Phone', '08123456789', 'Date', '25', '12', '2023']
-print("Spaces:", re.findall(r"\s+", teks))      # [' ', ' ', ' ', ' ', ' ', ' ']
-print("Non-digits:", re.findall(r"\D+", teks))  # ['Email: user@example.com, Phone: ', ', Date: ', '-','-']
-
-# Contoh validasi email sederhana
-def is_valid_email(email):
-    pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
-    return bool(re.match(pattern, email))
-
-print("\n7. Validasi email:")
-emails = ["user@example.com", "invalid-email", "user.name@domain.co.uk"]
-for email in emails:
-    print(f"{email}: {'Valid' if is_valid_email(email) else 'Invalid'}")</code></pre>
+# \w - huruf/angka/underscore
+print(re.findall(r"\w+", text))  # ['Email', 'user', 'example', 'com', 'Phone', '08123456789']</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">4️⃣ Quantifiers</h4>
-                    <p class="text-gray-600 mb-4">Menentukan jumlah kemunculan karakter.</p>
+                    <p class="text-gray-600 mb-4">Berapa banyak? Hitung kemunculan! 🔢</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import re
 
-teks = "aa ab aab aaab aaaab aaaaab"
+text = "aa ab aab aaab"
 
 # * - 0 atau lebih
-print("1. Quantifier * (0 atau lebih):")
-print(re.findall(r"a*b", teks))  # ['ab', 'aab', 'aaab', 'aaaab', 'aaaaab']
+print(re.findall(r"a*b", text))  # ['ab', 'aab', 'aaab']
 
 # + - 1 atau lebih
-print("\n2. Quantifier + (1 atau lebih):")
-print(re.findall(r"a+b", teks))  # ['ab', 'aab', 'aaab', 'aaaab', 'aaaaab']
+print(re.findall(r"a+b", text))  # ['ab', 'aab', 'aaab']
 
 # ? - 0 atau 1
-print("\n3. Quantifier ? (0 atau 1):")
-print(re.findall(r"a?b", "ab aab aaab"))  # ['ab', 'ab', 'ab']
+print(re.findall(r"a?b", text))  # ['ab', 'ab', 'ab']
 
-# {n} - tepat n kali
-print("\n4. Quantifier {n} (tepat n kali):")
-print(re.findall(r"a{2}b", teks))  # ['aab', 'aaab', 'aaaab', 'aaaaab']
+# {2} - tepat 2 kali
+print(re.findall(r"a{2}b", text))  # ['aab']
 
-# {n,} - n atau lebih
-print("\n5. Quantifier {n,} (n atau lebih):")
-print(re.findall(r"a{2,}b", teks))  # ['aab', 'aaab', 'aaaab', 'aaaaab']
-
-# {n,m} - antara n dan m
-print("\n6. Quantifier {n,m} (antara n dan m):")
-print(re.findall(r"a{2,3}b", teks))  # ['aab', 'aaab']
-
-# Contoh parsing nomor telepon
-telepon_teks = "Telepon: 08123456789, 021-1234567, +6281234567890"
-
-# Pola untuk nomor Indonesia
-pola_telepon = r"(\+?62|0)[0-9]{7,12}"
-nomor_telepon = re.findall(pola_telepon, telepon_teks)
-print(f"\nNomor telepon ditemukan: {nomor_telepon}")
-
-# Contoh parsing tanggal
-tanggal_teks = "Tanggal: 25/12/2023, 1/1/2024, 31/02/2023"
-
-# Pola DD/MM/YYYY
-pola_tanggal = r"\b\d{1,2}/\d{1,2}/\d{4}\b"
-tanggal = re.findall(pola_tanggal, tanggal_teks)
-print(f"Tanggal ditemukan: {tanggal}")
-
-# Greedy vs Non-greedy
-html = "<div>Hello</div><div>World</div>"
-greedy = re.findall(r"<div>.*</div>", html)
-non_greedy = re.findall(r"<div>.*?</div>", html)
-
-print(f"\nGreedy: {greedy}")
-print(f"Non-greedy: {non_greedy}")</code></pre>
+# {2,3} - 2 sampai 3 kali
+print(re.findall(r"a{2,3}b", text))  # ['aab', 'aaab']</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">5️⃣ Groups dan Capturing</h4>
-                    <p class="text-gray-600 mb-4">Menggunakan parentheses untuk grouping.</p>
+                    <p class="text-gray-600 mb-4">Kelompok tangkap: ambil bagian spesifik! 🎣</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import re
 
-teks = "Nama: John Doe, Email: john@example.com, Telepon: 08123456789"
+text = "Email: user@example.com"
 
-# Capturing groups dengan ()
-hasil = re.search(r"Nama: (\w+) (\w+)", teks)
-if hasil:
-    print("1. Capturing groups:")
-    print(f"Nama lengkap: {hasil.group()}")
-    print(f"Nama depan: {hasil.group(1)}")
-    print(f"Nama belakang: {hasil.group(2)}")
+# () - capturing group
+match = re.search(r"(\w+)@(\w+)\.(\w+)", text)
+if match:
+    print(match.group(1))  # user
+    print(match.group(2))  # example
+    print(match.group(3))  # com
 
-# Multiple groups
-hasil_email = re.search(r"Email: (\w+)@(\w+)\.(\w+)", teks)
-if hasil_email:
-    print("\n2. Multiple groups:")
-    print(f"Email lengkap: {hasil_email.group()}")
-    print(f"Username: {hasil_email.group(1)}")
-    print(f"Domain: {hasil_email.group(2)}")
-    print(f"TLD: {hasil_email.group(3)}")
-
-# Non-capturing groups dengan (?:)
-hasil_telepon = re.search(r"Telepon: (?:\+\d{2})?(\d+)", teks)
-if hasil_telepon:
-    print("\n3. Non-capturing groups:")
-    print(f"Nomor telepon: {hasil_telepon.group(1)}")
-
-# Alternation dengan |
-buah = "apel jeruk pisang"
-pola_buah = r"apel|jeruk|pisang"
-hasil_buah = re.findall(pola_buah, buah)
-print(f"\n4. Alternation: {hasil_buah}")
-
-# Backreferences - merujuk ke group sebelumnya
-teks_duplikat = "kata kata, rumah rumah, buku buku"
-pola_duplikat = r"(\w+) \1"  # \1 merujuk ke group 1
-hasil_duplikat = re.findall(pola_duplikat, teks_duplikat)
-print(f"5. Backreferences (kata duplikat): {hasil_duplikat}")
-
-# Named groups dengan (?P<name>)
-hasil_named = re.search(r"Nama: (?P<depan>\w+) (?P<belakang>\w+)", teks)
-if hasil_named:
-    print("\n6. Named groups:")
-    print(f"Nama depan: {hasil_named.group('depan')}")
-    print(f"Nama belakang: {hasil_named.group('belakang')}")
-
-# Menggunakan named groups dalam findall
-pola_named = r"(?P<username>\w+)@(?P<domain>\w+)\.(?P<tld>\w+)"
-hasil_named_all = re.findall(pola_named, "user1@domain.com user2@site.org")
-print(f"7. Named groups in findall: {hasil_named_all}")</code></pre>
+# (?:) - non-capturing group
+match2 = re.search(r"(?:https?://)?(\w+\.\w+)", "https://example.com")
+if match2:
+    print(match2.group(1))  # example.com</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">6️⃣ Flags dan Modifiers</h4>
-                    <p class="text-gray-600 mb-4">Mengubah perilaku pencarian regex.</p>
+                    <p class="text-gray-600 mb-4">Mode khusus: ubah cara kerja regex! ⚙️</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import re
 
-teks = """Python adalah bahasa programming.
-PYTHON juga powerful.
-python bisa digunakan untuk web development."""
+text = "Python PYTHON python"
 
-# re.IGNORECASE atau re.I - case insensitive
-print("1. Case insensitive:")
-hasil_i = re.findall(r"python", teks, re.IGNORECASE)
-print(f"Ditemukan: {hasil_i}")
+# re.I - ignore case
+print(re.findall(r"python", text, re.I))  # ['Python', 'PYTHON', 'python']
 
-# re.MULTILINE atau re.M - multiline mode
-teks_multiline = """Baris pertama: python
-Baris kedua: PYTHON
-Baris ketiga: Java"""
+# re.M - multiline
+text2 = "line1\nline2\nline3"
+print(re.findall(r"^line", text2, re.M))  # ['line1', 'line2', 'line3']
 
-print("\n2. Multiline mode:")
-# Tanpa MULTILINE
-hasil_no_m = re.findall(r"^Baris", teks_multiline)
-print(f"Tanpa MULTILINE: {hasil_no_m}")
-
-# Dengan MULTILINE
-hasil_m = re.findall(r"^Baris", teks_multiline, re.MULTILINE)
-print(f"Dengan MULTILINE: {hasil_m}")
-
-# re.DOTALL atau re.S - dot matches newline
-teks_dotall = "Mulai\nisi\ntutup"
-print("\n3. DOTALL mode:")
-# Tanpa DOTALL
-hasil_no_s = re.findall(r"Mulai.*tutup", teks_dotall)
-print(f"Tanpa DOTALL: {hasil_no_s}")
-
-# Dengan DOTALL
-hasil_s = re.findall(r"Mulai.*tutup", teks_dotall, re.DOTALL)
-print(f"Dengan DOTALL: {hasil_s}")
-
-# Kombinasi flags
-print("\n4. Kombinasi flags:")
-pola = r"python"
-hasil_combine = re.findall(pola, teks, re.IGNORECASE | re.MULTILINE)
-print(f"Dengan IGNORECASE dan MULTILINE: {hasil_combine}")
-
-# Menggunakan compile untuk performa lebih baik
-print("\n5. Compiled regex:")
-compiled_pattern = re.compile(r"python", re.IGNORECASE)
-hasil_compiled = compiled_pattern.findall(teks)
-print(f"Dengan compiled pattern: {hasil_compiled}")
-
-# Menggunakan dalam loop
-print("\n6. Menggunakan dalam loop:")
-for match in compiled_pattern.finditer(teks):
-    print(f"Ditemukan '{match.group()}' pada posisi {match.start()}-{match.end()}")</code></pre>
+# re.S - dot matches newline
+text3 = "start\nend"
+print(re.findall(r"start.*end", text3, re.S))  # ['start\nend']</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">7️⃣ Substitusi dan Splitting</h4>
-                    <p class="text-gray-600 mb-4">Mengganti dan memisahkan teks dengan regex.</p>
+                    <p class="text-gray-600 mb-4">Ganti dan bagi teks: sihir transformasi! ✨🔀</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import re
 
-teks = "Email saya adalah user@example.com dan user2@test.org"
+text = "Contact: user@example.com"
 
-# sub() - substitusi
-print("1. Substitusi:")
-hasil_sub = re.sub(r"\w+@\w+\.\w+", "[EMAIL]", teks)
-print(f"Original: {teks}")
-print(f"Substitusi: {hasil_sub}")
+# sub() - replace
+print(re.sub(r"\w+@\w+\.\w+", "[EMAIL]", text))  # Contact: [EMAIL]
 
-# sub() dengan function
-def censor_email(match):
-    email = match.group()
-    username, domain = email.split("@")
-    return f"{username[0]}***@{domain}"
+# split() - split text
+text2 = "apple,banana;orange"
+print(re.split(r"[,;]", text2))  # ['apple', 'banana', 'orange']
 
-hasil_sub_func = re.sub(r"\w+@\w+\.\w+", censor_email, teks)
-print(f"Substitusi dengan function: {hasil_sub_func}")
+# Replace with function
+def censor(match):
+    return match.group()[0] + "***"
 
-# subn() - substitusi dengan count
-hasil_subn = re.subn(r"\w+@\w+\.\w+", "[EMAIL]", teks)
-print(f"Substitusi dengan count: {hasil_subn}")
-
-# split() - pemisahan
-print("\n2. Splitting:")
-teks_split = "satu, dua; tiga: empat"
-hasil_split = re.split(r"[,;:]\s*", teks_split)
-print(f"Original: {teks_split}")
-print(f"Split: {hasil_split}")
-
-# Contoh parsing CSV sederhana
-csv_data = "Nama,Umur,Kota\nJohn,25,Jakarta\nAlice,30,Bandung"
-baris = csv_data.split("\n")
-for baris_data in baris:
-    kolom = re.split(r",", baris_data)
-    print(f"Baris: {kolom}")
-
-# Mengganti format tanggal
-tanggal_teks = "Tanggal lahir: 25/12/1990, Tanggal mulai: 01/06/2020"
-tanggal_baru = re.sub(r"(\d{2})/(\d{2})/(\d{4})", r"\3-\2-\1", tanggal_teks)
-print(f"\n3. Mengganti format tanggal:")
-print(f"Original: {tanggal_teks}")
-print(f"Format baru: {tanggal_baru}")
-
-# Membersihkan whitespace berlebih
-teks_bersih = "Ini   adalah    teks   dengan    spasi    berlebih"
-teks_clean = re.sub(r"\s+", " ", teks_bersih)
-print(f"\n4. Membersihkan whitespace:")
-print(f"Original: '{teks_bersih}'")
-print(f"Clean: '{teks_clean}'")</code></pre>
+print(re.sub(r"\w+", censor, "secret word"))  # s*** w***</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Penggunaan</h4>
-                    <p class="text-gray-600 mb-4">Program validasi dan parsing data.</p>
+                    <p class="text-gray-600 mb-4">Regex dalam aksi: validasi cepat dan ekstraksi data! 🚀</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
                         <pre><code>import re
 
-class DataValidator:
-    def __init__(self):
-        # Compile patterns untuk performa
-        self.email_pattern = re.compile(r"^[\w\.-]+@[\w\.-]+\.\w+$")
-        self.phone_pattern = re.compile(r"^(\+62|62|0)[0-9]{7,12}$")
-        self.date_pattern = re.compile(r"^\d{1,2}/\d{1,2}/\d{4}$")
-        self.url_pattern = re.compile(r"^https?://[\w\.-]+\.\w+(?:/\S*)?$")
-    
-    def validate_email(self, email):
-        return bool(self.email_pattern.match(email))
-    
-    def validate_phone(self, phone):
-        return bool(self.phone_pattern.match(phone))
-    
-    def validate_date(self, date):
-        return bool(self.date_pattern.match(date))
-    
-    def validate_url(self, url):
-        return bool(self.url_pattern.match(url))
-    
-    def extract_emails(self, text):
-        """Ekstrak semua email dari teks"""
-        return self.email_pattern.findall(text)
-    
-    def extract_phones(self, text):
-        """Ekstrak semua nomor telepon dari teks"""
-        return self.phone_pattern.findall(text)
-    
-    def extract_dates(self, text):
-        """Ekstrak semua tanggal dari teks"""
-        return self.date_pattern.findall(text)
+# Validasi email sederhana
+def is_valid_email(email):
+    pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+    return bool(re.match(pattern, email))
 
-# Contoh penggunaan
-validator = DataValidator()
+print(is_valid_email("user@example.com"))  # True
 
-# Test validasi
-test_data = {
-    "emails": ["user@example.com", "invalid-email", "user.name@domain.co.uk"],
-    "phones": ["08123456789", "+6281234567890", "021-1234567", "invalid-phone"],
-    "dates": ["25/12/2023", "1/1/2024", "31/02/2023", "invalid-date"],
-    "urls": ["https://example.com", "http://test.org/path", "invalid-url"]
-}
+# Ekstrak nomor telepon
+text = "Call me at 08123456789 or +628123456789"
+phones = re.findall(r"(\+62|0)\d{7,12}", text)
+print(phones)  # ['08123456789', '+628123456789']
 
-print("=== VALIDASI DATA ===")
-for category, items in test_data.items():
-    print(f"\n{category.upper()}:")
-    for item in items:
-        if category == "emails":
-            valid = validator.validate_email(item)
-        elif category == "phones":
-            valid = validator.validate_phone(item)
-        elif category == "dates":
-            valid = validator.validate_date(item)
-        elif category == "urls":
-            valid = validator.validate_url(item)
-        print(f"  {item}: {'✓' if valid else '✗'}")
-
-# Test ekstraksi
-teks_bercampur = """
-Kontak kami:
-Email: support@company.com atau sales@company.com
-Telepon: 08123456789, +6281987654321
-Tanggal penting: 25/12/2023, 01/01/2024
-Website: https://company.com dan http://blog.company.com
-"""
-
-print("\n=== EKSTRAKSI DATA ===")
-print("Emails ditemukan:", validator.extract_emails(teks_bercampur))
-print("Phones ditemukan:", validator.extract_phones(teks_bercampur))
-print("Dates ditemukan:", validator.extract_dates(teks_bercampur))
-
-# Contoh parsing log sederhana
-log_data = """
-2023-12-01 10:30:45 INFO User login: user@example.com from 192.168.1.1
-2023-12-01 10:31:22 ERROR Invalid password for user@test.org
-2023-12-01 10:32:15 INFO User login: admin@domain.com from 10.0.0.1
-"""
-
-def parse_log_entry(log_entry):
-    """Parse single log entry"""
-    pattern = r"(\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}) (\w+) (.+)"
-    match = re.search(pattern, log_entry.strip())
-    if match:
-        timestamp, level, message = match.groups()
-        return {
-            "timestamp": timestamp,
-            "level": level,
-            "message": message
-        }
-    return None
-
-print("\n=== PARSING LOG ===")
-for line in log_data.strip().split("\n"):
-    if line.strip():
-        parsed = parse_log_entry(line)
-        if parsed:
-            print(f"[{parsed['timestamp']}] {parsed['level']}: {parsed['message']}")
-
-# Contoh pembersihan teks
-def clean_text(text):
-    """Bersihkan teks dari karakter tidak diinginkan"""
-    # Hapus multiple spaces
-    text = re.sub(r"\s+", " ", text)
-    # Hapus karakter non-alphanumeric kecuali spasi dan titik
-    text = re.sub(r"[^\w\s\.]", "", text)
-    # Trim spaces
-    text = text.strip()
-    return text
-
-dirty_text = "  Ini,,, adalah!!! teks???   yang    kotor!!!   "
-cleaned = clean_text(dirty_text)
-print(f"\nText cleaning:")
-print(f"Original: '{dirty_text}'")
-print(f"Cleaned: '{cleaned}'")</code></pre>
+# Bersihkan teks
+dirty = "  Hello!!!   World???  "
+clean = re.sub(r"[^\w\s]", "", dirty).strip()
+print(clean)  # Hello World</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">9️⃣ Latihan Praktis</h4>
-                    <p class="text-gray-600 mb-4">Buat program yang menggunakan regex untuk validasi data.</p>
+                    <p class="text-gray-600 mb-4">Coba sendiri: validasi email dan ekstrak nomor! 💪</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import re
+
+# Tantangan: Buat fungsi validasi email
+def validate_email(email):
+    pattern = r"^[\w\.-]+@[\w\.-]+\.\w+$"
+    return bool(re.match(pattern, email))
+
+# Test
+print(validate_email("user@example.com"))  # True
+print(validate_email("invalid-email"))     # False
+
+# Tantangan: Ekstrak semua angka dari teks
+text = "Umur saya 25 tahun, tinggi 170 cm"
+numbers = re.findall(r"\d+", text)
+print(numbers)  # ['25', '170']</code></pre>
+                    </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/K8L6KVGG-7o" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/NTHdVRV2qhE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
                 </div>
 
                 <div class="mb-8">
@@ -583,3 +293,5 @@ print(f"Cleaned: '{cleaned}'")</code></pre>
     </footer>
 </body>
 </html>
+</html>
+ 

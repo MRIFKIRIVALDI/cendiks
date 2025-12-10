@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 36: Exception Handling (Penanganan Error) di Python - Cendiks</title>
+    <title>Sesi 36: Membuat Module - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 36: Exception Handling (Penanganan Error) di Python</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara menangani error dan exception</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 36: Membuat Module</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara membuat dan menggunakan module Python</p>
         </div>
     </section>
 
@@ -39,413 +39,186 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Exception?</h4>
-                    <p class="text-gray-600 mb-4">Error yang terjadi saat runtime program.</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Module?</h4>
+                    <p class="text-gray-600 mb-4">Module: kotak ajaib kode yang bisa dipakai ulang! 📦✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Contoh error yang menyebabkan exception
-# ZeroDivisionError
-result = 10 / 0  # Division by zero
+                        <pre><code># File: matematika.py
+def tambah(a, b):
+    return a + b
 
-# ValueError
-int("abc")  # Invalid literal for int()
-
-# FileNotFoundError
-with open("file_tidak_ada.txt", "r") as f:
-    pass
-
-# IndexError
-my_list = [1, 2, 3]
-print(my_list[10])  # Index out of range
-
-# KeyError
-my_dict = {"a": 1, "b": 2}
-print(my_dict["c"])  # Key not found</code></pre>
+PI = 3.14159</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ Try-Except Block</h4>
-                    <p class="text-gray-600 mb-4">Struktur dasar untuk menangani exception.</p>
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Menggunakan Module</h4>
+                    <p class="text-gray-600 mb-4">Pakai module: ambil dan gunakan! 🎯✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>try:
-    # Kode yang mungkin menyebabkan exception
-    x = int(input("Masukkan angka: "))
-    result = 10 / x
-    print(f"Hasil: {result}")
-except ZeroDivisionError:
-    # Menangani pembagian dengan nol
-    print("Error: Tidak bisa membagi dengan nol!")
-except ValueError:
-    # Menangani input yang bukan angka
-    print("Error: Masukkan angka yang valid!")
-except Exception as e:
-    # Menangani exception lainnya
-    print(f"Error tidak terduga: {e}")
-else:
-    # Dijalankan jika tidak ada exception
-    print("Operasi berhasil!")
-finally:
-    # Selalu dijalankan
-    print("Program selesai.")</code></pre>
+                        <pre><code>import matematika
+print(matematika.tambah(5, 3))  # 8
+
+from matematika import PI
+print(PI)  # 3.14159</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">3️⃣ Multiple Except Blocks</h4>
-                    <p class="text-gray-600 mb-4">Menangani berbagai jenis exception.</p>
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Module Standard Library</h4>
+                    <p class="text-gray-600 mb-4">Modul bawaan Python: toolkit super lengkap! 🧰✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>def divide_numbers(a, b):
-    try:
-        result = a / b
-        return result
-    except ZeroDivisionError:
-        print("Error: Pembagian dengan nol!")
-        return None
-    except TypeError:
-        print("Error: Tipe data tidak sesuai!")
-        return None
-    except Exception as e:
-        print(f"Error tidak terduga: {e}")
-        return None
+                        <pre><code>import math
+print(math.sqrt(16))  # 4.0
 
-# Contoh penggunaan
-print(divide_numbers(10, 2))    # Output: 5.0
-print(divide_numbers(10, 0))    # Output: Error: Pembagian dengan nol! None
-print(divide_numbers("10", 2))  # Output: Error: Tipe data tidak sesuai! None
+import random
+print(random.randint(1, 10))  # Angka acak
 
-# Menggunakan tuple untuk multiple exception
-try:
-    # Beberapa operasi yang bisa gagal
-    value = int("abc")
-except (ValueError, TypeError) as e:
-    print(f"Error konversi: {e}")
-except Exception as e:
-    print(f"Error lain: {e}")</code></pre>
+import os
+print(os.getcwd())  # Direktori saat ini</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">4️⃣ Else dan Finally</h4>
-                    <p class="text-gray-600 mb-4">Blok else dan finally dalam exception handling.</p>
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Membuat Module dengan Class</h4>
+                    <p class="text-gray-600 mb-4">Module dengan class: objek super keren! 🏗️✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>def read_file(filename):
-    try:
-        with open(filename, "r") as file:
-            content = file.read()
-    except FileNotFoundError:
-        print(f"File '{filename}' tidak ditemukan")
-        return None
-    except PermissionError:
-        print(f"Tidak ada izin untuk membaca '{filename}'")
-        return None
-    else:
-        # Dijalankan hanya jika tidak ada exception
-        print(f"File '{filename}' berhasil dibaca")
-        return content
-    finally:
-        # Selalu dijalankan, baik ada exception maupun tidak
-        print("Operasi file selesai")
-
-# Contoh penggunaan
-result1 = read_file("existing_file.txt")  # Asumsikan file ada
-print()
-
-result2 = read_file("nonexistent_file.txt")  # File tidak ada
-print()
-
-# Finally selalu dijalankan
-try:
-    print("Mulai operasi")
-    raise ValueError("Error buatan")
-except ValueError:
-    print("Exception ditangani")
-finally:
-    print("Finally selalu dijalankan")</code></pre>
+                        <pre><code># File: geometri.py
+class PersegiPanjang:
+    def __init__(self, p, l):
+        self.panjang = p
+        self.lebar = l
+    
+    def luas(self):
+        return self.panjang * self.lebar</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">5️⃣ Raising Exceptions</h4>
-                    <p class="text-gray-600 mb-4">Melempar exception secara manual.</p>
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Module dengan __name__ == "__main__"</h4>
+                    <p class="text-gray-600 mb-4">Jalankan kode hanya saat file dijalankan langsung! 🚀✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>def validate_age(age):
-    if age < 0:
-        raise ValueError("Umur tidak boleh negatif")
-    if age > 150:
-        raise ValueError("Umur terlalu besar")
-    if not isinstance(age, int):
-        raise TypeError("Umur harus berupa bilangan bulat")
-    return True
-
-def validate_email(email):
-    if "@" not in email:
-        raise ValueError("Email harus mengandung karakter '@'")
-    if "." not in email.split("@")[1]:
-        raise ValueError("Format email tidak valid")
-    return True
-
-# Menggunakan fungsi validasi
-try:
-    validate_age(25)
-    print("Umur valid")
-except (ValueError, TypeError) as e:
-    print(f"Error validasi umur: {e}")
-
-try:
-    validate_email("user@example.com")
-    print("Email valid")
-except ValueError as e:
-    print(f"Error validasi email: {e}")
-
-# Re-raising exception
-try:
-    validate_age(-5)
-except ValueError as e:
-    print(f"Umur tidak valid: {e}")
-    # Bisa melakukan logging atau handling lainnya
-    raise  # Melempar ulang exception</code></pre>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">6️⃣ Custom Exceptions</h4>
-                    <p class="text-gray-600 mb-4">Membuat exception class sendiri.</p>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>class InsufficientFundsError(Exception):
-    """Exception untuk saldo tidak mencukupi"""
-    def __init__(self, balance, amount):
-        self.balance = balance
-        self.amount = amount
-        super().__init__(f"Saldo tidak mencukupi. Saldo: {balance}, Dibutuhkan: {amount}")
-
-class InvalidAmountError(Exception):
-    """Exception untuk jumlah tidak valid"""
-    pass
-
-class BankAccount:
-    def __init__(self, balance=0):
-        self.balance = balance
-
-    def deposit(self, amount):
-        if amount <= 0:
-            raise InvalidAmountError("Jumlah deposit harus positif")
-        self.balance += amount
-        return self.balance
-
-    def withdraw(self, amount):
-        if amount <= 0:
-            raise InvalidAmountError("Jumlah penarikan harus positif")
-        if amount > self.balance:
-            raise InsufficientFundsError(self.balance, amount)
-        self.balance -= amount
-        return self.balance
-
-# Menggunakan custom exception
-account = BankAccount(1000)
-
-try:
-    account.deposit(500)
-    print(f"Deposit berhasil. Saldo: {account.balance}")
-    
-    account.withdraw(800)
-    print(f"Penarikan berhasil. Saldo: {account.balance}")
-    
-    account.withdraw(1000)  # Akan gagal
-except InsufficientFundsError as e:
-    print(f"Error: {e}")
-except InvalidAmountError as e:
-    print(f"Error: {e}")
-except Exception as e:
-    print(f"Error tidak terduga: {e}")</code></pre>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">7️⃣ Context Managers</h4>
-                    <p class="text-gray-600 mb-4">Menggunakan with statement untuk resource management.</p>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>class FileManager:
-    def __init__(self, filename, mode):
-        self.filename = filename
-        self.mode = mode
-        self.file = None
-
-    def __enter__(self):
-        self.file = open(self.filename, self.mode)
-        return self.file
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        if self.file:
-            self.file.close()
-        if exc_type:
-            print(f"Exception terjadi: {exc_val}")
-        return False  # False = lempar ulang exception
-
-# Menggunakan context manager custom
-try:
-    with FileManager("test.txt", "w") as f:
-        f.write("Hello World!")
-        # File otomatis ditutup meski ada exception
-        raise ValueError("Error buatan")
-except ValueError:
-    print("Exception ditangani")
-
-# Built-in context manager
-with open("test.txt", "r") as f:
-    content = f.read()
-    print(f"Isi file: {content}")
-
-# Context manager untuk database connection (contoh)
-class DatabaseConnection:
-    def __enter__(self):
-        print("Membuka koneksi database")
-        return "connection_object"
-    
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        print("Menutup koneksi database")
-        return False
-
-with DatabaseConnection() as conn:
-    print(f"Bekerja dengan: {conn}")
-    # Koneksi otomatis ditutup</code></pre>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Penggunaan</h4>
-                    <p class="text-gray-600 mb-4">Program kalkulator dengan exception handling lengkap.</p>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>class CalculatorError(Exception):
-    """Base class untuk error kalkulator"""
-    pass
-
-class InvalidOperationError(CalculatorError):
-    """Error untuk operasi tidak valid"""
-    pass
-
-class DivisionByZeroError(CalculatorError):
-    """Error untuk pembagian dengan nol"""
-    pass
-
-def kalkulator(a, b, operasi):
-    """
-    Kalkulator sederhana dengan exception handling
-    
-    Args:
-        a, b: Angka untuk operasi
-        operasi: String operasi ('+', '-', '*', '/')
-    
-    Returns:
-        Hasil perhitungan
-    
-    Raises:
-        CalculatorError: Untuk berbagai error kalkulator
-    """
-    try:
-        # Validasi input
-        if not isinstance(a, (int, float)) or not isinstance(b, (int, float)):
-            raise TypeError("Input harus berupa angka")
-        
-        if operasi not in ['+', '-', '*', '/']:
-            raise InvalidOperationError(f"Operasi '{operasi}' tidak didukung")
-        
-        # Lakukan perhitungan
-        if operasi == '+':
-            return a + b
-        elif operasi == '-':
-            return a - b
-        elif operasi == '*':
-            return a * b
-        elif operasi == '/':
-            if b == 0:
-                raise DivisionByZeroError("Tidak bisa membagi dengan nol")
-            return a / b
-            
-    except TypeError as e:
-        raise CalculatorError(f"Type error: {e}")
-    except Exception as e:
-        raise CalculatorError(f"Error tidak terduga: {e}")
-
-def main():
-    print("=== KALKULATOR DENGAN EXCEPTION HANDLING ===")
-    
-    while True:
-        try:
-            # Input dari user
-            a = float(input("Masukkan angka pertama: "))
-            b = float(input("Masukkan angka kedua: "))
-            op = input("Masukkan operasi (+, -, *, /): ").strip()
-            
-            # Hitung
-            result = kalkulator(a, b, op)
-            print(f"Hasil: {a} {op} {b} = {result}")
-            
-            # Tanya lanjut atau tidak
-            lagi = input("Lanjut menghitung? (y/n): ").lower()
-            if lagi != 'y':
-                break
-                
-        except CalculatorError as e:
-            print(f"Error kalkulator: {e}")
-        except ValueError:
-            print("Error: Masukkan angka yang valid")
-        except KeyboardInterrupt:
-            print("\nProgram dihentikan oleh user")
-            break
-        except Exception as e:
-            print(f"Error tidak terduga: {e}")
-    
-    print("Terima kasih telah menggunakan kalkulator!")
+                        <pre><code>def halo():
+    print("Halo dunia!")
 
 if __name__ == "__main__":
-    main()</code></pre>
+    halo()  # Jalankan jika file ini dijalankan langsung</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Package dan Submodule</h4>
+                    <p class="text-gray-600 mb-4">Package: folder super rapi untuk module! 📁✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Struktur package:
+# mypackage/
+# ├── __init__.py
+# ├── matematika.py
+# └── utils/
+#     ├── __init__.py
+#     └── helper.py
+
+import mypackage
+print(mypackage.tambah(10, 5))  # 15
+
+from mypackage.utils.helper import format_number
+print(format_number(12345.67))  # Angka rapi</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Module Reloading</h4>
+                    <p class="text-gray-600 mb-4">Reload module: update tanpa restart! 🔄✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import matematika
+import importlib
+
+print(matematika.PI)  # PI lama
+
+# Edit file matematika.py, ubah PI
+
+importlib.reload(matematika)
+print(matematika.PI)  # PI baru</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Lengkap: Sistem Manajemen Buku</h4>
+                    <p class="text-gray-600 mb-4">Aplikasi perpustakaan mini dengan module! 📚✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># File: buku.py
+class Buku:
+    def __init__(self, judul, penulis):
+        self.judul = judul
+        self.penulis = penulis
+        self.tersedia = True
+
+# File: perpustakaan.py
+from buku import Buku
+
+class Perpustakaan:
+    def __init__(self):
+        self.buku = []
+    
+    def tambah_buku(self, judul, penulis):
+        self.buku.append(Buku(judul, penulis))
+    
+    def tampilkan_buku(self):
+        for b in self.buku:
+            print(f"{b.judul} - {b.penulis}")
+
+# File: main.py
+from perpustakaan import Perpustakaan
+
+lib = Perpustakaan()
+lib.tambah_buku("Python", "Guido")
+lib.tambah_buku("Java", "James")
+lib.tampilkan_buku()</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">9️⃣ Latihan Praktis</h4>
-                    <p class="text-gray-600 mb-4">Buat program dengan exception handling yang baik.</p>
+                    <p class="text-gray-600 mb-4">Buat module Python dengan fungsi dan kelas yang berguna.</p>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/NIWwJbo-uvQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/6khlVRLJTl0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif</h4>
                     <div class="space-y-4">
                         <div>
-                            <p class="font-medium mb-2">1. Blok mana yang selalu dijalankan dalam try-except?</p>
+                            <p class="font-medium mb-2">1. Cara apa yang benar untuk mengimport seluruh module?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="a" class="mr-2">
-                                    <span>try</span>
+                                    <span>from module import *</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="b" class="mr-2">
-                                    <span>except</span>
+                                    <span>import module</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="c" class="mr-2">
-                                    <span>finally</span>
+                                    <span>use module</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <p class="font-medium mb-2">2. Kata kunci apa yang digunakan untuk melempar exception secara manual?</p>
+                            <p class="font-medium mb-2">2. Apa fungsi __name__ == "__main__" dalam module?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="a" class="mr-2">
-                                    <span>throw</span>
+                                    <span>Menjalankan kode hanya saat module diimport</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="b" class="mr-2">
-                                    <span>raise</span>
+                                    <span>Menjalankan kode hanya saat module dijalankan langsung</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="c" class="mr-2">
-                                    <span>error</span>
+                                    <span>Menjalankan kode setiap saat</span>
                                 </label>
                             </div>
                         </div>

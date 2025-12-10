@@ -1,9 +1,9 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 31: Pengenalan Modul dan Package di Python - Cendiks</title>
+    <title>Sesi 31: *Args Pada Fungsi - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 31: Pengenalan Modul dan Package di Python</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara menggunakan modul dan package untuk mengorganisir kode</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 31: *Args Pada Fungsi</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara menggunakan *args untuk menerima argumen variabel dalam fungsi</p>
         </div>
     </section>
 
@@ -39,229 +39,488 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Modul?</h4>
-                    <p class="text-gray-600 mb-4">File Python yang berisi definisi dan statement yang dapat digunakan kembali.</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu *Args?</h4>
+                    <p class="text-gray-600 mb-4">*args adalah parameter khusus yang memungkinkan fungsi menerima jumlah argumen variabel yang tidak terbatas. Kata "args" adalah singkatan dari "arguments".</p>
+                    <p class="text-gray-600 mb-4">Bayangkan Anda sedang membuat kalkulator. Tanpa *args, Anda harus membuat fungsi terpisah untuk setiap jumlah angka: tambah_dua(), tambah_tiga(), tambah_empat(). Dengan *args, satu fungsi bisa menangani semua kemungkinan!</p>
+                    <p class="text-gray-600 mb-4"><strong>Kenapa *args berguna?</strong></p>
+                    <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                        <li><strong>Fleksibilitas:</strong> Fungsi bisa menerima berapa saja argumen</li>
+                        <li><strong>Kode lebih bersih:</strong> Tidak perlu membuat banyak fungsi overload</li>
+                        <li><strong>Mudah dikembangkan:</strong> Bisa menambah argumen tanpa mengubah definisi fungsi</li>
+                        <li><strong>Kompatibilitas:</strong> Bisa digunakan dengan berbagai jenis data</li>
+                    </ul>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Contoh modul matematika.py
-def tambah(a, b):
+                        <pre><code># Fungsi tanpa *args - hanya menerima 2 parameter
+def tambah_dua(a, b):
     return a + b
 
-def kurang(a, b):
-    return a - b
+print(tambah_dua(5, 3))  # Output: 8
 
-PI = 3.14159
+# Fungsi dengan *args - bisa menerima banyak parameter
+def tambah_banyak(*args):
+    total = 0
+    for angka in args:
+        total += angka
+    return total
 
-# Menggunakan modul
-import matematika
+print(tambah_banyak(1, 2, 3, 4, 5))      # Output: 15
+print(tambah_banyak(10, 20))              # Output: 30
+print(tambah_banyak(1, 2, 3, 4, 5, 6, 7, 8, 9, 10))  # Output: 55</code></pre>
+                    </div>
+                    <p class="text-gray-600 mb-4"><strong>Bagaimana *args bekerja?</strong> Di dalam fungsi, *args menjadi tuple yang berisi semua argumen yang diberikan. Tuple adalah struktur data yang mirip dengan list tapi tidak bisa diubah (immutable).</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># *args akan membuat tuple dari semua argumen yang diberikan
+def cetak_args(*args):
+    print(f"Jumlah argumen: {len(args)}")
+    print(f"Args sebagai tuple: {args}")
+    for i, arg in enumerate(args, 1):
+        print(f"Argumen {i}: {arg}")
 
-hasil = matematika.tambah(5, 3)
-print(hasil)  # Output: 8
-
-print(matematika.PI)  # Output: 3.14159</code></pre>
+cetak_args("Python", "Java", "JavaScript", "C++")
+# Output:
+# Jumlah argumen: 4
+# Args sebagai tuple: ('Python', 'Java', 'JavaScript', 'C++')
+# Argumen 1: Python
+# Argumen 2: Java
+# Argumen 3: JavaScript
+# Argumen 4: C++</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ Mengimport Modul</h4>
-                    <p class="text-gray-600 mb-4">Berbagai cara mengimport modul.</p>
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ *Args dengan Parameter Normal</h4>
+                    <p class="text-gray-600 mb-4">Menggabungkan parameter normal dengan *args.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Cara 1: Import lengkap
-import math
-print(math.sqrt(16))  # Output: 4.0
+                        <pre><code># Parameter normal harus didefinisikan sebelum *args
+def sapa_teman(nama_saya, *teman):
+    print(f"Halo, nama saya {nama_saya}")
+    if teman:
+        print("Teman-teman saya:")
+        for teman_nama in teman:
+            print(f"- {teman_nama}")
+    else:
+        print("Saya tidak punya teman :(")
 
-# Cara 2: Import dengan alias
-import math as m
-print(m.pi)  # Output: 3.141592653589793
+sapa_teman("Alice", "Bob", "Charlie", "David")
+# Output:
+# Halo, nama saya Alice
+# Teman-teman saya:
+# - Bob
+# - Charlie
+# - David
 
-# Cara 3: Import spesifik
-from math import sqrt, pi
-print(sqrt(25))  # Output: 5.0
-print(pi)        # Output: 3.141592653589793
+sapa_teman("Eve")
+# Output:
+# Halo, nama saya Eve
+# Saya tidak punya teman :(
 
-# Cara 4: Import semua (tidak direkomendasikan)
-from math import *
-print(sin(0))    # Output: 0.0</code></pre>
+# Fungsi kalkulator dengan operator dan angka variabel
+def kalkulator(operator, *angka):
+    if not angka:
+        return "Error: Tidak ada angka untuk dihitung"
+    
+    if operator == "+":
+        return sum(angka)
+    elif operator == "*":
+        result = 1
+        for num in angka:
+            result *= num
+        return result
+    elif operator == "max":
+        return max(angka)
+    elif operator == "min":
+        return min(angka)
+    else:
+        return "Operator tidak dikenal"
+
+print(kalkulator("+", 1, 2, 3, 4, 5))    # Output: 15
+print(kalkulator("*", 2, 3, 4))           # Output: 24
+print(kalkulator("max", 10, 5, 8, 15, 3)) # Output: 15
+print(kalkulator("min", 10, 5, 8, 15, 3)) # Output: 3</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">3️⃣ Membuat Modul Sendiri</h4>
-                    <p class="text-gray-600 mb-4">Cara membuat dan menggunakan modul kustom.</p>
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Unpacking dengan *Args</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan * untuk meng-unpack iterable menjadi argumen terpisah.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Buat file kalkulator.py
-def tambah(a, b):
-    return a + b
+                        <pre><code># Tanpa unpacking
+def tambah(a, b, c):
+    return a + b + c
 
-def kurang(a, b):
-    return a - b
+angka = [1, 2, 3]
+# tambah(angka)  # Error! Fungsi mengharapkan 3 argumen terpisah
 
-def kali(a, b):
-    return a * b
+# Dengan unpacking menggunakan *
+result = tambah(*angka)
+print(result)  # Output: 6
 
-def bagi(a, b):
-    if b != 0:
-        return a / b
-    return "Error: Division by zero"
+# Unpacking dengan berbagai tipe data
+def info_mahasiswa(nama, umur, *hobi):
+    print(f"Nama: {nama}")
+    print(f"Umur: {umur}")
+    if hobi:
+        print("Hobi:")
+        for hobi_item in hobi:
+            print(f"- {hobi_item}")
 
-# Gunakan modul
-import kalkulator
+mahasiswa = ["Alice", 20, "Membaca", "Berenang", "Coding"]
+info_mahasiswa(*mahasiswa)
+# Output:
+# Nama: Alice
+# Umur: 20
+# Hobi:
+# - Membaca
+# - Berenang
+# - Coding
 
-print(kalkulator.tambah(10, 5))  # Output: 15
-print(kalkulator.kurang(10, 5))  # Output: 5
-print(kalkulator.kali(10, 5))    # Output: 50
-print(kalkulator.bagi(10, 5))    # Output: 2.0</code></pre>
+# Unpacking dictionary dengan **
+def buat_profil(**info):
+    print("Profil:")
+    for key, value in info.items():
+        print(f"{key.capitalize()}: {value}")
+
+profil = {
+    "nama": "Bob",
+    "umur": 25,
+    "pekerjaan": "Programmer",
+    "kota": "Jakarta"
+}
+
+buat_profil(**profil)
+# Output:
+# Profil:
+# Nama: Bob
+# Umur: 25
+# Pekerjaan: Programmer
+# Kota: Jakarta</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">4️⃣ Modul Built-in Python</h4>
-                    <p class="text-gray-600 mb-4">Modul yang sudah tersedia dalam Python.</p>
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ *Args dalam Fungsi Print</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan *args untuk membuat fungsi print yang lebih fleksibel.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Modul math
-import math
-print(math.sqrt(16))    # Output: 4.0
-print(math.pi)          # Output: 3.141592653589793
-print(math.sin(math.pi/2))  # Output: 1.0
+                        <pre><code># Fungsi print custom dengan *args
+def print_custom(*args, separator=" ", end="\n"):
+    """Fungsi print custom yang bisa menangani banyak argumen"""
+    # Gabungkan semua argumen dengan separator
+    output = separator.join(str(arg) for arg in args)
+    # Tambahkan end
+    print(output, end=end)
 
-# Modul random
-import random
-print(random.randint(1, 10))    # Angka random 1-10
-print(random.choice(['apel', 'jeruk', 'mangga']))  # Pilih random
+print_custom("Hello", "World")                    # Output: Hello World
+print_custom("Python", "is", "awesome", separator="-")  # Output: Python-is-awesome
+print_custom("Line 1", end="")                     # Output: Line 1 (tanpa newline)
+print_custom("Line 2")                             # Output: Line 2
 
-# Modul datetime
-import datetime
-sekarang = datetime.datetime.now()
-print(sekarang)  # Output: 2023-12-07 10:30:45.123456
-print(sekarang.year)   # Output: 2023
-print(sekarang.month)  # Output: 12</code></pre>
+# Fungsi logging dengan *args
+def log_message(level, *messages):
+    """Fungsi logging sederhana"""
+    timestamp = "2023-12-07 10:30:00"
+    level_str = f"[{level.upper()}]"
+    
+    # Gabungkan semua pesan
+    message = " ".join(str(msg) for msg in messages)
+    
+    print(f"{timestamp} {level_str} {message}")
+
+log_message("info", "Server started on port", 8080)
+log_message("error", "Database connection failed:", "timeout")
+log_message("debug", "Processing user", "alice", "with id", 123)
+
+# Fungsi untuk membuat list dari berbagai input
+def create_list(*args):
+    """Membuat list dari berbagai tipe input"""
+    result = []
+    for arg in args:
+        if isinstance(arg, (list, tuple)):
+            result.extend(arg)  # Jika arg adalah list/tuple, extend
+        else:
+            result.append(arg)  # Jika bukan, append
+    return result
+
+print(create_list(1, 2, [3, 4], 5, (6, 7)))  # Output: [1, 2, 3, 4, 5, 6, 7]
+print(create_list("a", "b", "c"))             # Output: ['a', 'b', 'c']</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">5️⃣ Apa Itu Package?</h4>
-                    <p class="text-gray-600 mb-4">Direktori yang berisi modul-modul dan file __init__.py.</p>
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Kombinasi *Args dan **Kwargs</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan *args dan **kwargs bersamaan dalam satu fungsi.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Struktur package:
-# mypackage/
-#   __init__.py
-#   module1.py
-#   module2.py
-#   subpackage/
-#     __init__.py
-#     module3.py
+                        <pre><code># *args harus sebelum **kwargs
+def super_function(*args, **kwargs):
+    print("Args:", args)
+    print("Kwargs:", kwargs)
+    
+    # Contoh penggunaan
+    if args:
+        print(f"Jumlah positional args: {len(args)}")
+        print(f"Total args: {sum(args) if all(isinstance(x, (int, float)) for x in args) else 'N/A'}")
+    
+    if kwargs:
+        print(f"Jumlah keyword args: {len(kwargs)}")
+        for key, value in kwargs.items():
+            print(f"  {key} = {value}")
 
-# Menggunakan package
-import mypackage.module1
-mypackage.module1.function1()
+super_function(1, 2, 3, nama="Alice", umur=25, kota="Jakarta")
+# Output:
+# Args: (1, 2, 3)
+# Kwargs: {'nama': 'Alice', 'umur': 25, 'kota': 'Jakarta'}
+# Jumlah positional args: 3
+# Total args: 6
+# Jumlah keyword args: 3
+#   nama = Alice
+#   umur = 25
+#   kota = Jakarta
 
-# Atau
-from mypackage import module1
-module1.function1()
+# Fungsi untuk membuat objek dengan *args dan **kwargs
+def create_person(*hobbies, **info):
+    """Membuat dictionary person dengan hobbies dan info"""
+    person = dict(info)  # Copy info
+    person['hobbies'] = list(hobbies)  # Convert tuple to list
+    return person
 
-# Menggunakan subpackage
-from mypackage.subpackage import module3
-module3.function3()</code></pre>
+person1 = create_person("Reading", "Swimming", nama="Bob", umur=30, pekerjaan="Engineer")
+print(person1)
+# Output: {'nama': 'Bob', 'umur': 30, 'pekerjaan': 'Engineer', 'hobbies': ['Reading', 'Swimming']}
+
+# Fungsi wrapper yang menggunakan *args dan **kwargs
+def time_function(func):
+    """Decorator sederhana untuk mengukur waktu eksekusi"""
+    def wrapper(*args, **kwargs):
+        import time
+        start = time.time()
+        result = func(*args, **kwargs)
+        end = time.time()
+        print(f"Fungsi {func.__name__} berjalan selama {end - start:.4f} detik")
+        return result
+    return wrapper
+
+@time_function
+def slow_function(*args, **kwargs):
+    import time
+    time.sleep(0.1)  # Simulasi proses lambat
+    return f"Processed {len(args)} args and {len(kwargs)} kwargs"
+
+print(slow_function(1, 2, 3, nama="test", delay=0.1))</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">6️⃣ Membuat Package</h4>
-                    <p class="text-gray-600 mb-4">Cara membuat package sederhana.</p>
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Best Practices dengan *Args</h4>
+                    <p class="text-gray-600 mb-4">Praktik terbaik saat menggunakan *args dalam fungsi.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Buat struktur folder:
-# utilities/
-#   __init__.py
-#   math_utils.py
-#   string_utils.py
+                        <pre><code># 1. Gunakan nama yang deskriptif jika memungkinkan
+def calculate_average(*numbers):
+    """Menghitung rata-rata dari sejumlah angka"""
+    if not numbers:
+        return 0
+    return sum(numbers) / len(numbers)
 
-# Isi __init__.py
-# from .math_utils import *
-# from .string_utils import *
+print(calculate_average(10, 20, 30, 40, 50))  # Output: 30.0
 
-# Isi math_utils.py
-def factorial(n):
-    if n == 0:
-        return 1
-    return n * factorial(n-1)
+# 2. Validasi input
+def safe_sum(*args):
+    """Penjumlahan yang aman - hanya menerima angka"""
+    numbers = []
+    for arg in args:
+        if isinstance(arg, (int, float)):
+            numbers.append(arg)
+        else:
+            print(f"Warning: {arg} bukan angka, dilewati")
+    return sum(numbers)
 
-# Isi string_utils.py
-def reverse_string(text):
-    return text[::-1]
+print(safe_sum(1, 2, "3", 4, 5.5))  # Output: 12.5 (dengan warning)
 
-# Menggunakan package
-from utilities import factorial, reverse_string
+# 3. Dokumentasi yang jelas
+def process_data(operation, *data):
+    """
+    Memproses data dengan operasi tertentu.
+    
+    Args:
+        operation (str): Operasi yang akan dilakukan ('sum', 'avg', 'max', 'min')
+        *data: Data numerik yang akan diproses
+    
+    Returns:
+        float or int: Hasil operasi
+    """
+    if not data:
+        raise ValueError("Minimal satu data diperlukan")
+    
+    if operation == 'sum':
+        return sum(data)
+    elif operation == 'avg':
+        return sum(data) / len(data)
+    elif operation == 'max':
+        return max(data)
+    elif operation == 'min':
+        return min(data)
+    else:
+        raise ValueError(f"Operasi '{operation}' tidak dikenal")
 
-print(factorial(5))        # Output: 120
-print(reverse_string("hello"))  # Output: olleh</code></pre>
+print(process_data('sum', 1, 2, 3, 4, 5))    # Output: 15
+print(process_data('avg', 10, 20, 30))        # Output: 20.0
+print(process_data('max', 5, 8, 2, 10, 3))    # Output: 10
+
+# 4. Hindari *args jika parameter sudah diketahui
+# Buruk:
+def create_user(*args):  # Tidak jelas apa argumennya
+    pass
+
+# Baik:
+def create_user(name, email, age=None, *additional_info):
+    pass</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">7️⃣ Modul vs Package</h4>
-                    <p class="text-gray-600 mb-4">Perbedaan antara modul dan package.</p>
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Contoh Real-World dengan *Args</h4>
+                    <p class="text-gray-600 mb-4">Contoh penggunaan *args dalam skenario dunia nyata.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Modul: File Python tunggal (.py)
-# Contoh: math.py, random.py
+                        <pre><code># 1. Fungsi untuk membuat query SQL
+def build_select_query(table, *columns):
+    """Membuat query SELECT dengan kolom dinamis"""
+    if not columns:
+        columns_str = "*"
+    else:
+        columns_str = ", ".join(columns)
+    
+    return f"SELECT {columns_str} FROM {table}"
 
-# Package: Direktori yang berisi modul-modul
-# Contoh: numpy/, pandas/, mypackage/
+print(build_select_query("users"))                    # Output: SELECT * FROM users
+print(build_select_query("users", "id", "name", "email"))  # Output: SELECT id, name, email FROM users
 
-# Package harus memiliki __init__.py
-# Modul tidak perlu file khusus
+# 2. Fungsi untuk validasi input form
+def validate_form(*required_fields):
+    """Validasi bahwa semua field yang required sudah diisi"""
+    missing = []
+    for field in required_fields:
+        if not field or str(field).strip() == "":
+            missing.append(field if field else "field kosong")
+    
+    if missing:
+        return False, f"Field berikut harus diisi: {', '.join(missing)}"
+    return True, "Semua field valid"
 
-# Penggunaan:
-import math          # Modul
-import numpy as np   # Package
+is_valid, message = validate_form("John", "", "john@example.com")
+print(f"Valid: {is_valid}, Message: {message}")
 
-from math import sqrt     # Dari modul
-from numpy import array   # Dari package</code></pre>
+# 3. Fungsi untuk membuat menu restoran
+def create_menu(*menu_items):
+    """Membuat menu dari berbagai item"""
+    menu = {}
+    for item in menu_items:
+        if isinstance(item, dict):
+            menu.update(item)
+        elif isinstance(item, (list, tuple)) and len(item) == 2:
+            menu[item[0]] = item[1]
+    
+    return menu
+
+menu = create_menu(
+    {"Nasi Goreng": 15000},
+    ["Ayam Bakar", 20000],
+    ("Es Teh", 5000),
+    {"Sate": 25000}
+)
+
+print("Menu Restoran:")
+for item, price in menu.items():
+    print(f"- {item}: Rp{price:,}")
+
+# 4. Fungsi untuk menghitung statistik
+def calculate_stats(*data):
+    """Menghitung berbagai statistik dari data"""
+    if not data:
+        return {}
+    
+    sorted_data = sorted(data)
+    n = len(data)
+    
+    stats = {
+        'count': n,
+        'sum': sum(data),
+        'mean': sum(data) / n,
+        'median': sorted_data[n//2] if n % 2 else (sorted_data[n//2-1] + sorted_data[n//2]) / 2,
+        'min': min(data),
+        'max': max(data),
+        'range': max(data) - min(data)
+    }
+    
+    return stats
+
+stats = calculate_stats(10, 20, 30, 40, 50, 60)
+for key, value in stats.items():
+    print(f"{key.capitalize()}: {value}")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Penggunaan</h4>
-                    <p class="text-gray-600 mb-4">Program yang menggunakan modul dan package.</p>
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Latihan Praktis *Args</h4>
+                    <p class="text-gray-600 mb-4">Buat fungsi-fungsi menggunakan *args untuk mengasah pemahaman.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import math
-import random
-from datetime import datetime
+                        <pre><code># Latihan 1: Fungsi untuk menggabungkan string
+def gabung_kata(*kata, separator=" "):
+    """Menggabungkan kata-kata menjadi satu string"""
+    return separator.join(str(kata_item) for kata_item in kata)
 
-def generate_random_data():
-    """Generate data acak untuk testing"""
-    data = []
-    for _ in range(10):
-        # Generate angka random antara 1-100
-        num = random.randint(1, 100)
-        # Hitung akar kuadrat
-        sqrt_num = math.sqrt(num)
-        # Bulatkan ke 2 desimal
-        rounded = round(sqrt_num, 2)
-        data.append(rounded)
-    return data
+print(gabung_kata("Hello", "World"))                    # Output: "Hello World"
+print(gabung_kata("Python", "is", "awesome", separator="-"))  # Output: "Python-is-awesome"
 
-def main():
-    print("Program Demo Modul dan Package")
-    print("=" * 30)
+# Latihan 2: Fungsi filter angka
+def filter_angka(*args):
+    """Memisahkan angka dan bukan angka"""
+    angka = []
+    bukan_angka = []
+    
+    for arg in args:
+        if isinstance(arg, (int, float)):
+            angka.append(arg)
+        else:
+            bukan_angka.append(arg)
+    
+    return angka, bukan_angka
 
-    # Generate data
-    data = generate_random_data()
-    print(f"Data yang dihasilkan: {data}")
+numbers, others = filter_angka(1, "hello", 3.14, "world", 42)
+print(f"Angka: {numbers}")      # Output: [1, 3.14, 42]
+print(f"Bukan angka: {others}") # Output: ['hello', 'world']
 
-    # Hitung statistik sederhana
-    rata_rata = sum(data) / len(data)
-    maksimum = max(data)
-    minimum = min(data)
+# Latihan 3: Fungsi untuk membuat tabel perkalian
+def tabel_perkalian(n, *multipliers):
+    """Membuat tabel perkalian untuk angka tertentu"""
+    if not multipliers:
+        multipliers = list(range(1, 11))  # Default 1-10
+    
+    print(f"Tabel Perkalian {n}:")
+    for mult in multipliers:
+        print(f"{n} x {mult} = {n * mult}")
 
-    print(f"Rata-rata: {rata_rata:.2f}")
-    print(f"Nilai maksimum: {maksimum}")
-    print(f"Nilai minimum: {minimum}")
+tabel_perkalian(5)                    # Tabel lengkap 1-10
+tabel_perkalian(3, 1, 2, 3, 5, 10)    # Hanya multiplier tertentu
 
-    # Timestamp
-    waktu_sekarang = datetime.now()
-    print(f"Waktu eksekusi: {waktu_sekarang.strftime('%Y-%m-%d %H:%M:%S')}")
+# Latihan 4: Fungsi untuk validasi password
+def validate_passwords(*passwords):
+    """Validasi kekuatan password"""
+    results = []
+    
+    for pwd in passwords:
+        pwd_str = str(pwd)
+        is_valid = (
+            len(pwd_str) >= 8 and
+            any(c.isupper() for c in pwd_str) and
+            any(c.islower() for c in pwd_str) and
+            any(c.isdigit() for c in pwd_str)
+        )
+        results.append((pwd_str, is_valid))
+    
+    return results
 
-if __name__ == "__main__":
-    main()</code></pre>
+validations = validate_passwords("password", "Password123", "weak", "StrongPass2023")
+for pwd, is_valid in validations:
+    status = "VALID" if is_valid else "INVALID"
+    print(f"Password '{pwd}': {status}")</code></pre>
                     </div>
                 </div>
 
@@ -272,43 +531,60 @@ if __name__ == "__main__":
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/sugvnHA7ElY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/scxyFiudGug" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif</h4>
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Kuis Interaktif *Args</h4>
                     <div class="space-y-4">
                         <div>
-                            <p class="font-medium mb-2">1. Apa perbedaan antara modul dan package?</p>
+                            <p class="font-medium mb-2">1. Apa yang dilakukan *args dalam definisi fungsi?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="a" class="mr-2">
-                                    <span>Modul adalah file, package adalah direktori</span>
+                                    <span>Menerima argumen keyword</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="b" class="mr-2">
-                                    <span>Tidak ada perbedaan</span>
+                                    <span>Menerima jumlah argumen variabel yang tidak terbatas</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="c" class="mr-2">
-                                    <span>Package lebih besar dari modul</span>
+                                    <span>Mengubah fungsi menjadi generator</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <p class="font-medium mb-2">2. File apa yang wajib ada dalam sebuah package?</p>
+                            <p class="font-medium mb-2">2. Bagaimana cara menggunakan *args dengan parameter normal?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="a" class="mr-2">
-                                    <span>__main__.py</span>
+                                    <span>*args harus didefinisikan sebelum parameter normal</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="b" class="mr-2">
-                                    <span>__init__.py</span>
+                                    <span>Parameter normal harus didefinisikan sebelum *args</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="c" class="mr-2">
-                                    <span>setup.py</span>
+                                    <span>*args dan parameter normal tidak bisa digunakan bersamaan</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">3. Apa tipe data dari *args di dalam fungsi?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="a" class="mr-2">
+                                    <span>List</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="b" class="mr-2">
+                                    <span>Tuple</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="c" class="mr-2">
+                                    <span>Dictionary</span>
                                 </label>
                             </div>
                         </div>

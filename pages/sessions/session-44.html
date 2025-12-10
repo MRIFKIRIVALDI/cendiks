@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 44: Pengenalan Machine Learning dengan Python - Cendiks</title>
+    <title>Sesi 44: Read External File – Open Dan With - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 44: Pengenalan Machine Learning dengan Python</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari dasar-dasar machine learning menggunakan scikit-learn</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 44: Read External File – Open Dan With</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara membaca file eksternal menggunakan open() dan with statement</p>
         </div>
     </section>
 
@@ -39,344 +39,579 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Machine Learning?</h4>
-                    <p class="text-gray-600 mb-4">Cabang dari AI yang memungkinkan komputer belajar dari data.</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu File Handling?</h4>
+                    <p class="text-gray-600 mb-4">Membaca dan menulis file eksternal adalah operasi penting dalam pemrograman Python.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Machine Learning adalah:
-# - Supervised Learning: Prediksi berdasarkan data berlabel
-# - Unsupervised Learning: Mencari pola dalam data tanpa label
-# - Reinforcement Learning: Belajar melalui trial and error
+                        <pre><code># File handling adalah proses membaca dan menulis data ke file eksternal
+# Mengapa penting?
+# - Menyimpan data secara permanen
+# - Membaca data dari sumber eksternal
+# - Memproses data dalam jumlah besar
+# - Berbagi data antar program
 
-# Contoh aplikasi ML:
-# - Prediksi harga rumah
-# - Klasifikasi email spam
-# - Rekomendasi produk
-# - Pengenalan gambar
-# - Prediksi cuaca
+# Jenis operasi file:
+# - Read (r): Membaca file
+# - Write (w): Menulis file (menimpa jika ada)
+# - Append (a): Menambah data ke file
+# - Read+Write (r+): Membaca dan menulis
+# - Binary (b): Untuk file biner
 
-# Library utama untuk ML di Python:
-# - scikit-learn: Algoritma ML
-# - pandas: Manipulasi data
-# - numpy: Komputasi numerik
-# - matplotlib/seaborn: Visualisasi
+# Mode file:
+# 'r'  - Read only
+# 'w'  - Write only (overwrite)
+# 'a'  - Append
+# 'r+' - Read and write
+# 'w+' - Write and read (overwrite)
+# 'a+' - Append and read
 
-import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
+# Contoh dasar membaca file
+try:
+    file = open('data.txt', 'r')
+    content = file.read()
+    print(content)
+    file.close()
+except FileNotFoundError:
+    print("File tidak ditemukan")
+except Exception as e:
+    print(f"Error: {e}")
 
-print("Machine Learning Libraries:")
-print("- NumPy: Komputasi numerik")
-print("- Pandas: Data manipulation")
-print("- Scikit-learn: Algoritma ML")
-print("- Matplotlib: Visualisasi")
+# Menggunakan with statement (recommended)
+try:
+    with open('data.txt', 'r') as file:
+        content = file.read()
+        print(content)
+    # File otomatis ditutup di sini
+except FileNotFoundError:
+    print("File tidak ditemukan")
 
-# Contoh data sederhana
-data = {
-    'ukuran': [1000, 1500, 1200, 1800, 2000, 1400, 1600, 1700],
-    'kamar': [2, 3, 2, 4, 4, 3, 3, 4],
-    'harga': [200, 300, 250, 400, 450, 280, 320, 380]
-}
-
-df = pd.DataFrame(data)
-print("\nContoh dataset rumah:")
-print(df.head())
-
-# Statistik dasar
-print(f"\nStatistik dataset:")
-print(f"Jumlah data: {len(df)}")
-print(f"Rata-rata harga: ${df['harga'].mean():.0f}")
-print(f"Harga tertinggi: ${df['harga'].max()}")
-print(f"Harga terendah: ${df['harga'].min()}")</code></pre>
+print("File handling memungkinkan program berinteraksi dengan sistem file")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ Supervised Learning - Regresi Linear</h4>
-                    <p class="text-gray-600 mb-4">Memprediksi nilai kontinyu berdasarkan fitur input.</p>
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Fungsi open() dan Mode File</h4>
+                    <p class="text-gray-600 mb-4">Pelajari cara menggunakan fungsi open() dengan berbagai mode untuk membaca file.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LinearRegression
-from sklearn.metrics import mean_squared_error, r2_score
+                        <pre><code># Fungsi open() digunakan untuk membuka file
+# Sintaks: open(filename, mode, encoding)
+# filename: nama/path file
+# mode: mode pembukaan file
+# encoding: encoding karakter (default: platform dependent)
 
-# Dataset sederhana: Prediksi harga rumah berdasarkan ukuran
-np.random.seed(42)
+# Mode-mode yang tersedia:
+# 'r'  - Read (default) - membaca file
+# 'w'  - Write - menulis file (menimpa jika ada)
+# 'a'  - Append - menambah ke file yang ada
+# 'x'  - Create - membuat file baru (error jika sudah ada)
+# 'r+' - Read + Write
+# 'w+' - Write + Read (menimpa)
+# 'a+' - Append + Read
+# 'b'  - Binary mode (gabung dengan mode lain, contoh 'rb', 'wb')
+# 't'  - Text mode (default)
 
-# Generate data sintetis
-ukuran = np.random.randint(800, 2500, 100)
-harga = ukuran * 0.15 + np.random.normal(0, 20, 100) + 50
+# Contoh membaca file teks
+print("=== Membaca File Teks ===")
+try:
+    with open('data.txt', 'r', encoding='utf-8') as file:
+        content = file.read()
+        print("Isi file:")
+        print(content)
+except FileNotFoundError:
+    print("File data.txt tidak ditemukan")
 
-# Buat DataFrame
-df = pd.DataFrame({
-    'ukuran': ukuran,
-    'harga': harga
-})
+# Membaca per baris
+print("\n=== Membaca Per Baris ===")
+try:
+    with open('data.txt', 'r', encoding='utf-8') as file:
+        for line_number, line in enumerate(file, 1):
+            print(f"Baris {line_number}: {line.strip()}")
+except FileNotFoundError:
+    print("File data.txt tidak ditemukan")
 
-print("Dataset contoh:")
-print(df.head())
+# Membaca semua baris ke dalam list
+print("\n=== Membaca Semua Baris ke List ===")
+try:
+    with open('data.txt', 'r', encoding='utf-8') as file:
+        lines = file.readlines()
+        print(f"Jumlah baris: {len(lines)}")
+        for i, line in enumerate(lines[:3], 1):  # Tampilkan 3 baris pertama
+            print(f"Baris {i}: {line.strip()}")
+except FileNotFoundError:
+    print("File data.txt tidak ditemukan")
 
-# Split data menjadi training dan testing
-X = df[['ukuran']]  # Features
-y = df['harga']     # Target
+# Mode write
+print("\n=== Menulis File ===")
+with open('output.txt', 'w', encoding='utf-8') as file:
+    file.write("Ini adalah file output\n")
+    file.write("Baris kedua\n")
+    file.write("Baris ketiga\n")
 
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+print("File output.txt berhasil dibuat")
 
-print(f"\nTraining set: {len(X_train)} samples")
-print(f"Testing set: {len(X_test)} samples")
+# Mode append
+print("\n=== Menambah ke File (Append) ===")
+with open('output.txt', 'a', encoding='utf-8') as file:
+    file.write("Baris yang ditambahkan\n")
 
-# Buat model Linear Regression
-model = LinearRegression()
-
-# Training model
-model.fit(X_train, y_train)
-
-# Prediksi
-y_pred = model.predict(X_test)
-
-# Evaluasi model
-mse = mean_squared_error(y_test, y_pred)
-r2 = r2_score(y_test, y_pred)
-
-print(f"\nModel Performance:")
-print(f"Mean Squared Error: {mse:.2f}")
-print(f"R² Score: {r2:.4f}")
-print(f"Coefficient: {model.coef_[0]:.4f}")
-print(f"Intercept: {model.intercept_:.4f}")
-
-# Visualisasi
-plt.figure(figsize=(10, 6))
-plt.scatter(X_test, y_test, color='blue', alpha=0.7, label='Actual')
-plt.plot(X_test, y_pred, color='red', linewidth=2, label='Predicted')
-plt.xlabel('Ukuran Rumah (sq ft)')
-plt.ylabel('Harga (ribu $)')
-plt.title('Linear Regression: Prediksi Harga Rumah')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
-
-# Prediksi harga rumah baru
-ukuran_baru = [[1500]]
-harga_prediksi = model.predict(ukuran_baru)
-print(f"\nPrediksi harga rumah 1500 sq ft: ${harga_prediksi[0]:.0f}")</code></pre>
+print("Data berhasil ditambahkan ke file")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">3️⃣ Supervised Learning - Klasifikasi</h4>
-                    <p class="text-gray-600 mb-4">Memprediksi kategori atau kelas dari data.</p>
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ With Statement untuk File Handling</h4>
+                    <p class="text-gray-600 mb-4">Pelajari penggunaan with statement yang aman dan efisien untuk file handling.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.model_selection import train_test_split
-from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
-from sklearn.datasets import make_classification
+                        <pre><code># With statement adalah cara terbaik untuk handle file di Python
+# Keuntungan:
+# - Otomatis menutup file setelah selesai
+# - Menangani exception dengan baik
+# - Kode lebih bersih dan readable
+# - Mengurangi risiko resource leak
 
-# Generate dataset klasifikasi sintetis
-X, y = make_classification(
-    n_samples=1000,
-    n_features=2,
-    n_informative=2,
-    n_redundant=0,
-    n_clusters_per_class=1,
-    random_state=42
-)
+# Sintaks dasar:
+# with open(filename, mode) as file_object:
+#     # operasi file di sini
+#     pass
 
-# Buat DataFrame
-df = pd.DataFrame(X, columns=['feature1', 'feature2'])
-df['target'] = y
+print("=== Menggunakan With Statement ===")
 
-print("Dataset klasifikasi:")
-print(df.head())
-print(f"\nDistribusi kelas: {df['target'].value_counts()}")
+# Contoh membaca file dengan with
+try:
+    with open('data.txt', 'r', encoding='utf-8') as file:
+        content = file.read()
+        print("Berhasil membaca file:")
+        print(content[:100] + "..." if len(content) > 100 else content)
+except FileNotFoundError:
+    print("File data.txt tidak ditemukan")
 
-# Split data
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+# Contoh menulis file dengan with
+print("\n=== Menulis File dengan With ===")
+data_to_write = """Nama: John Doe
+Usia: 25
+Kota: Jakarta
+Pekerjaan: Programmer
+"""
 
-# Buat model Logistic Regression
-model = LogisticRegression(random_state=42)
+with open('profile.txt', 'w', encoding='utf-8') as file:
+    file.write(data_to_write)
 
-# Training model
-model.fit(X_train, y_train)
+print("File profile.txt berhasil dibuat")
 
-# Prediksi
-y_pred = model.predict(X_test)
+# Contoh multiple file operations
+print("\n=== Multiple File Operations ===")
+try:
+    # Membaca dari satu file dan menulis ke file lain
+    with open('profile.txt', 'r', encoding='utf-8') as source_file:
+        content = source_file.read()
+    
+    with open('profile_copy.txt', 'w', encoding='utf-8') as dest_file:
+        dest_file.write("COPY OF PROFILE:\n")
+        dest_file.write("=" * 20 + "\n")
+        dest_file.write(content)
+    
+    print("File berhasil dicopy")
+except FileNotFoundError:
+    print("File sumber tidak ditemukan")
 
-# Evaluasi model
-accuracy = accuracy_score(y_test, y_pred)
-print(f"\nAccuracy: {accuracy:.4f}")
+# Contoh dengan exception handling
+print("\n=== Exception Handling dengan With ===")
+def safe_file_read(filename):
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            return file.read()
+    except FileNotFoundError:
+        return f"Error: File '{filename}' tidak ditemukan"
+    except PermissionError:
+        return f"Error: Tidak ada izin untuk membaca '{filename}'"
+    except UnicodeDecodeError:
+        return f"Error: File '{filename}' bukan file teks valid"
+    except Exception as e:
+        return f"Error: {str(e)}"
 
-print("\nClassification Report:")
-print(classification_report(y_test, y_pred))
+result = safe_file_read('profile.txt')
+print("Hasil pembacaan:")
+print(result)
 
-print("Confusion Matrix:")
-print(confusion_matrix(y_test, y_pred))
+# Contoh dengan context manager custom (advanced)
+print("\n=== Custom Context Manager ===")
+class FileHandler:
+    def __init__(self, filename, mode='r'):
+        self.filename = filename
+        self.mode = mode
+        self.file = None
+    
+    def __enter__(self):
+        self.file = open(self.filename, self.mode, encoding='utf-8')
+        return self.file
+    
+    def __exit__(self, exc_type, exc_val, exc_tb):
+        if self.file:
+            self.file.close()
+        return False  # Re-raise exception jika ada
 
-# Visualisasi decision boundary
-def plot_decision_boundary(X, y, model):
-    x_min, x_max = X[:, 0].min() - 1, X[:, 0].max() + 1
-    y_min, y_max = X[:, 1].min() - 1, X[:, 1].max() + 1
-    xx, yy = np.meshgrid(np.arange(x_min, x_max, 0.1),
-                         np.arange(y_min, y_max, 0.1))
+# Menggunakan custom context manager
+try:
+    with FileHandler('profile.txt', 'r') as file:
+        lines = file.readlines()
+        print(f"File memiliki {len(lines)} baris")
+except Exception as e:
+    print(f"Error: {e}")
 
-    Z = model.predict(np.c_[xx.ravel(), yy.ravel()])
-    Z = Z.reshape(xx.shape)
-
-    plt.contourf(xx, yy, Z, alpha=0.4)
-    plt.scatter(X[:, 0], X[:, 1], c=y, alpha=0.8)
-    plt.xlabel('Feature 1')
-    plt.ylabel('Feature 2')
-    plt.title('Logistic Regression Decision Boundary')
-    plt.show()
-
-plot_decision_boundary(X_test, y_test, model)
-
-# Prediksi probabilitas
-sample_data = [[0.5, 1.2]]
-probabilities = model.predict_proba(sample_data)
-prediction = model.predict(sample_data)
-
-print(f"\nPrediksi untuk data {sample_data[0]}:")
-print(f"Kelas: {prediction[0]}")
-print(f"Probabilitas kelas 0: {probabilities[0][0]:.4f}")
-print(f"Probabilitas kelas 1: {probabilities[0][1]:.4f}")</code></pre>
+print("\nWith statement memastikan file selalu ditutup dengan benar!")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">4️⃣ Unsupervised Learning - K-Means Clustering</h4>
-                    <p class="text-gray-600 mb-4">Mengelompokkan data tanpa label yang diketahui.</p>
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Exception Handling dalam File Operations</h4>
+                    <p class="text-gray-600 mb-4">Menangani error dan exception yang mungkin terjadi saat operasi file.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import numpy as np
-import pandas as pd
-import matplotlib.pyplot as plt
-from sklearn.cluster import KMeans
-from sklearn.datasets import make_blobs
-from sklearn.metrics import silhouette_score
+                        <pre><code># Exception handling sangat penting dalam file operations
+# Karena berbagai hal bisa salah: file tidak ada, izin tidak cukup, disk penuh, dll.
 
-# Generate dataset dengan clusters
-X, _ = make_blobs(
-    n_samples=300,
-    centers=4,
-    cluster_std=0.60,
-    random_state=42
-)
+print("=== Exception Handling Dasar ===")
 
-print("Dataset untuk clustering:")
-print(f"Jumlah sampel: {len(X)}")
-print(f"Dimensi: {X.shape[1]}")
+# Contoh tanpa exception handling (berbahaya)
+print("Tanpa exception handling:")
+try:
+    file = open('tidak_ada.txt', 'r')
+    content = file.read()
+    print(content)
+    file.close()
+except FileNotFoundError:
+    print("File tidak ditemukan!")
 
-# Buat model K-Means
-kmeans = KMeans(n_clusters=4, random_state=42, n_init=10)
+# Dengan exception handling yang proper
+print("\nDengan exception handling:")
 
-# Fit model
-kmeans.fit(X)
+def read_file_safely(filename):
+    """Fungsi untuk membaca file dengan exception handling lengkap"""
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            content = file.read()
+            print(f"✅ Berhasil membaca file '{filename}'")
+            return content
+    except FileNotFoundError:
+        print(f"❌ FileNotFoundError: File '{filename}' tidak ditemukan")
+        return None
+    except PermissionError:
+        print(f"❌ PermissionError: Tidak ada izin untuk membaca '{filename}'")
+        return None
+    except UnicodeDecodeError:
+        print(f"❌ UnicodeDecodeError: File '{filename}' bukan file teks valid")
+        return None
+    except IsADirectoryError:
+        print(f"❌ IsADirectoryError: '{filename}' adalah direktori, bukan file")
+        return None
+    except Exception as e:
+        print(f"❌ Error tidak terduga: {str(e)}")
+        return None
 
-# Prediksi cluster untuk setiap data point
-cluster_labels = kmeans.predict(X)
+# Test berbagai skenario error
+print("\n=== Testing Berbagai Error Scenarios ===")
 
-# Centroid dari clusters
-centroids = kmeans.cluster_centers_
+# File yang ada
+result = read_file_safely('mahasiswa.txt')
 
-print(f"\nJumlah cluster: {len(centroids)}")
-print("Centroid koordinat:")
-for i, centroid in enumerate(centroids):
-    print(f"Cluster {i}: ({centroid[0]:.2f}, {centroid[1]:.2f})")
+# File yang tidak ada
+result = read_file_safely('file_tidak_ada.txt')
 
-# Evaluasi clustering dengan Silhouette Score
-silhouette_avg = silhouette_score(X, cluster_labels)
-print(f"\nSilhouette Score: {silhouette_avg:.4f}")
+# Coba akses direktori sebagai file
+result = read_file_safely('pages')  # Asumsi ada folder pages
 
-# Visualisasi hasil clustering
-plt.figure(figsize=(10, 6))
+print("\n=== Exception Handling dalam Loop ===")
 
-# Plot data points dengan warna berdasarkan cluster
-plt.scatter(X[:, 0], X[:, 1], c=cluster_labels, cmap='viridis', alpha=0.6)
+# Membaca multiple files dengan exception handling
+file_list = ['mahasiswa.txt', 'profile.txt', 'tidak_ada.txt', 'app.log']
 
-# Plot centroids
-plt.scatter(centroids[:, 0], centroids[:, 1], c='red', marker='x', s=200, linewidth=3, label='Centroids')
+for filename in file_list:
+    print(f"\nMencoba membaca: {filename}")
+    content = read_file_safely(filename)
+    if content:
+        print(f"Preview: {content[:50]}..." if len(content) > 50 else f"Isi: {content}")
 
-plt.xlabel('Feature 1')
-plt.ylabel('Feature 2')
-plt.title('K-Means Clustering Results')
-plt.legend()
-plt.grid(True, alpha=0.3)
-plt.show()
+print("\n=== Custom Exception untuk File Operations ===")
 
-# Menentukan jumlah cluster optimal dengan Elbow Method
-inertia_values = []
-k_range = range(1, 11)
+class FileOperationError(Exception):
+    """Custom exception untuk file operations"""
+    pass
 
-for k in k_range:
-    kmeans_temp = KMeans(n_clusters=k, random_state=42, n_init=10)
-    kmeans_temp.fit(X)
-    inertia_values.append(kmeans_temp.inertia_)
+def process_student_file(filename):
+    """Memproses file mahasiswa dengan custom exception"""
+    try:
+        with open(filename, 'r', encoding='utf-8') as file:
+            content = file.read()
 
-plt.figure(figsize=(8, 5))
-plt.plot(k_range, inertia_values, 'bo-')
-plt.xlabel('Number of Clusters (k)')
-plt.ylabel('Inertia')
-plt.title('Elbow Method for Optimal k')
-plt.grid(True, alpha=0.3)
-plt.show()
+        # Validasi format file
+        if 'Nama:' not in content:
+            raise FileOperationError("File tidak mengandung data mahasiswa yang valid")
 
-print("\nInterpretasi Elbow Method:")
-print("- Titik 'elbow' menunjukkan jumlah cluster optimal")
-print("- Inertia menurun drastis sampai titik elbow")
-print("- Setelah elbow, penurunan inertia melambat")</code></pre>
+        if 'IPK:' not in content:
+            raise FileOperationError("File tidak mengandung data IPK")
+
+        print(f"✅ File '{filename}' valid dan berhasil diproses")
+        return content
+
+    except FileNotFoundError:
+        raise FileOperationError(f"File '{filename}' tidak ditemukan")
+    except PermissionError:
+        raise FileOperationError(f"Tidak ada izin untuk mengakses '{filename}'")
+    except Exception as e:
+        raise FileOperationError(f"Error memproses file: {str(e)}")
+
+# Test custom exception
+print("\nTesting custom exception:")
+try:
+    result = process_student_file('mahasiswa.txt')
+except FileOperationError as e:
+    print(f"❌ FileOperationError: {e}")
+
+try:
+    result = process_student_file('tidak_ada.txt')
+except FileOperationError as e:
+    print(f"❌ FileOperationError: {e}")
+
+print("\n=== Best Practices Exception Handling ===")
+print("1. Selalu gunakan try-except untuk file operations")
+print("2. Tangkap exception spesifik terlebih dahulu")
+print("3. Gunakan finally untuk cleanup jika perlu")
+print("4. Berikan pesan error yang informatif")
+print("5. Gunakan with statement untuk auto-close files")
+print("6. Consider custom exceptions untuk business logic")
+
+# Contoh dengan finally block
+print("\n=== Menggunakan Finally Block ===")
+
+def write_log_with_finally(message, filename='app.log'):
+    """Menulis log dengan finally block"""
+    file = None
+    try:
+        file = open(filename, 'a', encoding='utf-8')
+        import datetime
+        timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        file.write(f"[{timestamp}] {message}\n")
+        print(f"✅ Log berhasil ditulis ke '{filename}'")
+    except Exception as e:
+        print(f"❌ Gagal menulis log: {e}")
+    finally:
+        # Pastikan file selalu ditutup
+        if file:
+            file.close()
+            print("📁 File log ditutup")
+
+# Test finally block
+write_log_with_finally("Testing finally block")
+
+print("\nException handling membuat aplikasi lebih robust dan user-friendly!")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">5️⃣ Latihan Praktis</h4>
-                    <p class="text-gray-600 mb-4">Implementasi algoritma ML sederhana.</p>
+                    <p class="text-gray-600 mb-4">Implementasi berbagai teknik file handling dengan Python.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Latihan 1: Membuat dan membaca file teks sederhana
+print("=== Latihan 1: File Teks Sederhana ===")
+
+# Buat file dengan data mahasiswa
+students_data = """Nama: Ahmad Surya
+NIM: 12345678
+Jurusan: Informatika
+IPK: 3.75
+
+Nama: Budi Santoso
+NIM: 12345679
+Jurusan: Sistem Informasi
+IPK: 3.60
+
+Nama: Citra Dewi
+NIM: 12345680
+Jurusan: Informatika
+IPK: 3.85
+"""
+
+with open('mahasiswa.txt', 'w', encoding='utf-8') as file:
+    file.write(students_data)
+
+print("File mahasiswa.txt berhasil dibuat")
+
+# Baca dan tampilkan data
+with open('mahasiswa.txt', 'r', encoding='utf-8') as file:
+    content = file.read()
+    print("Isi file mahasiswa.txt:")
+    print(content)
+
+# Latihan 2: Membaca file per baris dan parsing data
+print("\n=== Latihan 2: Parsing Data Mahasiswa ===")
+
+students = []
+current_student = {}
+
+with open('mahasiswa.txt', 'r', encoding='utf-8') as file:
+    for line in file:
+        line = line.strip()
+        if line.startswith('Nama:'):
+            if current_student:
+                students.append(current_student)
+            current_student = {'nama': line.split(': ')[1]}
+        elif line.startswith('NIM:'):
+            current_student['nim'] = line.split(': ')[1]
+        elif line.startswith('Jurusan:'):
+            current_student['jurusan'] = line.split(': ')[1]
+        elif line.startswith('IPK:'):
+            current_student['ipk'] = float(line.split(': ')[1])
+
+# Jangan lupa tambahkan mahasiswa terakhir
+if current_student:
+    students.append(current_student)
+
+print(f"Jumlah mahasiswa: {len(students)}")
+for student in students:
+    print(f"- {student['nama']} ({student['nim']}) - {student['jurusan']} - IPK: {student['ipk']}")
+
+# Latihan 3: Menulis data ke CSV sederhana
+print("\n=== Latihan 3: Export ke CSV ===")
+
+import csv
+
+# Header CSV
+header = ['NIM', 'Nama', 'Jurusan', 'IPK']
+
+# Tulis ke CSV
+with open('mahasiswa.csv', 'w', newline='', encoding='utf-8') as csvfile:
+    writer = csv.writer(csvfile)
+    writer.writerow(header)
+    
+    for student in students:
+        writer.writerow([
+            student['nim'],
+            student['nama'],
+            student['jurusan'],
+            student['ipk']
+        ])
+
+print("File mahasiswa.csv berhasil dibuat")
+
+# Baca CSV
+print("Membaca file CSV:")
+with open('mahasiswa.csv', 'r', encoding='utf-8') as csvfile:
+    reader = csv.reader(csvfile)
+    for row in reader:
+        print(', '.join(row))
+
+# Latihan 4: File operations dengan exception handling
+print("\n=== Latihan 4: File Operations Aman ===")
+
+def copy_file_safe(source, destination):
+    """Copy file dengan error handling"""
+    try:
+        with open(source, 'r', encoding='utf-8') as src:
+            content = src.read()
+        
+        with open(destination, 'w', encoding='utf-8') as dst:
+            dst.write(content)
+        
+        print(f"✅ File berhasil dicopy dari {source} ke {destination}")
+        return True
+        
+    except FileNotFoundError:
+        print(f"❌ File sumber '{source}' tidak ditemukan")
+        return False
+    except PermissionError:
+        print(f"❌ Tidak ada izin untuk menulis ke '{destination}'")
+        return False
+    except Exception as e:
+        print(f"❌ Error: {str(e)}")
+        return False
+
+# Test copy file
+copy_file_safe('mahasiswa.txt', 'mahasiswa_copy.txt')
+
+# Latihan 5: Log file sederhana
+print("\n=== Latihan 5: Simple Log File ===")
+
+import datetime
+
+def write_log(message, level='INFO'):
+    """Menulis log ke file"""
+    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+    log_entry = f"[{timestamp}] {level}: {message}\n"
+    
+    with open('app.log', 'a', encoding='utf-8') as log_file:
+        log_file.write(log_entry)
+    
+    print(f"Log ditulis: {message}")
+
+# Test logging
+write_log("Aplikasi dimulai")
+write_log("Memproses data mahasiswa", "INFO")
+write_log("File berhasil dibuat", "SUCCESS")
+write_log("Proses selesai")
+
+# Baca log file
+print("\nIsi file log:")
+with open('app.log', 'r', encoding='utf-8') as file:
+    print(file.read())
+
+print("\n🎉 Semua latihan file handling selesai!")</code></pre>
+                    </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">6️⃣ Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/GwIo3gDZCVQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/ADcQu-8R0Ok" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">7️⃣ Kuis Interaktif</h4>
                     <div class="space-y-4">
                         <div>
-                            <p class="font-medium mb-2">1. Apa perbedaan utama antara Supervised dan Unsupervised Learning?</p>
+                            <p class="font-medium mb-2">1. Apa keuntungan utama menggunakan 'with' statement untuk file handling?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="a" class="mr-2">
-                                    <span>Supervised menggunakan label, Unsupervised tidak</span>
+                                    <span>File otomatis ditutup setelah digunakan</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="b" class="mr-2">
-                                    <span>Keduanya sama saja</span>
+                                    <span>Kode menjadi lebih panjang</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="c" class="mr-2">
-                                    <span>Unsupervised lebih akurat</span>
+                                    <span>File tidak bisa dibaca</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <p class="font-medium mb-2">2. Algoritma apa yang digunakan untuk regresi linear?</p>
+                            <p class="font-medium mb-2">2. Mode file apa yang digunakan untuk menambah data ke file yang sudah ada?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="a" class="mr-2">
-                                    <span>LinearRegression dari sklearn</span>
+                                    <span>'r' (read)</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="b" class="mr-2">
-                                    <span>KMeans</span>
+                                    <span>'a' (append)</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="c" class="mr-2">
-                                    <span>DecisionTree</span>
+                                    <span>'w' (write)</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">3. Fungsi apa yang digunakan untuk membaca semua baris file ke dalam list?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="a" class="mr-2">
+                                    <span>read()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="b" class="mr-2">
+                                    <span>readlines()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="c" class="mr-2">
+                                    <span>readline()</span>
                                 </label>
                             </div>
                         </div>

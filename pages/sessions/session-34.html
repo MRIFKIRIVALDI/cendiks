@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 34: Pengenalan Django untuk Web Development - Cendiks</title>
+    <title>Sesi 34: Global & Local Scope - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 34: Pengenalan Django untuk Web Development</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari framework web Python yang powerful dan lengkap</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 34: Global & Local Scope</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari tentang ruang lingkup variabel dalam Python</p>
         </div>
     </section>
 
@@ -39,82 +39,194 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Django?</h4>
-                    <p class="text-gray-600 mb-4">High-level Python web framework yang mendorong development yang cepat dan clean.</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Scope?</h4>
+                    <p class="text-gray-600 mb-4">Scope: wilayah kekuasaan variabel! 🌍 Global bisa ke mana-mana, Local cuma di rumahnya sendiri 🏠</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Instalasi Django
-# pip install django
+                        <pre><code># Global: bisa diakses dimana saja
+nama = "Alice"
+def sapa():
+    print(f"Halo {nama}")
+sapa()  # Halo Alice
 
-# Membuat proyek Django baru
-# django-admin startproject mysite
-
-# Struktur proyek Django
-"""
-mysite/
-├── manage.py
-└── mysite/
-    ├── __init__.py
-    ├── settings.py
-    ├── urls.py
-    ├── asgi.py
-    └── wsgi.py
-"""
-
-# Menjalankan server development
-# python manage.py runserver
-
-# Membuat aplikasi baru
-# python manage.py startapp blog
-
-# Struktur aplikasi Django
-"""
-blog/
-├── __init__.py
-├── admin.py
-├── apps.py
-├── models.py
-├── tests.py
-├── views.py
-├── migrations/
-│   └── __init__.py
-└── templates/
-    └── blog/
-"""
-
-# File mysite/urls.py
-from django.contrib import admin
-from django.urls import path, include
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('blog/', include('blog.urls')),
-]
-
-# File blog/urls.py
-from django.urls import path
-from . import views
-
-urlpatterns = [
-    path('', views.post_list, name='post_list'),
-    path('post/<int:pk>/', views.post_detail, name='post_detail'),
-]
-
-# File blog/views.py
-from django.shortcuts import render, get_object_or_404
-from .models import Post
-
-def post_list(request):
-    posts = Post.objects.all()
-    return render(request, 'blog/post_list.html', {'posts': posts})
-
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    return render(request, 'blog/post_detail.html', {'post': post})</code></pre>
+# Local: cuma di dalam fungsi
+def hitung():
+    x = 10
+    return x * 2
+print(hitung())  # 20</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ Models dan Database</h4>
-                    <p class="text-gray-600 mb-4">Mendefinisikan data models dan ORM Django.</p>
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Global Scope</h4>
+                    <p class="text-gray-600 mb-4">Global: variabel duniawi yang bisa dipanggil dari mana saja! 🌍✨</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># File blog/models.py
+                        <pre><code>nama = "Alice"
+
+def sapa():
+    print(f"Halo {nama}")
+
+sapa()  # Halo Alice
+
+def ubah():
+    global nama
+    nama = "Bob"
+
+ubah()
+print(nama)  # Bob</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Local Scope</h4>
+                    <p class="text-gray-600 mb-4">Variabel yang didefinisikan di dalam fungsi hanya dapat diakses dari dalam fungsi tersebut.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Contoh Local Scope
+def fungsi_local():
+    local_var = "Saya local"
+    print(local_var)  # Output: Saya local
+
+fungsi_local()
+# print(local_var)  # Error: name 'local_var' is not defined
+
+# Nested functions dan scope
+def outer():
+    outer_var = "outer"
+
+    def inner():
+        inner_var = "inner"
+        print(outer_var)  # Bisa mengakses variabel outer
+        print(inner_var)  # Bisa mengakses variabel inner
+
+    inner()
+    # print(inner_var)  # Error: tidak bisa mengakses dari outer
+
+outer()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Built-in Scope</h4>
+                    <p class="text-gray-600 mb-4">Built-in: teman-teman bawaan Python yang selalu siap membantu! 🛠️✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>print("Hello")  # Built-in
+data = [1, 2, 3]
+print(len(data))  # 3
+
+import builtins
+print(dir(builtins)[:5])  # Lihat beberapa</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ nonlocal Keyword</h4>
+                    <p class="text-gray-600 mb-4">nonlocal: jembatan untuk mengubah variabel di scope luar! 🌉✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def outer():
+    x = "awal"
+
+    def inner():
+        nonlocal x
+        x = "diubah"
+        print(f"Inner: {x}")
+
+    inner()
+    print(f"Outer: {x}")
+
+outer()
+# Inner: diubah
+# Outer: diubah</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Ayo latihan scope dengan contoh simpel! 💪</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Counter global
+counter = 0
+
+def tambah():
+    global counter
+    counter += 1
+    return counter
+
+print(tambah())  # 1
+print(counter)   # 1
+
+# Calculator dengan nonlocal
+def buat_kalkulator():
+    hasil = 0
+
+    def tambah(x):
+        nonlocal hasil
+        hasil += x
+        return hasil
+
+    return tambah
+
+tambah = buat_kalkulator()
+print(tambah(5))  # 5
+print(tambah(3))  # 8</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/BWQn2TQqvY8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <!-- Quiz Section -->
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Kuis Interaktif: Global & Local Scope</h4>
+                    <p class="text-gray-600 mb-4">Uji pemahaman Anda tentang scope dalam Python!</p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-semibold">1. Variabel yang didefinisikan di luar fungsi memiliki scope:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q1" value="a"> a) Local</label><br>
+                                <label><input type="radio" name="q1" value="b"> b) Global</label><br>
+                                <label><input type="radio" name="q1" value="c"> c) Built-in</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold">2. Untuk mengubah variabel global dari dalam fungsi, kita perlu:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q2" value="a"> a) Menggunakan keyword nonlocal</label><br>
+                                <label><input type="radio" name="q2" value="b"> b) Menggunakan keyword global</label><br>
+                                <label><input type="radio" name="q2" value="c"> c) Tidak perlu keyword khusus</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold">3. Variabel local dapat diakses dari luar fungsi:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q3" value="a"> a) Ya, selalu</label><br>
+                                <label><input type="radio" name="q3" value="b"> b) Tidak, hanya dalam fungsi</label><br>
+                                <label><input type="radio" name="q3" value="c"> c) Tergantung pada keyword yang digunakan</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold">4. nonlocal keyword digunakan untuk:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q4" value="a"> a) Mengakses variabel global</label><br>
+                                <label><input type="radio" name="q4" value="b"> b) Mengakses variabel dari enclosing scope</label><br>
+                                <label><input type="radio" name="q4" value="c"> c) Mendefinisikan variabel built-in</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold">5. Urutan pencarian variabel dalam Python adalah:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q5" value="a"> a) Local → Global → Built-in</label><br>
+                                <label><input type="radio" name="q5" value="b"> b) Global → Local → Built-in</label><br>
+                                <label><input type="radio" name="q5" value="c"> c) Built-in → Global → Local</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="checkScopeQuiz()" class="mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                    <div id="quiz-result" class="mt-4"></div>
+                </div>

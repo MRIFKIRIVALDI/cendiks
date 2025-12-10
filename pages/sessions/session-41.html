@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 41: Pengenalan Django untuk Web Development - Cendiks</title>
+    <title>Sesi 41: Package Numpy - Cendiks</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
     <script src="../js/scripts.js"></script>
@@ -27,8 +27,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 41: Pengenalan Django untuk Web Development</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari framework web Python yang full-featured</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 41: Package Numpy</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari library fundamental untuk komputasi numerik di Python</p>
         </div>
     </section>
 
@@ -39,929 +39,663 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Django?</h4>
-                    <p class="text-gray-600 mb-4">High-level Python web framework yang mengikuti pola MTV.</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu NumPy?</h4>
+                    <p class="text-gray-600 mb-4">Library fundamental untuk komputasi numerik di Python yang menyediakan objek array multidimensi dan berbagai fungsi matematika.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Instalasi Django
-# pip install django
+                        <pre><code># Instalasi NumPy
+# pip install numpy
 
-# Membuat proyek Django baru
-# django-admin startproject mysite
+# Import NumPy
+import numpy as np
 
-# Struktur proyek Django
-"""
-mysite/
-├── manage.py
-├── mysite/
-│   ├── __init__.py
-│   ├── settings.py
-│   ├── urls.py
-│   ├── asgi.py
-│   └── wsgi.py
-└── db.sqlite3 (akan dibuat saat migrate)
-"""
+# Membuat array NumPy
+arr = np.array([1, 2, 3, 4, 5])
+print(arr)  # [1 2 3 4 5]
+print(type(arr))  # <class 'numpy.ndarray'>
 
-# Menjalankan server development
-# python manage.py runserver
+# Array multidimensi
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+print(matrix)
+# [[1 2 3]
+#  [4 5 6]
+#  [7 8 9]]
 
-# File mysite/settings.py - konfigurasi dasar
-"""
+# Array dengan tipe data tertentu
+float_arr = np.array([1, 2, 3], dtype=float)
+print(float_arr)  # [1. 2. 3.]
+
+# Array dengan nilai awal
+zeros = np.zeros((3, 4))  # Array 3x4 berisi 0
+ones = np.ones((2, 3))    # Array 2x3 berisi 1
+empty = np.empty((2, 2))  # Array kosong (nilai acak)
+full = np.full((2, 2), 7) # Array 2x2 berisi 7
+
+# Array dengan range
+range_arr = np.arange(10)      # [0 1 2 3 4 5 6 7 8 9]
+step_arr = np.arange(0, 10, 2) # [0 2 4 6 8]
+linspace_arr = np.linspace(0, 1, 5)  # [0.   0.25 0.5  0.75 1.  ]</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Operasi Matematika pada Array</h4>
+                    <p class="text-gray-600 mb-4">Operasi aritmatika, trigonometri, dan fungsi matematika lainnya pada array NumPy.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+
+# Membuat array untuk operasi
+a = np.array([1, 2, 3, 4])
+b = np.array([5, 6, 7, 8])
+
+print("Array a:", a)  # [1 2 3 4]
+print("Array b:", b)  # [5 6 7 8]
+
+# Operasi aritmatika dasar
+print("Penjumlahan:", a + b)        # [6 8 10 12]
+print("Pengurangan:", a - b)        # [-4 -4 -4 -4]
+print("Perkalian:", a * b)          # [5 12 21 32]
+print("Pembagian:", b / a)          # [5. 3. 2.333 2.]
+print("Pangkat:", a ** 2)           # [1 4 9 16]
+print("Modulus:", b % a)            # [0 0 1 0]
+
+# Operasi dengan skalar
+print("a + 10:", a + 10)            # [11 12 13 14]
+print("a * 3:", a * 3)              # [3 6 9 12]
+
+# Fungsi matematika
+arr = np.array([0, np.pi/2, np.pi])
+print("Sinus:", np.sin(arr))        # [0. 1. 0.]
+print("Cosinus:", np.cos(arr))      # [1. 0. -1.]
+print("Tangen:", np.tan(arr))       # [0. 1.633e+16 -0.]
+
+# Fungsi eksponensial dan logaritma
+x = np.array([1, 2, 3, 4])
+print("e^x:", np.exp(x))            # [2.718 7.389 20.085 54.598]
+print("ln(x):", np.log(x))          # [0. 0.693 1.099 1.386]
+print("log10(x):", np.log10(x))     # [0. 0.301 0.477 0.602]
+
+# Fungsi aggregasi
+data = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+print("Jumlah:", np.sum(data))      # 55
+print("Rata-rata:", np.mean(data))  # 5.5
+print("Median:", np.median(data))   # 5.5
+print("Standar deviasi:", np.std(data))  # 2.872
+print("Variansi:", np.var(data))    # 8.25
+print("Minimum:", np.min(data))     # 1
+print("Maximum:", np.max(data))     # 10
+
+# Operasi pada sumbu tertentu (axis)
+matrix = np.array([[1, 2, 3], [4, 5, 6]])
+print("Matrix:")
+print(matrix)
+# [[1 2 3]
+#  [4 5 6]]
+
+print("Jumlah per kolom:", np.sum(matrix, axis=0))  # [5 7 9]
+print("Jumlah per baris:", np.sum(matrix, axis=1))  # [6 15]
+print("Rata-rata per kolom:", np.mean(matrix, axis=0))  # [2.5 3.5 4.5]
+
+# Operasi perbandingan
+print("a > 2:", a > 2)              # [False False True True]
+print("a == b:", a == b)            # [False False False False]
+print("Semua elemen > 0:", np.all(a > 0))  # True
+print("Ada elemen > 3:", np.any(a > 3))    # True</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Indexing dan Slicing</h4>
+                    <p class="text-gray-600 mb-4">Mengakses dan memotong elemen array NumPy.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+
+# Membuat array untuk contoh
+arr = np.arange(10)  # [0 1 2 3 4 5 6 7 8 9]
+print("Array:", arr)
+
+# Indexing dasar
+print("Elemen pertama:", arr[0])    # 0
+print("Elemen terakhir:", arr[-1])  # 9
+print("Elemen ke-5:", arr[4])       # 4
+
+# Slicing [start:stop:step]
+print("Elemen 2 sampai 5:", arr[2:6])     # [2 3 4 5]
+print("Elemen genap:", arr[::2])          # [0 2 4 6 8]
+print("Elemen ganjil:", arr[1::2])        # [1 3 5 7 9]
+print("Dibalik:", arr[::-1])              # [9 8 7 6 5 4 3 2 1 0]
+
+# Array 2D
+matrix = np.array([[1, 2, 3, 4],
+                   [5, 6, 7, 8],
+                   [9, 10, 11, 12]])
+
+print("Matrix:")
+print(matrix)
+# [[1 2 3 4]
+#  [5 6 7 8]
+#  [9 10 11 12]]
+
+# Indexing 2D
+print("Elemen [0,0]:", matrix[0, 0])    # 1
+print("Elemen [1,2]:", matrix[1, 2])    # 7
+print("Baris pertama:", matrix[0])      # [1 2 3 4]
+print("Kolom kedua:", matrix[:, 1])     # [2 6 10]
+
+# Slicing 2D
+print("Submatrix 2x2:")
+print(matrix[0:2, 1:3])
+# [[2 3]
+#  [6 7]]
+
+print("Baris kedua dan ketiga:")
+print(matrix[1:3])
+# [[5 6 7 8]
+#  [9 10 11 12]]
+
+# Boolean indexing
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+mask = arr > 5
+print("Mask:", mask)                    # [False False False False False True True True True True]
+print("Elemen > 5:", arr[mask])         # [6 7 8 9 10]
+print("Elemen genap:", arr[arr % 2 == 0])  # [2 4 6 8 10]
+
+# Fancy indexing
+indices = [1, 3, 5, 7]
+print("Elemen dengan indeks", indices, ":", arr[indices])  # [2 4 6 8]</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Manipulasi Bentuk Array</h4>
+                    <p class="text-gray-600 mb-4">Mengubah bentuk, menggabungkan, dan memisahkan array NumPy.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+
+# Membuat array untuk contoh
+arr = np.arange(12)  # [0 1 2 3 4 5 6 7 8 9 10 11]
+print("Array 1D:", arr)
+
+# Reshape - mengubah bentuk array
+matrix = arr.reshape(3, 4)
+print("Reshape ke 3x4:")
+print(matrix)
+# [[0 1 2 3]
+#  [4 5 6 7]
+#  [8 9 10 11]]
+
+# Reshape dengan -1 (otomatis)
+reshaped = arr.reshape(2, -1)  # 2 baris, kolom otomatis
+print("Reshape ke 2x?:")
+print(reshaped)
+# [[0 1 2 3 4 5]
+#  [6 7 8 9 10 11]]
+
+# Flatten - mengubah ke 1D
+flattened = matrix.flatten()
+print("Flatten:", flattened)  # [0 1 2 3 4 5 6 7 8 9 10 11]
+
+# Ravel - sama dengan flatten tapi lebih efisien
+raveled = matrix.ravel()
+print("Ravel:", raveled)      # [0 1 2 3 4 5 6 7 8 9 10 11]
+
+# Transpose - mentranspos matrix
+transposed = matrix.T
+print("Transpose:")
+print(transposed)
+# [[0 4 8]
+#  [1 5 9]
+#  [2 6 10]
+#  [3 7 11]]
+
+# Menggabungkan array
+a = np.array([[1, 2], [3, 4]])
+b = np.array([[5, 6], [7, 8]])
+
+# Concatenate
+concat_rows = np.concatenate((a, b), axis=0)  # Gabung baris
+print("Concatenate baris:")
+print(concat_rows)
+# [[1 2]
+#  [3 4]
+#  [5 6]
+#  [7 8]]
+
+concat_cols = np.concatenate((a, b), axis=1)  # Gabung kolom
+print("Concatenate kolom:")
+print(concat_cols)
+# [[1 2 5 6]
+#  [3 4 7 8]]
+
+# Stack
+stacked = np.stack((a, b), axis=0)  # Stack 3D
+print("Stack:")
+print(stacked)
+# [[[1 2]
+#   [3 4]]
+#  [[5 6]
+#   [7 8]]]
+
+# Horizontal stack (hstack)
+hstacked = np.hstack((a, b))
+print("Horizontal stack:")
+print(hstacked)
+# [[1 2 5 6]
+#  [3 4 7 8]]
+
+# Vertical stack (vstack)
+vstacked = np.vstack((a, b))
+print("Vertical stack:")
+print(vstacked)
+# [[1 2]
+#  [3 4]
+#  [5 6]
+#  [7 8]]
+
+# Memisahkan array
+# Split
+split_arr = np.arange(9)
+split_parts = np.split(split_arr, 3)
+print("Split menjadi 3:", split_parts)
+# [array([0, 1, 2]), array([3, 4, 5]), array([6, 7, 8])]
+
+# Horizontal split (hsplit)
+matrix_4x4 = np.arange(16).reshape(4, 4)
+hsplit_parts = np.hsplit(matrix_4x4, 2)
+print("Horizontal split:")
+for i, part in enumerate(hsplit_parts):
+    print(f"Part {i}:")
+    print(part)
+
+# Vertical split (vsplit)
+vsplit_parts = np.vsplit(matrix_4x4, 2)
+print("Vertical split:")
+for i, part in enumerate(vsplit_parts):
+    print(f"Part {i}:")
+    print(part)
+
+# Menambah dimensi
+arr_1d = np.array([1, 2, 3])
+arr_2d = arr_1d[np.newaxis, :]  # Tambah dimensi baris
+print("Tambah dimensi baris:", arr_2d.shape)  # (1, 3)
+
+arr_2d_col = arr_1d[:, np.newaxis]  # Tambah dimensi kolom
+print("Tambah dimensi kolom:", arr_2d_col.shape)  # (3, 1)
+
+# Squeeze - menghapus dimensi yang tidak perlu
+arr_3d = np.array([[[1]], [[2]], [[3]]])
+squeezed = np.squeeze(arr_3d)
+print("Squeeze:", squeezed.shape)  # (3,)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Broadcasting dan Operasi Lanjutan</h4>
+                    <p class="text-gray-600 mb-4">Broadcasting otomatis dan operasi array yang lebih kompleks.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+
+# Broadcasting - operasi antara array dengan bentuk berbeda
+a = np.array([1, 2, 3])      # shape (3,)
+b = np.array([[1], [2], [3]]) # shape (3, 1)
+
+print("Array a:", a)
+print("Array b:")
+print(b)
+
+# Broadcasting otomatis
+result = a + b
+print("a + b (broadcasting):")
+print(result)
+# [[2 3 4]
+#  [3 4 5]
+#  [4 5 6]]
+
+# Broadcasting dengan skalar
+matrix = np.array([[1, 2, 3], [4, 5, 6]])
+print("Matrix:")
+print(matrix)
+
+print("Matrix + 10:")
+print(matrix + 10)
+# [[11 12 13]
+#  [14 15 16]]
+
+# Broadcasting dengan array 1D
+row_vector = np.array([10, 20, 30])  # shape (3,)
+col_vector = np.array([[100], [200]])  # shape (2, 1)
+
+print("Matrix + row_vector:")
+print(matrix + row_vector)
+# [[11 22 33]
+#  [14 25 36]]
+
+# Operasi matematika lanjutan
+x = np.linspace(0, 2*np.pi, 10)
+y = np.sin(x)
+z = np.cos(x)
+
+print("x:", x)
+print("sin(x):", y)
+print("cos(x):", z)
+
+# Operasi kompleks
+complex_arr = np.array([1+2j, 3+4j, 5+6j])
+print("Complex array:", complex_arr)
+print("Real part:", np.real(complex_arr))    # [1. 3. 5.]
+print("Imaginary part:", np.imag(complex_arr))  # [2. 4. 6.]
+print("Absolute:", np.abs(complex_arr))      # [2.236 5. 7.81]
+
+# Operasi statistik
+data = np.random.randn(1000)  # 1000 angka random normal
+print("Mean:", np.mean(data))
+print("Std:", np.std(data))
+print("Min:", np.min(data))
+print("Max:", np.max(data))
+print("25th percentile:", np.percentile(data, 25))
+print("Median:", np.median(data))
+print("75th percentile:", np.percentile(data, 75))
+
+# Operasi kumulatif
+arr = np.arange(1, 6)
+print("Array:", arr)                    # [1 2 3 4 5]
+print("Cumulative sum:", np.cumsum(arr))    # [1 3 6 10 15]
+print("Cumulative product:", np.cumprod(arr))  # [1 2 6 24 120]
+
+# Operasi perbandingan dan logika
+a = np.array([1, 2, 3, 4, 5])
+b = np.array([2, 2, 2, 6, 4])
+
+print("a > b:", a > b)          # [False False True False True]
+print("a == b:", a == b)        # [False True False False False]
+print("a & (a > 2):", a[a > 2]) # [3 4 5]
+
+# Operasi set
+arr1 = np.array([1, 2, 3, 4, 5])
+arr2 = np.array([3, 4, 5, 6, 7])
+
+print("Union:", np.union1d(arr1, arr2))        # [1 2 3 4 5 6 7]
+print("Intersection:", np.intersect1d(arr1, arr2))  # [3 4 5]
+print("Difference:", np.setdiff1d(arr1, arr2))     # [1 2]
+print("XOR:", np.setxor1d(arr1, arr2))             # [1 2 6 7]
+
+# Operasi sorting dan searching
+unsorted = np.array([3, 1, 4, 1, 5, 9, 2, 6])
+print("Unsorted:", unsorted)
+print("Sorted:", np.sort(unsorted))  # [1 1 2 3 4 5 6 9]
+
+# Searching
+print("Index of minimum:", np.argmin(unsorted))  # 1
+print("Index of maximum:", np.argmax(unsorted))  # 5
+print("Where > 3:", np.where(unsorted > 3))      # (array([0, 4, 5, 7]),)
+
+# Unique values
+with_duplicates = np.array([1, 2, 2, 3, 3, 3, 4])
+print("Unique:", np.unique(with_duplicates))           # [1 2 3 4]
+print("Unique with counts:", np.unique(with_duplicates, return_counts=True))
+# (array([1, 2, 3, 4]), array([1, 1, 3, 1]))</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Input/Output dan File Handling</h4>
+                    <p class="text-gray-600 mb-4">Menyimpan dan memuat array NumPy dari/ke file.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
 import os
 
-BASE_DIR = Path(__file__).resolve().parent.parent
-
-SECRET_KEY = 'your-secret-key-here'
-
-DEBUG = True
-
-ALLOWED_HOSTS = []
-
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-]
-
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
-
-ROOT_URLCONF = 'mysite.urls'
-
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
-
-STATIC_URL = 'static/'
-"""
-
-# File mysite/urls.py - routing utama
-"""
-from django.contrib import admin
-from django.urls import path, include
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', include('blog.urls')),  # Akan dibuat nanti
-]
-"""</code></pre>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ Membuat Django App</h4>
-                    <p class="text-gray-600 mb-4">Membuat aplikasi dalam proyek Django.</p>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Membuat app baru
-# python manage.py startapp blog
-
-# Struktur app blog
-"""
-blog/
-├── __init__.py
-├── admin.py
-├── apps.py
-├── models.py
-├── tests.py
-├── urls.py
-└── views.py
-"""
-
-# File blog/models.py - mendefinisikan model database
-"""
-from django.db import models
-from django.contrib.auth.models import User
-
-class Post(models.Model):
-    title = models.CharField(max_length=200)
-    content = models.TextField()
-    author = models.ForeignKey(User, on_delete=models.CASCADE)
-    created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
-    published = models.BooleanField(default=False)
-    
-    def __str__(self):
-        return self.title
-    
-    class Meta:
-        ordering = ['-created_at']
-
-class Comment(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments')
-    author = models.CharField(max_length=100)
-    email = models.EmailField()
-    content = models.TextField()
-    created_at = models.DateTimeField(auto_now_add=True)
-    approved = models.BooleanField(default=False)
-    
-    def __str__(self):
-        return f'Comment by {self.author} on {self.post.title}'
-"""
-
-# File blog/admin.py - registrasi model ke admin
-"""
-from django.contrib import admin
-from .models import Post, Comment
-
-@admin.register(Post)
-class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'author', 'created_at', 'published')
-    list_filter = ('published', 'created_at', 'author')
-    search_fields = ('title', 'content')
-    prepopulated_fields = {'slug': ('title',)}
-    date_hierarchy = 'created_at'
-    ordering = ('-created_at',)
-
-@admin.register(Comment)
-class CommentAdmin(admin.ModelAdmin):
-    list_display = ('author', 'post', 'created_at', 'approved')
-    list_filter = ('approved', 'created_at')
-    search_fields = ('author', 'content')
-    actions = ['approve_comments']
-    
-    def approve_comments(self, request, queryset):
-        queryset.update(approved=True)
-    approve_comments.short_description = "Approve selected comments"
-"""
-
-# File blog/apps.py - konfigurasi app
-"""
-from django.apps import AppConfig
-
-class BlogConfig(AppConfig):
-    default_auto_field = 'django.db.models.BigAutoField'
-    name = 'blog'
-"""
-
-# Menambahkan app ke settings.py
-"""
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
-    'blog.apps.BlogConfig',  # Tambahkan ini
-]
-"""
-
-# Membuat dan menjalankan migrasi
-# python manage.py makemigrations
-# python manage.py migrate
-
-# Membuat superuser
-# python manage.py createsuperuser</code></pre>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">3️⃣ Views dan URL Patterns</h4>
-                    <p class="text-gray-600 mb-4">Menangani request dan response.</p>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># File blog/views.py - function-based views
-"""
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
-from django.core.paginator import Paginator
-from .models import Post, Comment
-from .forms import CommentForm
-
-def post_list(request):
-    posts = Post.objects.filter(published=True)
-    
-    # Pagination
-    paginator = Paginator(posts, 5)  # 5 posts per page
-    page_number = request.GET.get('page')
-    page_obj = paginator.get_page(page_number)
-    
-    return render(request, 'blog/post_list.html', {
-        'page_obj': page_obj
-    })
-
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk, published=True)
-    comments = post.comments.filter(approved=True)
-    
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
-            messages.success(request, 'Comment added successfully!')
-            return redirect('post_detail', pk=post.pk)
-    else:
-        form = CommentForm()
-    
-    return render(request, 'blog/post_detail.html', {
-        'post': post,
-        'comments': comments,
-        'form': form
-    })
-
-def post_create(request):
-    if request.method == 'POST':
-        # Logic untuk membuat post baru
-        pass
-    return render(request, 'blog/post_create.html')
-"""
-
-# File blog/urls.py - URL patterns untuk app
-"""
-from django.urls import path
-from . import views
-
-app_name = 'blog'
-
-urlpatterns = [
-    path('', views.post_list, name='post_list'),
-    path('post/<int:pk>/', views.post_detail, name='post_detail'),
-    path('post/create/', views.post_create, name='post_create'),
-]
-"""
-
-# Class-based views (alternatif)
-"""
-from django.views.generic import ListView, DetailView
-from .models import Post
-
-class PostListView(ListView):
-    model = Post
-    template_name = 'blog/post_list.html'
-    context_object_name = 'posts'
-    paginate_by = 5
-    
-    def get_queryset(self):
-        return Post.objects.filter(published=True)
-
-class PostDetailView(DetailView):
-    model = Post
-    template_name = 'blog/post_detail.html'
-    context_object_name = 'post'
-    
-    def get_queryset(self):
-        return Post.objects.filter(published=True)
-"""
-
-# Update blog/urls.py untuk class-based views
-"""
-from django.urls import path
-from . import views
-
-app_name = 'blog'
-
-urlpatterns = [
-    path('', views.PostListView.as_view(), name='post_list'),
-    path('post/<int:pk>/', views.PostDetailView.as_view(), name='post_detail'),
-]
-"""</code></pre>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">4️⃣ Templates dan Static Files</h4>
-                    <p class="text-gray-600 mb-4">Rendering HTML dengan Django templates.</p>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Struktur templates
-"""
-templates/
-└── blog/
-    ├── base.html
-    ├── post_list.html
-    └── post_detail.html
-"""
-
-# File templates/blog/base.html
-"""
-{% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Blog{% endblock %}</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-</head>
-<body>
-    <header>
-        <nav>
-            <div class="container">
-                <a href="{% url 'blog:post_list' %}">My Blog</a>
-                <ul>
-                    <li><a href="{% url 'blog:post_list' %}">Home</a></li>
-                    {% if user.is_authenticated %}
-                        <li><a href="{% url 'admin:index' %}">Admin</a></li>
-                        <li><a href="{% url 'logout' %}">Logout</a></li>
-                    {% else %}
-                        <li><a href="{% url 'login' %}">Login</a></li>
-                    {% endif %}
-                </ul>
-            </div>
-        </nav>
-    </header>
-    
-    <main class="container">
-        {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <div class="alert alert-{{ message.tags }}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        
-        {% block content %}{% endblock %}
-    </main>
-    
-    <footer>
-        <div class="container">
-            <p>&copy; 2023 My Blog. All rights reserved.</p>
-        </div>
-    </footer>
-    
-    <script src="{% static 'js/script.js' %}"></script>
-</body>
-</html>
-"""
-
-# File templates/blog/post_list.html
-"""
-{% extends 'blog/base.html' %}
-
-{% block title %}Blog Posts{% endblock %}
-
-{% block content %}
-    <h1>Latest Posts</h1>
-    
-    {% for post in page_obj %}
-        <article class="post">
-            <h2><a href="{% url 'blog:post_detail' post.pk %}">{{ post.title }}</a></h2>
-            <p class="meta">
-                By {{ post.author }} on {{ post.created_at|date:"F j, Y" }}
-            </p>
-            <p>{{ post.content|truncatewords:30 }}</p>
-            <a href="{% url 'blog:post_detail' post.pk %}" class="read-more">Read more</a>
-        </article>
-    {% empty %}
-        <p>No posts available.</p>
-    {% endfor %}
-    
-    <!-- Pagination -->
-    <div class="pagination">
-        <span class="step-links">
-            {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
-            
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-            </span>
-            
-            {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
-        </span>
-    </div>
-{% endblock %}
-"""
-
-# File templates/blog/post_detail.html
-"""
-{% extends 'blog/base.html' %}
-
-{% block title %}{{ post.title }}{% endblock %}
-
-{% block content %}
-    <article class="post-detail">
-        <h1>{{ post.title }}</h1>
-        <p class="meta">
-            By {{ post.author }} on {{ post.created_at|date:"F j, Y" }}
-            {% if post.updated_at != post.created_at %}
-                (Updated: {{ post.updated_at|date:"F j, Y" }})
-            {% endif %}
-        </p>
-        <div class="content">
-            {{ post.content|linebreaks }}
-        </div>
-    </article>
-    
-    <section class="comments">
-        <h2>Comments ({{ comments|length }})</h2>
-        
-        {% for comment in comments %}
-            <div class="comment">
-                <h3>{{ comment.author }}</h3>
-                <p class="meta">{{ comment.created_at|date:"F j, Y \a\t g:i A" }}</p>
-                <p>{{ comment.content|linebreaks }}</p>
-            </div>
-        {% endfor %}
-        
-        <h3>Add a Comment</h3>
-        <form method="post">
-            {% csrf_token %}
-            {{ form.as_p }}
-            <button type="submit">Submit Comment</button>
-        </form>
-    </section>
-{% endblock %}
-"""
-
-# Static files
-"""
-static/
-├── css/
-│   └── style.css
-└── js/
-    └── script.js
-"""
-
-# File static/css/style.css
-"""
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
-    margin: 0;
-    padding: 0;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px;
-}
-
-nav {
-    background: #333;
-    color: white;
-    padding: 1rem 0;
-}
-
-nav .container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-}
-
-.post {
-    border-bottom: 1px solid #eee;
-    padding: 20px 0;
-}
-
-.post h2 {
-    margin-top: 0;
-}
-
-.read-more {
-    display: inline-block;
-    background: #007bff;
-    color: white;
-    padding: 5px 10px;
-    text-decoration: none;
-    border-radius: 3px;
-}
-
-.pagination {
-    margin: 20px 0;
-    text-align: center;
-}
-"""
-
-# File static/js/script.js
-"""
-document.addEventListener('DOMContentLoaded', function() {
-    // Add any JavaScript functionality here
-    console.log('Django blog loaded');
-});
-"""</code></pre>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">5️⃣ Forms dan Model Forms</h4>
-                    <p class="text-gray-600 mb-4">Menangani input data dari pengguna.</p>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># File blog/forms.py
-"""
-from django import forms
-from .models import Comment, Post
-
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comment
-        fields = ['author', 'email', 'content']
-        widgets = {
-            'author': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.EmailInput(attrs={'class': 'form-control'}),
-            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 4}),
-        }
-
-class PostForm(forms.ModelForm):
-    class Meta:
-        model = Post
-        fields = ['title', 'content', 'published']
-        widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control'}),
-            'content': forms.Textarea(attrs={'class': 'form-control', 'rows': 10}),
-            'published': forms.CheckboxInput(attrs={'class': 'form-check-input'}),
-        }
-
-class ContactForm(forms.Form):
-    name = forms.CharField(max_length=100, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    email = forms.EmailField(widget=forms.EmailInput(attrs={'class': 'form-control'}))
-    subject = forms.CharField(max_length=200, widget=forms.TextInput(attrs={'class': 'form-control'}))
-    message = forms.CharField(widget=forms.Textarea(attrs={'class': 'form-control', 'rows': 5}))
-    
-    def clean_email(self):
-        email = self.cleaned_data.get('email')
-        # Custom validation
-        if not email.endswith('@example.com'):
-            raise forms.ValidationError("Email must be from example.com domain")
-        return email
-"""
-
-# File blog/views.py - update untuk forms
-"""
-from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib import messages
-from django.contrib.auth.decorators import login_required
-from .models import Post, Comment
-from .forms import CommentForm, PostForm
-
-def post_detail(request, pk):
-    post = get_object_or_404(Post, pk=pk, published=True)
-    comments = post.comments.filter(approved=True)
-    
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            comment = form.save(commit=False)
-            comment.post = post
-            comment.save()
-            messages.success(request, 'Comment added successfully!')
-            return redirect('blog:post_detail', pk=post.pk)
-    else:
-        form = CommentForm()
-    
-    return render(request, 'blog/post_detail.html', {
-        'post': post,
-        'comments': comments,
-        'form': form
-    })
-
-@login_required
-def post_create(request):
-    if request.method == 'POST':
-        form = PostForm(request.POST)
-        if form.is_valid():
-            post = form.save(commit=False)
-            post.author = request.user
-            post.save()
-            messages.success(request, 'Post created successfully!')
-            return redirect('blog:post_detail', pk=post.pk)
-    else:
-        form = PostForm()
-    
-    return render(request, 'blog/post_create.html', {
-        'form': form
-    })
-
-@login_required
-def post_edit(request, pk):
-    post = get_object_or_404(Post, pk=pk)
-    
-    # Check if user is the author
-    if post.author != request.user:
-        messages.error(request, 'You can only edit your own posts')
-        return redirect('blog:post_detail', pk=post.pk)
-    
-    if request.method == 'POST':
-        form = PostForm(request.POST, instance=post)
-        if form.is_valid():
-            form.save()
-            messages.success(request, 'Post updated successfully!')
-            return redirect('blog:post_detail', pk=post.pk)
-    else:
-        form = PostForm(instance=post)
-    
-    return render(request, 'blog/post_edit.html', {
-        'form': form,
-        'post': post
-    })
-"""
-
-# File templates/blog/post_create.html
-"""
-{% extends 'blog/base.html' %}
-
-{% block title %}Create Post{% endblock %}
-
-{% block content %}
-    <h1>Create New Post</h1>
-    
-    <form method="post">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Create Post</button>
-    </form>
-    
-    <a href="{% url 'blog:post_list' %}">Back to posts</a>
-{% endblock %}
-"""
-
-# Custom form rendering
-"""
-{% extends 'blog/base.html' %}
-
-{% block title %}Create Post{% endblock %}
-
-{% block content %}
-    <h1>Create New Post</h1>
-    
-    <form method="post" class="post-form">
-        {% csrf_token %}
-        
-        <div class="form-group">
-            {{ form.title.label_tag }}
-            {{ form.title }}
-            {% if form.title.errors %}
-                <div class="error">{{ form.title.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <div class="form-group">
-            {{ form.content.label_tag }}
-            {{ form.content }}
-            {% if form.content.errors %}
-                <div class="error">{{ form.content.errors }}</div>
-            {% endif %}
-        </div>
-        
-        <div class="form-group">
-            {{ form.published }}
-            {{ form.published.label_tag }}
-        </div>
-        
-        <button type="submit" class="btn btn-primary">Create Post</button>
-    </form>
-{% endblock %}
-"""</code></pre>
-                    </div>
-                </div>
-
-                <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">6️⃣ Authentication dan Authorization</h4>
-                    <p class="text-gray-600 mb-4">Sistem login dan permission di Django.</p>
-                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code># Django sudah menyediakan authentication system
-# Tambahkan ke INSTALLED_APPS jika belum ada:
-# 'django.contrib.auth',
-# 'django.contrib.contenttypes',
-
-# File blog/views.py - authentication views
-"""
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, redirect
-from django.contrib import messages
-
-def register(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            messages.success(request, 'Registration successful!')
-            return redirect('blog:post_list')
-    else:
-        form = UserCreationForm()
-    
-    return render(request, 'blog/register.html', {'form': form})
-
-def user_login(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, f'Welcome back, {username}!')
-                return redirect('blog:post_list')
-            else:
-                messages.error(request, 'Invalid username or password')
-        else:
-            messages.error(request, 'Invalid username or password')
-    else:
-        form = AuthenticationForm()
-    
-    return render(request, 'blog/login.html', {'form': form})
-
-def user_logout(request):
-    logout(request)
-    messages.info(request, 'You have been logged out')
-    return redirect('blog:post_list')
-
-@login_required
-def profile(request):
-    user_posts = Post.objects.filter(author=request.user)
-    return render(request, 'blog/profile.html', {
-        'user': request.user,
-        'posts': user_posts
-    })
-"""
-
-# Update blog/urls.py
-"""
-from django.urls import path
-from . import views
-
-app_name = 'blog'
-
-urlpatterns = [
-    path('', views.post_list, name='post_list'),
-    path('post/<int:pk>/', views.post_detail, name='post_detail'),
-    path('post/create/', views.post_create, name='post_create'),
-    path('post/<int:pk>/edit/', views.post_edit, name='post_edit'),
-    path('register/', views.register, name='register'),
-    path('login/', views.user_login, name='login'),
-    path('logout/', views.user_logout, name='logout'),
-    path('profile/', views.profile, name='profile'),
-]
-"""
-
-# Permission decorators
-"""
-from django.contrib.auth.decorators import login_required, permission_required
-from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-from django.views.generic import CreateView, UpdateView
-
-@login_required
-def my_view(request):
-    # Hanya user yang login yang bisa akses
-    pass
-
-@permission_required('blog.add_post')
-def create_post(request):
-    # Hanya user dengan permission 'blog.add_post' yang bisa akses
-    pass
-
-class PostCreateView(LoginRequiredMixin, CreateView):
-    model = Post
-    fields = ['title', 'content', 'published']
-    
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        return super().form_valid(form)
-
-class PostUpdateView(LoginRequiredMixin, PermissionRequiredMixin, UpdateView):
-    model = Post
-    fields = ['title', 'content', 'published']
-    permission_required = 'blog.change_post'
-    
-    def get_queryset(self):
-        # User hanya bisa edit post miliknya sendiri
-        return Post.objects.filter(author=self.request.user)
-"""
-
-# Custom permissions
-"""
-# File blog/models.py - tambahkan custom permission
-class Post(models.Model):
-    # ... fields lainnya ...
-    
-    class Meta:
-        permissions = [
-            ('can_publish_post', 'Can publish post'),
-            ('can_delete_post', 'Can delete post'),
-        ]
-"""
-
-# Middleware untuk custom authentication
-"""
-# File blog/middleware.py
-from django.shortcuts import redirect
-from django.urls import reverse
-
-class MaintenanceModeMiddleware:
-    def __init__(self, get_response):
-        self.get_response = get_response
-    
-    def __call__(self, request):
-        # Cek maintenance mode
-        if getattr(settings, 'MAINTENANCE_MODE', False):
-            if not request.user.is_staff:
-                return redirect('maintenance')
-        
-        response = self.get_response(request)
-        return response
-
-class LastActivityMiddleware:
-    def __init__(self, get_response):
-        self.get_response = get_response
-    
-    def __call__(self, request):
-        if request.user.is_authenticated:
-            # Update last activity
-            request.user.last_activity = timezone.now()
-            request.user.save(update_fields=['last_activity'])
-        
-        response = self.get_response(request)
-        return response
-"""
-
-# Tambahkan middleware ke settings.py
-"""
-MIDDLEWARE = [
-    # ... middleware lainnya ...
-    'blog.middleware.MaintenanceModeMiddleware',
-    'blog.middleware.LastActivityMiddleware',
-]
-"""</code></pre>
+# Membuat array untuk contoh
+data = np.random.randn(5, 4)
+print("Data array:")
+print(data)
+
+# Menyimpan array ke file .npy (binary format)
+np.save('data.npy', data)
+print("Array disimpan ke data.npy")
+
+# Memuat array dari file .npy
+loaded_data = np.load('data.npy')
+print("Data yang dimuat:")
+print(loaded_data)
+
+# Menyimpan multiple array dalam satu file .npz
+arr1 = np.array([1, 2, 3, 4])
+arr2 = np.array([[5, 6], [7, 8]])
+arr3 = np.random.rand(3, 3)
+
+np.savez('multiple_arrays.npz', array1=arr1, array2=arr2, matrix=arr3)
+print("Multiple arrays disimpan ke multiple_arrays.npz")
+
+# Memuat multiple arrays dari file .npz
+loaded = np.load('multiple_arrays.npz')
+print("Array1:", loaded['array1'])
+print("Array2:")
+print(loaded['array2'])
+print("Matrix:")
+print(loaded['matrix'])
+
+# Menyimpan ke file teks (.txt atau .csv)
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+np.savetxt('matrix.txt', matrix, delimiter=',', fmt='%d')
+print("Matrix disimpan ke matrix.txt")
+
+# Memuat dari file teks
+loaded_matrix = np.loadtxt('matrix.txt', delimiter=',')
+print("Matrix yang dimuat dari teks:")
+print(loaded_matrix)
+
+# Menyimpan dengan header
+header = "Kolom1, Kolom2, Kolom3"
+data_with_header = np.random.rand(5, 3)
+np.savetxt('data_with_header.csv', data_with_header, delimiter=',',
+           header=header, comments='', fmt='%.4f')
+print("Data dengan header disimpan ke data_with_header.csv")
+
+# Memuat data CSV dengan skip header
+csv_data = np.genfromtxt('data_with_header.csv', delimiter=',', skip_header=1)
+print("Data CSV yang dimuat:")
+print(csv_data)
+
+# Menyimpan array kompleks
+complex_data = np.array([1+2j, 3+4j, 5+6j])
+np.save('complex.npy', complex_data)
+loaded_complex = np.load('complex.npy')
+print("Data kompleks:", loaded_complex)
+
+# Memory mapping untuk file besar
+# Membuat file besar untuk demo
+large_data = np.random.rand(1000, 1000)
+np.save('large_data.npy', large_data)
+
+# Memory mapping - tidak memuat seluruh data ke memory
+mmapped = np.load('large_data.npy', mmap_mode='r')
+print("Shape dari memory mapped array:", mmapped.shape)
+print("Type:", type(mmapped))
+
+# Mengakses sebagian data tanpa memuat seluruhnya
+subset = mmapped[100:110, 200:210]
+print("Subset dari memory mapped data:")
+print(subset)
+
+# Binary I/O dengan bytes
+arr = np.array([1, 2, 3, 4, 5], dtype=np.int32)
+bytes_data = arr.tobytes()
+print("Array sebagai bytes:", bytes_data)
+
+# Membuat array dari bytes
+reconstructed = np.frombuffer(bytes_data, dtype=np.int32)
+print("Array direkonstruksi dari bytes:", reconstructed)
+
+# Cleanup - hapus file yang dibuat
+files_to_remove = ['data.npy', 'multiple_arrays.npz', 'matrix.txt',
+                   'data_with_header.csv', 'complex.npy', 'large_data.npy']
+
+for file in files_to_remove:
+    if os.path.exists(file):
+        os.remove(file)
+        print(f"File {file} dihapus")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">7️⃣ Latihan Praktis</h4>
-                    <p class="text-gray-600 mb-4">Buat aplikasi blog sederhana dengan Django.</p>
+                    <p class="text-gray-600 mb-4">Latihan praktis dengan NumPy untuk mengasah kemampuan komputasi numerik.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+
+# Latihan 1: Analisis Data Cuaca
+print("=== Latihan 1: Analisis Data Cuaca ===")
+# Simulasi data suhu harian selama 30 hari (dalam Celsius)
+np.random.seed(42)  # Untuk hasil yang reproducible
+suhu_harian = np.random.normal(28, 5, 30)  # Rata-rata 28°C, std dev 5°C
+
+print("Data suhu harian:")
+print(suhu_harian[:10], "...")  # Tampilkan 10 hari pertama
+
+print(f"Suhu tertinggi: {np.max(suhu_harian):.1f}°C")
+print(f"Suhu terendah: {np.min(suhu_harian):.1f}°C")
+print(f"Rata-rata suhu: {np.mean(suhu_harian):.1f}°C")
+print(f"Standar deviasi: {np.std(suhu_harian):.1f}°C")
+
+# Hitung hari-hari panas (> 30°C)
+hari_panas = np.sum(suhu_harian > 30)
+print(f"Jumlah hari panas (>30°C): {hari_panas} hari")
+
+# Latihan 2: Operasi Matrix untuk Sistem Persamaan Linear
+print("\n=== Latihan 2: Sistem Persamaan Linear ===")
+# Sistem: 2x + 3y = 8
+#         4x - y = 2
+A = np.array([[2, 3], [4, -1]])
+b = np.array([8, 2])
+
+print("Matrix koefisien A:")
+print(A)
+print("Vector hasil b:", b)
+
+# Solusi menggunakan numpy.linalg.solve
+x = np.linalg.solve(A, b)
+print(f"Solusi: x = {x[0]:.2f}, y = {x[1]:.2f}")
+
+# Verifikasi
+verifikasi = A @ x
+print("Verifikasi (harus sama dengan b):", verifikasi)
+
+# Latihan 3: Analisis Citra Sederhana
+print("\n=== Latihan 3: Analisis Citra Sederhana ===")
+# Simulasi citra grayscale 8x8 piksel
+citra = np.random.randint(0, 256, (8, 8), dtype=np.uint8)
+print("Citra grayscale 8x8:")
+print(citra)
+
+# Hitung statistik citra
+print(f"Intensitas minimum: {np.min(citra)}")
+print(f"Intensitas maksimum: {np.max(citra)}")
+print(f"Rata-rata intensitas: {np.mean(citra):.1f}")
+
+# Buat citra biner (thresholding)
+threshold = 128
+citra_biner = (citra > threshold).astype(int)
+print("Citra biner (threshold=128):")
+print(citra_biner)
+
+# Latihan 4: Analisis Data Stok Saham
+print("\n=== Latihan 4: Analisis Data Stok ===")
+# Simulasi harga saham selama 100 hari perdagangan
+np.random.seed(123)
+harga_awal = 100
+perubahan_harian = np.random.normal(0.001, 0.02, 100)  # Return harian
+harga_saham = harga_awal * np.cumprod(1 + perubahan_harian)
+
+print("Harga saham 10 hari pertama:")
+print(harga_saham[:10])
+
+# Hitung return
+returns = np.diff(harga_saham) / harga_saham[:-1]
+print(f"Return harian rata-rata: {np.mean(returns)*100:.2f}%")
+print(f"Volatilitas (std dev return): {np.std(returns)*100:.2f}%")
+
+# Hitung moving average 5 hari
+ma5 = np.convolve(harga_saham, np.ones(5)/5, mode='valid')
+print("Moving average 5 hari (akhir):", ma5[-5:])
+
+# Latihan 5: Komputasi Matematika
+print("\n=== Latihan 5: Komputasi Matematika ===")
+# Hitung integral numerik menggunakan trapezoidal rule
+x = np.linspace(0, np.pi, 100)
+y = np.sin(x)
+integral = np.trapz(y, x)
+print(f"Integral sin(x) dari 0 ke π: {integral:.4f} (harus mendekati 2.0)")
+
+# Hitung turunan numerik
+dy_dx = np.gradient(y, x)
+print("Turunan sin(x) di x=π/2:", dy_dx[len(dy_dx)//2])
+
+# Sistem koordinat polar ke Cartesian
+theta = np.linspace(0, 2*np.pi, 50)
+r = 1 + 0.5 * np.cos(5*theta)  # Rose curve
+x_cart = r * np.cos(theta)
+y_cart = r * np.sin(theta)
+print("Koordinat Cartesian dari rose curve (5 titik pertama):")
+for i in range(5):
+    print(f"({x_cart[i]:.2f}, {y_cart[i]:.2f})")</code></pre>
+                    </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">8️⃣ Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/rHux0gMZ3Eg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/OrCG-jbyAO8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">9️⃣ Kuis Interaktif</h4>
                     <div class="space-y-4">
                         <div>
-                            <p class="font-medium mb-2">1. Command apa yang digunakan untuk membuat proyek Django baru?</p>
+                            <p class="font-medium mb-2">1. Apa tipe data utama yang digunakan NumPy untuk menyimpan array multidimensi?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="a" class="mr-2">
-                                    <span>django-admin startproject</span>
+                                    <span>list</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="b" class="mr-2">
-                                    <span>python manage.py startproject</span>
+                                    <span>ndarray</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="c" class="mr-2">
-                                    <span>django startproject</span>
+                                    <span>tuple</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <p class="font-medium mb-2">2. Method HTTP apa yang digunakan untuk membuat data baru di Django?</p>
+                            <p class="font-medium mb-2">2. Fungsi apa yang digunakan untuk mengubah bentuk array NumPy?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="a" class="mr-2">
-                                    <span>GET</span>
+                                    <span>reshape()</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="b" class="mr-2">
-                                    <span>POST</span>
+                                    <span>flatten()</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="c" class="mr-2">
-                                    <span>PUT</span>
+                                    <span>transpose()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">3. Apa yang dimaksud dengan broadcasting di NumPy?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="a" class="mr-2">
+                                    <span>Mengirim data ke jaringan</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="b" class="mr-2">
+                                    <span>Operasi otomatis antara array dengan bentuk berbeda</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="c" class="mr-2">
+                                    <span>Menyimpan array ke file</span>
                                 </label>
                             </div>
                         </div>
