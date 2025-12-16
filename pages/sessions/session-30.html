@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 30: Type Hints Pada Fungsi - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 30: Type Hints Pada Fungsi</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara menggunakan type hints untuk meningkatkan kualitas kode Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Type Hints?</h4>
+                    <p class="text-gray-600 mb-4">Type hints adalah fitur Python yang memungkinkan kita menentukan tipe data yang diharapkan untuk parameter fungsi dan nilai kembalian. Ini membantu membuat kode lebih jelas dan mudah dipahami.</p>
+                    <p class="text-gray-600 mb-4">Bayangkan Anda sedang membaca resep masakan. Type hints seperti label pada bahan-bahan: "gunakan 2 butir telur (int)" atau "tambahkan 100ml susu (float)". Ini memberitahu programmer jenis data apa yang diharapkan.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Type hints dasar
+def greet(name: str) -> str:
+    return f"Hello, {name}!"
+
+# Tanpa type hints (sebelumnya)
+def greet_old(name):
+    return f"Hello, {name}!"
+
+# Penggunaan
+result = greet("Alice")
+print(result)  # Output: Hello, Alice!</code></pre>
+                    </div>
+                    <p class="text-gray-600 mb-4"><strong>Kenapa type hints penting?</strong></p>
+                    <ul class="list-disc list-inside text-gray-600 mb-4 space-y-1">
+                        <li><strong>Membuat kode lebih mudah dibaca:</strong> Programmer lain langsung tahu tipe data apa yang diharapkan</li>
+                        <li><strong>Mendeteksi error lebih awal:</strong> IDE dapat memperingatkan jika Anda salah menggunakan tipe data</li>
+                        <li><strong>Autocomplete yang lebih baik:</strong> IDE memberikan saran yang lebih akurat</li>
+                        <li><strong>Dokumentasi otomatis:</strong> Type hints berfungsi sebagai dokumentasi hidup</li>
+                    </ul>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Tipe Data Dasar</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan type hints dengan tipe data built-in Python.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from typing import List, Dict, Tuple, Set, Optional
+
+# Tipe data dasar
+def process_number(value: int) -> float:
+    """Mengubah integer menjadi float"""
+    return float(value)
+
+def is_even(number: int) -> bool:
+    """Mengecek apakah angka genap"""
+    return number % 2 == 0
+
+def get_length(text: str) -> int:
+    """Mengembalikan panjang string"""
+    return len(text)
+
+# Collection types
+def sum_list(numbers: List[int]) -> int:
+    """Menjumlahkan semua angka dalam list"""
+    return sum(numbers)
+
+def create_person(name: str, age: int) -> Dict[str, str]:
+    """Membuat dictionary person"""
+    return {
+        "name": name,
+        "age": str(age)
+    }
+
+def get_coordinates() -> Tuple[float, float]:
+    """Mengembalikan koordinat (latitude, longitude)"""
+    return (40.7128, -74.0060)  # New York City
+
+def get_unique_items(items: List[str]) -> Set[str]:
+    """Mengembalikan set unik dari list"""
+    return set(items)
+
+# Contoh penggunaan
+print(process_number(42))  # 42.0
+print(is_even(4))          # True
+print(get_length("Hello")) # 5
+
+numbers = [1, 2, 3, 4, 5]
+print(sum_list(numbers))   # 15
+
+person = create_person("Alice", 25)
+print(person)  # {'name': 'Alice', 'age': '25'}
+
+lat, lon = get_coordinates()
+print(f"NYC: {lat}, {lon}")
+
+unique = get_unique_items(["a", "b", "a", "c"])
+print(unique)  # {'a', 'b', 'c'}</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Union Types dan Optional</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan Union untuk multiple types dan Optional untuk nilai yang bisa None.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from typing import Union, Optional, Any
+
+# Union types - parameter bisa menerima multiple types
+def process_value(value: Union[int, str, float]) -> str:
+    """Memproses nilai dengan berbagai tipe"""
+    if isinstance(value, int):
+        return f"Integer: {value * 2}"
+    elif isinstance(value, str):
+        return f"String: {value.upper()}"
+    elif isinstance(value, float):
+        return f"Float: {value:.2f}"
+    else:
+        return f"Unknown type: {value}"
+
+# Optional - nilai bisa None
+def get_user_name(user_id: int) -> Optional[str]:
+    """Mengembalikan nama user atau None jika tidak ditemukan"""
+    users = {1: "Alice", 2: "Bob", 3: "Charlie"}
+    return users.get(user_id)
+
+# Menggunakan | syntax (Python 3.10+)
+def combine_data(data: list[int | str]) -> str:
+    """Menggabungkan list dengan tipe campuran"""
+    return ", ".join(str(item) for item in data)
+
+# Any type - untuk nilai dengan tipe apapun
+def log_data(data: Any) -> None:
+    """Mencatat data dengan tipe apapun"""
+    print(f"Data: {data} (type: {type(data).__name__})")
+
+# Contoh penggunaan
+print(process_value(42))        # Integer: 84
+print(process_value("hello"))   # String: HELLO
+print(process_value(3.14))      # Float: 3.14
+
+name = get_user_name(1)
+print(name)  # Alice
+
+name_none = get_user_name(99)
+print(name_none)  # None
+
+mixed_list = [1, "hello", 2, "world"]
+print(combine_data(mixed_list))  # 1, hello, 2, world
+
+log_data("string")
+log_data(123)
+log_data([1, 2, 3])
+
+# Type alias untuk kemudahan
+UserId = int
+UserName = str
+UserData = dict[UserId, UserName]
+
+def get_all_users() -> UserData:
+    """Mengembalikan data semua user"""
+    return {
+        1: "Alice",
+        2: "Bob",
+        3: "Charlie"
+    }
+
+users = get_all_users()
+print(users)  # {1: 'Alice', 2: 'Bob', 3: 'Charlie'}</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Callable Types dan Advanced Type Hints</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan Callable untuk function types dan advanced type hints.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from typing import Callable, TypeVar, Generic, Protocol, overload
+from functools import wraps
+import time
+
+# Type variables untuk generic types
+T = TypeVar('T')
+U = TypeVar('U')
+
+# Callable types - untuk function sebagai parameter
+def apply_operation(x: int, y: int, operation: Callable[[int, int], int]) -> int:
+    """Menerapkan operasi pada dua angka"""
+    return operation(x, y)
+
+def add(a: int, b: int) -> int:
+    return a + b
+
+def multiply(a: int, b: int) -> int:
+    return a * b
+
+# Decorator dengan type hints
+def timing_decorator(func: Callable[..., T]) -> Callable[..., T]:
+    @wraps(func)
+    def wrapper(*args, **kwargs) -> T:
+        start_time = time.time()
+        result = func(*args, **kwargs)
+        end_time = time.time()
+        print(f"{func.__name__} took {end_time - start_time:.4f} seconds")
+        return result
+    return wrapper
+
+# Generic class
+class Stack(Generic[T]):
+    def __init__(self):
+        self.items: list[T] = []
+    
+    def push(self, item: T) -> None:
+        self.items.append(item)
+    
+    def pop(self) -> T:
+        return self.items.pop()
+    
+    def peek(self) -> T:
+        return self.items[-1]
+    
+    def is_empty(self) -> bool:
+        return len(self.items) == 0
+
+# Protocol untuk structural typing
+class Drawable(Protocol):
+    def draw(self) -> None:
+        ...
+
+class Circle:
+    def __init__(self, radius: float):
+        self.radius = radius
+    
+    def draw(self) -> None:
+        print(f"Drawing circle with radius {self.radius}")
+
+class Rectangle:
+    def __init__(self, width: float, height: float):
+        self.width = width
+        self.height = height
+    
+    def draw(self) -> None:
+        print(f"Drawing rectangle {self.width}x{self.height}")
+
+def render_shape(shape: Drawable) -> None:
+    shape.draw()
+
+# Overload untuk multiple signatures
+@overload
+def process_data(data: list[int]) -> int:
+    ...
+
+@overload
+def process_data(data: list[str]) -> str:
+    ...
+
+def process_data(data):
+    if all(isinstance(x, int) for x in data):
+        return sum(data)
+    elif all(isinstance(x, str) for x in data):
+        return " ".join(data)
+    else:
+        raise ValueError("Unsupported data type")
+
+# Higher-order function
+def create_multiplier(factor: int) -> Callable[[int], int]:
+    def multiplier(x: int) -> int:
+        return x * factor
+    return multiplier
+
+# Contoh penggunaan
+print("=== CALLABLE TYPES ===")
+result1 = apply_operation(5, 3, add)
+print(f"5 + 3 = {result1}")
+
+result2 = apply_operation(5, 3, multiply)
+print(f"5 * 3 = {result2}")
+
+print("\n=== GENERIC CLASS ===")
+int_stack = Stack[int]()
+int_stack.push(1)
+int_stack.push(2)
+print(f"Popped: {int_stack.pop()}")
+
+str_stack = Stack[str]()
+str_stack.push("hello")
+str_stack.push("world")
+print(f"Popped: {str_stack.pop()}")
+
+print("\n=== PROTOCOL ===")
+circle = Circle(5.0)
+rectangle = Rectangle(4.0, 6.0)
+
+render_shape(circle)
+render_shape(rectangle)
+
+print("\n=== OVERLOAD ===")
+numbers = [1, 2, 3, 4, 5]
+words = ["Hello", "World"]
+
+print(f"Sum of numbers: {process_data(numbers)}")
+print(f"Joined words: {process_data(words)}")
+
+print("\n=== HIGHER-ORDER FUNCTION ===")
+double = create_multiplier(2)
+triple = create_multiplier(3)
+
+print(f"Double 5: {double(5)}")
+print(f"Triple 5: {triple(5)}")
+
+@timing_decorator
+def slow_function() -> None:
+    time.sleep(0.1)
+    print("Function executed")
+
+slow_function()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Type Hints dalam Class Methods</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan type hints pada methods, properties, dan class variables.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from typing import ClassVar, Self, dataclass
+from abc import ABC, abstractmethod
+
+# Class dengan type hints lengkap
+class BankAccount:
+    # Class variable
+    bank_name: ClassVar[str] = "MyBank"
+    
+    def __init__(self, account_number: str, owner: str, balance: float = 0.0):
+        self.account_number = account_number
+        self.owner = owner
+        self._balance = balance
+    
+    @property
+    def balance(self) -> float:
+        """Mendapatkan saldo"""
+        return self._balance
+    
+    def deposit(self, amount: float) -> Self:
+        """Menambah saldo dan mengembalikan self untuk method chaining"""
+        if amount <= 0:
+            raise ValueError("Jumlah deposit harus positif")
+        self._balance += amount
+        print(f"Deposit {amount:.2f} ke rekening {self.account_number}")
+        return self
+    
+    def withdraw(self, amount: float) -> bool:
+        """Mengurangi saldo"""
+        if amount <= 0:
+            raise ValueError("Jumlah penarikan harus positif")
+        if amount > self._balance:
+            print("Saldo tidak mencukupi")
+            return False
+        
+        self._balance -= amount
+        print(f"Penarikan {amount:.2f} dari rekening {self.account_number}")
+        return True
+    
+    def transfer(self, target: Self, amount: float) -> bool:
+        """Transfer ke rekening lain"""
+        if self.withdraw(amount):
+            target.deposit(amount)
+            print(f"Transfer {amount:.2f} dari {self.account_number} ke {target.account_number}")
+            return True
+        return False
+    
+    @classmethod
+    def create_savings_account(cls, account_number: str, owner: str) -> Self:
+        """Factory method untuk membuat rekening tabungan"""
+        return cls(account_number, owner, 0.0)
+    
+    @staticmethod
+    def validate_account_number(account_number: str) -> bool:
+        """Validasi nomor rekening"""
+        return len(account_number) == 10 and account_number.isdigit()
+
+# Abstract class dengan type hints
+class Shape(ABC):
+    @abstractmethod
+    def area(self) -> float:
+        pass
+    
+    @abstractmethod
+    def perimeter(self) -> float:
+        pass
+
+class Triangle(Shape):
+    def __init__(self, a: float, b: float, c: float):
+        self.a = a
+        self.b = b
+        self.c = c
+    
+    def area(self) -> float:
+        # Menggunakan rumus Heron
+        s = (self.a + self.b + self.c) / 2
+        return (s * (s - self.a) * (s - self.b) * (s - self.c)) ** 0.5
+    
+    def perimeter(self) -> float:
+        return self.a + self.b + self.c
+
+# Dataclass dengan type hints
+@dataclass
+class Point:
+    x: float
+    y: float
+    
+    def distance_to(self, other: Self) -> float:
+        return ((self.x - other.x) ** 2 + (self.y - other.y) ** 2) ** 0.5
+
+# Contoh penggunaan
+print("=== BANK ACCOUNT ===")
+account1 = BankAccount("1234567890", "Alice", 1000.0)
+account2 = BankAccount.create_savings_account("0987654321", "Bob")
+
+print(f"Saldo Alice: {account1.balance:.2f}")
+print(f"Saldo Bob: {account2.balance:.2f}")
+
+# Method chaining
+account1.deposit(500.0).withdraw(200.0)
+print(f"Saldo Alice setelah transaksi: {account1.balance:.2f}")
+
+# Transfer
+account1.transfer(account2, 300.0)
+print(f"Saldo Alice: {account1.balance:.2f}")
+print(f"Saldo Bob: {account2.balance:.2f}")
+
+print("\n=== SHAPES ===")
+triangle = Triangle(3, 4, 5)
+print(f"Luas segitiga: {triangle.area():.2f}")
+print(f"Keliling segitiga: {triangle.perimeter():.2f}")
+
+print("\n=== DATACLASS ===")
+p1 = Point(0, 0)
+p2 = Point(3, 4)
+print(f"Jarak antara {p1} dan {p2}: {p1.distance_to(p2):.2f}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Type Checking and Validation</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan type hints untuk validasi dan type checking.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from typing import TypeGuard, assert_type, cast, get_type_hints, get_origin, get_args
+import inspect
+from functools import wraps
+
+# Type guard untuk runtime type checking
+def is_str_list(value) -> TypeGuard[list[str]]:
+    """Type guard untuk memastikan value adalah list of strings"""
+    return isinstance(value, list) and all(isinstance(item, str) for item in value)
+
+def is_positive_int(value) -> TypeGuard[int]:
+    """Type guard untuk positive integer"""
+    return isinstance(value, int) and value > 0
+
+# Function dengan type validation
+def process_string_list(data) -> list[str]:
+    """Memproses list of strings dengan validasi"""
+    if not is_str_list(data):
+        raise TypeError("Expected list of strings")
+    
+    return [item.upper() for item in data]
+
+# Decorator untuk type validation
+def validate_types(func):
+    """Decorator untuk validasi type hints pada runtime"""
+    hints = get_type_hints(func)
+    sig = inspect.signature(func)
+    
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        # Bind arguments
+        bound = sig.bind(*args, **kwargs)
+        bound.apply_defaults()
+        
+        # Validate parameter types
+        for param_name, param_value in bound.arguments.items():
+            if param_name in hints:
+                expected_type = hints[param_name]
+                if not isinstance(param_value, expected_type):
+                    raise TypeError(f"Parameter '{param_name}' must be {expected_type.__name__}, got {type(param_value).__name__}")
+        
+        # Call function
+        result = func(*args, **kwargs)
+        
+        # Validate return type
+        if 'return' in hints and hints['return'] != type(None):
+            expected_return = hints['return']
+            if not isinstance(result, expected_return):
+                raise TypeError(f"Return value must be {expected_return.__name__}, got {type(result).__name__}")
+        
+        return result
+    
+    return wrapper
+
+# Contoh penggunaan decorator
+@validate_types
+def calculate_average(numbers: list[float]) -> float:
+    """Menghitung rata-rata dari list angka"""
+    if not numbers:
+        raise ValueError("List tidak boleh kosong")
+    return sum(numbers) / len(numbers)
+
+@validate_types
+def greet_person(name: str, age: int) -> str:
+    """Menyapa seseorang dengan nama dan umur"""
+    if not is_positive_int(age):
+        raise ValueError("Age must be positive integer")
+    return f"Hello, {name}! You are {age} years old."
+
+# Type casting dengan cast()
+def process_data(data) -> str:
+    """Memproses data dengan type casting"""
+    if isinstance(data, str):
+        return cast(str, data).upper()
+    elif isinstance(data, int):
+        return str(cast(int, data) * 2)
+    elif isinstance(data, float):
+        return f"{cast(float, data):.2f}"
+    else:
+        return str(data)
+
+# Advanced type checking dengan Union dan Generic
+from typing import Union, Generic
+
+def handle_union_type(value: Union[int, str, float]) -> str:
+    """Menangani Union types"""
+    if isinstance(value, int):
+        return f"Integer: {value}"
+    elif isinstance(value, str):
+        return f"String: {value.upper()}"
+    elif isinstance(value, float):
+        return f"Float: {value:.2f}"
+    else:
+        return f"Unknown: {value}"
+
+# Runtime type checking untuk Generic types
+def validate_generic_list(items, item_type):
+    """Validasi list dengan tipe tertentu"""
+    if not isinstance(items, list):
+        raise TypeError("Expected a list")
+    
+    for item in items:
+        if not isinstance(item, item_type):
+            raise TypeError(f"All items must be {item_type.__name__}")
+    
+    return True
+
+# Contoh penggunaan
+print("=== TYPE GUARDS ===")
+data1 = ["hello", "world"]
+data2 = [1, 2, 3]
+
+if is_str_list(data1):
+    print(f"Processing string list: {process_string_list(data1)}")
+
+if is_str_list(data2):
+    print("data2 is string list")
+else:
+    print("data2 is not string list")
+
+print("\n=== TYPE VALIDATION DECORATOR ===")
+try:
+    result = calculate_average([1.0, 2.0, 3.0, 4.0])
+    print(f"Average: {result}")
+    
+    greeting = greet_person("Alice", 25)
+    print(greeting)
+    
+    # This will raise TypeError
+    # greet_person("Bob", "25")  # age should be int
+    
+except Exception as e:
+    print(f"Error: {e}")
+
+print("\n=== TYPE CASTING ===")
+print(process_data("hello"))
+print(process_data(42))
+print(process_data(3.14))
+
+print("\n=== UNION TYPES ===")
+print(handle_union_type(42))
+print(handle_union_type("hello"))
+print(handle_union_type(3.14))
+
+print("\n=== GENERIC VALIDATION ===")
+try:
+    validate_generic_list([1, 2, 3], int)
+    print("Integer list validation passed")
+    
+    validate_generic_list(["a", "b", "c"], str)
+    print("String list validation passed")
+    
+    # This will raise TypeError
+    # validate_generic_list([1, "a", 2], int)
+    
+except Exception as e:
+    print(f"Validation error: {e}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Advanced Type Hints Patterns</h4>
+                    <p class="text-gray-600 mb-4">Pola-pola advanced dalam penggunaan type hints untuk kode yang lebih robust.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from typing import TypeVar, Generic, Protocol, runtime_checkable, Literal, Final
+from abc import ABC, abstractmethod
+from dataclasses import dataclass
+from enum import Enum
+import json
+
+# Type variables untuk complex generics
+T = TypeVar('T')
+K = TypeVar('K')
+V = TypeVar('V')
+
+# Literal types untuk nilai spesifik
+class Status(Enum):
+    PENDING = "pending"
+    PROCESSING = "processing"
+    COMPLETED = "completed"
+    FAILED = "failed"
+
+# Protocol untuk structural typing
+@runtime_checkable
+class Serializable(Protocol):
+    def to_dict(self) -> dict[str, any]:
+        ...
+    
+    @classmethod
+    def from_dict(cls, data: dict[str, any]) -> Self:
+        ...
+
+# Generic repository pattern
+class Repository(Generic[T]):
+    def __init__(self):
+        self._items: dict[str, T] = {}
+    
+    def save(self, id: str, item: T) -> None:
+        """Menyimpan item dengan ID"""
+        self._items[id] = item
+    
+    def get(self, id: str) -> T | None:
+        """Mendapatkan item berdasarkan ID"""
+        return self._items.get(id)
+    
+    def get_all(self) -> list[T]:
+        """Mendapatkan semua items"""
+        return list(self._items.values())
+    
+    def delete(self, id: str) -> bool:
+        """Menghapus item berdasarkan ID"""
+        if id in self._items:
+            del self._items[id]
+            return True
+        return False
+
+# Data class dengan type hints lengkap
+@dataclass
+class User:
+    id: str
+    name: str
+    email: str
+    age: int
+    active: bool = True
+    
+    def to_dict(self) -> dict[str, any]:
+        return {
+            "id": self.id,
+            "name": self.name,
+            "email": self.email,
+            "age": self.age,
+            "active": self.active
+        }
+    
+    @classmethod
+    def from_dict(cls, data: dict[str, any]) -> Self:
+        return cls(
+            id=data["id"],
+            name=data["name"],
+            email=data["email"],
+            age=data["age"],
+            active=data.get("active", True)
+        )
+
+# Generic result type untuk error handling
+@dataclass
+class Result(Generic[T]):
+    success: bool
+    data: T | None = None
+    error: str | None = None
+    
+    @classmethod
+    def ok(cls, data: T) -> Result[T]:
+        return cls(success=True, data=data)
+    
+    @classmethod
+    def err(cls, error: str) -> Result[T]:
+        return cls(success=False, error=error)
+
+# Service class dengan dependency injection
+class UserService:
+    def __init__(self, repository: Repository[User]):
+        self.repository = repository
+    
+    def create_user(self, name: str, email: str, age: int) -> Result[User]:
+        """Membuat user baru dengan validasi"""
+        if not name or not email:
+            return Result.err("Name and email are required")
+        
+        if age < 0 or age > 150:
+            return Result.err("Age must be between 0 and 150")
+        
+        # Generate simple ID
+        user_id = f"user_{len(self.repository.get_all()) + 1}"
+        
+        user = User(id=user_id, name=name, email=email, age=age)
+        self.repository.save(user_id, user)
+        
+        return Result.ok(user)
+    
+    def get_user(self, user_id: str) -> Result[User]:
+        """Mendapatkan user berdasarkan ID"""
+        user = self.repository.get(user_id)
+        if user:
+            return Result.ok(user)
+        return Result.err(f"User with id {user_id} not found")
+    
+    def update_user(self, user_id: str, **updates) -> Result[User]:
+        """Update user data"""
+        user = self.repository.get(user_id)
+        if not user:
+            return Result.err(f"User with id {user_id} not found")
+        
+        # Apply updates
+        for key, value in updates.items():
+            if hasattr(user, key):
+                setattr(user, key, value)
+        
+        self.repository.save(user_id, user)
+        return Result.ok(user)
+    
+    def delete_user(self, user_id: str) -> Result[bool]:
+        """Menghapus user"""
+        success = self.repository.delete(user_id)
+        if success:
+            return Result.ok(True)
+        return Result.err(f"User with id {user_id} not found")
+
+# Factory pattern dengan type hints
+class ServiceFactory:
+    @staticmethod
+    def create_user_service() -> UserService:
+        """Factory method untuk membuat UserService"""
+        repository = Repository[User]()
+        return UserService(repository)
+
+# Advanced validation dengan custom types
+def validate_email(email: str) -> bool:
+    """Validasi format email sederhana"""
+    return "@" in email and "." in email
+
+def validate_age(age: int) -> bool:
+    """Validasi umur"""
+    return 0 <= age <= 150
+
+# Higher-order function untuk validation
+def create_validator(rules: list[Callable[[T], bool]]) -> Callable[[T], bool]:
+    """Membuat validator dari list rules"""
+    def validator(value: T) -> bool:
+        return all(rule(value) for rule in rules)
+    return validator
+
+# Contoh penggunaan
+def main():
+    print("=== ADVANCED TYPE HINTS PATTERNS ===")
+    
+    # Buat service
+    user_service = ServiceFactory.create_user_service()
+    
+    # Buat users
+    print("\n--- Creating Users ---")
+    result1 = user_service.create_user("Alice Johnson", "alice@example.com", 25)
+    if result1.success:
+        print(f"Created user: {result1.data.name}")
+    else:
+        print(f"Error: {result1.error}")
+    
+    result2 = user_service.create_user("Bob Smith", "bob@example.com", 30)
+    if result2.success:
+        print(f"Created user: {result2.data.name}")
+    
+    # Invalid user
+    result3 = user_service.create_user("", "invalid", 200)
+    if not result3.success:
+        print(f"Expected error: {result3.error}")
+    
+    # Get user
+    print("\n--- Getting Users ---")
+    get_result = user_service.get_user("user_1")
+    if get_result.success:
+        user = get_result.data
+        print(f"Found user: {user.name} ({user.email})")
+    
+    # Update user
+    print("\n--- Updating Users ---")
+    update_result = user_service.update_user("user_1", age=26, active=False)
+    if update_result.success:
+        print(f"Updated user age to: {update_result.data.age}")
+    
+    # Delete user
+    print("\n--- Deleting Users ---")
+    delete_result = user_service.delete_user("user_2")
+    if delete_result.success:
+        print("User deleted successfully")
+    
+    # Serialization
+    print("\n--- Serialization ---")
+    user = user_service.get_user("user_1")
+    if user.success:
+        user_dict = user.data.to_dict()
+        print(f"Serialized user: {user_dict}")
+        
+        # Deserialize
+        restored_user = User.from_dict(user_dict)
+        print(f"Restored user: {restored_user.name}")
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat fungsi dengan type hints lengkap untuk mengelola data pengguna.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/u3xOkmxzeBE" frameborder="0" allow="accelerometer; autoplay; clipbo-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Apa yang dimaksud dengan type hints di Python?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Fitur untuk menentukan tipe data parameter dan return value</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Fitur untuk membuat komentar pada kode</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Fitur untuk debugging kode</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Apa fungsi dari Union type di type hints?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>Menggabungkan beberapa tipe data yang mungkin</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>Membuat tipe data baru</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>Menghapus tipe data</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

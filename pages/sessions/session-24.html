@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 24: Dictionary - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 24: Dictionary</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari dictionary dalam Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Dictionary?</h4>
+                    <p class="text-gray-600 mb-4">Koleksi data dengan key-value pair yang tidak terurut.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Membuat dictionary
+my_dict = {
+    "nama": "John",
+    "umur": 25,
+    "kota": "Jakarta"
+}
+
+print(my_dict)  # Output: {'nama': 'John', 'umur': 25, 'kota': 'Jakarta'}</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Membuat Dictionary</h4>
+                    <p class="text-gray-600 mb-4">Berbagai cara membuat dictionary.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Dengan kurung kurawal
+dict1 = {"nama": "Alice", "umur": 30}
+
+# Dengan dict() constructor
+dict2 = dict(nama="Bob", umur=25)
+
+# Dari list of tuples
+pairs = [("nama", "Charlie"), ("umur", 35)]
+dict3 = dict(pairs)
+
+print(dict1)  # Output: {'nama': 'Alice', 'umur': 30}
+print(dict2)  # Output: {'nama': 'Bob', 'umur': 25}
+print(dict3)  # Output: {'nama': 'Charlie', 'umur': 35}</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Key dan Value</h4>
+                    <p class="text-gray-600 mb-4">Key unik, value bisa apa saja.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>my_dict = {
+    "string": "hello",
+    42: "number as key",
+    ("tuple", "key"): "tuple as key",
+    "list": [1, 2, 3]  # list sebagai value
+}
+
+print(my_dict["string"])      # Output: hello
+print(my_dict[42])            # Output: number as key
+print(my_dict[("tuple", "key")])  # Output: tuple as key</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Mengakses Value</h4>
+                    <p class="text-gray-600 mb-4">Menggunakan key untuk mengakses value.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>person = {"nama": "John", "umur": 25, "kota": "Jakarta"}
+
+print(person["nama"])   # Output: John
+print(person["umur"])   # Output: 25
+
+# Menggunakan get() method (lebih aman)
+print(person.get("kota"))     # Output: Jakarta
+print(person.get("alamat", "Tidak ada"))  # Output: Tidak ada</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Update Dictionary</h4>
+                    <p class="text-gray-600 mb-4">Menambahkan atau mengubah key-value.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>person = {"nama": "John", "umur": 25}
+
+# Menambah key baru
+person["pekerjaan"] = "Programmer"
+print(person)  # Output: {'nama': 'John', 'umur': 25, 'pekerjaan': 'Programmer'}
+
+# Mengubah value
+person["umur"] = 26
+print(person)  # Output: {'nama': 'John', 'umur': 26, 'pekerjaan': 'Programmer'}
+
+# Menggunakan update()
+person.update({"kota": "Bandung", "hobi": "Coding"})
+print(person)  # Output: {'nama': 'John', 'umur': 26, 'pekerjaan': 'Programmer', 'kota': 'Bandung', 'hobi': 'Coding'}</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Delete Key</h4>
+                    <p class="text-gray-600 mb-4">Menghapus key dari dictionary.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>person = {"nama": "John", "umur": 25, "kota": "Jakarta"}
+
+# Menggunakan del
+del person["kota"]
+print(person)  # Output: {'nama': 'John', 'umur': 25}
+
+# Menggunakan pop()
+umur = person.pop("umur")
+print(person)  # Output: {'nama': 'John'}
+print(umur)    # Output: 25
+
+# Menggunakan popitem() (hapus item terakhir)
+person["pekerjaan"] = "Programmer"
+removed = person.popitem()
+print(person)  # Output: {'nama': 'John'}
+print(removed) # Output: ('pekerjaan', 'Programmer')</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Method Dictionary</h4>
+                    <p class="text-gray-600 mb-4">keys(), values(), items(), dll.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>person = {"nama": "John", "umur": 25, "kota": "Jakarta"}
+
+print(person.keys())    # Output: dict_keys(['nama', 'umur', 'kota'])
+print(person.values())  # Output: dict_values(['John', 25, 'Jakarta'])
+print(person.items())   # Output: dict_items([('nama', 'John'), ('umur', 25), ('kota', 'Jakarta')])
+
+# Iterasi
+for key in person.keys():
+    print(key)
+
+for value in person.values():
+    print(value)
+
+for key, value in person.items():
+    print(f"{key}: {value}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Penggunaan</h4>
+                    <p class="text-gray-600 mb-4">Program yang menyimpan data mahasiswa.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>mahasiswa = {
+    "nama": "Alice",
+    "nim": "123456",
+    "jurusan": "Informatika",
+    "nilai": {
+        "matematika": 85,
+        "fisika": 90,
+        "kimia": 88
+    }
+}
+
+print(f"Nama: {mahasiswa['nama']}")
+print(f"NIM: {mahasiswa['nim']}")
+print(f"Nilai Matematika: {mahasiswa['nilai']['matematika']}")
+
+# Menghitung rata-rata
+nilai = mahasiswa['nilai']
+rata_rata = sum(nilai.values()) / len(nilai)
+print(f"Rata-rata: {rata_rata}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat program yang mengelola dictionary.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/B6scLunzn0I" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Bagaimana cara mengakses value dalam dictionary?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Menggunakan indeks numerik</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Menggunakan key</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Menggunakan value</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Method apa yang digunakan untuk mendapatkan semua key dalam dictionary?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>values()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>keys()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>items()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

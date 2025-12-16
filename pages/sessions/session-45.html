@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 45: Write External File - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 45: Write External File</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara menulis data ke file eksternal menggunakan berbagai teknik Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Pengenalan File Writing</h4>
+                    <p class="text-gray-600 mb-4">Memahami cara menulis data ke file eksternal menggunakan Python.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># File writing adalah proses menyimpan data ke file eksternal
+# Mengapa penting?
+# - Menyimpan data secara permanen
+# - Membuat laporan dan log
+# - Export data untuk aplikasi lain
+# - Backup data penting
+# - Membuat file konfigurasi
+
+# Mode writing yang tersedia:
+# 'w'  - Write (menimpa file jika ada)
+# 'a'  - Append (menambah ke file yang ada)
+# 'x'  - Create (error jika file sudah ada)
+# 'w+' - Write + Read
+# 'a+' - Append + Read
+
+# Contoh dasar menulis file
+print("=== Menulis File Dasar ===")
+
+# Menggunakan mode 'w' (write)
+with open('output.txt', 'w', encoding='utf-8') as file:
+    file.write("Ini adalah baris pertama\n")
+    file.write("Ini adalah baris kedua\n")
+    file.write("Ini adalah baris ketiga\n")
+
+print("File output.txt berhasil dibuat")
+
+# Menggunakan mode 'a' (append)
+with open('output.txt', 'a', encoding='utf-8') as file:
+    file.write("Baris yang ditambahkan\n")
+    file.write("Baris lagi yang ditambahkan\n")
+
+print("Data berhasil ditambahkan ke file")
+
+# Membaca file yang sudah dibuat
+print("\nIsi file output.txt:")
+with open('output.txt', 'r', encoding='utf-8') as file:
+    print(file.read())
+
+# Mode 'x' - create new file (akan error jika file sudah ada)
+print("\n=== Menggunakan Mode 'x' ===")
+try:
+    with open('new_file.txt', 'x', encoding='utf-8') as file:
+        file.write("File baru yang dibuat dengan mode 'x'\n")
+    print("File new_file.txt berhasil dibuat")
+except FileExistsError:
+    print("File sudah ada, tidak bisa menggunakan mode 'x'")
+
+# Mode 'w+' - write and read
+print("\n=== Mode 'w+' (Write + Read) ===")
+with open('rw_file.txt', 'w+', encoding='utf-8') as file:
+    # Menulis data
+    file.write("Baris pertama\n")
+    file.write("Baris kedua\n")
+
+    # Membaca data yang sudah ditulis
+    file.seek(0)  # Kembali ke awal file
+    content = file.read()
+    print("Isi file yang baru ditulis:")
+    print(content)
+
+print("File writing memungkinkan penyimpanan data permanen!")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Menulis Data Terstruktur</h4>
+                    <p class="text-gray-600 mb-4">Menulis data dalam format terstruktur seperti CSV, JSON, dan XML.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import csv
+import json
+import xml.etree.ElementTree as ET
+from datetime import datetime
+
+print("=== Menulis Data Terstruktur ===")
+
+# 1. Menulis file CSV
+print("\n1. Menulis File CSV:")
+data = [
+    ['Nama', 'Umur', 'Kota'],
+    ['Alice', 25, 'Jakarta'],
+    ['Bob', 30, 'Bandung'],
+    ['Charlie', 35, 'Surabaya'],
+    ['Diana', 28, 'Yogyakarta']
+]
+
+with open('data.csv', 'w', newline='', encoding='utf-8') as file:
+    writer = csv.writer(file)
+    writer.writerows(data)
+
+print("File CSV berhasil dibuat")
+
+# Membaca file CSV yang dibuat
+print("\nIsi file CSV:")
+with open('data.csv', 'r', encoding='utf-8') as file:
+    reader = csv.reader(file)
+    for row in reader:
+        print(row)
+
+# 2. Menulis file JSON
+print("\n2. Menulis File JSON:")
+employee_data = {
+    "company": "PT. Tech Solutions",
+    "employees": [
+        {
+            "id": 1,
+            "name": "Alice Johnson",
+            "position": "Software Engineer",
+            "salary": 8500000,
+            "skills": ["Python", "JavaScript", "React"]
+        },
+        {
+            "id": 2,
+            "name": "Bob Smith",
+            "position": "Data Analyst",
+            "salary": 7500000,
+            "skills": ["Python", "SQL", "Tableau"]
+        },
+        {
+            "id": 3,
+            "name": "Charlie Brown",
+            "position": "Project Manager",
+            "salary": 9500000,
+            "skills": ["Agile", "Scrum", "Leadership"]
+        }
+    ],
+    "created_at": datetime.now().isoformat()
+}
+
+with open('employees.json', 'w', encoding='utf-8') as file:
+    json.dump(employee_data, file, indent=2, ensure_ascii=False)
+
+print("File JSON berhasil dibuat")
+
+# Membaca file JSON
+print("\nIsi file JSON:")
+with open('employees.json', 'r', encoding='utf-8') as file:
+    data = json.load(file)
+    print(json.dumps(data, indent=2, ensure_ascii=False))
+
+# 3. Menulis file XML
+print("\n3. Menulis File XML:")
+
+# Membuat root element
+root = ET.Element("library")
+
+# Membuat sub-elements
+books = [
+    {"title": "Python Programming", "author": "John Doe", "year": "2023", "genre": "Programming"},
+    {"title": "Data Science Handbook", "author": "Jane Smith", "year": "2022", "genre": "Data Science"},
+    {"title": "Machine Learning Basics", "author": "Bob Johnson", "year": "2021", "genre": "AI"}
+]
+
+for book in books:
+    book_elem = ET.SubElement(root, "book")
+    for key, value in book.items():
+        child = ET.SubElement(book_elem, key)
+        child.text = value
+
+# Menulis ke file XML
+tree = ET.ElementTree(root)
+tree.write('library.xml', encoding='utf-8', xml_declaration=True)
+
+print("File XML berhasil dibuat")
+
+# Membaca file XML
+print("\nIsi file XML:")
+tree = ET.parse('library.xml')
+root = tree.getroot()
+
+for book in root:
+    print(f"Book: {book.find('title').text}")
+    print(f"Author: {book.find('author').text}")
+    print(f"Year: {book.find('year').text}")
+    print(f"Genre: {book.find('genre').text}")
+    print("-" * 30)
+
+print("Data terstruktur berhasil disimpan dalam berbagai format!")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Logging dan Error Handling</h4>
+                    <p class="text-gray-600 mb-4">Membuat sistem logging dan menangani error saat menulis file.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import logging
+import os
+from datetime import datetime
+import traceback
+
+print("=== Logging dan Error Handling ===")
+
+# 1. Setup logging
+print("\n1. Setup Logging System:")
+logging.basicConfig(
+    filename='file_operations.log',
+    level=logging.INFO,
+    format='%(asctime)s - %(levelname)s - %(message)s',
+    datefmt='%Y-%m-%d %H:%M:%S'
+)
+
+# Custom logger
+logger = logging.getLogger('FileWriter')
+
+# Handler untuk console output
+console_handler = logging.StreamHandler()
+console_handler.setLevel(logging.INFO)
+formatter = logging.Formatter('%(levelname)s: %(message)s')
+console_handler.setFormatter(formatter)
+logger.addHandler(console_handler)
+
+print("Logging system berhasil diinisialisasi")
+
+# 2. Safe file writing function with error handling
+print("\n2. Safe File Writing Function:")
+
+def safe_write_file(filename, content, mode='w'):
+    """
+    Fungsi aman untuk menulis file dengan error handling
+    """
+    try:
+        # Buat direktori jika belum ada
+        directory = os.path.dirname(filename)
+        if directory and not os.path.exists(directory):
+            os.makedirs(directory)
+            logger.info(f"Direktori {directory} berhasil dibuat")
+
+        # Tulis file
+        with open(filename, mode, encoding='utf-8') as file:
+            if isinstance(content, list):
+                for line in content:
+                    file.write(str(line) + '\n')
+            else:
+                file.write(str(content))
+
+        logger.info(f"File {filename} berhasil ditulis dengan mode '{mode}'")
+        return True
+
+    except PermissionError:
+        error_msg = f"Permission denied: Tidak ada izin untuk menulis file {filename}"
+        logger.error(error_msg)
+        print(f"Error: {error_msg}")
+        return False
+
+    except OSError as e:
+        error_msg = f"OS Error: {str(e)}"
+        logger.error(error_msg)
+        print(f"Error: {error_msg}")
+        return False
+
+    except Exception as e:
+        error_msg = f"Unexpected error: {str(e)}"
+        logger.error(error_msg)
+        logger.error(traceback.format_exc())
+        print(f"Error: {error_msg}")
+        return False
+
+# 3. Test safe writing functions
+print("\n3. Testing Safe Writing:")
+
+# Test normal file writing
+success = safe_write_file('test_file.txt', 'Ini adalah test file')
+print(f"Normal write: {'Success' if success else 'Failed'}")
+
+# Test writing list
+data_list = ['Baris 1', 'Baris 2', 'Baris 3', 'Baris 4']
+success = safe_write_file('list_data.txt', data_list)
+print(f"List write: {'Success' if success else 'Failed'}")
+
+# Test writing to subdirectory
+success = safe_write_file('logs/app_log.txt', f'Log entry at {datetime.now()}')
+print(f"Subdir write: {'Success' if success else 'Failed'}")
+
+# Test append mode
+success = safe_write_file('test_file.txt', '\nBaris yang ditambahkan', mode='a')
+print(f"Append write: {'Success' if success else 'Failed'}")
+
+# 4. File backup function
+print("\n4. File Backup Function:")
+
+def backup_file(filename):
+    """
+    Membuat backup file sebelum menimpa
+    """
+    if os.path.exists(filename):
+        # Buat nama backup dengan timestamp
+        timestamp = datetime.now().strftime('%Y%m%d_%H%M%S')
+        backup_name = f"{filename}.backup_{timestamp}"
+
+        try:
+            # Copy file
+            with open(filename, 'rb') as src, open(backup_name, 'wb') as dst:
+                dst.write(src.read())
+
+            logger.info(f"Backup berhasil dibuat: {backup_name}")
+            return backup_name
+
+        except Exception as e:
+            logger.error(f"Gagal membuat backup: {str(e)}")
+            return None
+    else:
+        logger.info(f"File {filename} tidak ada, tidak perlu backup")
+        return None
+
+# Test backup
+backup_name = backup_file('test_file.txt')
+if backup_name:
+    print(f"Backup dibuat: {backup_name}")
+
+# 5. Batch file operations
+print("\n5. Batch File Operations:")
+
+def write_multiple_files(file_data_dict):
+    """
+    Menulis multiple files sekaligus
+    """
+    results = {}
+    for filename, content in file_data_dict.items():
+        success = safe_write_file(filename, content)
+        results[filename] = success
+        status = "Success" if success else "Failed"
+        print(f"File {filename}: {status}")
+
+    return results
+
+# Test batch writing
+files_to_write = {
+    'config.ini': '[Settings]\napp_name=Cendiks\nversion=1.0',
+    'data/numbers.txt': [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+    'reports/summary.txt': f'Report generated at {datetime.now()}\nTotal files processed: {len(files_to_write)}'
+}
+
+print("Writing multiple files:")
+results = write_multiple_files(files_to_write)
+
+# Summary
+successful = sum(results.values())
+total = len(results)
+print(f"\nSummary: {successful}/{total} files berhasil ditulis")
+
+# 6. Check log file
+print("\n6. Checking Log File:")
+try:
+    with open('file_operations.log', 'r', encoding='utf-8') as log_file:
+        lines = log_file.readlines()
+        print(f"Total log entries: {len(lines)}")
+        print("Last 3 entries:")
+        for line in lines[-3:]:
+            print(line.strip())
+except FileNotFoundError:
+    print("Log file belum dibuat")
+
+print("\nError handling dan logging berhasil diimplementasikan!")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Advanced File Writing Techniques</h4>
+                    <p class="text-gray-600 mb-4">Teknik lanjutan untuk menulis file dengan performa optimal dan fitur canggih.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import os
+import pickle
+import shelve
+from contextlib import contextmanager
+from collections import defaultdict
+import time
+
+print("=== Advanced File Writing Techniques ===")
+
+# 1. Context manager untuk file operations
+print("\n1. Custom Context Manager:")
+
+@contextmanager
+def smart_open(filename, mode='w', encoding='utf-8'):
+    """
+    Context manager yang lebih cerdas untuk file operations
+    """
+    file = None
+    try:
+        file = open(filename, mode, encoding=encoding)
+        yield file
+    finally:
+        if file and not file.closed:
+            file.close()
+
+# Menggunakan context manager custom
+print("Testing custom context manager:")
+with smart_open('smart_file.txt', 'w') as f:
+    f.write("File ditulis menggunakan smart context manager\n")
+    f.write("Ini lebih aman dan fleksibel\n")
+
+print("File berhasil ditulis dengan context manager")
+
+# 2. Binary file writing dengan pickle
+print("\n2. Binary File Writing (Pickle):")
+
+# Data kompleks untuk disimpan
+complex_data = {
+    'users': [
+        {'id': 1, 'name': 'Alice', 'scores': [85, 92, 78]},
+        {'id': 2, 'name': 'Bob', 'scores': [76, 88, 95]},
+        {'id': 3, 'name': 'Charlie', 'scores': [90, 85, 87]}
+    ],
+    'metadata': {
+        'version': '1.0',
+        'created': time.time(),
+        'description': 'Sample user data'
+    },
+    'statistics': {
+        'total_users': 3,
+        'avg_score': 86.2,
+        'highest_score': 95
+    }
+}
+
+# Menyimpan dengan pickle
+with open('data.pkl', 'wb') as file:
+    pickle.dump(complex_data, file)
+
+print("Data kompleks berhasil disimpan dengan pickle")
+
+# Membaca data pickle
+with open('data.pkl', 'rb') as file:
+    loaded_data = pickle.load(file)
+
+print("Data yang dimuat:")
+print(f"Total users: {loaded_data['statistics']['total_users']}")
+print(f"Average score: {loaded_data['statistics']['avg_score']}")
+
+# 3. Shelve untuk persistent dictionary
+print("\n3. Shelve untuk Persistent Storage:")
+
+# Membuat shelve database
+with shelve.open('user_database') as db:
+    # Menyimpan data
+    db['user_1'] = {'name': 'Alice', 'email': 'alice@example.com', 'active': True}
+    db['user_2'] = {'name': 'Bob', 'email': 'bob@example.com', 'active': False}
+    db['user_3'] = {'name': 'Charlie', 'email': 'charlie@example.com', 'active': True}
+
+    # Menambah data baru
+    db['settings'] = {'theme': 'dark', 'language': 'id', 'notifications': True}
+
+print("Database shelve berhasil dibuat")
+
+# Membaca dari shelve
+with shelve.open('user_database') as db:
+    print("Users in database:")
+    for key in db:
+        if key.startswith('user_'):
+            user = db[key]
+            status = "Active" if user['active'] else "Inactive"
+            print(f"- {user['name']}: {user['email']} ({status})")
+
+    settings = db.get('settings', {})
+    print(f"\nSettings: Theme={settings.get('theme', 'default')}")
+
+# 4. Buffered writing untuk performa
+print("\n4. Buffered Writing untuk Performance:")
+
+def generate_large_dataset(num_records=10000):
+    """Generate large dataset untuk testing"""
+    import random
+    data = []
+    for i in range(num_records):
+        data.append({
+            'id': i + 1,
+            'name': f'User_{i+1}',
+            'age': random.randint(18, 65),
+            'city': random.choice(['Jakarta', 'Bandung', 'Surabaya', 'Yogyakarta']),
+            'score': round(random.uniform(50, 100), 2)
+        })
+    return data
+
+# Test buffered vs unbuffered writing
+print("Testing buffered writing performance:")
+
+# Generate data
+large_data = generate_large_dataset(5000)
+
+# Buffered writing (default)
+start_time = time.time()
+with open('buffered_output.txt', 'w', encoding='utf-8') as file:
+    for record in large_data:
+        file.write(f"{record['id']},{record['name']},{record['age']},{record['city']},{record['score']}\n")
+
+buffered_time = time.time() - start_time
+print(".4f")
+
+# 5. Atomic file writing (prevent corruption)
+print("\n5. Atomic File Writing:")
+
+def atomic_write(filename, content):
+    """
+    Atomic write - tulis ke temporary file dulu, lalu rename
+    """
+    temp_filename = filename + '.tmp'
+
+    try:
+        # Tulis ke temporary file
+        with open(temp_filename, 'w', encoding='utf-8') as file:
+            file.write(content)
+            file.flush()  # Pastikan data ditulis ke disk
+            os.fsync(file.fileno())  # Force write to disk
+
+        # Atomic rename
+        os.rename(temp_filename, filename)
+        return True
+
+    except Exception as e:
+        # Cleanup temporary file jika ada error
+        if os.path.exists(temp_filename):
+            os.remove(temp_filename)
+        raise e
+
+# Test atomic writing
+critical_data = """[CRITICAL_CONFIG]
+database_host=localhost
+database_port=5432
+api_key=super_secret_key
+max_connections=100
+timeout=30
+"""
+
+success = atomic_write('critical_config.ini', critical_data)
+print(f"Atomic write: {'Success' if success else 'Failed'}")
+
+# Verifikasi file
+if os.path.exists('critical_config.ini'):
+    with open('critical_config.ini', 'r', encoding='utf-8') as file:
+        print("Critical config content:")
+        print(file.read()[:100] + "...")
+
+# 6. File rotation untuk logs
+print("\n6. Simple Log Rotation:")
+
+class RotatingFileHandler:
+    def __init__(self, base_filename, max_size=1024*1024):  # 1MB default
+        self.base_filename = base_filename
+        self.max_size = max_size
+        self.current_file = base_filename
+
+    def write(self, message):
+        # Check if rotation needed
+        if os.path.exists(self.current_file) and os.path.getsize(self.current_file) > self.max_size:
+            self._rotate()
+
+        # Write message
+        with open(self.current_file, 'a', encoding='utf-8') as file:
+            timestamp = time.strftime('%Y-%m-%d %H:%M:%S')
+            file.write(f"[{timestamp}] {message}\n")
+
+    def _rotate(self):
+        """Rotate log files"""
+        # Find next available number
+        counter = 1
+        while os.path.exists(f"{self.base_filename}.{counter}"):
+            counter += 1
+
+        # Rename current file
+        os.rename(self.current_file, f"{self.base_filename}.{counter}")
+        print(f"Log rotated: {self.current_file} -> {self.base_filename}.{counter}")
+
+# Test log rotation
+log_handler = RotatingFileHandler('app.log', max_size=500)  # Small size for testing
+
+for i in range(20):
+    log_handler.write(f"Log message number {i+1}: This is a test message with some additional content to make it longer")
+
+print("Log rotation test completed")
+
+# Check created files
+log_files = [f for f in os.listdir('.') if f.startswith('app.log')]
+print(f"Log files created: {sorted(log_files)}")
+
+print("\nAdvanced file writing techniques berhasil diimplementasikan!")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/dZGr1bbfHZU" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

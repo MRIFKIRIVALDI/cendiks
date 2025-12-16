@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 29: Latihan Membuat Fungsi Python untuk Pemula - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 29: Latihan Membuat Fungsi Python untuk Pemula</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Berlatih membuat berbagai jenis fungsi Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Fungsi Sederhana</h4>
+                    <p class="text-gray-600 mb-4">Membuat fungsi yang hanya mencetak pesan.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def sapa_pengguna():
+    """Fungsi untuk menyapa pengguna"""
+    print("Halo! Selamat datang di program Python!")
+    print("Semoga hari Anda menyenangkan!")
+
+# Memanggil fungsi
+sapa_pengguna()
+sapa_pengguna()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Fungsi dengan Parameter</h4>
+                    <p class="text-gray-600 mb-4">Fungsi yang menerima input dari pengguna.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def sapa_bernama(nama):
+    """Fungsi untuk menyapa dengan nama"""
+    print(f"Halo, {nama}!")
+    print("Senang bertemu dengan Anda!")
+
+# Memanggil fungsi dengan argument
+sapa_bernama("Alice")
+sapa_bernama("Bob")
+sapa_bernama("Charlie")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Fungsi dengan Return Value</h4>
+                    <p class="text-gray-600 mb-4">Fungsi yang mengembalikan hasil perhitungan.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def hitung_luas_persegi(sisi):
+    """Menghitung luas persegi"""
+    luas = sisi * sisi
+    return luas
+
+# Menggunakan return value
+hasil1 = hitung_luas_persegi(5)
+hasil2 = hitung_luas_persegi(10)
+
+print(f"Luas persegi sisi 5: {hasil1}")
+print(f"Luas persegi sisi 10: {hasil2}")
+
+# Menggunakan langsung
+print(f"Luas persegi sisi 7: {hitung_luas_persegi(7)}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Fungsi dengan Multiple Parameters</h4>
+                    <p class="text-gray-600 mb-4">Fungsi yang menerima beberapa parameter.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def hitung_luas_persegi_panjang(panjang, lebar):
+    """Menghitung luas persegi panjang"""
+    return panjang * lebar
+
+def perkenalan(nama, umur, kota):
+    """Memperkenalkan diri"""
+    return f"Halo, nama saya {nama}, umur {umur} tahun, tinggal di {kota}."
+
+# Memanggil fungsi
+luas = hitung_luas_persegi_panjang(10, 5)
+print(f"Luas: {luas}")
+
+intro = perkenalan("John", 25, "Jakarta")
+print(intro)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Fungsi dengan Default Parameter</h4>
+                    <p class="text-gray-600 mb-4">Fungsi dengan parameter yang memiliki nilai default.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def sapa_lengkap(nama, salam="Halo", waktu="pagi"):
+    """Menyapa dengan salam dan waktu"""
+    return f"{salam}! Selamat {waktu}, {nama}!"
+
+# Memanggil dengan berbagai cara
+print(sapa_lengkap("Alice"))                    # Menggunakan semua default
+print(sapa_lengkap("Bob", "Selamat pagi"))     # Mengubah salam
+print(sapa_lengkap("Charlie", "Hai", "siang")) # Mengubah semua
+
+# Menggunakan keyword arguments
+print(sapa_lengkap(nama="David", waktu="malam", salam="Selamat"))</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Fungsi dengan *args</h4>
+                    <p class="text-gray-600 mb-4">Fungsi yang menerima jumlah argument yang tidak terbatas.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def jumlahkan_semua(*angka):
+    """Menjumlahkan semua angka yang diberikan"""
+    total = 0
+    for num in angka:
+        total += num
+    return total
+
+def cetak_daftar_belanja(*item):
+    """Mencetak daftar belanja"""
+    print("Daftar Belanja:")
+    for i, barang in enumerate(item, 1):
+        print(f"{i}. {barang}")
+
+# Memanggil fungsi
+print(f"Total: {jumlahkan_semua(1, 2, 3, 4, 5)}")
+print(f"Total: {jumlahkan_semua(10, 20, 30)}")
+
+cetak_daftar_belanja("Apel", "Jeruk", "Pisang", "Mangga")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Fungsi dengan **kwargs</h4>
+                    <p class="text-gray-600 mb-4">Fungsi yang menerima keyword arguments yang tidak terbatas.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def buat_profil(**info):
+    """Membuat profil dari informasi yang diberikan"""
+    print("=== PROFIL ===")
+    for key, value in info.items():
+        print(f"{key.capitalize()}: {value}")
+    print("=" * 12)
+
+# Memanggil fungsi
+buat_profil(nama="Alice", umur=25, pekerjaan="Programmer", kota="Jakarta")
+print()
+buat_profil(nama="Bob", hobi="Fotografi", pendidikan="S1 Informatika")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Kombinasi Semua Konsep</h4>
+                    <p class="text-gray-600 mb-4">Fungsi yang menggunakan semua konsep yang telah dipelajari.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def kalkulator(operasi, *angka, **opsi):
+    """Kalkulator yang fleksibel"""
+    if operasi == "tambah":
+        hasil = sum(angka)
+    elif operasi == "kali":
+        hasil = 1
+        for num in angka:
+            hasil *= num
+    elif operasi == "rata_rata":
+        hasil = sum(angka) / len(angka) if angka else 0
+    else:
+        return "Operasi tidak dikenal"
+
+    # Opsi tambahan
+    if opsi.get("tampilkan_proses", False):
+        print(f"Angka: {angka}")
+        print(f"Operasi: {operasi}")
+
+    if opsi.get("bulatkan", False):
+        hasil = round(hasil)
+
+    return hasil
+
+# Menggunakan fungsi
+print(kalkulator("tambah", 1, 2, 3, 4, 5))
+print(kalkulator("kali", 2, 3, 4))
+print(kalkulator("rata_rata", 85, 90, 88, 92))
+print(kalkulator("tambah", 1.5, 2.7, 3.2, bulatkan=True, tampilkan_proses=True))</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat fungsi-fungsi sederhana untuk latihan.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/mATeKWmB7YM" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Apa yang akan terjadi jika fungsi dipanggil tanpa argument untuk parameter yang tidak memiliki default?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Fungsi akan menggunakan nilai 0</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Akan terjadi TypeError</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Fungsi akan mengabaikan parameter tersebut</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Bagaimana cara mendefinisikan parameter dengan nilai default?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>def func(param = default):</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>def func(param: default):</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>def func(default = param):</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

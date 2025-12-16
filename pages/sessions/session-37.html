@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 37: Membuat Package Sederhana - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 37: Membuat Package Sederhana</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara membuat dan mengorganisir package Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Package?</h4>
+                    <p class="text-gray-600 mb-4">Package: kotak besar untuk kode rapi! 📦✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Struktur package:
+# mypackage/
+# ├── __init__.py
+# ├── math.py
+# └── utils/
+#     ├── __init__.py
+#     └── helper.py
+
+import mypackage
+print(mypackage.add(5, 3))  # 8</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Membuat Package Pertama</h4>
+                    <p class="text-gray-600 mb-4">Buat package pertama kamu! 🚀✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Buat folder dan file
+mkdir mypackage
+cd mypackage
+
+# mypackage/__init__.py
+def hello():
+    return "Hello from package!"
+
+# main.py
+import mypackage
+print(mypackage.hello())  # Hello from package!</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Struktur Package</h4>
+                    <p class="text-gray-600 mb-4">Susun package seperti lemari rapi! 🗂️✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Struktur package:
+mypackage/
+├── __init__.py      # Pintu masuk package
+├── core.py          # Fungsi utama
+├── utils.py         # Alat bantu
+└── tests/
+    ├── __init__.py
+    └── test_core.py
+
+# __init__.py
+from .core import add
+from .utils import greet
+
+__version__ = "1.0.0"</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Membuat Subpackage</h4>
+                    <p class="text-gray-600 mb-4">Package dalam package! 📦📦</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># mypackage/
+# ├── __init__.py
+# ├── math/
+# │   ├── __init__.py
+# │   └── operations.py
+# └── text/
+#     ├── __init__.py
+#     └── utils.py
+
+# math/operations.py
+def add(a, b):
+    return a + b
+
+# text/utils.py
+def capitalize(text):
+    return text.upper()
+
+# main.py
+from mypackage.math.operations import add
+from mypackage.text.utils import capitalize
+
+print(add(5, 3))  # 8
+print(capitalize("hello"))  # HELLO</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Distribusi Package</h4>
+                    <p class="text-gray-600 mb-4">Bagikan package kamu ke dunia! 🌍🚀</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># setup.py
+from setuptools import setup
+
+setup(
+    name="mypackage",
+    version="1.0.0",
+    author="Your Name",
+    description="My awesome package",
+    packages=["mypackage"],
+)
+
+# Upload ke PyPI
+pip install twine wheel
+python setup.py sdist bdist_wheel
+twine upload dist/*</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Testing Package</h4>
+                    <p class="text-gray-600 mb-4">Test package biar gak rusak! 🧪✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># tests/test_math.py
+import pytest
+from mypackage.math.operations import add
+
+def test_add():
+    assert add(2, 3) == 5
+    assert add(-1, 1) == 0
+
+# Jalankan test
+pytest  # Semua test jalan!</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Methods dalam re Module</h4>
+                    <p class="text-gray-600 mb-4">Regex methods: cari, ganti, split! 🔍✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import re
+
+text = "Hello Python World!"
+
+# Cari dari awal
+match = re.match(r'Hello', text)
+print(match.group())  # Hello
+
+# Cari di mana saja
+search = re.search(r'Python', text)
+print(search.group())  # Python
+
+# Cari semua
+words = re.findall(r'\w+', text)
+print(words)  # ['Hello', 'Python', 'World']
+
+# Ganti
+new_text = re.sub(r'World', 'Universe', text)
+print(new_text)  # Hello Python Universe!</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Penggunaan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Regex di dunia nyata: ekstrak info! 📧📱</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import re
+
+text = "Email: user@example.com, Phone: 08123456789"
+
+# Cari email
+emails = re.findall(r'\w+@\w+\.\w+', text)
+print(emails)  # ['user@example.com']
+
+# Cari nomor HP
+phones = re.findall(r'08\d+', text)
+print(phones)  # ['08123456789']
+
+# Bersihkan teks
+messy = "Hello   World!   "
+clean = re.sub(r'\s+', ' ', messy).strip()
+print(clean)  # Hello World!</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Best Practices</h4>
+                    <p class="text-gray-600 mb-4">Tips keren pakai regex! 💡✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import re
+
+# 1. Compile pattern untuk reuse
+pattern = re.compile(r'\w+@\w+\.\w+')
+emails = pattern.findall("user@example.com admin@test.org")
+print(emails)  # ['user@example.com', 'admin@test.org']
+
+# 2. Pakai raw string
+pattern = r'\d+'  # Bukan '\\d+'
+
+# 3. Test regex kamu
+def test_regex():
+    pattern = re.compile(r'\w+')
+    assert pattern.search("hello").group() == "hello"
+    print("✓ Regex works!")
+
+test_regex()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat program yang menggunakan regex untuk memproses teks.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/tEqYmvykGII" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣2️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Metacharacter mana yang cocok dengan karakter apa saja kecuali newline?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>*</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>.</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>?</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Method mana yang mengembalikan semua kecocokan dalam list?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>re.match()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>re.search()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>re.findall()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>

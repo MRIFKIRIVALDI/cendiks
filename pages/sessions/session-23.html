@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 23: Tuples dan Set - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 23: Tuples dan Set</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari tuple dan set dalam Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Tuple</h4>
+                    <p class="text-gray-600 mb-4">Koleksi data terurut yang tidak dapat diubah (immutable).</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Membuat tuple
+my_tuple = (1, 2, 3, "hello", 3.14)
+empty_tuple = ()
+single_tuple = (1,)  # Perlu koma untuk tuple dengan satu elemen
+
+print(my_tuple)     # Output: (1, 2, 3, 'hello', 3.14)
+print(type(my_tuple))  # Output: <class 'tuple'></code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Membuat Tuple</h4>
+                    <p class="text-gray-600 mb-4">Berbagai cara membuat tuple.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Dengan tanda kurung
+tuple1 = (1, 2, 3)
+
+# Tanpa tanda kurung (tuple packing)
+tuple2 = 1, 2, 3
+
+# Dari list
+my_list = [1, 2, 3]
+tuple3 = tuple(my_list)
+
+print(tuple1)  # Output: (1, 2, 3)
+print(tuple2)  # Output: (1, 2, 3)
+print(tuple3)  # Output: (1, 2, 3)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Set</h4>
+                    <p class="text-gray-600 mb-4">Koleksi data unik yang tidak terurut.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Membuat set
+my_set = {1, 2, 3, 4, 5}
+empty_set = set()  # {} membuat dict kosong, bukan set
+
+print(my_set)      # Output: {1, 2, 3, 4, 5}
+print(type(my_set)) # Output: <class 'set'></code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Membuat Set</h4>
+                    <p class="text-gray-600 mb-4">Berbagai cara membuat set.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Dengan kurung kurawal
+set1 = {1, 2, 3}
+
+# Dari list (menghilangkan duplikat)
+my_list = [1, 2, 2, 3, 3, 3]
+set2 = set(my_list)
+
+# Dari string
+set3 = set("hello")
+
+print(set1)  # Output: {1, 2, 3}
+print(set2)  # Output: {1, 2, 3}
+print(set3)  # Output: {'l', 'o', 'e', 'h'}</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Perbedaan Tuple vs List</h4>
+                    <p class="text-gray-600 mb-4">Tuple immutable, list mutable.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># List - dapat diubah
+my_list = [1, 2, 3]
+my_list[0] = 99
+print(my_list)  # Output: [99, 2, 3]
+
+# Tuple - tidak dapat diubah
+my_tuple = (1, 2, 3)
+# my_tuple[0] = 99  # Akan error: TypeError</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Perbedaan Set vs List</h4>
+                    <p class="text-gray-600 mb-4">Set unik dan tidak terurut.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># List mempertahankan urutan dan duplikat
+my_list = [1, 2, 2, 3, 1]
+print(my_list)  # Output: [1, 2, 2, 3, 1]
+
+# Set menghilangkan duplikat dan tidak terurut
+my_set = {1, 2, 2, 3, 1}
+print(my_set)   # Output: {1, 2, 3} (urutan mungkin berbeda)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Method Tuple</h4>
+                    <p class="text-gray-600 mb-4">count() dan index().</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>my_tuple = (1, 2, 3, 2, 4, 2)
+
+print(my_tuple.count(2))  # Output: 3 (jumlah kemunculan 2)
+print(my_tuple.index(3))  # Output: 2 (indeks pertama 3)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Method Set</h4>
+                    <p class="text-gray-600 mb-4">add(), remove(), union(), dll.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>my_set = {1, 2, 3}
+
+# Menambah elemen
+my_set.add(4)
+print(my_set)  # Output: {1, 2, 3, 4}
+
+# Menghapus elemen
+my_set.remove(2)
+print(my_set)  # Output: {1, 3, 4}
+
+# Operasi himpunan
+set1 = {1, 2, 3}
+set2 = {3, 4, 5}
+print(set1.union(set2))      # Output: {1, 2, 3, 4, 5}
+print(set1.intersection(set2))  # Output: {3}</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Contoh Penggunaan</h4>
+                    <p class="text-gray-600 mb-4">Program yang menggunakan tuple dan set.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Tuple untuk data yang tidak berubah
+coordinates = (10.5, 20.3)
+person = ("John", 25, "Engineer")
+
+# Set untuk menghilangkan duplikat
+emails = ["a@example.com", "b@example.com", "a@example.com"]
+unique_emails = set(emails)
+print(unique_emails)  # Output: {'a@example.com', 'b@example.com'}</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat program yang mengelola data dengan tuple dan set.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/hGvikdHVRME" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣2️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Apa yang membedakan tuple dengan list?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Tuple dapat diubah, list tidak dapat diubah</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Tuple tidak dapat diubah, list dapat diubah</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Tidak ada perbedaan</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Apa karakteristik utama dari set?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>Terurut dan dapat duplikat</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>Unik dan tidak terurut</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>Terurut dan unik</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

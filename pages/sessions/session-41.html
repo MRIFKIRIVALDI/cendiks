@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 41: Package Numpy - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 41: Package Numpy</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari library fundamental untuk komputasi numerik di Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu NumPy?</h4>
+                    <p class="text-gray-600 mb-4">Library fundamental untuk komputasi numerik di Python yang menyediakan objek array multidimensi dan berbagai fungsi matematika.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Instalasi NumPy
+# pip install numpy
+
+# Import NumPy
+import numpy as np
+
+# Membuat array NumPy
+arr = np.array([1, 2, 3, 4, 5])
+print(arr)  # [1 2 3 4 5]
+print(type(arr))  # <class 'numpy.ndarray'>
+
+# Array multidimensi
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+print(matrix)
+# [[1 2 3]
+#  [4 5 6]
+#  [7 8 9]]
+
+# Array dengan tipe data tertentu
+float_arr = np.array([1, 2, 3], dtype=float)
+print(float_arr)  # [1. 2. 3.]
+
+# Array dengan nilai awal
+zeros = np.zeros((3, 4))  # Array 3x4 berisi 0
+ones = np.ones((2, 3))    # Array 2x3 berisi 1
+empty = np.empty((2, 2))  # Array kosong (nilai acak)
+full = np.full((2, 2), 7) # Array 2x2 berisi 7
+
+# Array dengan range
+range_arr = np.arange(10)      # [0 1 2 3 4 5 6 7 8 9]
+step_arr = np.arange(0, 10, 2) # [0 2 4 6 8]
+linspace_arr = np.linspace(0, 1, 5)  # [0.   0.25 0.5  0.75 1.  ]</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Operasi Matematika pada Array</h4>
+                    <p class="text-gray-600 mb-4">Operasi aritmatika, trigonometri, dan fungsi matematika lainnya pada array NumPy.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+
+# Membuat array untuk operasi
+a = np.array([1, 2, 3, 4])
+b = np.array([5, 6, 7, 8])
+
+print("Array a:", a)  # [1 2 3 4]
+print("Array b:", b)  # [5 6 7 8]
+
+# Operasi aritmatika dasar
+print("Penjumlahan:", a + b)        # [6 8 10 12]
+print("Pengurangan:", a - b)        # [-4 -4 -4 -4]
+print("Perkalian:", a * b)          # [5 12 21 32]
+print("Pembagian:", b / a)          # [5. 3. 2.333 2.]
+print("Pangkat:", a ** 2)           # [1 4 9 16]
+print("Modulus:", b % a)            # [0 0 1 0]
+
+# Operasi dengan skalar
+print("a + 10:", a + 10)            # [11 12 13 14]
+print("a * 3:", a * 3)              # [3 6 9 12]
+
+# Fungsi matematika
+arr = np.array([0, np.pi/2, np.pi])
+print("Sinus:", np.sin(arr))        # [0. 1. 0.]
+print("Cosinus:", np.cos(arr))      # [1. 0. -1.]
+print("Tangen:", np.tan(arr))       # [0. 1.633e+16 -0.]
+
+# Fungsi eksponensial dan logaritma
+x = np.array([1, 2, 3, 4])
+print("e^x:", np.exp(x))            # [2.718 7.389 20.085 54.598]
+print("ln(x):", np.log(x))          # [0. 0.693 1.099 1.386]
+print("log10(x):", np.log10(x))     # [0. 0.301 0.477 0.602]
+
+# Fungsi aggregasi
+data = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+print("Jumlah:", np.sum(data))      # 55
+print("Rata-rata:", np.mean(data))  # 5.5
+print("Median:", np.median(data))   # 5.5
+print("Standar deviasi:", np.std(data))  # 2.872
+print("Variansi:", np.var(data))    # 8.25
+print("Minimum:", np.min(data))     # 1
+print("Maximum:", np.max(data))     # 10
+
+# Operasi pada sumbu tertentu (axis)
+matrix = np.array([[1, 2, 3], [4, 5, 6]])
+print("Matrix:")
+print(matrix)
+# [[1 2 3]
+#  [4 5 6]]
+
+print("Jumlah per kolom:", np.sum(matrix, axis=0))  # [5 7 9]
+print("Jumlah per baris:", np.sum(matrix, axis=1))  # [6 15]
+print("Rata-rata per kolom:", np.mean(matrix, axis=0))  # [2.5 3.5 4.5]
+
+# Operasi perbandingan
+print("a > 2:", a > 2)              # [False False True True]
+print("a == b:", a == b)            # [False False False False]
+print("Semua elemen > 0:", np.all(a > 0))  # True
+print("Ada elemen > 3:", np.any(a > 3))    # True</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Indexing dan Slicing</h4>
+                    <p class="text-gray-600 mb-4">Mengakses dan memotong elemen array NumPy.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+
+# Membuat array untuk contoh
+arr = np.arange(10)  # [0 1 2 3 4 5 6 7 8 9]
+print("Array:", arr)
+
+# Indexing dasar
+print("Elemen pertama:", arr[0])    # 0
+print("Elemen terakhir:", arr[-1])  # 9
+print("Elemen ke-5:", arr[4])       # 4
+
+# Slicing [start:stop:step]
+print("Elemen 2 sampai 5:", arr[2:6])     # [2 3 4 5]
+print("Elemen genap:", arr[::2])          # [0 2 4 6 8]
+print("Elemen ganjil:", arr[1::2])        # [1 3 5 7 9]
+print("Dibalik:", arr[::-1])              # [9 8 7 6 5 4 3 2 1 0]
+
+# Array 2D
+matrix = np.array([[1, 2, 3, 4],
+                   [5, 6, 7, 8],
+                   [9, 10, 11, 12]])
+
+print("Matrix:")
+print(matrix)
+# [[1 2 3 4]
+#  [5 6 7 8]
+#  [9 10 11 12]]
+
+# Indexing 2D
+print("Elemen [0,0]:", matrix[0, 0])    # 1
+print("Elemen [1,2]:", matrix[1, 2])    # 7
+print("Baris pertama:", matrix[0])      # [1 2 3 4]
+print("Kolom kedua:", matrix[:, 1])     # [2 6 10]
+
+# Slicing 2D
+print("Submatrix 2x2:")
+print(matrix[0:2, 1:3])
+# [[2 3]
+#  [6 7]]
+
+print("Baris kedua dan ketiga:")
+print(matrix[1:3])
+# [[5 6 7 8]
+#  [9 10 11 12]]
+
+# Boolean indexing
+arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
+mask = arr > 5
+print("Mask:", mask)                    # [False False False False False True True True True True]
+print("Elemen > 5:", arr[mask])         # [6 7 8 9 10]
+print("Elemen genap:", arr[arr % 2 == 0])  # [2 4 6 8 10]
+
+# Fancy indexing
+indices = [1, 3, 5, 7]
+print("Elemen dengan indeks", indices, ":", arr[indices])  # [2 4 6 8]</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Manipulasi Bentuk Array</h4>
+                    <p class="text-gray-600 mb-4">Mengubah bentuk, menggabungkan, dan memisahkan array NumPy.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+
+# Membuat array untuk contoh
+arr = np.arange(12)  # [0 1 2 3 4 5 6 7 8 9 10 11]
+print("Array 1D:", arr)
+
+# Reshape - mengubah bentuk array
+matrix = arr.reshape(3, 4)
+print("Reshape ke 3x4:")
+print(matrix)
+# [[0 1 2 3]
+#  [4 5 6 7]
+#  [8 9 10 11]]
+
+# Reshape dengan -1 (otomatis)
+reshaped = arr.reshape(2, -1)  # 2 baris, kolom otomatis
+print("Reshape ke 2x?:")
+print(reshaped)
+# [[0 1 2 3 4 5]
+#  [6 7 8 9 10 11]]
+
+# Flatten - mengubah ke 1D
+flattened = matrix.flatten()
+print("Flatten:", flattened)  # [0 1 2 3 4 5 6 7 8 9 10 11]
+
+# Ravel - sama dengan flatten tapi lebih efisien
+raveled = matrix.ravel()
+print("Ravel:", raveled)      # [0 1 2 3 4 5 6 7 8 9 10 11]
+
+# Transpose - mentranspos matrix
+transposed = matrix.T
+print("Transpose:")
+print(transposed)
+# [[0 4 8]
+#  [1 5 9]
+#  [2 6 10]
+#  [3 7 11]]
+
+# Menggabungkan array
+a = np.array([[1, 2], [3, 4]])
+b = np.array([[5, 6], [7, 8]])
+
+# Concatenate
+concat_rows = np.concatenate((a, b), axis=0)  # Gabung baris
+print("Concatenate baris:")
+print(concat_rows)
+# [[1 2]
+#  [3 4]
+#  [5 6]
+#  [7 8]]
+
+concat_cols = np.concatenate((a, b), axis=1)  # Gabung kolom
+print("Concatenate kolom:")
+print(concat_cols)
+# [[1 2 5 6]
+#  [3 4 7 8]]
+
+# Stack
+stacked = np.stack((a, b), axis=0)  # Stack 3D
+print("Stack:")
+print(stacked)
+# [[[1 2]
+#   [3 4]]
+#  [[5 6]
+#   [7 8]]]
+
+# Horizontal stack (hstack)
+hstacked = np.hstack((a, b))
+print("Horizontal stack:")
+print(hstacked)
+# [[1 2 5 6]
+#  [3 4 7 8]]
+
+# Vertical stack (vstack)
+vstacked = np.vstack((a, b))
+print("Vertical stack:")
+print(vstacked)
+# [[1 2]
+#  [3 4]
+#  [5 6]
+#  [7 8]]
+
+# Memisahkan array
+# Split
+split_arr = np.arange(9)
+split_parts = np.split(split_arr, 3)
+print("Split menjadi 3:", split_parts)
+# [array([0, 1, 2]), array([3, 4, 5]), array([6, 7, 8])]
+
+# Horizontal split (hsplit)
+matrix_4x4 = np.arange(16).reshape(4, 4)
+hsplit_parts = np.hsplit(matrix_4x4, 2)
+print("Horizontal split:")
+for i, part in enumerate(hsplit_parts):
+    print(f"Part {i}:")
+    print(part)
+
+# Vertical split (vsplit)
+vsplit_parts = np.vsplit(matrix_4x4, 2)
+print("Vertical split:")
+for i, part in enumerate(vsplit_parts):
+    print(f"Part {i}:")
+    print(part)
+
+# Menambah dimensi
+arr_1d = np.array([1, 2, 3])
+arr_2d = arr_1d[np.newaxis, :]  # Tambah dimensi baris
+print("Tambah dimensi baris:", arr_2d.shape)  # (1, 3)
+
+arr_2d_col = arr_1d[:, np.newaxis]  # Tambah dimensi kolom
+print("Tambah dimensi kolom:", arr_2d_col.shape)  # (3, 1)
+
+# Squeeze - menghapus dimensi yang tidak perlu
+arr_3d = np.array([[[1]], [[2]], [[3]]])
+squeezed = np.squeeze(arr_3d)
+print("Squeeze:", squeezed.shape)  # (3,)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Broadcasting dan Operasi Lanjutan</h4>
+                    <p class="text-gray-600 mb-4">Broadcasting otomatis dan operasi array yang lebih kompleks.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+
+# Broadcasting - operasi antara array dengan bentuk berbeda
+a = np.array([1, 2, 3])      # shape (3,)
+b = np.array([[1], [2], [3]]) # shape (3, 1)
+
+print("Array a:", a)
+print("Array b:")
+print(b)
+
+# Broadcasting otomatis
+result = a + b
+print("a + b (broadcasting):")
+print(result)
+# [[2 3 4]
+#  [3 4 5]
+#  [4 5 6]]
+
+# Broadcasting dengan skalar
+matrix = np.array([[1, 2, 3], [4, 5, 6]])
+print("Matrix:")
+print(matrix)
+
+print("Matrix + 10:")
+print(matrix + 10)
+# [[11 12 13]
+#  [14 15 16]]
+
+# Broadcasting dengan array 1D
+row_vector = np.array([10, 20, 30])  # shape (3,)
+col_vector = np.array([[100], [200]])  # shape (2, 1)
+
+print("Matrix + row_vector:")
+print(matrix + row_vector)
+# [[11 22 33]
+#  [14 25 36]]
+
+# Operasi matematika lanjutan
+x = np.linspace(0, 2*np.pi, 10)
+y = np.sin(x)
+z = np.cos(x)
+
+print("x:", x)
+print("sin(x):", y)
+print("cos(x):", z)
+
+# Operasi kompleks
+complex_arr = np.array([1+2j, 3+4j, 5+6j])
+print("Complex array:", complex_arr)
+print("Real part:", np.real(complex_arr))    # [1. 3. 5.]
+print("Imaginary part:", np.imag(complex_arr))  # [2. 4. 6.]
+print("Absolute:", np.abs(complex_arr))      # [2.236 5. 7.81]
+
+# Operasi statistik
+data = np.random.randn(1000)  # 1000 angka random normal
+print("Mean:", np.mean(data))
+print("Std:", np.std(data))
+print("Min:", np.min(data))
+print("Max:", np.max(data))
+print("25th percentile:", np.percentile(data, 25))
+print("Median:", np.median(data))
+print("75th percentile:", np.percentile(data, 75))
+
+# Operasi kumulatif
+arr = np.arange(1, 6)
+print("Array:", arr)                    # [1 2 3 4 5]
+print("Cumulative sum:", np.cumsum(arr))    # [1 3 6 10 15]
+print("Cumulative product:", np.cumprod(arr))  # [1 2 6 24 120]
+
+# Operasi perbandingan dan logika
+a = np.array([1, 2, 3, 4, 5])
+b = np.array([2, 2, 2, 6, 4])
+
+print("a > b:", a > b)          # [False False True False True]
+print("a == b:", a == b)        # [False True False False False]
+print("a & (a > 2):", a[a > 2]) # [3 4 5]
+
+# Operasi set
+arr1 = np.array([1, 2, 3, 4, 5])
+arr2 = np.array([3, 4, 5, 6, 7])
+
+print("Union:", np.union1d(arr1, arr2))        # [1 2 3 4 5 6 7]
+print("Intersection:", np.intersect1d(arr1, arr2))  # [3 4 5]
+print("Difference:", np.setdiff1d(arr1, arr2))     # [1 2]
+print("XOR:", np.setxor1d(arr1, arr2))             # [1 2 6 7]
+
+# Operasi sorting dan searching
+unsorted = np.array([3, 1, 4, 1, 5, 9, 2, 6])
+print("Unsorted:", unsorted)
+print("Sorted:", np.sort(unsorted))  # [1 1 2 3 4 5 6 9]
+
+# Searching
+print("Index of minimum:", np.argmin(unsorted))  # 1
+print("Index of maximum:", np.argmax(unsorted))  # 5
+print("Where > 3:", np.where(unsorted > 3))      # (array([0, 4, 5, 7]),)
+
+# Unique values
+with_duplicates = np.array([1, 2, 2, 3, 3, 3, 4])
+print("Unique:", np.unique(with_duplicates))           # [1 2 3 4]
+print("Unique with counts:", np.unique(with_duplicates, return_counts=True))
+# (array([1, 2, 3, 4]), array([1, 1, 3, 1]))</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Input/Output dan File Handling</h4>
+                    <p class="text-gray-600 mb-4">Menyimpan dan memuat array NumPy dari/ke file.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+import os
+
+# Membuat array untuk contoh
+data = np.random.randn(5, 4)
+print("Data array:")
+print(data)
+
+# Menyimpan array ke file .npy (binary format)
+np.save('data.npy', data)
+print("Array disimpan ke data.npy")
+
+# Memuat array dari file .npy
+loaded_data = np.load('data.npy')
+print("Data yang dimuat:")
+print(loaded_data)
+
+# Menyimpan multiple array dalam satu file .npz
+arr1 = np.array([1, 2, 3, 4])
+arr2 = np.array([[5, 6], [7, 8]])
+arr3 = np.random.rand(3, 3)
+
+np.savez('multiple_arrays.npz', array1=arr1, array2=arr2, matrix=arr3)
+print("Multiple arrays disimpan ke multiple_arrays.npz")
+
+# Memuat multiple arrays dari file .npz
+loaded = np.load('multiple_arrays.npz')
+print("Array1:", loaded['array1'])
+print("Array2:")
+print(loaded['array2'])
+print("Matrix:")
+print(loaded['matrix'])
+
+# Menyimpan ke file teks (.txt atau .csv)
+matrix = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
+np.savetxt('matrix.txt', matrix, delimiter=',', fmt='%d')
+print("Matrix disimpan ke matrix.txt")
+
+# Memuat dari file teks
+loaded_matrix = np.loadtxt('matrix.txt', delimiter=',')
+print("Matrix yang dimuat dari teks:")
+print(loaded_matrix)
+
+# Menyimpan dengan header
+header = "Kolom1, Kolom2, Kolom3"
+data_with_header = np.random.rand(5, 3)
+np.savetxt('data_with_header.csv', data_with_header, delimiter=',',
+           header=header, comments='', fmt='%.4f')
+print("Data dengan header disimpan ke data_with_header.csv")
+
+# Memuat data CSV dengan skip header
+csv_data = np.genfromtxt('data_with_header.csv', delimiter=',', skip_header=1)
+print("Data CSV yang dimuat:")
+print(csv_data)
+
+# Menyimpan array kompleks
+complex_data = np.array([1+2j, 3+4j, 5+6j])
+np.save('complex.npy', complex_data)
+loaded_complex = np.load('complex.npy')
+print("Data kompleks:", loaded_complex)
+
+# Memory mapping untuk file besar
+# Membuat file besar untuk demo
+large_data = np.random.rand(1000, 1000)
+np.save('large_data.npy', large_data)
+
+# Memory mapping - tidak memuat seluruh data ke memory
+mmapped = np.load('large_data.npy', mmap_mode='r')
+print("Shape dari memory mapped array:", mmapped.shape)
+print("Type:", type(mmapped))
+
+# Mengakses sebagian data tanpa memuat seluruhnya
+subset = mmapped[100:110, 200:210]
+print("Subset dari memory mapped data:")
+print(subset)
+
+# Binary I/O dengan bytes
+arr = np.array([1, 2, 3, 4, 5], dtype=np.int32)
+bytes_data = arr.tobytes()
+print("Array sebagai bytes:", bytes_data)
+
+# Membuat array dari bytes
+reconstructed = np.frombuffer(bytes_data, dtype=np.int32)
+print("Array direkonstruksi dari bytes:", reconstructed)
+
+# Cleanup - hapus file yang dibuat
+files_to_remove = ['data.npy', 'multiple_arrays.npz', 'matrix.txt',
+                   'data_with_header.csv', 'complex.npy', 'large_data.npy']
+
+for file in files_to_remove:
+    if os.path.exists(file):
+        os.remove(file)
+        print(f"File {file} dihapus")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Latihan praktis dengan NumPy untuk mengasah kemampuan komputasi numerik.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import numpy as np
+
+# Latihan 1: Analisis Data Cuaca
+print("=== Latihan 1: Analisis Data Cuaca ===")
+# Simulasi data suhu harian selama 30 hari (dalam Celsius)
+np.random.seed(42)  # Untuk hasil yang reproducible
+suhu_harian = np.random.normal(28, 5, 30)  # Rata-rata 28°C, std dev 5°C
+
+print("Data suhu harian:")
+print(suhu_harian[:10], "...")  # Tampilkan 10 hari pertama
+
+print(f"Suhu tertinggi: {np.max(suhu_harian):.1f}°C")
+print(f"Suhu terendah: {np.min(suhu_harian):.1f}°C")
+print(f"Rata-rata suhu: {np.mean(suhu_harian):.1f}°C")
+print(f"Standar deviasi: {np.std(suhu_harian):.1f}°C")
+
+# Hitung hari-hari panas (> 30°C)
+hari_panas = np.sum(suhu_harian > 30)
+print(f"Jumlah hari panas (>30°C): {hari_panas} hari")
+
+# Latihan 2: Operasi Matrix untuk Sistem Persamaan Linear
+print("\n=== Latihan 2: Sistem Persamaan Linear ===")
+# Sistem: 2x + 3y = 8
+#         4x - y = 2
+A = np.array([[2, 3], [4, -1]])
+b = np.array([8, 2])
+
+print("Matrix koefisien A:")
+print(A)
+print("Vector hasil b:", b)
+
+# Solusi menggunakan numpy.linalg.solve
+x = np.linalg.solve(A, b)
+print(f"Solusi: x = {x[0]:.2f}, y = {x[1]:.2f}")
+
+# Verifikasi
+verifikasi = A @ x
+print("Verifikasi (harus sama dengan b):", verifikasi)
+
+# Latihan 3: Analisis Citra Sederhana
+print("\n=== Latihan 3: Analisis Citra Sederhana ===")
+# Simulasi citra grayscale 8x8 piksel
+citra = np.random.randint(0, 256, (8, 8), dtype=np.uint8)
+print("Citra grayscale 8x8:")
+print(citra)
+
+# Hitung statistik citra
+print(f"Intensitas minimum: {np.min(citra)}")
+print(f"Intensitas maksimum: {np.max(citra)}")
+print(f"Rata-rata intensitas: {np.mean(citra):.1f}")
+
+# Buat citra biner (thresholding)
+threshold = 128
+citra_biner = (citra > threshold).astype(int)
+print("Citra biner (threshold=128):")
+print(citra_biner)
+
+# Latihan 4: Analisis Data Stok Saham
+print("\n=== Latihan 4: Analisis Data Stok ===")
+# Simulasi harga saham selama 100 hari perdagangan
+np.random.seed(123)
+harga_awal = 100
+perubahan_harian = np.random.normal(0.001, 0.02, 100)  # Return harian
+harga_saham = harga_awal * np.cumprod(1 + perubahan_harian)
+
+print("Harga saham 10 hari pertama:")
+print(harga_saham[:10])
+
+# Hitung return
+returns = np.diff(harga_saham) / harga_saham[:-1]
+print(f"Return harian rata-rata: {np.mean(returns)*100:.2f}%")
+print(f"Volatilitas (std dev return): {np.std(returns)*100:.2f}%")
+
+# Hitung moving average 5 hari
+ma5 = np.convolve(harga_saham, np.ones(5)/5, mode='valid')
+print("Moving average 5 hari (akhir):", ma5[-5:])
+
+# Latihan 5: Komputasi Matematika
+print("\n=== Latihan 5: Komputasi Matematika ===")
+# Hitung integral numerik menggunakan trapezoidal rule
+x = np.linspace(0, np.pi, 100)
+y = np.sin(x)
+integral = np.trapz(y, x)
+print(f"Integral sin(x) dari 0 ke π: {integral:.4f} (harus mendekati 2.0)")
+
+# Hitung turunan numerik
+dy_dx = np.gradient(y, x)
+print("Turunan sin(x) di x=π/2:", dy_dx[len(dy_dx)//2])
+
+# Sistem koordinat polar ke Cartesian
+theta = np.linspace(0, 2*np.pi, 50)
+r = 1 + 0.5 * np.cos(5*theta)  # Rose curve
+x_cart = r * np.cos(theta)
+y_cart = r * np.sin(theta)
+print("Koordinat Cartesian dari rose curve (5 titik pertama):")
+for i in range(5):
+    print(f"({x_cart[i]:.2f}, {y_cart[i]:.2f})")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/OrCG-jbyAO8" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Apa tipe data utama yang digunakan NumPy untuk menyimpan array multidimensi?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>list</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>ndarray</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>tuple</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Fungsi apa yang digunakan untuk mengubah bentuk array NumPy?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>reshape()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>flatten()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>transpose()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">3. Apa yang dimaksud dengan broadcasting di NumPy?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="a" class="mr-2">
+                                    <span>Mengirim data ke jaringan</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="b" class="mr-2">
+                                    <span>Operasi otomatis antara array dengan bentuk berbeda</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="c" class="mr-2">
+                                    <span>Menyimpan array ke file</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

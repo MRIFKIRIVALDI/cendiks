@@ -1,0 +1,1206 @@
+  v<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 39: Tkinter | Standard Library Python Gui - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 39: Tkinter | Standard Library Python GUI</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara membuat antarmuka grafis dengan Tkinter</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Tkinter?</h4>
+                    <p class="text-gray-600 mb-4">Tkinter: sihir GUI Python, buat app cantik tanpa ribet! ✨🖥️</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import tkinter as tk
+
+root = tk.Tk()
+root.title("Hello Tkinter!")
+tk.Label(root, text="Welcome!").pack()
+tk.Button(root, text="Click me!", command=lambda: print("Clicked!")).pack()
+root.mainloop()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Widget Dasar</h4>
+                    <p class="text-gray-600 mb-4">Mengenal widget-widget dasar di Tkinter.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import tkinter as tk
+
+root = tk.Tk()
+root.title("Widget Dasar Tkinter")
+root.geometry("500x400")
+
+# Label
+label1 = tk.Label(root, text="Ini adalah Label", font=("Arial", 12))
+label1.pack(pady=5)
+
+# Entry (input text)
+entry = tk.Entry(root, width=30)
+entry.pack(pady=5)
+entry.insert(0, "Ketik sesuatu di sini...")
+
+# Button
+def show_entry():
+    text = entry.get()
+    label1.config(text=f"Anda mengetik: {text}")
+
+button = tk.Button(root, text="Tampilkan Input", command=show_entry)
+button.pack(pady=5)
+
+# Checkbutton
+check_var = tk.BooleanVar()
+checkbutton = tk.Checkbutton(root, text="Centang saya", variable=check_var)
+checkbutton.pack(pady=5)
+
+# Radiobutton
+radio_var = tk.StringVar(value="Pilihan 1")
+radio1 = tk.Radiobutton(root, text="Pilihan 1", variable=radio_var, value="Pilihan 1")
+radio2 = tk.Radiobutton(root, text="Pilihan 2", variable=radio_var, value="Pilihan 2")
+radio1.pack()
+radio2.pack()
+
+# Menampilkan nilai
+def show_selections():
+    check_status = "Dicentang" if check_var.get() else "Tidak dicentang"
+    radio_status = radio_var.get()
+    result_text = f"Checkbox: {check_status}\nRadio: {radio_status}"
+    result_label.config(text=result_text)
+
+show_button = tk.Button(root, text="Tampilkan Pilihan", command=show_selections)
+show_button.pack(pady=10)
+
+result_label = tk.Label(root, text="", font=("Arial", 10))
+result_label.pack(pady=5)
+
+root.mainloop()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Layout Management</h4>
+                    <p class="text-gray-600 mb-4">Mengatur posisi widget dengan pack(), grid(), dan place().</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import tkinter as tk
+
+root = tk.Tk()
+root.title("Layout Management")
+root.geometry("600x400")
+
+# === PACK LAYOUT ===
+frame_pack = tk.Frame(root, relief="groove", borderwidth=2)
+frame_pack.pack(side=tk.TOP, fill=tk.X, padx=10, pady=5)
+
+tk.Label(frame_pack, text="PACK Layout", font=("Arial", 12, "bold")).pack()
+
+button1 = tk.Button(frame_pack, text="Button 1")
+button1.pack(side=tk.LEFT, padx=5)
+
+button2 = tk.Button(frame_pack, text="Button 2")
+button2.pack(side=tk.LEFT, padx=5)
+
+button3 = tk.Button(frame_pack, text="Button 3")
+button3.pack(side=tk.RIGHT, padx=5)
+
+# === GRID LAYOUT ===
+frame_grid = tk.Frame(root, relief="groove", borderwidth=2)
+frame_grid.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+
+tk.Label(frame_grid, text="GRID Layout", font=("Arial", 12, "bold")).grid(row=0, column=0, columnspan=3, pady=10)
+
+# Row 1
+tk.Label(frame_grid, text="Nama:").grid(row=1, column=0, sticky="e", padx=5, pady=5)
+entry_name = tk.Entry(frame_grid)
+entry_name.grid(row=1, column=1, columnspan=2, sticky="ew", padx=5, pady=5)
+
+# Row 2
+tk.Label(frame_grid, text="Email:").grid(row=2, column=0, sticky="e", padx=5, pady=5)
+entry_email = tk.Entry(frame_grid)
+entry_email.grid(row=2, column=1, columnspan=2, sticky="ew", padx=5, pady=5)
+
+# Row 3
+tk.Label(frame_grid, text="Umur:").grid(row=3, column=0, sticky="e", padx=5, pady=5)
+entry_age = tk.Entry(frame_grid, width=10)
+entry_age.grid(row=3, column=1, sticky="w", padx=5, pady=5)
+
+tk.Button(frame_grid, text="Submit").grid(row=3, column=2, sticky="e", padx=5, pady=5)
+
+# Konfigurasi grid weights
+frame_grid.grid_columnconfigure(1, weight=1)
+
+# === PLACE LAYOUT ===
+frame_place = tk.Frame(root, relief="groove", borderwidth=2)
+frame_place.pack(fill=tk.X, padx=10, pady=5)
+
+tk.Label(frame_place, text="PLACE Layout", font=("Arial", 12, "bold")).place(x=10, y=10)
+
+tk.Button(frame_place, text="Absolute Position").place(x=200, y=40)
+tk.Button(frame_place, text="Relative Position").place(relx=0.8, rely=0.5)
+
+root.mainloop()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Event Handling</h4>
+                    <p class="text-gray-600 mb-4">Menangani event seperti klik mouse dan input keyboard.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import tkinter as tk
+from tkinter import messagebox
+
+root = tk.Tk()
+root.title("Event Handling")
+root.geometry("500x400")
+
+# Label untuk menampilkan informasi
+info_label = tk.Label(root, text="Informasi event akan muncul di sini", font=("Arial", 10))
+info_label.pack(pady=10)
+
+# === MOUSE EVENTS ===
+def on_click(event):
+    info_label.config(text=f"Mouse diklik pada posisi ({event.x}, {event.y})")
+
+def on_double_click(event):
+    messagebox.showinfo("Double Click", "Double click terdeteksi!")
+
+def on_enter(event):
+    info_label.config(text="Mouse masuk ke area button")
+
+def on_leave(event):
+    info_label.config(text="Mouse keluar dari area button")
+
+button = tk.Button(root, text="Klik atau Hover Saya")
+button.pack(pady=10)
+
+# Bind mouse events
+button.bind("<Button-1>", on_click)  # Left click
+button.bind("<Double-1>", on_double_click)  # Double click
+button.bind("<Enter>", on_enter)  # Mouse enter
+button.bind("<Leave>", on_leave)  # Mouse leave
+
+# === KEYBOARD EVENTS ===
+def on_key_press(event):
+    key = event.keysym
+    info_label.config(text=f"Key pressed: {key}")
+
+def on_key_release(event):
+    key = event.keysym
+    info_label.config(text=f"Key released: {key}")
+
+# Entry untuk keyboard events
+entry = tk.Entry(root, width=30)
+entry.pack(pady=10)
+entry.insert(0, "Ketik sesuatu...")
+
+entry.bind("<KeyPress>", on_key_press)
+entry.bind("<KeyRelease>", on_key_release)
+
+# === WINDOW EVENTS ===
+def on_resize(event):
+    width = event.width
+    height = event.height
+    info_label.config(text=f"Window resized: {width}x{height}")
+
+root.bind("<Configure>", on_resize)
+
+# === TIMER EVENTS ===
+counter = 0
+def update_counter():
+    global counter
+    counter += 1
+    timer_label.config(text=f"Timer: {counter} detik")
+    root.after(1000, update_counter)  # Call again after 1 second
+
+timer_label = tk.Label(root, text="Timer: 0 detik", font=("Arial", 12))
+timer_label.pack(pady=10)
+
+# Start timer
+update_counter()
+
+# === FOCUS EVENTS ===
+def on_focus_in(event):
+    info_label.config(text="Entry mendapat focus")
+
+def on_focus_out(event):
+    info_label.config(text="Entry kehilangan focus")
+
+entry.bind("<FocusIn>", on_focus_in)
+entry.bind("<FocusOut>", on_focus_out)
+
+root.mainloop()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Widget Lanjutan</h4>
+                    <p class="text-gray-600 mb-4">Widget yang lebih kompleks seperti Listbox, Text, dan Canvas.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import tkinter as tk
+from tkinter import ttk, scrolledtext, messagebox
+
+root = tk.Tk()
+root.title("Widget Lanjutan")
+root.geometry("700x600")
+
+# === LISTBOX ===
+frame_listbox = tk.Frame(root)
+frame_listbox.pack(fill=tk.X, padx=10, pady=5)
+
+tk.Label(frame_listbox, text="Listbox:", font=("Arial", 10, "bold")).pack(anchor="w")
+
+listbox = tk.Listbox(frame_listbox, height=5)
+listbox.pack(fill=tk.X, pady=5)
+
+# Tambah item ke listbox
+items = ["Python", "Java", "C++", "JavaScript", "Ruby", "Go"]
+for item in items:
+    listbox.insert(tk.END, item)
+
+# Button untuk interaksi dengan listbox
+def add_item():
+    new_item = entry.get()
+    if new_item:
+        listbox.insert(tk.END, new_item)
+        entry.delete(0, tk.END)
+
+def remove_item():
+    selection = listbox.curselection()
+    if selection:
+        listbox.delete(selection)
+
+def get_selected():
+    selection = listbox.curselection()
+    if selection:
+        item = listbox.get(selection)
+        messagebox.showinfo("Selected", f"Selected: {item}")
+
+entry = tk.Entry(frame_listbox)
+entry.pack(fill=tk.X, pady=2)
+
+btn_frame = tk.Frame(frame_listbox)
+btn_frame.pack(fill=tk.X)
+
+tk.Button(btn_frame, text="Add", command=add_item).pack(side=tk.LEFT, padx=2)
+tk.Button(btn_frame, text="Remove", command=remove_item).pack(side=tk.LEFT, padx=2)
+tk.Button(btn_frame, text="Get Selected", command=get_selected).pack(side=tk.LEFT, padx=2)
+
+# === TEXT WIDGET ===
+frame_text = tk.Frame(root)
+frame_text.pack(fill=tk.BOTH, expand=True, padx=10, pady=5)
+
+tk.Label(frame_text, text="Text Widget (Scrolled):", font=("Arial", 10, "bold")).pack(anchor="w")
+
+text_area = scrolledtext.ScrolledText(frame_text, height=8, wrap=tk.WORD)
+text_area.pack(fill=tk.BOTH, expand=True, pady=5)
+
+# Insert sample text
+sample_text = """Ini adalah contoh text widget dengan scrolling.
+Anda bisa mengetik teks panjang di sini.
+Widget ini mendukung:
+- Scrolling otomatis
+- Word wrapping
+- Multiple lines
+- Rich text formatting (dengan tags)
+"""
+
+text_area.insert(tk.END, sample_text)
+
+def clear_text():
+    text_area.delete(1.0, tk.END)
+
+def get_text():
+    content = text_area.get(1.0, tk.END).strip()
+    messagebox.showinfo("Text Content", f"Length: {len(content)} characters")
+
+text_btn_frame = tk.Frame(frame_text)
+text_btn_frame.pack(fill=tk.X)
+
+tk.Button(text_btn_frame, text="Clear", command=clear_text).pack(side=tk.LEFT, padx=2)
+tk.Button(text_btn_frame, text="Get Content", command=get_text).pack(side=tk.LEFT, padx=2)
+
+# === CANVAS ===
+frame_canvas = tk.Frame(root)
+frame_canvas.pack(fill=tk.X, padx=10, pady=5)
+
+tk.Label(frame_canvas, text="Canvas Widget:", font=("Arial", 10, "bold")).pack(anchor="w")
+
+canvas = tk.Canvas(frame_canvas, width=400, height=200, bg="white", relief="sunken", borderwidth=2)
+canvas.pack(pady=5)
+
+# Gambar shapes
+# Rectangle
+canvas.create_rectangle(50, 50, 150, 100, fill="lightblue", outline="blue", width=2)
+
+# Oval/Circle
+canvas.create_oval(200, 50, 300, 100, fill="lightgreen", outline="green", width=2)
+
+# Line
+canvas.create_line(50, 150, 150, 150, fill="red", width=3)
+canvas.create_line(200, 150, 300, 150, fill="purple", width=3)
+
+# Text
+canvas.create_text(100, 75, text="Rectangle", font=("Arial", 10, "bold"))
+canvas.create_text(250, 75, text="Circle", font=("Arial", 10, "bold"))
+canvas.create_text(175, 170, text="Lines", font=("Arial", 10, "bold"))
+
+# Interactive canvas
+def canvas_click(event):
+    # Create a dot where clicked
+    canvas.create_oval(event.x-5, event.y-5, event.x+5, event.y+5, fill="red")
+
+canvas.bind("<Button-1>", canvas_click)
+
+# === COMBOBOX (ttk) ===
+frame_combo = tk.Frame(root)
+frame_combo.pack(fill=tk.X, padx=10, pady=5)
+
+tk.Label(frame_combo, text="Combobox (ttk):", font=("Arial", 10, "bold")).pack(anchor="w")
+
+combo = ttk.Combobox(frame_combo, values=["Option 1", "Option 2", "Option 3", "Option 4"])
+combo.pack(fill=tk.X, pady=5)
+combo.set("Pilih option...")
+
+def on_combo_select(event):
+    selected = combo.get()
+    messagebox.showinfo("Selection", f"Selected: {selected}")
+
+combo.bind("<<ComboboxSelected>>", on_combo_select)
+
+# === PROGRESS BAR ===
+frame_progress = tk.Frame(root)
+frame_progress.pack(fill=tk.X, padx=10, pady=5)
+
+tk.Label(frame_progress, text="Progress Bar:", font=("Arial", 10, "bold")).pack(anchor="w")
+
+progress = ttk.Progressbar(frame_progress, orient="horizontal", length=300, mode="determinate")
+progress.pack(pady=5)
+
+def start_progress():
+    progress["value"] = 0
+    update_progress()
+
+def update_progress():
+    if progress["value"] < 100:
+        progress["value"] += 10
+        root.after(500, update_progress)
+
+tk.Button(frame_progress, text="Start Progress", command=start_progress).pack()
+
+root.mainloop()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Membuat Aplikasi Lengkap</h4>
+                    <p class="text-gray-600 mb-4">Contoh aplikasi GUI lengkap dengan Tkinter.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import tkinter as tk
+from tkinter import ttk, messagebox, filedialog
+import json
+import os
+
+class ContactManager:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Contact Manager - Tkinter App")
+        self.root.geometry("600x500")
+
+        # Data storage
+        self.contacts = []
+        self.load_contacts()
+
+        # Create GUI
+        self.create_widgets()
+        self.update_contact_list()
+
+    def create_widgets(self):
+        # Main frame
+        main_frame = tk.Frame(self.root)
+        main_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
+
+        # Title
+        title_label = tk.Label(main_frame, text="Contact Manager",
+                              font=("Arial", 16, "bold"))
+        title_label.pack(pady=10)
+
+        # Input frame
+        input_frame = tk.Frame(main_frame)
+        input_frame.pack(fill=tk.X, pady=10)
+
+        # Name
+        tk.Label(input_frame, text="Name:").grid(row=0, column=0, sticky="e", padx=5, pady=2)
+        self.name_entry = tk.Entry(input_frame, width=30)
+        self.name_entry.grid(row=0, column=1, padx=5, pady=2)
+
+        # Phone
+        tk.Label(input_frame, text="Phone:").grid(row=1, column=0, sticky="e", padx=5, pady=2)
+        self.phone_entry = tk.Entry(input_frame, width=30)
+        self.phone_entry.grid(row=1, column=1, padx=5, pady=2)
+
+        # Email
+        tk.Label(input_frame, text="Email:").grid(row=2, column=0, sticky="e", padx=5, pady=2)
+        self.email_entry = tk.Entry(input_frame, width=30)
+        self.email_entry.grid(row=2, column=1, padx=5, pady=2)
+
+        # Buttons
+        button_frame = tk.Frame(input_frame)
+        button_frame.grid(row=3, column=0, columnspan=2, pady=10)
+
+        tk.Button(button_frame, text="Add Contact", command=self.add_contact).pack(side=tk.LEFT, padx=5)
+        tk.Button(button_frame, text="Update Contact", command=self.update_contact).pack(side=tk.LEFT, padx=5)
+        tk.Button(button_frame, text="Delete Contact", command=self.delete_contact).pack(side=tk.LEFT, padx=5)
+        tk.Button(button_frame, text="Clear", command=self.clear_form).pack(side=tk.LEFT, padx=5)
+
+        # Search frame
+        search_frame = tk.Frame(main_frame)
+        search_frame.pack(fill=tk.X, pady=5)
+
+        tk.Label(search_frame, text="Search:").pack(side=tk.LEFT, padx=5)
+        self.search_entry = tk.Entry(search_frame, width=30)
+        self.search_entry.pack(side=tk.LEFT, padx=5)
+        self.search_entry.bind("<KeyRelease>", self.search_contacts)
+
+        # Contact list
+        list_frame = tk.Frame(main_frame)
+        list_frame.pack(fill=tk.BOTH, expand=True, pady=10)
+
+        # Scrollbar
+        scrollbar = tk.Scrollbar(list_frame)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        # Listbox
+        self.contact_listbox = tk.Listbox(list_frame, height=10,
+                                         yscrollcommand=scrollbar.set)
+        self.contact_listbox.pack(fill=tk.BOTH, expand=True)
+        scrollbar.config(command=self.contact_listbox.yview)
+
+        # Bind selection event
+        self.contact_listbox.bind("<<ListboxSelect>>", self.on_select_contact)
+
+        # Status bar
+        self.status_label = tk.Label(main_frame, text="Ready", relief=tk.SUNKEN, anchor="w")
+        self.status_label.pack(fill=tk.X, side=tk.BOTTOM)
+
+    def add_contact(self):
+        name = self.name_entry.get().strip()
+        phone = self.phone_entry.get().strip()
+        email = self.email_entry.get().strip()
+
+        if not name:
+            messagebox.showerror("Error", "Name is required!")
+            return
+
+        contact = {
+            "name": name,
+            "phone": phone,
+            "email": email
+        }
+
+        self.contacts.append(contact)
+        self.save_contacts()
+        self.update_contact_list()
+        self.clear_form()
+        self.status_label.config(text=f"Added contact: {name}")
+
+    def update_contact(self):
+        selection = self.contact_listbox.curselection()
+        if not selection:
+            messagebox.showerror("Error", "Please select a contact to update!")
+            return
+
+        index = selection[0]
+        name = self.name_entry.get().strip()
+        phone = self.phone_entry.get().strip()
+        email = self.email_entry.get().strip()
+
+        if not name:
+            messagebox.showerror("Error", "Name is required!")
+            return
+
+        self.contacts[index] = {
+            "name": name,
+            "phone": phone,
+            "email": email
+        }
+
+        self.save_contacts()
+        self.update_contact_list()
+        self.status_label.config(text=f"Updated contact: {name}")
+
+    def delete_contact(self):
+        selection = self.contact_listbox.curselection()
+        if not selection:
+            messagebox.showerror("Error", "Please select a contact to delete!")
+            return
+
+        index = selection[0]
+        contact = self.contacts[index]
+
+        if messagebox.askyesno("Confirm Delete", f"Delete contact '{contact['name']}'?"):
+            del self.contacts[index]
+            self.save_contacts()
+            self.update_contact_list()
+            self.clear_form()
+            self.status_label.config(text=f"Deleted contact: {contact['name']}")
+
+    def on_select_contact(self, event):
+        selection = self.contact_listbox.curselection()
+        if selection:
+            index = selection[0]
+            contact = self.contacts[index]
+
+            self.name_entry.delete(0, tk.END)
+            self.name_entry.insert(0, contact["name"])
+
+            self.phone_entry.delete(0, tk.END)
+            self.phone_entry.insert(0, contact["phone"])
+
+            self.email_entry.delete(0, tk.END)
+            self.email_entry.insert(0, contact["email"])
+
+    def clear_form(self):
+        self.name_entry.delete(0, tk.END)
+        self.phone_entry.delete(0, tk.END)
+        self.email_entry.delete(0, tk.END)
+        self.contact_listbox.selection_clear(0, tk.END)
+
+    def search_contacts(self, event):
+        query = self.search_entry.get().lower()
+        self.contact_listbox.delete(0, tk.END)
+
+        for contact in self.contacts:
+            if query in contact["name"].lower() or query in contact["phone"] or query in contact["email"].lower():
+                display_text = f"{contact['name']} - {contact['phone']}"
+                self.contact_listbox.insert(tk.END, display_text)
+
+    def update_contact_list(self):
+        self.contact_listbox.delete(0, tk.END)
+        for contact in self.contacts:
+            display_text = f"{contact['name']} - {contact['phone']}"
+            self.contact_listbox.insert(tk.END, display_text)
+
+    def load_contacts(self):
+        try:
+            if os.path.exists("contacts.json"):
+                with open("contacts.json", "r") as f:
+                    self.contacts = json.load(f)
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to load contacts: {e}")
+
+    def save_contacts(self):
+        try:
+            with open("contacts.json", "w") as f:
+                json.dump(self.contacts, f, indent=2)
+        except Exception as e:
+            messagebox.showerror("Error", f"Failed to save contacts: {e}")
+
+def main():
+    root = tk.Tk()
+    app = ContactManager(root)
+    root.mainloop()
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Best Practices dan Tips</h4>
+                    <p class="text-gray-600 mb-4">Praktik terbaik dalam pengembangan GUI dengan Tkinter.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import tkinter as tk
+from tkinter import ttk
+import threading
+import time
+
+# === BEST PRACTICES ===
+
+class BestPracticesDemo:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Tkinter Best Practices")
+        self.root.geometry("500x600")
+
+        self.create_widgets()
+
+    def create_widgets(self):
+        # 1. Use descriptive variable names
+        main_frame = tk.Frame(self.root, padx=10, pady=10)
+        main_frame.pack(fill=tk.BOTH, expand=True)
+
+        # 2. Group related widgets in frames
+        practice_frame = tk.LabelFrame(main_frame, text="Best Practices", padx=10, pady=10)
+        practice_frame.pack(fill=tk.X, pady=5)
+
+        # 3. Use consistent padding and spacing
+        tk.Label(practice_frame, text="1. Use descriptive names and comments",
+                font=("Arial", 10)).pack(anchor="w", pady=2)
+
+        tk.Label(practice_frame, text="2. Group widgets logically in frames",
+                font=("Arial", 10)).pack(anchor="w", pady=2)
+
+        tk.Label(practice_frame, text="3. Use consistent spacing and padding",
+                font=("Arial", 10)).pack(anchor="w", pady=2)
+
+        tk.Label(practice_frame, text="4. Handle exceptions properly",
+                font=("Arial", 10)).pack(anchor="w", pady=2)
+
+        tk.Label(practice_frame, text="5. Use StringVar, IntVar, etc. for dynamic updates",
+                font=("Arial", 10)).pack(anchor="w", pady=2)
+
+        # 5. Example of using variables
+        var_frame = tk.LabelFrame(main_frame, text="Using Variables", padx=10, pady=10)
+        var_frame.pack(fill=tk.X, pady=5)
+
+        # StringVar example
+        self.text_var = tk.StringVar(value="Hello Tkinter!")
+        tk.Label(var_frame, textvariable=self.text_var).pack(pady=5)
+
+        tk.Button(var_frame, text="Change Text",
+                 command=lambda: self.text_var.set("Text changed!")).pack(pady=5)
+
+        # IntVar example
+        self.counter_var = tk.IntVar(value=0)
+        tk.Label(var_frame, textvariable=self.counter_var).pack(pady=5)
+
+        tk.Button(var_frame, text="Increment",
+                 command=self.increment_counter).pack(pady=5)
+
+        # 6. Threading for long operations
+        thread_frame = tk.LabelFrame(main_frame, text="Threading Example", padx=10, pady=10)
+        thread_frame.pack(fill=tk.X, pady=5)
+
+        self.progress_var = tk.StringVar(value="Ready")
+        tk.Label(thread_frame, textvariable=self.progress_var).pack(pady=5)
+
+        tk.Button(thread_frame, text="Start Long Operation",
+                 command=self.start_long_operation).pack(pady=5)
+
+        # 7. Proper error handling
+        error_frame = tk.LabelFrame(main_frame, text="Error Handling", padx=10, pady=10)
+        error_frame.pack(fill=tk.X, pady=5)
+
+        tk.Button(error_frame, text="Test Error Handling",
+                 command=self.test_error_handling).pack(pady=5)
+
+        self.error_result = tk.StringVar(value="")
+        tk.Label(error_frame, textvariable=self.error_result).pack(pady=5)
+
+        # 8. Clean up resources
+        self.root.protocol("WM_DELETE_WINDOW", self.on_closing)
+
+    def increment_counter(self):
+        current = self.counter_var.get()
+        self.counter_var.set(current + 1)
+
+    def start_long_operation(self):
+        # Run long operation in separate thread
+        thread = threading.Thread(target=self.long_operation)
+        thread.daemon = True
+        thread.start()
+
+    def long_operation(self):
+        # Simulate long operation
+        for i in range(5):
+            time.sleep(1)
+            # Use after() to update GUI from thread
+            self.root.after(0, lambda: self.progress_var.set(f"Processing... {i+1}/5"))
+
+        self.root.after(0, lambda: self.progress_var.set("Completed!"))
+
+    def test_error_handling(self):
+        try:
+            # Simulate an error
+            result = 1 / 0
+        except ZeroDivisionError as e:
+            self.error_result.set(f"Handled error: {e}")
+        except Exception as e:
+            self.error_result.set(f"Unexpected error: {e}")
+        else:
+            self.error_result.set("No error occurred")
+        finally:
+            # This always executes
+            pass
+
+    def on_closing(self):
+        # Clean up resources here
+        print("Cleaning up resources...")
+        self.root.destroy()
+
+# === COMMON MISTAKES TO AVOID ===
+
+def demonstrate_mistakes():
+    """Examples of common Tkinter mistakes"""
+
+    root = tk.Tk()
+    root.title("Common Mistakes")
+    root.geometry("400x300")
+
+    # Mistake 1: Not using mainloop() properly
+    # Wrong: root.mainloop() inside a function that returns
+    # Correct: mainloop() should be the last statement
+
+    # Mistake 2: Modifying GUI from other threads directly
+    # Wrong: Update widgets directly from thread
+    # Correct: Use root.after() or queue
+
+    # Mistake 3: Not handling exceptions in callbacks
+    def risky_callback():
+        try:
+            # Some risky operation
+            result = int("not_a_number")
+        except ValueError as e:
+            tk.messagebox.showerror("Error", f"Invalid input: {e}")
+
+    tk.Button(root, text="Risky Operation", command=risky_callback).pack(pady=20)
+
+    # Mistake 4: Using pack/grid/place inconsistently
+    # Better to stick with one layout manager per container
+
+    # Mistake 5: Not configuring grid weights
+    frame = tk.Frame(root)
+    frame.pack(fill=tk.BOTH, expand=True)
+
+    # Without weight, widgets won't expand properly
+    tk.Button(frame, text="Button 1").grid(row=0, column=0)
+    tk.Button(frame, text="Button 2").grid(row=0, column=1)
+
+    # Configure weights for proper expansion
+    frame.grid_columnconfigure(0, weight=1)
+    frame.grid_columnconfigure(1, weight=1)
+
+    return root  # Don't call mainloop here!
+
+# === TIPS FOR BETTER TKINTER APPS ===
+
+tips = """
+=== TKINTER TIPS ===
+
+1. Structure your code with classes
+2. Use frames to organize widgets
+3. Handle events properly with bind()
+4. Use StringVar/IntVar for dynamic content
+5. Run long operations in separate threads
+6. Always handle exceptions in callbacks
+7. Use consistent naming conventions
+8. Comment your code well
+9. Test on different screen sizes
+10. Use ttk widgets for modern look
+
+=== PERFORMANCE TIPS ===
+
+1. Create widgets once, don't recreate
+2. Use virtual events for custom events
+3. Batch updates when possible
+4. Use Canvas for complex graphics
+5. Avoid unnecessary updates
+6. Use grid_columnconfigure/grid_rowconfigure
+7. Minimize use of after() loops
+8. Profile your application
+
+=== DEBUGGING TIPS ===
+
+1. Use print statements in callbacks
+2. Check widget hierarchy with winfo_children()
+3. Use widget.winfo_exists() to check if destroyed
+4. Handle TclError for destroyed widgets
+5. Use try-except in event handlers
+"""
+
+print(tips)
+
+if __name__ == "__main__":
+    root = tk.Tk()
+    app = BestPracticesDemo(root)
+    root.mainloop()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat aplikasi GUI sederhana dengan Tkinter.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Latihan 1: Kalkulator Sederhana
+import tkinter as tk
+
+class SimpleCalculator:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Kalkulator Sederhana")
+        self.root.geometry("300x400")
+
+        self.expression = ""
+
+        self.create_widgets()
+
+    def create_widgets(self):
+        # Display
+        self.display = tk.Entry(self.root, font=("Arial", 20), justify="right")
+        self.display.pack(fill=tk.X, padx=10, pady=10)
+
+        # Button frame
+        button_frame = tk.Frame(self.root)
+        button_frame.pack()
+
+        # Button layout
+        buttons = [
+            ['7', '8', '9', '/'],
+            ['4', '5', '6', '*'],
+            ['1', '2', '3', '-'],
+            ['0', '.', '=', '+']
+        ]
+
+        for row in buttons:
+            row_frame = tk.Frame(button_frame)
+            row_frame.pack()
+
+            for button_text in row:
+                if button_text == '=':
+                    tk.Button(row_frame, text=button_text, width=5, height=2,
+                             command=self.calculate).pack(side=tk.LEFT, padx=2, pady=2)
+                elif button_text in ['/', '*', '-', '+']:
+                    tk.Button(row_frame, text=button_text, width=5, height=2,
+                             command=lambda op=button_text: self.append_operator(op)).pack(side=tk.LEFT, padx=2, pady=2)
+                else:
+                    tk.Button(row_frame, text=button_text, width=5, height=2,
+                             command=lambda num=button_text: self.append_number(num)).pack(side=tk.LEFT, padx=2, pady=2)
+
+        # Clear button
+        tk.Button(self.root, text="Clear", command=self.clear).pack(pady=10)
+
+    def append_number(self, number):
+        self.expression += number
+        self.display.delete(0, tk.END)
+        self.display.insert(0, self.expression)
+
+    def append_operator(self, operator):
+        if self.expression and self.expression[-1] not in ['+', '-', '*', '/']:
+            self.expression += operator
+            self.display.delete(0, tk.END)
+            self.display.insert(0, self.expression)
+
+    def calculate(self):
+        try:
+            result = eval(self.expression)
+            self.display.delete(0, tk.END)
+            self.display.insert(0, str(result))
+            self.expression = str(result)
+        except:
+            self.display.delete(0, tk.END)
+            self.display.insert(0, "Error")
+            self.expression = ""
+
+    def clear(self):
+        self.expression = ""
+        self.display.delete(0, tk.END)
+
+# Latihan 2: To-Do List App
+class TodoApp:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("To-Do List")
+        self.root.geometry("400x500")
+
+        self.tasks = []
+        self.create_widgets()
+
+    def create_widgets(self):
+        # Input frame
+        input_frame = tk.Frame(self.root)
+        input_frame.pack(fill=tk.X, padx=10, pady=10)
+
+        self.task_entry = tk.Entry(input_frame, font=("Arial", 12))
+        self.task_entry.pack(side=tk.LEFT, fill=tk.X, expand=True)
+
+        tk.Button(input_frame, text="Add Task", command=self.add_task).pack(side=tk.RIGHT, padx=(5,0))
+
+        # List frame
+        list_frame = tk.Frame(self.root)
+        list_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=(0,10))
+
+        # Scrollbar
+        scrollbar = tk.Scrollbar(list_frame)
+        scrollbar.pack(side=tk.RIGHT, fill=tk.Y)
+
+        self.task_listbox = tk.Listbox(list_frame, font=("Arial", 12),
+                                      yscrollcommand=scrollbar.set)
+        self.task_listbox.pack(fill=tk.BOTH, expand=True)
+        scrollbar.config(command=self.task_listbox.yview)
+
+        # Button frame
+        button_frame = tk.Frame(self.root)
+        button_frame.pack(fill=tk.X, padx=10, pady=(0,10))
+
+        tk.Button(button_frame, text="Delete Task", command=self.delete_task).pack(side=tk.LEFT)
+        tk.Button(button_frame, text="Mark Complete", command=self.mark_complete).pack(side=tk.LEFT, padx=(5,0))
+        tk.Button(button_frame, text="Clear All", command=self.clear_all).pack(side=tk.RIGHT)
+
+    def add_task(self):
+        task = self.task_entry.get().strip()
+        if task:
+            self.tasks.append({"text": task, "completed": False})
+            self.update_listbox()
+            self.task_entry.delete(0, tk.END)
+
+    def delete_task(self):
+        selection = self.task_listbox.curselection()
+        if selection:
+            index = selection[0]
+            del self.tasks[index]
+            self.update_listbox()
+
+    def mark_complete(self):
+        selection = self.task_listbox.curselection()
+        if selection:
+            index = selection[0]
+            self.tasks[index]["completed"] = True
+            self.update_listbox()
+
+    def clear_all(self):
+        self.tasks.clear()
+        self.update_listbox()
+
+    def update_listbox(self):
+        self.task_listbox.delete(0, tk.END)
+        for task in self.tasks:
+            status = "✓" if task["completed"] else "○"
+            display_text = f"{status} {task['text']}"
+            self.task_listbox.insert(tk.END, display_text)
+
+# Latihan 3: Text Editor Sederhana
+class SimpleTextEditor:
+    def __init__(self, root):
+        self.root = root
+        self.root.title("Simple Text Editor")
+        self.root.geometry("600x500")
+
+        self.file_path = None
+        self.create_widgets()
+
+    def create_widgets(self):
+        # Menu bar
+        menubar = tk.Menu(self.root)
+        self.root.config(menu=menubar)
+
+        # File menu
+        file_menu = tk.Menu(menubar, tearoff=0)
+        menubar.add_cascade(label="File", menu=file_menu)
+        file_menu.add_command(label="New", command=self.new_file)
+        file_menu.add_command(label="Open", command=self.open_file)
+        file_menu.add_command(label="Save", command=self.save_file)
+        file_menu.add_separator()
+        file_menu.add_command(label="Exit", command=self.root.quit)
+
+        # Text area
+        self.text_area = tk.Text(self.root, font=("Consolas", 12), wrap=tk.WORD)
+        self.text_area.pack(fill=tk.BOTH, expand=True, padx=5, pady=5)
+
+        # Status bar
+        self.status_bar = tk.Label(self.root, text="Ready", relief=tk.SUNKEN, anchor="w")
+        self.status_bar.pack(fill=tk.X, side=tk.BOTTOM)
+
+        # Bind events
+        self.text_area.bind("<KeyRelease>", self.update_status)
+
+    def new_file(self):
+        self.text_area.delete(1.0, tk.END)
+        self.file_path = None
+        self.root.title("Simple Text Editor - New File")
+        self.status_bar.config(text="New file created")
+
+    def open_file(self):
+        from tkinter import filedialog
+        file_path = filedialog.askopenfilename(filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
+        if file_path:
+            try:
+                with open(file_path, 'r') as file:
+                    content = file.read()
+                    self.text_area.delete(1.0, tk.END)
+                    self.text_area.insert(1.0, content)
+                    self.file_path = file_path
+                    self.root.title(f"Simple Text Editor - {file_path}")
+                    self.status_bar.config(text=f"Opened: {file_path}")
+            except Exception as e:
+                tk.messagebox.showerror("Error", f"Failed to open file: {e}")
+
+    def save_file(self):
+        if self.file_path:
+            try:
+                content = self.text_area.get(1.0, tk.END)
+                with open(self.file_path, 'w') as file:
+                    file.write(content)
+                self.status_bar.config(text=f"Saved: {self.file_path}")
+            except Exception as e:
+                tk.messagebox.showerror("Error", f"Failed to save file: {e}")
+        else:
+            self.save_file_as()
+
+    def save_file_as(self):
+        from tkinter import filedialog
+        file_path = filedialog.asksaveasfilename(defaultextension=".txt",
+                                                filetypes=[("Text files", "*.txt"), ("All files", "*.*")])
+        if file_path:
+            self.file_path = file_path
+            self.save_file()
+
+    def update_status(self, event=None):
+        content = self.text_area.get(1.0, tk.END)
+        lines = len(content.split('\n'))
+        words = len(content.split())
+        chars = len(content) - 1  # Subtract 1 for the extra newline
+        self.status_bar.config(text=f"Lines: {lines} | Words: {words} | Characters: {chars}")
+
+# Uncomment untuk menjalankan latihan
+# if __name__ == "__main__":
+#     root = tk.Tk()
+#     # app = SimpleCalculator(root)  # Latihan 1
+#     # app = TodoApp(root)  # Latihan 2
+#     # app = SimpleTextEditor(root)  # Latihan 3
+#     root.mainloop()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/rO-aLyWJ1Jk" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Apa fungsi utama dari Tkinter?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Membuat antarmuka grafis (GUI)</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Mengolah data database</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Membuat web server</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Method mana yang digunakan untuk menampilkan window Tkinter?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>show()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>mainloop()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>display()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">3. Widget mana yang digunakan untuk input teks single-line?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="a" class="mr-2">
+                                    <span>Text</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="b" class="mr-2">
+                                    <span>Entry</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="c" class="mr-2">
+                                    <span>Label</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">4. Method mana yang digunakan untuk menempatkan widget di window?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q4" value="a" class="mr-2">
+                                    <span>pack()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q4" value="b" class="mr-2">
+                                    <span>place()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q4" value="c" class="mr-2">
+                                    <span>grid()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q4" value="d" class="mr-2">
+                                    <span>Semua benar</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">5. Event binding di Tkinter menggunakan method?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q5" value="a" class="mr-2">
+                                    <span>bind()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q5" value="b" class="mr-2">
+                                    <span>connect()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q5" value="c" class="mr-2">
+                                    <span>on()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

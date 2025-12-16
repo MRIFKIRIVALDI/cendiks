@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 8: Dictionary dan Set - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 8: Dictionary dan Set</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari struktur data Dictionary dan Set untuk menyimpan data yang lebih kompleks</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa itu Dictionary?</h4>
+                    <p class="text-gray-600 mb-4">Dictionary adalah struktur data yang menyimpan pasangan key-value. Dictionary menggunakan kurung kurawal {} dan setiap item dipisahkan oleh koma.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Membuat dictionary
+mahasiswa = {
+    "nama": "John",
+    "umur": 20,
+    "jurusan": "Informatika"
+}
+
+# Mengakses nilai
+print(mahasiswa["nama"])  # Output: John</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Operasi Dictionary</h4>
+                    <p class="text-gray-600 mb-4">Berikut adalah operasi-operasi yang dapat dilakukan pada dictionary:</p>
+                    <ul class="list-disc list-inside text-gray-600 mb-4">
+                        <li><strong>Menambah item:</strong> <code>dict[key] = value</code></li>
+                        <li><strong>Mengubah nilai:</strong> <code>dict[key] = new_value</code></li>
+                        <li><strong>Menghapus item:</strong> <code>del dict[key]</code></li>
+                        <li><strong>Mengecek keberadaan key:</strong> <code>key in dict</code></li>
+                    </ul>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Contoh operasi
+mahasiswa["nilai"] = 85  # Menambah item
+mahasiswa["umur"] = 21   # Mengubah nilai
+del mahasiswa["jurusan"] # Menghapus item
+
+print("nama" in mahasiswa)  # Output: True</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Method Dictionary</h4>
+                    <p class="text-gray-600 mb-4">Dictionary memiliki beberapa method yang berguna:</p>
+                    <ul class="list-disc list-inside text-gray-600 mb-4">
+                        <li><code>keys()</code> - Mengembalikan semua key</li>
+                        <li><code>values()</code> - Mengembalikan semua nilai</li>
+                        <li><code>items()</code> - Mengembalikan pasangan key-value</li>
+                        <li><code>get(key, default)</code> - Mengakses nilai dengan aman</li>
+                    </ul>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>print(mahasiswa.keys())    # dict_keys(['nama', 'umur', 'nilai'])
+print(mahasiswa.values())  # dict_values(['John', 21, 85])
+print(mahasiswa.items())   # dict_items([('nama', 'John'), ('umur', 21), ('nilai', 85)])
+
+# Menggunakan get() untuk menghindari error
+print(mahasiswa.get("alamat", "Tidak ada"))  # Output: Tidak ada</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Apa itu Set?</h4>
+                    <p class="text-gray-600 mb-4">Set adalah struktur data yang menyimpan elemen unik tanpa urutan. Set menggunakan kurung kurawal {} atau fungsi set().</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Membuat set
+buah = {"apel", "jeruk", "mangga"}
+angka = set([1, 2, 3, 4, 5])
+
+print(buah)   # Output: {'apel', 'jeruk', 'mangga'}
+print(angka)  # Output: {1, 2, 3, 4, 5}</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Operasi Set</h4>
+                    <p class="text-gray-600 mb-4">Operasi-operasi yang dapat dilakukan pada set:</p>
+                    <ul class="list-disc list-inside text-gray-600 mb-4">
+                        <li><strong>Menambah elemen:</strong> <code>add()</code></li>
+                        <li><strong>Menghapus elemen:</strong> <code>remove()</code> atau <code>discard()</code></li>
+                        <li><strong>Union:</strong> <code>|</code> atau <code>union()</code></li>
+                        <li><strong>Intersection:</strong> <code>&</code> atau <code>intersection()</code></li>
+                        <li><strong>Difference:</strong> <code>-</code> atau <code>difference()</code></li>
+                    </ul>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>set1 = {1, 2, 3}
+set2 = {3, 4, 5}
+
+set1.add(6)           # {1, 2, 3, 6}
+set1.remove(2)        # {1, 3, 6}
+
+print(set1 | set2)    # Union: {1, 3, 4, 5, 6}
+print(set1 & set2)    # Intersection: {3}
+print(set1 - set2)    # Difference: {1, 6}</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat program yang menggunakan dictionary dan set:</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Dictionary untuk menyimpan data mahasiswa
+mahasiswa = {
+    "nama": "Alice",
+    "nim": "12345",
+    "mata_kuliah": {"Pemrograman", "Matematika", "Fisika"}
+}
+
+print(f"Nama: {mahasiswa['nama']}")
+print(f"NIM: {mahasiswa['nim']}")
+print(f"Mata Kuliah: {mahasiswa['mata_kuliah']}")
+
+# Menambah mata kuliah baru
+mahasiswa["mata_kuliah"].add("Kimia")
+print(f"Mata Kuliah setelah ditambah: {mahasiswa['mata_kuliah']}")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/Kv_lDWq8kCc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Bagaimana cara mengakses nilai dalam dictionary?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Menggunakan indeks angka</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Menggunakan key</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Menggunakan method get()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Apa yang membedakan set dengan list?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>Set dapat menyimpan elemen duplikat</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>Set tidak memiliki urutan</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>Set menggunakan kurung siku</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

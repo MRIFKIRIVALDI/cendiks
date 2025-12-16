@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Cendiks</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <style>
+        /* Login Page Specific Styles */
+        .login-container {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Animated Background Orbs */
+        .login-container::before {
+            content: '';
+            position: absolute;
+            top: -20%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .login-container::after {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.3) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(70px);
+            animation: float 8s ease-in-out infinite;
+            animation-delay: 2s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(20px, -20px) scale(1.1); }
+        }
+
+        .login-box {
+            width: 100%;
+            max-width: 480px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+            backdrop-filter: blur(40px) saturate(180%);
+            border-radius: 28px;
+            padding: 3rem;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 
+                0 40px 100px rgba(0, 0, 0, 0.5),
+                0 0 60px rgba(139, 92, 246, 0.3),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            z-index: 1;
+            animation: zoomIn 0.8s ease-out;
+        }
+
+        @keyframes zoomIn {
+            from { opacity: 0; transform: scale(0.8); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Rotating Border Effect */
+        .login-box::before {
+            content: '';
+            position: absolute;
+            inset: -2px;
+            background: conic-gradient(
+                from 0deg,
+                transparent,
+                rgba(139, 92, 246, 0.6),
+                transparent 120deg
+            );
+            border-radius: 28px;
+            animation: rotate 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .login-box::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.95));
+            border-radius: 28px;
+            z-index: -1;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .login-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, #a78bfa, #ec4899, #f59e0b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.5rem;
+            font-family: 'Space Grotesk', 'Poppins', sans-serif;
+            letter-spacing: -1px;
+            filter: drop-shadow(0 5px 15px rgba(139, 92, 246, 0.5));
+        }
+
+        .login-title {
+            font-size: 1.8rem;
+            color: #f1f5f9;
+            margin-bottom: 0.5rem;
+            font-weight: 800;
+        }
+
+        .login-subtitle {
+            color: #94a3b8;
+            font-size: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            color: #e2e8f0;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1rem 1.25rem;
+            background: rgba(15, 23, 42, 0.6);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            color: #e2e8f0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            outline: none;
+        }
+
+        .form-input::placeholder {
+            color: #64748b;
+        }
+
+        .form-input:focus {
+            border-color: #8b5cf6;
+            box-shadow: 
+                0 0 0 3px rgba(139, 92, 246, 0.1),
+                0 0 20px rgba(139, 92, 246, 0.4);
+            background: rgba(15, 23, 42, 0.8);
+        }
+
+        .form-input:hover {
+            border-color: rgba(139, 92, 246, 0.5);
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 1.1rem 2rem;
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f59e0b 100%);
+            color: #fff;
+            border: none;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            box-shadow: 
+                0 20px 50px rgba(139, 92, 246, 0.5),
+                inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: 1rem;
+        }
+
+        .btn-login::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: buttonShine 3s linear infinite;
+        }
+
+        @keyframes buttonShine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+
+        .btn-login:hover {
+            transform: translateY(-3px);
+            box-shadow: 
+                0 30px 70px rgba(139, 92, 246, 0.6),
+                inset 0 1px 0 rgba(255, 255, 255, 0.3);
+        }
+
+        .btn-login:active {
+            transform: translateY(-1px);
+        }
+
+        .divider {
+            display: flex;
+            align-items: center;
+            margin: 2rem 0;
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .divider::before,
+        .divider::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(139, 92, 246, 0.3), transparent);
+        }
+
+        .divider span {
+            padding: 0 1rem;
+        }
+
+        .register-link {
+            text-align: center;
+            margin-top: 1.5rem;
+            color: #cbd5e1;
+            font-size: 0.95rem;
+        }
+
+        .register-link a {
+            color: #a78bfa;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .register-link a::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, #a78bfa, #ec4899);
+            transition: width 0.3s ease;
+        }
+
+        .register-link a:hover {
+            color: #ec4899;
+        }
+
+        .register-link a:hover::after {
+            width: 100%;
+        }
+
+        .back-home {
+            text-align: center;
+            margin-top: 1.5rem;
+        }
+
+        .back-home a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #94a3b8;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .back-home a:hover {
+            color: #a78bfa;
+            background: rgba(139, 92, 246, 0.1);
+        }
+
+        .error-message {
+            background: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.3);
+            color: #fca5a5;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+            display: none;
+        }
+
+        .error-message.show {
+            display: block;
+            animation: slideDown 0.3s ease-out;
+        }
+
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 640px) {
+            .login-box {
+                padding: 2rem 1.5rem;
+            }
+
+            .login-logo {
+                font-size: 2rem;
+            }
+
+            .login-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-box">
+            <div class="login-header">
+                <div class="login-logo">Cendiks</div>
+                <h2 class="login-title">Selamat Datang Kembali! 👋</h2>
+                <p class="login-subtitle">Masuk ke akun Anda untuk melanjutkan belajar</p>
+            </div>
+
+            <!-- Error Message (hidden by default) -->
+            <div id="errorMessage" class="error-message">
+                Username atau password salah. Silakan coba lagi.
+            </div>
+
+            <form id="loginForm" onsubmit="handleLogin(event)">
+                <!-- Username -->
+                <div class="form-group">
+                    <label for="username" class="form-label">Username</label>
+                    <input 
+                        type="text" 
+                        id="username" 
+                        name="username" 
+                        class="form-input" 
+                        placeholder="Masukkan username Anda"
+                        required
+                        autocomplete="username"
+                    >
+                </div>
+
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password" class="form-label">Password</label>
+                    <input 
+                        type="password" 
+                        id="password" 
+                        name="password" 
+                        class="form-input" 
+                        placeholder="Masukkan password Anda"
+                        required
+                        autocomplete="current-password"
+                    >
+                </div>
+
+                <!-- Login Button -->
+                <button type="submit" class="btn-login">
+                    🚀 Login Sekarang
+                </button>
+            </form>
+
+            <div class="divider">
+                <span>atau</span>
+            </div>
+
+            <!-- Register Link -->
+            <div class="register-link">
+                Belum punya akun? <a href="register.html">Daftar sekarang</a>
+            </div>
+
+            <!-- Back to Home -->
+            <div class="back-home">
+                <a href="index.html">
+                    ← Kembali ke Beranda
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            const errorMessage = document.getElementById('errorMessage');
+
+            // Simple validation (you'll need to replace this with actual backend authentication)
+            if (username && password) {
+                // Show loading state
+                const btn = event.target.querySelector('button');
+                const originalText = btn.innerHTML;
+                btn.innerHTML = '⏳ Memproses...';
+                btn.disabled = true;
+
+                // Simulate API call
+                setTimeout(() => {
+                    // Demo: Accept any non-empty credentials
+                    // In production, replace this with actual authentication
+                    if (username === 'demo' && password === 'demo') {
+                        // Success
+                        btn.innerHTML = '✅ Login Berhasil!';
+                        btn.style.background = 'linear-gradient(135deg, #10b981, #06b6d4)';
+                        
+                        setTimeout(() => {
+                            window.location.href = 'index.html';
+                        }, 1000);
+                    } else {
+                        // Show error
+                        errorMessage.classList.add('show');
+                        btn.innerHTML = originalText;
+                        btn.disabled = false;
+                        
+                        // Hide error after 3 seconds
+                        setTimeout(() => {
+                            errorMessage.classList.remove('show');
+                        }, 3000);
+                    }
+                }, 1500);
+            } else {
+                errorMessage.textContent = 'Mohon isi semua field yang diperlukan.';
+                errorMessage.classList.add('show');
+                
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 3000);
+            }
+
+            return false;
+        }
+
+        // Auto-hide error message when user starts typing
+        document.getElementById('username').addEventListener('input', () => {
+            document.getElementById('errorMessage').classList.remove('show');
+        });
+
+        document.getElementById('password').addEventListener('input', () => {
+            document.getElementById('errorMessage').classList.remove('show');
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 25: Looping Dictionary - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 25: Looping Dictionary</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara melakukan looping pada dictionary</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Looping Keys</h4>
+                    <p class="text-gray-600 mb-4">Melakukan iterasi pada keys dictionary.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>person = {"nama": "John", "umur": 25, "kota": "Jakarta"}
+
+# Cara 1: Loop langsung pada dictionary (default loop keys)
+for key in person:
+    print(key)
+
+# Cara 2: Menggunakan keys()
+for key in person.keys():
+    print(key)
+
+# Output:
+# nama
+# umur
+# kota</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Looping Values</h4>
+                    <p class="text-gray-600 mb-4">Melakukan iterasi pada values dictionary.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>person = {"nama": "John", "umur": 25, "kota": "Jakarta"}
+
+for value in person.values():
+    print(value)
+
+# Output:
+# John
+# 25
+# Jakarta</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Looping Items</h4>
+                    <p class="text-gray-600 mb-4">Melakukan iterasi pada key-value pairs.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>person = {"nama": "John", "umur": 25, "kota": "Jakarta"}
+
+for key, value in person.items():
+    print(f"{key}: {value}")
+
+# Output:
+# nama: John
+# umur: 25
+# kota: Jakarta</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Nested Dictionary</h4>
+                    <p class="text-gray-600 mb-4">Dictionary di dalam dictionary.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>mahasiswa = {
+    "alice": {"umur": 20, "jurusan": "Informatika"},
+    "bob": {"umur": 21, "jurusan": "Sistem Informasi"},
+    "charlie": {"umur": 19, "jurusan": "Teknik Komputer"}
+}
+
+# Loop pada nested dictionary
+for nama, data in mahasiswa.items():
+    print(f"Nama: {nama}")
+    for key, value in data.items():
+        print(f"  {key}: {value}")
+    print()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Iterasi Nested</h4>
+                    <p class="text-gray-600 mb-4">Looping dalam nested dictionary.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>company = {
+    "IT": {
+        "manager": "John",
+        "employees": ["Alice", "Bob", "Charlie"]
+    },
+    "HR": {
+        "manager": "Sarah",
+        "employees": ["David", "Eva"]
+    }
+}
+
+for department, data in company.items():
+    print(f"Department: {department}")
+    print(f"Manager: {data['manager']}")
+    print("Employees:")
+    for employee in data['employees']:
+        print(f"  - {employee}")
+    print()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Contoh Penggunaan</h4>
+                    <p class="text-gray-600 mb-4">Program yang menampilkan data dari dictionary.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>def tampilkan_profil(profil):
+    """Fungsi untuk menampilkan profil pengguna"""
+    for key, value in profil.items():
+        if isinstance(value, dict):
+            print(f"{key.upper()}:")
+            for sub_key, sub_value in value.items():
+                print(f"  {sub_key}: {sub_value}")
+        else:
+            print(f"{key}: {value}")
+    print("-" * 30)
+
+# Data profil
+profil = {
+    "nama": "John Doe",
+    "umur": 30,
+    "kontak": {
+        "email": "john@example.com",
+        "telepon": "08123456789"
+    },
+    "pekerjaan": "Software Engineer"
+}
+
+tampilkan_profil(profil)</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat program yang looping dictionary.</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/szyfqq_whIg" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Method apa yang digunakan untuk melakukan iterasi pada key-value pairs?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>keys()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>values()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>items()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Bagaimana cara melakukan loop pada values dictionary saja?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>for value in dict:</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>for value in dict.values():</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>for value in dict.items():</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

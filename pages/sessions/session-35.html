@@ -1,0 +1,263 @@
+ <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 35: Import Statement - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 35: Import Statement</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari cara mengimpor modul dan package dalam Python</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Import Statement?</h4>
+                    <p class="text-gray-600 mb-4">Import: panggil teman-teman superpower dari luar! 🦸‍♂️✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import math
+print(math.sqrt(16))  # 4.0
+
+import math as m
+print(m.pi)  # 3.14...
+
+from math import sqrt
+print(sqrt(25))  # 5.0</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Membuat Modul Sendiri</h4>
+                    <p class="text-gray-600 mb-4">Buat modul sendiri: kotak ajaib kode reusable! 📦✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># File: kalkulator.py
+def tambah(a, b):
+    return a + b
+
+PI = 3.14159
+
+# File: main.py
+import kalkulator
+print(kalkulator.tambah(5, 3))  # 8
+
+from kalkulator import PI
+print(PI)  # 3.14159</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Package dan Submodul</h4>
+                    <p class="text-gray-600 mb-4">Package: rumah besar untuk modul-modul! 🏠📚</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># mypackage/matematika/aritmatika.py
+def tambah(a, b):
+    return a + b
+
+# main.py
+from mypackage.matematika import aritmatika
+print(aritmatika.tambah(5, 3))  # 8</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Import dengan from</h4>
+                    <p class="text-gray-600 mb-4">From: ambil langsung yang dibutuhkan! 🎯✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>from math import sqrt, pi
+print(sqrt(16))  # 4.0
+print(pi)        # 3.14...
+
+from math import sqrt as akar
+print(akar(25))  # 5.0
+
+from datetime import datetime
+print(datetime.now())</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ sys.path dan Module Search Path</h4>
+                    <p class="text-gray-600 mb-4">Python cari modul di mana? Di sys.path! 🗺️🔍</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import sys
+print(sys.path)  # List path pencarian
+
+sys.path.append("/my/custom/path")
+
+import os
+print(os.getcwd())  # Direktori saat ini</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Relatif Import</h4>
+                    <p class="text-gray-600 mb-4">Relatif import: panggil saudara dalam package! 👨‍👩‍👧‍👦✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Dalam package myapp/utils/validators.py
+from .helpers import format_name  # Import dari saudara
+
+# Dalam package myapp/main.py
+from utils.validators import validate_name</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Built-in Modules</h4>
+                    <p class="text-gray-600 mb-4">Modul bawaan Python: toolkit siap pakai! 🧰✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import os
+print(os.getcwd())  # Direktori saat ini
+
+import sys
+print(sys.version)  # Versi Python
+
+import json
+data = {"nama": "Alice"}
+print(json.dumps(data))  # {"nama": "Alice"}
+
+import random
+print(random.randint(1, 10))  # Angka acak</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Error Handling dalam Import</h4>
+                    <p class="text-gray-600 mb-4">Import gagal? Tangani dengan try-except! 🛡️✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>try:
+    import some_module
+    print("Berhasil!")
+except ImportError:
+    print("Module tidak ada")
+
+# Fallback import
+try:
+    import ujson as json
+except ImportError:
+    import json
+
+print(json.loads('{"ok": true}'))</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">9️⃣ Best Practices Import</h4>
+                    <p class="text-gray-600 mb-4">Import rapi: kode bersih, mudah baca! 📋✨</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># ✅ Import di atas file
+import os
+import sys
+from datetime import datetime
+
+# ❌ Jangan: from math import *
+# ✅ Baik: from math import sqrt, pi
+
+# Import dalam fungsi untuk optional
+def process_image():
+    try:
+        from PIL import Image
+        # Process...
+    except ImportError:
+        print("PIL needed")</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/Z0hbtSr-Oaw" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <!-- Quiz Section -->
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif: Import Statement</h4>
+                    <p class="text-gray-600 mb-4">Uji pemahaman Anda tentang import statement dalam Python!</p>
+
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-semibold">1. Statement yang benar untuk import modul math adalah:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q1" value="a"> a) import math as m</label><br>
+                                <label><input type="radio" name="q1" value="b"> b) from math import *</label><br>
+                                <label><input type="radio" name="q1" value="c"> c) import math</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold">2. Untuk import spesifik dari modul, kita menggunakan:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q2" value="a"> a) import modul</label><br>
+                                <label><input type="radio" name="q2" value="b"> b) from modul import fungsi</label><br>
+                                <label><input type="radio" name="q2" value="c"> c) import modul.fungsi</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold">3. Import relatif menggunakan notasi:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q3" value="a"> a) from .modul import fungsi</label><br>
+                                <label><input type="radio" name="q3" value="b"> b) import .modul</label><br>
+                                <label><input type="radio" name="q3" value="c"> c) from modul import .fungsi</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold">4. sys.path berisi:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q4" value="a"> a) Daftar modul yang sudah di-import</label><br>
+                                <label><input type="radio" name="q4" value="b"> b) Path pencarian modul Python</label><br>
+                                <label><input type="radio" name="q4" value="c"> c) Daftar fungsi built-in</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <p class="font-semibold">5. Praktik terbaik import adalah:</p>
+                            <div class="ml-4 space-y-2">
+                                <label><input type="radio" name="q5" value="a"> a) Import di dalam fungsi</label><br>
+                                <label><input type="radio" name="q5" value="b"> b) Import di atas file dengan grouping</label><br>
+                                <label><input type="radio" name="q5" value="c"> c) Menggunakan from modul import * selalu</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button onclick="checkImportQuiz()" class="mt-4 bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                    <div id="quiz-result" class="mt-4"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

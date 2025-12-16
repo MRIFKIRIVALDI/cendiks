@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 43: _Main_ Sebagai Gerbang Program - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 43: _Main_ Sebagai Gerbang Program</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari konsep if __name__ == "__main__" untuk modular programming</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu if __name__ == "__main__"?</h4>
+                    <p class="text-gray-600 mb-4">Konsep penting dalam Python untuk menjalankan kode hanya ketika file dieksekusi langsung.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># File: my_module.py
+
+def greet(name):
+    return f"Hello, {name}!"
+
+def main():
+    print("Program dimulai!")
+    name = input("Masukkan nama: ")
+    greeting = greet(name)
+    print(greeting)
+    print("Program selesai!")
+
+# Ini adalah "entry point" program
+if __name__ == "__main__":
+    main()
+
+# Penjelasan:
+# - __name__ adalah variabel built-in yang berisi nama modul
+# - Ketika file dijalankan langsung: __name__ == "__main__"
+# - Ketika file diimport sebagai modul: __name__ == "nama_file"
+# - Kode di dalam if __name__ == "__main__" hanya berjalan saat file dieksekusi langsung</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Mengapa Perlu if __name__ == "__main__"?</h4>
+                    <p class="text-gray-600 mb-4">Memahami pentingnya entry point untuk modular programming.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># File: calculator.py
+
+def add(a, b):
+    return a + b
+
+def subtract(a, b):
+    return a - b
+
+def multiply(a, b):
+    return a * b
+
+def divide(a, b):
+    if b == 0:
+        raise ValueError("Cannot divide by zero")
+    return a / b
+
+# Tanpa if __name__ == "__main__":
+# Kode di bawah akan berjalan setiap kali file diimport
+print("Calculator module loaded!")
+result = add(5, 3)
+print(f"5 + 3 = {result}")
+
+# Dengan if __name__ == "__main__":
+if __name__ == "__main__":
+    print("Calculator module loaded!")
+    result = add(5, 3)
+    print(f"5 + 3 = {result}")
+
+    # Kode testing atau demo hanya berjalan saat file dieksekusi langsung
+    print("\n--- Calculator Demo ---")
+    print(f"10 + 5 = {add(10, 5)}")
+    print(f"10 - 5 = {subtract(10, 5)}")
+    print(f"10 * 5 = {multiply(10, 5)}")
+    print(f"10 / 5 = {divide(10, 5)}")
+
+# File: main.py
+# import calculator  # Ini akan menjalankan print di calculator.py
+
+# from calculator import add
+# result = add(2, 3)  # Hanya fungsi yang diimport, tidak ada print</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Contoh Penggunaan if __name__ == "__main__"</h4>
+                    <p class="text-gray-600 mb-4">Berbagai contoh implementasi entry point program.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Contoh 1: Program sederhana
+def hello_world():
+    print("Hello, World!")
+
+if __name__ == "__main__":
+    hello_world()
+
+# Contoh 2: Program dengan argumen command line
+import sys
+
+def process_files(filenames):
+    for filename in filenames:
+        print(f"Processing {filename}")
+
+def main():
+    if len(sys.argv) < 2:
+        print("Usage: python script.py file1.txt file2.txt")
+        sys.exit(1)
+
+    files = sys.argv[1:]
+    process_files(files)
+
+if __name__ == "__main__":
+    main()
+
+# Contoh 3: Program dengan class
+class Calculator:
+    def add(self, a, b):
+        return a + b
+
+    def multiply(self, a, b):
+        return a * b
+
+def main():
+    calc = Calculator()
+    print("Calculator Demo:")
+    print(f"5 + 3 = {calc.add(5, 3)}")
+    print(f"5 * 3 = {calc.multiply(5, 3)}")
+
+if __name__ == "__main__":
+    main()
+
+# Contoh 4: Program dengan konfigurasi
+import json
+
+CONFIG = {
+    "debug": True,
+    "max_connections": 100
+}
+
+def load_config():
+    try:
+        with open("config.json", "r") as f:
+            return json.load(f)
+    except FileNotFoundError:
+        return CONFIG
+
+def save_config(config):
+    with open("config.json", "w") as f:
+        json.dump(config, f, indent=2)
+
+def main():
+    config = load_config()
+    print(f"Debug mode: {config['debug']}")
+    print(f"Max connections: {config['max_connections']}")
+
+    # Simpan konfigurasi baru
+    config["debug"] = False
+    save_config(config)
+    print("Configuration saved!")
+
+if __name__ == "__main__":
+    main()
+
+# Contoh 5: Program dengan logging
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def setup():
+    logger.info("Setting up application...")
+
+def run():
+    logger.info("Running application...")
+
+def cleanup():
+    logger.info("Cleaning up...")
+
+def main():
+    try:
+        setup()
+        run()
+    finally:
+        cleanup()
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Best Practices dengan if __name__ == "__main__"</h4>
+                    <p class="text-gray-600 mb-4">Praktik terbaik dalam menggunakan entry point program.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># File: my_module.py
+
+# 1. Import statements di atas
+import sys
+import os
+
+# 2. Konstanta global
+VERSION = "1.0.0"
+AUTHOR = "Your Name"
+
+# 3. Fungsi dan class definitions
+def get_version():
+    """Mengembalikan versi program"""
+    return VERSION
+
+def validate_input(data):
+    """Validasi input data"""
+    if not data:
+        raise ValueError("Data tidak boleh kosong")
+    return True
+
+class DataProcessor:
+    def __init__(self, data):
+        self.data = data
+
+    def process(self):
+        """Memproses data"""
+        validate_input(self.data)
+        # Logika pemrosesan
+        return f"Data '{self.data}' berhasil diproses"
+
+# 4. Main function
+def main():
+    """Fungsi utama program"""
+    print(f"Program v{get_version()} oleh {AUTHOR}")
+    print("=" * 40)
+
+    try:
+        # Parsing command line arguments
+        if len(sys.argv) > 1:
+            data = sys.argv[1]
+        else:
+            data = input("Masukkan data untuk diproses: ")
+
+        # Proses data
+        processor = DataProcessor(data)
+        result = processor.process()
+
+        print(result)
+        print("Program selesai dengan sukses!")
+
+    except ValueError as e:
+        print(f"Error: {e}")
+        sys.exit(1)
+    except KeyboardInterrupt:
+        print("\nProgram dihentikan oleh user")
+        sys.exit(0)
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+        sys.exit(1)
+
+# 5. Entry point
+if __name__ == "__main__":
+    main()
+
+# Best Practices:
+# 1. Letakkan semua import di atas file
+# 2. Definisi fungsi dan class sebelum main()
+# 3. Gunakan main() function untuk mengorganisir kode
+# 4. Handle exceptions dengan baik
+# 5. Berikan exit codes yang sesuai
+# 6. Gunakan docstrings untuk dokumentasi
+# 7. Parse command line arguments jika diperlukan</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat program Python modular dengan if __name__ == "__main__".</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Buat file: todo_app.py
+
+import json
+import os
+import sys
+from datetime import datetime
+
+class TodoApp:
+    def __init__(self, filename="todos.json"):
+        self.filename = filename
+        self.todos = self.load_todos()
+
+    def load_todos(self):
+        if os.path.exists(self.filename):
+            with open(self.filename, 'r') as f:
+                return json.load(f)
+        return []
+
+    def save_todos(self):
+        with open(self.filename, 'w') as f:
+            json.dump(self.todos, f, indent=2, default=str)
+
+    def add_todo(self, task):
+        todo = {
+            "id": len(self.todos) + 1,
+            "task": task,
+            "completed": False,
+            "created_at": datetime.now()
+        }
+        self.todos.append(todo)
+        self.save_todos()
+        print(f"✓ Todo '{task}' ditambahkan!")
+
+    def list_todos(self):
+        if not self.todos:
+            print("Tidak ada todo.")
+            return
+
+        print("\n📝 Daftar Todo:")
+        print("-" * 50)
+        for todo in self.todos:
+            status = "✓" if todo["completed"] else "○"
+            print(f"{todo['id']}. [{status}] {todo['task']}")
+
+    def complete_todo(self, todo_id):
+        for todo in self.todos:
+            if todo["id"] == todo_id:
+                todo["completed"] = True
+                self.save_todos()
+                print(f"✓ Todo '{todo['task']}' selesai!")
+                return
+        print(f"Todo dengan ID {todo_id} tidak ditemukan.")
+
+    def delete_todo(self, todo_id):
+        for i, todo in enumerate(self.todos):
+            if todo["id"] == todo_id:
+                removed = self.todos.pop(i)
+                self.save_todos()
+                print(f"🗑️ Todo '{removed['task']}' dihapus!")
+                return
+        print(f"Todo dengan ID {todo_id} tidak ditemukan.")
+
+def print_help():
+    print("""
+🐍 Todo App - Aplikasi Manajemen Tugas
+
+Penggunaan:
+  python todo_app.py add "tugas baru"    - Tambah todo baru
+  python todo_app.py list                 - Lihat semua todo
+  python todo_app.py complete ID          - Selesaikan todo
+  python todo_app.py delete ID            - Hapus todo
+  python todo_app.py help                 - Tampilkan bantuan
+
+Contoh:
+  python todo_app.py add "Belajar Python"
+  python todo_app.py list
+  python todo_app.py complete 1
+  python todo_app.py delete 1
+""")
+
+def main():
+    app = TodoApp()
+
+    if len(sys.argv) < 2:
+        print_help()
+        return
+
+    command = sys.argv[1].lower()
+
+    try:
+        if command == "add":
+            if len(sys.argv) < 3:
+                print("Error: Masukkan tugas yang akan ditambahkan.")
+                print('Contoh: python todo_app.py add "Belajar Python"')
+                return
+            task = sys.argv[2]
+            app.add_todo(task)
+
+        elif command == "list":
+            app.list_todos()
+
+        elif command == "complete":
+            if len(sys.argv) < 3:
+                print("Error: Masukkan ID todo yang akan diselesaikan.")
+                return
+            todo_id = int(sys.argv[2])
+            app.complete_todo(todo_id)
+
+        elif command == "delete":
+            if len(sys.argv) < 3:
+                print("Error: Masukkan ID todo yang akan dihapus.")
+                return
+            todo_id = int(sys.argv[2])
+            app.delete_todo(todo_id)
+
+        elif command == "help":
+            print_help()
+
+        else:
+            print(f"Perintah '{command}' tidak dikenal.")
+            print_help()
+
+    except ValueError:
+        print("Error: ID todo harus berupa angka.")
+    except Exception as e:
+        print(f"Error: {e}")
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    </div>
+                    <div class="bg-blue-50 p-4 rounded-lg">
+                        <h5 class="font-semibold mb-2">📝 Instruksi:</h5>
+                        <ol class="list-decimal list-inside space-y-1 text-sm">
+                            <li>Salin kode di atas ke file <code>todo_app.py</code></li>
+                            <li>Jalankan <code>python todo_app.py help</code> untuk melihat bantuan</li>
+                            <li>Coba tambah todo: <code>python todo_app.py add "Belajar Python"</code></li>
+                            <li>Lihat daftar todo: <code>python todo_app.py list</code></li>
+                            <li>Selesaikan todo: <code>python todo_app.py complete 1</code></li>
+                            <li>Import sebagai modul: <code>from todo_app import TodoApp</code></li>
+                        </ol>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Video Tutorial</h4>
+                    <p class="text-gray-600 mb-4">Pelajari lebih dalam tentang konsep if __name__ == "__main__" dalam Python.</p>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/wQwf5eKpxqs" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <p class="text-sm text-gray-500 mt-2">Video tutorial tentang entry points dan modular programming di Python</p>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Kapan kode di dalam if __name__ == "__main__" akan dieksekusi?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Ketika file diimport sebagai modul</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Ketika file dijalankan langsung</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Selalu dieksekusi</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Apa nilai __name__ ketika file dijalankan langsung?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>__main__</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>nama_file</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>main</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">3. Mengapa if __name__ == "__main__" penting untuk modular programming?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="a" class="mr-2">
+                                    <span>Mencegah kode demo berjalan saat diimport</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="b" class="mr-2">
+                                    <span>Mempercepat loading modul</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q3" value="c" class="mr-2">
+                                    <span>Mengubah nama file</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>

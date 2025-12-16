@@ -1,0 +1,647 @@
+   <!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sesi 42: Explore Pygame - Cendiks</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="../css/styles.css">
+    <script src="../js/scripts.js"></script>
+</head>
+<body class="bg-gray-50 text-gray-800 font-sans">
+    <!-- Header -->
+    <header class="bg-white shadow-md">
+        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
+            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
+            <nav class="space-x-4">
+                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
+                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
+                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
+                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
+                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">🎮 Sesi 42: Explore Pygame</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari library Python untuk membuat game</p>
+        </div>
+    </section>
+
+    <!-- Content Section -->
+    <section class="py-16">
+        <div class="container mx-auto px-4 max-w-4xl">
+            <div class="bg-white p-8 rounded-lg shadow-md">
+                <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Apa Itu Pygame?</h4>
+                    <p class="text-gray-600 mb-4">Library Python untuk membuat game 2D dengan mudah dan cepat.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code># Instalasi Pygame
+# pip install pygame
+
+import pygame
+import sys
+
+# Inisialisasi Pygame
+pygame.init()
+
+# Setup layar
+screen_width = 800
+screen_height = 600
+screen = pygame.display.set_mode((screen_width, screen_height))
+pygame.display.set_caption("My First Pygame")
+
+# Warna
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+
+# Game loop
+running = True
+while running:
+    # Event handling
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Fill background
+    screen.fill(BLACK)
+
+    # Draw rectangle
+    pygame.draw.rect(screen, RED, (350, 250, 100, 100))
+
+    # Update display
+    pygame.display.flip()
+
+# Quit Pygame
+pygame.quit()
+sys.exit()
+
+# Pygame features:
+# - Cross-platform: Windows, macOS, Linux
+# - Simple API: Mudah dipelajari untuk pemula
+# - Hardware accelerated: Menggunakan SDL
+# - Built-in modules: Graphics, sound, input handling
+# - Community support: Banyak tutorial dan contoh
+# - Free and open source: Lisensi LGPL</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Drawing Shapes dan Graphics</h4>
+                    <p class="text-gray-600 mb-4">Membuat berbagai bentuk dan gambar di Pygame.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import pygame
+import math
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+# Warna
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+GREEN = (0, 255, 0)
+BLUE = (0, 0, 255)
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    screen.fill(BLACK)
+
+    # Rectangle
+    pygame.draw.rect(screen, RED, (50, 50, 100, 50))
+
+    # Circle
+    pygame.draw.circle(screen, GREEN, (200, 100), 30)
+
+    # Line
+    pygame.draw.line(screen, BLUE, (300, 50), (400, 100), 5)
+
+    # Polygon
+    points = [(500, 50), (550, 100), (500, 150), (450, 100)]
+    pygame.draw.polygon(screen, WHITE, points)
+
+    # Ellipse
+    pygame.draw.ellipse(screen, RED, (600, 50, 100, 60))
+
+    # Arc
+    pygame.draw.arc(screen, GREEN, (50, 200, 100, 100), 0, math.pi, 5)
+
+    # Text
+    font = pygame.font.Font(None, 36)
+    text = font.render("Hello Pygame!", True, WHITE)
+    screen.blit(text, (50, 350))
+
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()
+
+# Drawing functions:
+# - pygame.draw.rect(): Rectangle
+# - pygame.draw.circle(): Circle
+# - pygame.draw.line(): Line
+# - pygame.draw.polygon(): Polygon
+# - pygame.draw.ellipse(): Ellipse
+# - pygame.draw.arc(): Arc
+# - pygame.font.Font(): Text rendering</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Sprites dan Animation</h4>
+                    <p class="text-gray-600 mb-4">Membuat dan menganimasikan sprite di Pygame.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import pygame
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+# Warna
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+BLUE = (0, 0, 255)
+
+class Player(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        # Membuat surface untuk sprite
+        self.image = pygame.Surface((50, 50))
+        self.image.fill(BLUE)
+        # Mendapatkan rectangle dari image
+        self.rect = self.image.get_rect()
+        self.rect.center = (400, 300)
+        self.speed = 5
+
+    def update(self):
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT]:
+            self.rect.x -= self.speed
+        if keys[pygame.K_RIGHT]:
+            self.rect.x += self.speed
+        if keys[pygame.K_UP]:
+            self.rect.y -= self.speed
+        if keys[pygame.K_DOWN]:
+            self.rect.y += self.speed
+
+        # Keep player on screen
+        if self.rect.left < 0:
+            self.rect.left = 0
+        if self.rect.right > 800:
+            self.rect.right = 800
+        if self.rect.top < 0:
+            self.rect.top = 0
+        if self.rect.bottom > 600:
+            self.rect.bottom = 600
+
+class Enemy(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        self.image = pygame.Surface((30, 30))
+        self.image.fill((255, 0, 0))  # Red
+        self.rect = self.image.get_rect()
+        self.rect.x = random.randint(0, 770)
+        self.rect.y = random.randint(0, 570)
+        self.speed = random.randint(1, 3)
+
+    def update(self):
+        self.rect.x += self.speed
+        if self.rect.left < 0 or self.rect.right > 800:
+            self.speed = -self.speed
+
+class AnimatedSprite(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        # Membuat beberapa frame untuk animasi
+        self.frames = []
+        for i in range(4):
+            frame = pygame.Surface((40, 40))
+            frame.fill((0, 255, 0))  # Green
+            pygame.draw.circle(frame, (255, 255, 0), (20, 20), 15 + i*2)  # Yellow circles
+            self.frames.append(frame)
+
+        self.current_frame = 0
+        self.image = self.frames[self.current_frame]
+        self.rect = self.image.get_rect()
+        self.rect.center = (200, 200)
+        self.animation_speed = 0.1
+        self.last_update = pygame.time.get_ticks()
+
+    def update(self):
+        now = pygame.time.get_ticks()
+        if now - self.last_update > 100:  # Update every 100ms
+            self.last_update = now
+            self.current_frame = (self.current_frame + 1) % len(self.frames)
+            self.image = self.frames[self.current_frame]
+
+# Membuat sprite groups
+all_sprites = pygame.sprite.Group()
+enemies = pygame.sprite.Group()
+
+# Membuat player
+player = Player()
+all_sprites.add(player)
+
+# Membuat enemies
+for i in range(5):
+    enemy = Enemy()
+    all_sprites.add(enemy)
+    enemies.add(enemy)
+
+# Membuat animated sprite
+animated_sprite = AnimatedSprite()
+all_sprites.add(animated_sprite)
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+    # Update semua sprites
+    all_sprites.update()
+
+    # Check collision antara player dan enemies
+    hits = pygame.sprite.spritecollide(player, enemies, False)
+    if hits:
+        print("Collision detected!")
+
+    # Draw
+    screen.fill(BLACK)
+    all_sprites.draw(screen)
+
+    # Draw instructions
+    font = pygame.font.Font(None, 24)
+    instructions = [
+        "Use arrow keys to move",
+        "Avoid red enemies",
+        "Green circle animates automatically"
+    ]
+
+    for i, text in enumerate(instructions):
+        text_surface = font.render(text, True, WHITE)
+        screen.blit(text_surface, (10, 10 + i * 25))
+
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()
+
+# Sprite concepts:
+# - pygame.sprite.Sprite: Base class untuk semua sprites
+# - pygame.sprite.Group: Container untuk sprites
+# - self.image: Surface yang akan digambar
+# - self.rect: Rectangle untuk positioning dan collision
+# - update(): Method untuk update logic setiap frame
+# - Animation: Mengubah self.image untuk membuat animasi</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Input Handling dan Sound</h4>
+                    <p class="text-gray-600 mb-4">Menangani input dari keyboard/mouse dan menambah suara.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import pygame
+import random
+
+pygame.init()
+screen = pygame.display.set_mode((800, 600))
+clock = pygame.time.Clock()
+
+# Inisialisasi mixer untuk sound
+pygame.mixer.init()
+
+# Load sounds (pastikan file ada)
+try:
+    jump_sound = pygame.mixer.Sound('jump.wav')
+    background_music = pygame.mixer.music.load('background.mp3')
+    pygame.mixer.music.play(-1)  # Loop forever
+except:
+    print("Sound files not found, continuing without sound")
+
+# Warna
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+RED = (255, 0, 0)
+BLUE = (0, 0, 255)
+
+class Ball:
+    def __init__(self):
+        self.radius = 20
+        self.x = 400
+        self.y = 300
+        self.dx = random.choice([-5, -3, 3, 5])
+        self.dy = random.choice([-5, -3, 3, 5])
+        self.color = RED
+
+    def update(self):
+        self.x += self.dx
+        self.y += self.dy
+
+        # Bounce off walls
+        if self.x - self.radius <= 0 or self.x + self.radius >= 800:
+            self.dx = -self.dx
+            try:
+                jump_sound.play()
+            except:
+                pass
+
+        if self.y - self.radius <= 0 or self.y + self.radius >= 600:
+            self.dy = -self.dy
+            try:
+                jump_sound.play()
+            except:
+                pass
+
+    def draw(self, screen):
+        pygame.draw.circle(screen, self.color, (int(self.x), int(self.y)), self.radius)
+
+balls = [Ball() for _ in range(3)]
+
+running = True
+while running:
+    for event in pygame.event.get():
+        if event.type == pygame.QUIT:
+            running = False
+
+        # Mouse events
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            if event.button == 1:  # Left click
+                for ball in balls:
+                    ball.color = BLUE
+            elif event.button == 3:  # Right click
+                for ball in balls:
+                    ball.color = RED
+
+        # Keyboard events
+        elif event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                # Add new ball
+                balls.append(Ball())
+            elif event.key == pygame.K_ESCAPE:
+                running = False
+            elif event.key == pygame.K_m:
+                # Toggle music
+                if pygame.mixer.music.get_busy():
+                    pygame.mixer.music.pause()
+                else:
+                    pygame.mixer.music.unpause()
+
+    # Continuous key presses
+    keys = pygame.key.get_pressed()
+    if keys[pygame.K_LEFT]:
+        for ball in balls:
+            ball.dx -= 0.1
+    if keys[pygame.K_RIGHT]:
+        for ball in balls:
+            ball.dx += 0.1
+    if keys[pygame.K_UP]:
+        for ball in balls:
+            ball.dy -= 0.1
+    if keys[pygame.K_DOWN]:
+        for ball in balls:
+            ball.dy += 0.1
+
+    # Update balls
+    for ball in balls:
+        ball.update()
+
+    # Draw
+    screen.fill(BLACK)
+    for ball in balls:
+        ball.draw(screen)
+
+    # Draw instructions
+    font = pygame.font.Font(None, 24)
+    instructions = [
+        "Left/Right/Up/Down: Change direction",
+        "Space: Add ball",
+        "Left click: Blue balls",
+        "Right click: Red balls",
+        "M: Toggle music",
+        "ESC: Quit"
+    ]
+
+    for i, text in enumerate(instructions):
+        text_surface = font.render(text, True, WHITE)
+        screen.blit(text_surface, (10, 10 + i * 25))
+
+    pygame.display.flip()
+    clock.tick(60)
+
+pygame.quit()
+
+# Input handling:
+# - pygame.event.get(): Get all events
+# - pygame.key.get_pressed(): Continuous key states
+# - pygame.mouse.get_pos(): Mouse position
+# - pygame.mixer.Sound(): Play sound effects
+# - pygame.mixer.music: Background music</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Latihan Praktis</h4>
+                    <p class="text-gray-600 mb-4">Buat game sederhana dengan Pygame.</p>
+                    <div class="bg-gray-100 p-4 rounded-lg mb-4">
+                        <pre><code>import pygame
+import random
+
+pygame.init()
+
+# Screen dimensions
+WIDTH = 640
+HEIGHT = 480
+BLOCK_SIZE = 20
+FPS = 10
+
+# Colors
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Snake Game")
+clock = pygame.time.Clock()
+
+class Snake:
+    def __init__(self):
+        self.body = [(WIDTH//2, HEIGHT//2)]
+        self.direction = (0, 0)
+        self.grow = False
+
+    def move(self):
+        head = self.body[0]
+        x, y = self.direction
+        new_head = (head[0] + x * BLOCK_SIZE, head[1] + y * BLOCK_SIZE)
+        self.body.insert(0, new_head)
+        if not self.grow:
+            self.body.pop()
+        else:
+            self.grow = False
+
+    def change_direction(self, direction):
+        if direction == 'UP' and self.direction != (0, BLOCK_SIZE):
+            self.direction = (0, -BLOCK_SIZE)
+        elif direction == 'DOWN' and self.direction != (0, -BLOCK_SIZE):
+            self.direction = (0, BLOCK_SIZE)
+        elif direction == 'LEFT' and self.direction != (BLOCK_SIZE, 0):
+            self.direction = (-BLOCK_SIZE, 0)
+        elif direction == 'RIGHT' and self.direction != (-BLOCK_SIZE, 0):
+            self.direction = (BLOCK_SIZE, 0)
+
+    def draw(self, screen):
+        for segment in self.body:
+            pygame.draw.rect(screen, GREEN, (segment[0], segment[1], BLOCK_SIZE, BLOCK_SIZE))
+
+class Food:
+    def __init__(self):
+        self.position = self.random_position()
+
+    def random_position(self):
+        x = random.randint(0, (WIDTH - BLOCK_SIZE) // BLOCK_SIZE) * BLOCK_SIZE
+        y = random.randint(0, (HEIGHT - BLOCK_SIZE) // BLOCK_SIZE) * BLOCK_SIZE
+        return (x, y)
+
+    def draw(self, screen):
+        pygame.draw.rect(screen, RED, (self.position[0], self.position[1], BLOCK_SIZE, BLOCK_SIZE))
+
+def game_over():
+    font = pygame.font.Font(None, 50)
+    text = font.render("Game Over", True, WHITE)
+    screen.blit(text, (WIDTH//2 - 100, HEIGHT//2 - 25))
+    pygame.display.flip()
+    pygame.time.wait(2000)
+
+def main():
+    snake = Snake()
+    food = Food()
+    score = 0
+
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            elif event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_UP:
+                    snake.change_direction('UP')
+                elif event.key == pygame.K_DOWN:
+                    snake.change_direction('DOWN')
+                elif event.key == pygame.K_LEFT:
+                    snake.change_direction('LEFT')
+                elif event.key == pygame.K_RIGHT:
+                    snake.change_direction('RIGHT')
+
+        snake.move()
+
+        # Check wall collision
+        head = snake.body[0]
+        if (head[0] < 0 or head[0] >= WIDTH or
+            head[1] < 0 or head[1] >= HEIGHT):
+            game_over()
+            return
+
+        # Check self collision
+        if head in snake.body[1:]:
+            game_over()
+            return
+
+        # Check food collision
+        if head == food.position:
+            snake.grow = True
+            food.position = food.random_position()
+            score += 1
+
+        # Draw everything
+        screen.fill(BLACK)
+        snake.draw(screen)
+        food.draw(screen)
+
+        # Draw score
+        font = pygame.font.Font(None, 30)
+        score_text = font.render(f"Score: {score}", True, WHITE)
+        screen.blit(score_text, (10, 10))
+
+        pygame.display.flip()
+        clock.tick(FPS)
+
+    pygame.quit()
+
+if __name__ == "__main__":
+    main()</code></pre>
+                    </div>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Video Tutorial</h4>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/ywE2eqG3-kc" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                </div>
+
+                <div class="mb-8">
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Kuis Interaktif</h4>
+                    <div class="space-y-4">
+                        <div>
+                            <p class="font-medium mb-2">1. Apa fungsi pygame.display.set_mode()?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="a" class="mr-2">
+                                    <span>Membuat jendela game</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="b" class="mr-2">
+                                    <span>Mengatur musik latar</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q1" value="c" class="mr-2">
+                                    <span>Menangani input keyboard</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div>
+                            <p class="font-medium mb-2">2. Method apa yang digunakan untuk menggambar lingkaran di Pygame?</p>
+                            <div class="space-y-2">
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="a" class="mr-2">
+                                    <span>pygame.draw.circle()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="b" class="mr-2">
+                                    <span>pygame.draw.rect()</span>
+                                </label>
+                                <label class="flex items-center">
+                                    <input type="radio" name="q2" value="c" class="mr-2">
+                                    <span>pygame.draw.line()</span>
+                                </label>
+                            </div>
+                        </div>
+                        <button onclick="checkQuiz()" class="bg-primary text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Periksa Jawaban</button>
+                        <div id="quiz-result" class="mt-4"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+        </div>
+    </footer>
+</body>
+</html>
