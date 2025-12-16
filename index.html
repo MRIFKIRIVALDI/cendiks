@@ -3,84 +3,76 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cendiks - Platform Belajar Python Dasar</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/scripts.js"></script>
+    <title>Cendiks - Platform Belajar Python</title>
+    <link rel="stylesheet" href="css/styles.css?v=3">
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
-    <!-- Header -->
-    <header class="bg-white shadow-md">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <h1 class="text-2xl font-bold bg-gradient-to-r from-blue-500 to-yellow-500 bg-clip-text text-transparent">Cendiks</h1>
-            <nav id="nav-menu" class="hidden md:flex space-x-4">
-                <a href="#home" class="text-gray-600 hover:text-primary">Beranda</a>
-                <a href="pages/sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
-                <a href="pages/install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
-                <a href="pages/certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
-                <a href="pages/more.html" class="text-gray-600 hover:text-primary">More</a>
-            </nav>
-            <button onclick="toggleContent('nav-menu')" class="md:hidden text-gray-600 hover:text-primary">
-                <div class="w-6 h-6 flex flex-col justify-center items-center">
-                    <span class="block w-5 h-0.5 bg-current mb-1"></span>
-                    <span class="block w-5 h-0.5 bg-current mb-1"></span>
-                    <span class="block w-5 h-0.5 bg-current"></span>
-                </div>
-            </button>
+<body>
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <div class="container">
+            <h1 class="logo">Cendiks</h1>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Beranda</a></li>
+                <li><a href="pages/sessions.html" class="nav-link">Sesi Pembelajaran</a></li>
+                <li><a href="pages/install.html" class="nav-link">Instalasi Python</a></li>
+                <li><a href="pages/ujian-sertifikasi.html" class="nav-link">Ujian Sertifikasi</a></li>
+                <li><a href="pages/more.html" class="nav-link">More</a></li>
+                <li><a href="#login" class="btn btn-primary">Login</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
     <!-- Hero Section -->
-    <section id="home" class="bg-gradient-to-r from-blue-300 to-yellow-300 min-h-screen flex items-center justify-center">
-        <div class="container mx-auto px-4 text-center">
-            <img src="images/logo_cendiks.png" alt="Cendiks Logo" class="w-40 h-40 mx-auto mb-6">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800">Selamat Datang di Cendiks</h2>
-            <p class="text-xl mb-8 text-gray-600">Fokus pada langkah kecil. Rayakan kemenangan kecil, bahkan ketika Anda berhasil membuat program "Hello, World!" berjalan. Setiap baris kode yang Anda tulis adalah kemajuan.</p>
-            <a href="pages/sessions.html" class="bg-primary text-white px-8 py-3 rounded-lg hover:bg-blue-700 transition duration-300 bounce-in delay-3 pulse">Mulai Belajar</a>
+    <section id="home" class="hero">
+        <div class="hero-content fade-in-up">
+            <h2>Selamat Datang di Cendiks</h2>
+            <p>Fokus pada langkah kecil. Rayakan kemenangan kecil, bahkan ketika Anda berhasil membuat program "Hello, World!" berjalan. Setiap baris kode yang Anda tulis adalah kemajuan.</p>
+            <a href="pages/sessions.html" class="btn btn-primary">Mulai Belajar</a>
+        </div>
+        <div class="hero-ill fade-in-up delay-2">
+            <img src="images/logo_cendiks.png" alt="Cendiks Logo">
         </div>
     </section>
 
     <!-- Features Section -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800">Fitur Utama</h3>
-            <div class="grid md:grid-cols-4 gap-8">
-                <a href="pages/install/install.html" class="block">
-                    <div class="bg-white p-6 rounded-lg shadow-md text-center hover-lift bounce-in delay-1 cursor-pointer">
-                        <img src="images/logo_setting.png" alt="Instalasi" class="w-16 h-16 mx-auto mb-4">
-                        <h4 class="text-xl font-semibold mb-2">Instalasi Python</h4>
-                        <p class="text-gray-600">Panduan lengkap instalasi Python untuk Windows, macOS, dan Linux</p>
-                    </div>
-                </a>
-                <a href="pages/sessions.html" class="block">
-                    <div class="bg-white p-6 rounded-lg shadow-md text-center hover-lift bounce-in delay-2 cursor-pointer">
-                        <img src="images/logo_python2.png" alt="Materi Pembelajaran" class="w-16 h-16 mx-auto mb-4">
-                        <h4 class="text-xl font-semibold mb-2">Materi Pembelajaran</h4>
-                        <p class="text-gray-600">Pelajari Python dari dasar dengan materi lengkap dan video tutorial</p>
-                    </div>
-                </a>
-                <div class="bg-white p-6 rounded-lg shadow-md text-center hover-lift bounce-in delay-3">
-                    <div class="text-4xl mb-4">🎓</div>
-                    <h4 class="text-xl font-semibold mb-2">Ujian Sertifikasi</h4>
-                    <p class="text-gray-600">Uji kompetensi Anda dan dapatkan sertifikat sebagai bukti kemampuan</p>
+    <section class="container">
+        <h3 style="text-align:center;margin:2.5rem 0 1.5rem;font-size:2rem">Fitur Utama</h3>
+        <div class="grid">
+            <a href="pages/install.html" class="card fade-in-up delay-1">
+                <div class="card-img">
+                    <img src="images/logo_setting.png" alt="Instalasi">
                 </div>
-                <a href="pages/more.html" class="block">
-                    <div class="bg-white p-6 rounded-lg shadow-md text-center hover-lift bounce-in delay-4 cursor-pointer">
-                        <div class="text-4xl mb-4">🌐</div>
-                        <h4 class="text-xl font-semibold mb-2">More</h4>
-                        <p class="text-gray-600">Eksplorasi materi tambahan dari berbagai sumber terpercaya</p>
-                    </div>
-                </a>
-            </div>
+                <h4>Instalasi Python</h4>
+                <p class="small">Panduan lengkap instalasi Python untuk Windows, macOS, dan Linux</p>
+            </a>
+
+            <a href="pages/sessions.html" class="card fade-in-up delay-2">
+                <div class="card-img">
+                    <img src="images/logo_python2.png" alt="Pembelajaran">
+                </div>
+                <h4>Materi Pembelajaran</h4>
+                <p class="small">Pelajari Python dari dasar dengan materi lengkap dan video tutorial</p>
+            </a>
+
+            <a href="pages/ujian-sertifikasi.html" class="card fade-in-up delay-3">
+                <div class="card-img" style="font-size:2.5rem">🎓</div>
+                <h4>Ujian Sertifikasi</h4>
+                <p class="small">Uji kompetensi Anda dan dapatkan sertifikat sebagai bukti kemampuan</p>
+            </a>
+
+            <a href="pages/more.html" class="card fade-in-up delay-4">
+                <div class="card-img" style="font-size:2.5rem">🌐</div>
+                <h4>More</h4>
+                <p class="small">Eksplorasi materi tambahan dari berbagai sumber terpercaya</p>
+            </a>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
-        </div>
+    <footer class="site-footer">
+        <p>&copy; 2025 Cendiks. Platform belajar Python untuk semua.</p>
     </footer>
+
+    <script src="js/scripts.js"></script>
 </body>
 </html>
-

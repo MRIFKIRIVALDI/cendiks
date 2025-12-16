@@ -1,0 +1,735 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ujian Sertifikasi - Cendiks</title>
+  <link rel="stylesheet" href="../css/styles.css">
+  <style>
+    /* Additional styles for exam */
+    .exam-container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 2rem;
+    }
+
+    .exam-header {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+      backdrop-filter: blur(30px);
+      border-radius: 20px;
+      padding: 2rem;
+      border: 2px solid rgba(139, 92, 246, 0.3);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .exam-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-top: 1.5rem;
+    }
+
+    .info-card {
+      background: rgba(30, 41, 59, 0.6);
+      padding: 1rem;
+      border-radius: 12px;
+      border: 1px solid rgba(139, 92, 246, 0.2);
+      text-align: center;
+    }
+
+    .info-card h4 {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card .value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      background: linear-gradient(135deg, #a78bfa 0%, #ec4899 50%, #f472b6 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .timer {
+      font-size: 2rem;
+      font-weight: 900;
+      color: #10b981;
+    }
+
+    .timer.warning { color: #f59e0b; animation: pulse 1s infinite; }
+    .timer.danger { color: #ef4444; animation: pulse 0.5s infinite; }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.6; }
+    }
+
+    .question-card {
+      background: linear-gradient(135deg, rgba(51, 65, 85, 0.5), rgba(30, 41, 59, 0.6));
+      backdrop-filter: blur(30px);
+      border-radius: 20px;
+      padding: 2.5rem;
+      border: 2px solid rgba(139, 92, 246, 0.3);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+      margin-bottom: 2rem;
+      display: none;
+    }
+
+    .question-card.active {
+      display: block;
+      animation: fadeInUp 0.5s ease-out;
+    }
+
+    .question-number {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-bottom: 1rem;
+    }
+
+    .question-text {
+      font-size: 1.3rem;
+      color: #f1f5f9;
+      margin-bottom: 2rem;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .option {
+      background: rgba(30, 41, 59, 0.6);
+      border: 2px solid rgba(148, 163, 184, 0.2);
+      border-radius: 12px;
+      padding: 1.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .option:hover {
+      border-color: rgba(139, 92, 246, 0.5);
+      background: rgba(139, 92, 246, 0.1);
+      transform: translateX(10px);
+    }
+
+    .option.selected {
+      border-color: #8b5cf6;
+      background: rgba(139, 92, 246, 0.2);
+    }
+
+    .option-letter {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.1rem;
+      flex-shrink: 0;
+    }
+
+    .option-text {
+      flex: 1;
+      color: #e2e8f0;
+      font-size: 1.05rem;
+    }
+
+    .nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    .progress-container {
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: 20px;
+      padding: 1.5rem;
+      border: 2px solid rgba(139, 92, 246, 0.2);
+      margin-bottom: 2rem;
+    }
+
+    .progress-text {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+      color: #cbd5e1;
+      font-size: 0.95rem;
+    }
+
+    .question-nav {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .question-nav-btn {
+      padding: 0.75rem;
+      border: 2px solid rgba(148, 163, 184, 0.2);
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: #cbd5e1;
+      font-weight: 600;
+      text-align: center;
+    }
+
+    .question-nav-btn:hover {
+      border-color: rgba(139, 92, 246, 0.5);
+      transform: scale(1.05);
+    }
+
+    .question-nav-btn.answered {
+      background: rgba(139, 92, 246, 0.3);
+      border-color: #8b5cf6;
+    }
+
+    .question-nav-btn.current {
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f59e0b 100%);
+      color: #fff;
+      border-color: transparent;
+    }
+
+    .result-container {
+      display: none;
+      text-align: center;
+      padding: 3rem;
+    }
+
+    .result-container.active {
+      display: block;
+      animation: zoomIn 0.8s ease-out;
+    }
+
+    .score-display {
+      font-size: 5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin: 2rem 0;
+    }
+
+    .result-message {
+      font-size: 1.5rem;
+      color: #e2e8f0;
+      margin-bottom: 2rem;
+    }
+
+    .result-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, rgba(51, 65, 85, 0.5), rgba(30, 41, 59, 0.6));
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 2px solid rgba(139, 92, 246, 0.3);
+    }
+
+    .stat-card h4 {
+      font-size: 0.9rem;
+      color: #94a3b8;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-card .value {
+      font-size: 2rem;
+      font-weight: 800;
+    }
+
+    .certificate {
+      background: linear-gradient(135deg, rgba(139, 92, 246, 0.2), rgba(236, 72, 153, 0.2));
+      backdrop-filter: blur(30px);
+      border-radius: 20px;
+      padding: 3rem;
+      border: 3px solid rgba(139, 92, 246, 0.5);
+      box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+      margin: 2rem auto;
+      max-width: 700px;
+      text-align: center;
+    }
+
+    .certificate-badge {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 1.5rem;
+      background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f59e0b 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      box-shadow: 0 0 40px rgba(139, 92, 246, 0.6), 0 0 80px rgba(236, 72, 153, 0.4);
+      animation: float 3s ease-in-out infinite;
+    }
+
+    .start-screen {
+      text-align: center;
+      padding: 3rem;
+    }
+
+    .start-screen.hidden { display: none; }
+
+    .exam-rules {
+      background: rgba(30, 41, 59, 0.6);
+      border-radius: 20px;
+      padding: 2rem;
+      border: 2px solid rgba(139, 92, 246, 0.2);
+      margin: 2rem 0;
+      text-align: left;
+    }
+
+    .exam-rules ul {
+      list-style: none;
+      margin-top: 1rem;
+    }
+
+    .exam-rules li {
+      padding: 0.75rem 0;
+      color: #cbd5e1;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+    }
+
+    .exam-rules li::before {
+      content: "✓";
+      color: #10b981;
+      font-weight: 900;
+      font-size: 1.2rem;
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.5); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+
+    @media (max-width: 768px) {
+      .exam-container { padding: 1rem; }
+      .exam-header { padding: 1.5rem; }
+      .question-card { padding: 1.5rem; }
+      .question-text { font-size: 1.1rem; }
+      .score-display { font-size: 3rem; }
+      .nav-buttons { flex-direction: column; }
+      .nav-buttons button { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="site-nav">
+    <div class="container">
+      <h1 class="logo">Cendiks</h1>
+      <ul class="nav-links">
+        <li><a href="../index.html" class="nav-link">Beranda</a></li>
+        <li><a href="sessions.html" class="nav-link">Sesi Pembelajaran</a></li>
+        <li><a href="install.html" class="nav-link">Instalasi Python</a></li>
+        <li><a href="ujian-sertifikasi.html" class="nav-link">Ujian Sertifikasi</a></li>
+        <li><a href="more.html" class="nav-link">More</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container exam-container">
+    <!-- Start Screen -->
+    <div id="startScreen" class="start-screen">
+      <div class="exam-header">
+        <h2>🎓 Ujian Sertifikasi Python Dasar</h2>
+        <p>Uji kemampuan Python Anda dan dapatkan sertifikat resmi dari Cendiks</p>
+      </div>
+
+      <div class="exam-rules">
+        <h3>📋 Aturan Ujian:</h3>
+        <ul>
+          <li>Ujian terdiri dari 10 soal pilihan ganda</li>
+          <li>Waktu pengerjaan: 15 menit</li>
+          <li>Nilai minimum kelulusan: 70%</li>
+          <li>Setiap soal bernilai 10 poin</li>
+          <li>Anda dapat mengubah jawaban sebelum submit</li>
+          <li>Sertifikat akan diberikan jika lulus ujian</li>
+        </ul>
+      </div>
+
+      <button class="btn btn-primary" onclick="startExam()">
+        🚀 MULAI UJIAN
+      </button>
+    </div>
+
+    <!-- Exam Screen -->
+    <div id="examScreen" style="display: none;">
+      <!-- Timer & Info -->
+      <div class="exam-header">
+        <h3>Ujian Sertifikasi Python</h3>
+        <div class="exam-info">
+          <div class="info-card">
+            <h4>Waktu Tersisa</h4>
+            <div class="value timer" id="timer">15:00</div>
+          </div>
+          <div class="info-card">
+            <h4>Soal Terjawab</h4>
+            <div class="value" id="answeredCount">0/10</div>
+          </div>
+          <div class="info-card">
+            <h4>Progress</h4>
+            <div class="value" id="progressPercent">0%</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Progress -->
+      <div class="progress-container">
+        <div class="progress-text">
+          <span>Progress Ujian</span>
+          <span id="progressText">0 dari 10 soal</span>
+        </div>
+        <div class="progress">
+          <i id="progressBar" style="width: 0%"></i>
+        </div>
+        <div class="question-nav" id="questionNav"></div>
+      </div>
+
+      <!-- Questions -->
+      <div id="questionsContainer"></div>
+
+      <!-- Navigation -->
+      <div class="nav-buttons">
+        <button class="btn btn-secondary" id="prevBtn" onclick="previousQuestion()" style="display: none;">
+          ← Sebelumnya
+        </button>
+        <button class="btn btn-secondary" id="nextBtn" onclick="nextQuestion()">
+          Selanjutnya →
+        </button>
+        <button class="btn btn-primary" id="submitBtn" onclick="submitExam()" style="display: none;">
+          ✓ Submit Ujian
+        </button>
+      </div>
+    </div>
+
+    <!-- Result Screen -->
+    <div id="resultScreen" class="result-container">
+      <div class="certificate">
+        <div class="certificate-badge">🏆</div>
+        <h2>Hasil Ujian Anda</h2>
+        <div class="score-display" id="finalScore">0</div>
+        <div class="result-message" id="resultMessage"></div>
+        
+        <div class="result-stats">
+          <div class="stat-card">
+            <h4>Benar</h4>
+            <div class="value" style="color: #10b981;" id="correctCount">0</div>
+          </div>
+          <div class="stat-card">
+            <h4>Salah</h4>
+            <div class="value" style="color: #ef4444;" id="wrongCount">0</div>
+          </div>
+          <div class="stat-card">
+            <h4>Waktu</h4>
+            <div class="value" style="color: #06b6d4;" id="timeUsed">0m</div>
+          </div>
+        </div>
+
+        <div id="certificateSection" style="display: none;">
+          <h3 style="margin: 2rem 0 1rem; color: #f1f5f9;">🎊 Selamat! Anda Lulus!</h3>
+          <p style="color: #cbd5e1; margin-bottom: 2rem;">
+            Sertifikat: <strong>Python Basic Certification</strong><br>
+            Tanggal: <strong id="certDate"></strong>
+          </p>
+          <button class="btn btn-primary" onclick="downloadCertificate()">
+            📥 Download Sertifikat
+          </button>
+        </div>
+
+        <button class="btn btn-secondary" onclick="retakeExam()" style="margin-top: 1.5rem;">
+          🔄 Ulangi Ujian
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <p>&copy; 2025 Cendiks. Platform belajar Python untuk semua.</p>
+  </footer>
+
+  <script>
+    const questions = [
+      {
+        question: "Apa output dari kode berikut?\nprint(type(5))",
+        options: ["<class 'int'>", "<class 'float'>", "<class 'str'>", "<class 'number'>"],
+        correct: 0
+      },
+      {
+        question: "Manakah cara yang benar untuk membuat komentar dalam Python?",
+        options: ["// ini komentar", "/* ini komentar */", "# ini komentar", "<!-- ini komentar -->"],
+        correct: 2
+      },
+      {
+        question: "Apa hasil dari: 10 // 3",
+        options: ["3.333", "3", "4", "3.0"],
+        correct: 1
+      },
+      {
+        question: "Manakah tipe data yang mutable (dapat diubah) di Python?",
+        options: ["tuple", "string", "list", "integer"],
+        correct: 2
+      },
+      {
+        question: "Apa output dari: len('Python')",
+        options: ["5", "6", "7", "Error"],
+        correct: 1
+      },
+      {
+        question: "Bagaimana cara membuat dictionary kosong dalam Python?",
+        options: ["dict = []", "dict = ()", "dict = {}", "dict = None"],
+        correct: 2
+      },
+      {
+        question: "Apa fungsi dari method .append() dalam list?",
+        options: ["Menghapus elemen", "Menambah elemen di akhir", "Mengurutkan list", "Membalik list"],
+        correct: 1
+      },
+      {
+        question: "Apa output dari: bool(0)",
+        options: ["True", "False", "0", "None"],
+        correct: 1
+      },
+      {
+        question: "Keyword apa yang digunakan untuk mendefinisikan fungsi?",
+        options: ["function", "def", "func", "define"],
+        correct: 1
+      },
+      {
+        question: "Apa hasil dari: 'Python' * 2",
+        options: ["PythonPython", "Python2", "Error", "Python Python"],
+        correct: 0
+      }
+    ];
+
+    let currentQuestion = 0;
+    let answers = new Array(questions.length).fill(null);
+    let timeLeft = 900;
+    let timerInterval;
+    let startTime;
+
+    function startExam() {
+      document.getElementById('startScreen').classList.add('hidden');
+      document.getElementById('examScreen').style.display = 'block';
+      
+      renderQuestions();
+      renderQuestionNav();
+      startTimer();
+      updateProgress();
+      startTime = Date.now();
+    }
+
+    function renderQuestions() {
+      const container = document.getElementById('questionsContainer');
+      container.innerHTML = '';
+
+      questions.forEach((q, index) => {
+        const questionCard = document.createElement('div');
+        questionCard.className = 'question-card';
+        if (index === 0) questionCard.classList.add('active');
+
+        questionCard.innerHTML = `
+          <div class="question-number">Soal ${index + 1} dari ${questions.length}</div>
+          <div class="question-text">${q.question}</div>
+          <div class="options">
+            ${q.options.map((opt, i) => `
+              <div class="option" onclick="selectAnswer(${index}, ${i})">
+                <div class="option-letter">${String.fromCharCode(65 + i)}</div>
+                <div class="option-text">${opt}</div>
+              </div>
+            `).join('')}
+          </div>
+        `;
+
+        container.appendChild(questionCard);
+      });
+    }
+
+    function renderQuestionNav() {
+      const nav = document.getElementById('questionNav');
+      nav.innerHTML = questions.map((_, i) => 
+        `<div class="question-nav-btn ${i === 0 ? 'current' : ''}" onclick="goToQuestion(${i})">${i + 1}</div>`
+      ).join('');
+    }
+
+    function selectAnswer(questionIndex, answerIndex) {
+      answers[questionIndex] = answerIndex;
+      
+      const options = document.querySelectorAll('.question-card')[questionIndex].querySelectorAll('.option');
+      options.forEach((opt, i) => {
+        opt.classList.toggle('selected', i === answerIndex);
+      });
+
+      updateProgress();
+      updateQuestionNav();
+    }
+
+    function goToQuestion(index) {
+      const cards = document.querySelectorAll('.question-card');
+      cards.forEach(card => card.classList.remove('active'));
+      cards[index].classList.add('active');
+
+      const navBtns = document.querySelectorAll('.question-nav-btn');
+      navBtns.forEach(btn => btn.classList.remove('current'));
+      navBtns[index].classList.add('current');
+
+      currentQuestion = index;
+      updateNavigationButtons();
+    }
+
+    function previousQuestion() {
+      if (currentQuestion > 0) {
+        goToQuestion(currentQuestion - 1);
+      }
+    }
+
+    function nextQuestion() {
+      if (currentQuestion < questions.length - 1) {
+        goToQuestion(currentQuestion + 1);
+      }
+    }
+
+    function updateNavigationButtons() {
+      document.getElementById('prevBtn').style.display = currentQuestion > 0 ? 'block' : 'none';
+      document.getElementById('nextBtn').style.display = currentQuestion < questions.length - 1 ? 'block' : 'none';
+      document.getElementById('submitBtn').style.display = currentQuestion === questions.length - 1 ? 'block' : 'none';
+    }
+
+    function updateProgress() {
+      const answered = answers.filter(a => a !== null).length;
+      const percent = (answered / questions.length * 100).toFixed(0);
+      
+      document.getElementById('answeredCount').textContent = `${answered}/${questions.length}`;
+      document.getElementById('progressPercent').textContent = `${percent}%`;
+      document.getElementById('progressText').textContent = `${answered} dari ${questions.length} soal`;
+      document.getElementById('progressBar').style.width = `${percent}%`;
+    }
+
+    function updateQuestionNav() {
+      const navBtns = document.querySelectorAll('.question-nav-btn');
+      answers.forEach((answer, i) => {
+        if (answer !== null) {
+          navBtns[i].classList.add('answered');
+        }
+      });
+    }
+
+    function startTimer() {
+      updateTimerDisplay();
+      timerInterval = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay();
+
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          submitExam();
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      const minutes = Math.floor(timeLeft / 60);
+      const seconds = timeLeft % 60;
+      const display = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+      const timer = document.getElementById('timer');
+      timer.textContent = display;
+
+      timer.className = 'value timer';
+      if (timeLeft <= 60) {
+        timer.classList.add('danger');
+      } else if (timeLeft <= 300) {
+        timer.classList.add('warning');
+      }
+    }
+
+    function submitExam() {
+      clearInterval(timerInterval);
+
+      let correct = 0;
+      answers.forEach((answer, i) => {
+        if (answer === questions[i].correct) correct++;
+      });
+
+      const score = (correct / questions.length * 100).toFixed(0);
+      const timeUsed = 900 - timeLeft;
+      const minutesUsed = Math.floor(timeUsed / 60);
+      const secondsUsed = timeUsed % 60;
+
+      document.getElementById('examScreen').style.display = 'none';
+      document.getElementById('resultScreen').classList.add('active');
+      document.getElementById('finalScore').textContent = `${score}%`;
+      document.getElementById('correctCount').textContent = correct;
+      document.getElementById('wrongCount').textContent = questions.length - correct;
+      document.getElementById('timeUsed').textContent = `${minutesUsed}m ${secondsUsed}s`;
+
+      let message = '';
+      if (score >= 90) {
+        message = '🌟 Luar Biasa! Anda menguasai Python dengan sempurna!';
+      } else if (score >= 70) {
+        message = '✅ Selamat! Anda lulus ujian dengan baik!';
+      } else {
+        message = '💪 Terus belajar! Anda bisa mencoba lagi!';
+      }
+      document.getElementById('resultMessage').textContent = message;
+
+      if (score >= 70) {
+        document.getElementById('certificateSection').style.display = 'block';
+        const today = new Date().toLocaleDateString('id-ID', {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric'
+        });
+        document.getElementById('certDate').textContent = today;
+      }
+    }
+
+    function retakeExam() {
+      currentQuestion = 0;
+      answers = new Array(questions.length).fill(null);
+      timeLeft = 900;
+      
+      document.getElementById('resultScreen').classList.remove('active');
+      document.getElementById('startScreen').classList.remove('hidden');
+    }
+
+    function downloadCertificate() {
+      alert('Fitur download sertifikat akan segera hadir! 🎓\n\nSertifikat akan dikirim ke email Anda dalam format PDF.');
+    }
+
+    updateNavigationButtons();
+  </script>
+</body>
+</html>

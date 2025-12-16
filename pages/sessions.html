@@ -1,291 +1,617 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sesi Pembelajaran - Cendiks</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
-    <script src="../js/scripts.js"></script>
+    <style>
+        /* Additional styles for Sessions page */
+        .page-hero {
+            background: linear-gradient(135deg, 
+                rgba(139, 92, 246, 0.15) 0%,
+                rgba(236, 72, 153, 0.15) 50%,
+                rgba(59, 130, 246, 0.15) 100%);
+            backdrop-filter: blur(40px);
+            padding: 4rem 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            border-radius: 28px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+        }
+
+        .page-hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #a78bfa, #ec4899, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-hero p {
+            font-size: 1.2rem;
+            color: #e2e8f0;
+        }
+
+        .search-section {
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            margin: 2rem 0;
+        }
+
+        .search-section h3 {
+            text-align: center;
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: #f1f5f9;
+        }
+
+        #searchInput {
+            width: 100%;
+            max-width: 600px;
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            background: rgba(15, 23, 42, 0.6);
+            color: #e2e8f0;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            display: block;
+            margin: 0 auto;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: #8b5cf6;
+            box-shadow: 0 0 20px rgba(139, 92, 246, 0.4);
+        }
+
+        #searchInput::placeholder {
+            color: #94a3b8;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 3rem 0 2rem;
+            background: linear-gradient(135deg, #a78bfa, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .sessions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .session-card {
+            background: linear-gradient(135deg, rgba(51, 65, 85, 0.5), rgba(30, 41, 59, 0.6));
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 2rem;
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .session-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: conic-gradient(
+                from 0deg at 50% 50%,
+                transparent,
+                rgba(139, 92, 246, 0.3),
+                transparent 60deg
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            animation: cardRotate 6s linear infinite paused;
+        }
+
+        .session-card:hover::before {
+            opacity: 1;
+            animation-play-state: running;
+        }
+
+        @keyframes cardRotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .session-card::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            border-radius: 18px;
+            z-index: 0;
+        }
+
+        .session-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 
+                0 40px 80px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(139, 92, 246, 0.5);
+        }
+
+        .session-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .session-card h4 {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: #e2e8f0;
+            font-weight: 700;
+            line-height: 1.5;
+            min-height: 60px;
+        }
+
+        .session-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f59e0b 100%);
+            color: #fff;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+            font-size: 0.9rem;
+        }
+
+        .session-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .session-link:hover::before {
+            left: 100%;
+        }
+
+        .session-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.6);
+        }
+
+        .session-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .session-link:hover::after {
+            transform: translateX(5px);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            color: #cbd5e1;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.5);
+            color: #a78bfa;
+            transform: translateX(-5px);
+        }
+
+        .back-btn img {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-hero {
+                padding: 2.5rem 1.5rem;
+            }
+            .page-hero h2 {
+                font-size: 2rem;
+            }
+            .section-title {
+                font-size: 2rem;
+            }
+            .sessions-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+        }
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
-    <!-- Header -->
-    <header class="bg-white shadow-md">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4"><img src="../images/logo_back.png" alt="Kembali" class="w-6 h-6 inline"></button>
-            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
-            <nav class="space-x-4">
-                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
-                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
-                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
-                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
-                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
-            </nav>
+<body>
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <div class="container">
+            <h1 class="logo">Cendiks</h1>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Beranda</a></li>
+                <li><a href="sessions.html" class="nav-link">Sesi Pembelajaran</a></li>
+                <li><a href="install.html" class="nav-link">Instalasi Python</a></li>
+                <li><a href="ujian-sertifikasi.html" class="nav-link">Ujian Sertifikasi</a></li>
+                <li><a href="more.html" class="nav-link">More</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi Pembelajaran Python</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari Python dari dasar dengan 46 sesi lengkap dan video tutorial</p>
-        </div>
-    </section>
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Back Button -->
+        <a href="../index.html" class="back-btn fade-in-up">
+            <img src="../images/logo_back.png" alt="Kembali">
+            <span>Kembali ke Beranda</span>
+        </a>
 
-    <!-- Search Section -->
-    <section class="py-8 bg-gray-100">
-        <div class="container mx-auto px-4 max-w-4xl">
-            <div class="text-center mb-8">
-                <h3 class="text-2xl font-bold text-gray-800 mb-4">Cari Materi Pembelajaran</h3>
-                <input type="text" id="searchInput" placeholder="Ketik kata kunci sesi..." class="w-full max-w-md px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-primary">
+        <!-- Hero Section -->
+        <section class="page-hero fade-in-up delay-1">
+            <h2>📚 Sesi Pembelajaran Python</h2>
+            <p>Pelajari Python dari dasar dengan 46 sesi lengkap dan video tutorial</p>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section fade-in-up delay-2">
+            <h3>🔍 Cari Materi Pembelajaran</h3>
+            <input type="text" id="searchInput" placeholder="Ketik kata kunci sesi... (contoh: loop, function, list)">
+        </section>
+
+        <!-- Sessions Section -->
+        <h3 class="section-title fade-in-up delay-3">Daftar Sesi (46 Materi)</h3>
+        
+        <div id="sessionsGrid" class="sessions-grid">
+            <!-- Session 1 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 1: Fundamental Python untuk Pemula</h4>
+                <a href="sessions/session-1.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 2 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 2: Cara Kerja Program Python & Bytecode</h4>
+                <a href="sessions/session-2.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 3 -->
+            <div class="session-card fade-in-up delay-3">
+                <h4>Sesi 3: Mengenal Variabel dalam Python</h4>
+                <a href="sessions/session-3.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 4 -->
+            <div class="session-card fade-in-up delay-4">
+                <h4>Sesi 4: Tipe Data dalam Python</h4>
+                <a href="sessions/session-4.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 5 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 5: Casting Tipe Data (Konversi)</h4>
+                <a href="sessions/session-5.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 6 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 6: Mengambil Input dari User</h4>
+                <a href="sessions/session-6.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 7 -->
+            <div class="session-card fade-in-up delay-3">
+                <h4>Sesi 7: Operasi Aritmatika</h4>
+                <a href="sessions/session-7.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 8 -->
+            <div class="session-card fade-in-up delay-4">
+                <h4>Sesi 8: Operasi Komparasi</h4>
+                <a href="sessions/session-8.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 9 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 9: Operasi Logika / Boolean</h4>
+                <a href="sessions/session-9.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 10 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 10: Operator Bitwise</h4>
+                <a href="sessions/session-10.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 11 -->
+            <div class="session-card fade-in-up delay-3">
+                <h4>Sesi 11: Operator Assignment</h4>
+                <a href="sessions/session-11.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 12 -->
+            <div class="session-card fade-in-up delay-4">
+                <h4>Sesi 12: Pengenalan String</h4>
+                <a href="sessions/session-12.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 13 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 13: Format String</h4>
+                <a href="sessions/session-13.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 14 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 14: Latihan Date & Time</h4>
+                <a href="sessions/session-14.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 15 -->
+            <div class="session-card fade-in-up delay-3">
+                <h4>Sesi 15: If dan Else Statement</h4>
+                <a href="sessions/session-15.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 16 -->
+            <div class="session-card fade-in-up delay-4">
+                <h4>Sesi 16: Elif Statement</h4>
+                <a href="sessions/session-16.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 17 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 17: For Loop</h4>
+                <a href="sessions/session-17.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 18 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 18: While Loop</h4>
+                <a href="sessions/session-18.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 19 -->
+            <div class="session-card fade-in-up delay-3">
+                <h4>Sesi 19: Continue dan Pass</h4>
+                <a href="sessions/session-19.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 20 -->
+            <div class="session-card fade-in-up delay-4">
+                <h4>Sesi 20: List</h4>
+                <a href="sessions/session-20.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 21 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 21: Manipulasi List</h4>
+                <a href="sessions/session-21.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 22 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 22: Operasi List & Copy List</h4>
+                <a href="sessions/session-22.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 23 -->
+            <div class="session-card fade-in-up delay-3">
+                <h4>Sesi 23: Tuples dan Set</h4>
+                <a href="sessions/session-23.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 24 -->
+            <div class="session-card fade-in-up delay-4">
+                <h4>Sesi 24: Dictionary</h4>
+                <a href="sessions/session-24.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 25 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 25: Looping Dictionary</h4>
+                <a href="sessions/session-25.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 26 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 26: Pengenalan Fungsi (Function) di Python</h4>
+                <a href="sessions/session-26.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 27 -->
+            <div class="session-card fade-in-up delay-3">
+                <h4>Sesi 27: Parameter & Argument pada Fungsi</h4>
+                <a href="sessions/session-27.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 28 -->
+            <div class="session-card fade-in-up delay-4">
+                <h4>Sesi 28: Fungsi dengan Return Value</h4>
+                <a href="sessions/session-28.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 29 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 29: Latihan Membuat Fungsi Python</h4>
+                <a href="sessions/session-29.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 30 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 30: Type Hints Python (Annotasi Tipe)</h4>
+                <a href="sessions/session-30.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 31 -->
+            <div class="session-card fade-in-up delay-3">
+                <h4>Sesi 31: Args pada Fungsi</h4>
+                <a href="sessions/session-31.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 32 -->
+            <div class="session-card fade-in-up delay-4">
+                <h4>Sesi 32: Kwargs pada Fungsi</h4>
+                <a href="sessions/session-32.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 33 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 33: Anonymous & Lambda Function</h4>
+                <a href="sessions/session-33.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 34 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 34: Global & Local Scope</h4>
+                <a href="sessions/session-34.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 35 -->
+            <div class="session-card fade-in-up delay-3">
+                <h4>Sesi 35: Import Statement</h4>
+                <a href="sessions/session-35.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 36 -->
+            <div class="session-card fade-in-up delay-4">
+                <h4>Sesi 36: Membuat dan Menggunakan Module</h4>
+                <a href="sessions/session-36.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 37 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 37: Membuat Package Sederhana</h4>
+                <a href="sessions/session-37.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 38 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 38: Menggunakan Standard Library</h4>
+                <a href="sessions/session-38.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 39 -->
+            <div class="session-card fade-in-up delay-3">
+                <h4>Sesi 39: Tkinter | GUI Standard Library Python</h4>
+                <a href="sessions/session-39.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 40 -->
+            <div class="session-card fade-in-up delay-4">
+                <h4>Sesi 40: Mengenal Pip</h4>
+                <a href="sessions/session-40.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 41 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 41: Package Numpy</h4>
+                <a href="sessions/session-41.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 42 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 42: Explore Pygame</h4>
+                <a href="sessions/session-42.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 43 -->
+            <div class="session-card fade-in-up delay-3">
+                <h4>Sesi 43: __main__ Sebagai Gerbang Program</h4>
+                <a href="sessions/session-43.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 44 -->
+            <div class="session-card fade-in-up delay-4">
+                <h4>Sesi 44: Read External File – open dan with</h4>
+                <a href="sessions/session-44.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 45 -->
+            <div class="session-card fade-in-up delay-1">
+                <h4>Sesi 45: Write External File</h4>
+                <a href="sessions/session-45.html" class="session-link">Pelajari Selengkapnya</a>
+            </div>
+
+            <!-- Session 46 -->
+            <div class="session-card fade-in-up delay-2">
+                <h4>Sesi 46: Exception, Error, Try, and Except</h4>
+                <a href="sessions/session-46.html" class="session-link">Pelajari Selengkapnya</a>
             </div>
         </div>
-    </section>
-
-    <!-- Sessions Section -->
-    <section class="py-16">
-        <div class="container mx-auto px-4 max-w-6xl">
-            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800">Daftar Sesi</h3>
-            <div id="sessionsGrid" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Session 1 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-1">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 1: Fundamental Python untuk Pemula – Cendiks Learning Series</h4>
-                    <a href="sessions/session-1.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 2 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-2">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 2: Cara Kerja Program Python & Bytecode</h4>
-<a href="sessions/session-2.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 3 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-3">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 3: Mengenal Variabel dalam Python</h4>
-<a href="sessions/session-3.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 4 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-4">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 4: Tipe Data dalam Python</h4>
-<a href="sessions/session-4.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 5 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-5">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 5: Casting Tipe Data (Konversi)</h4>
-<a href="sessions/session-5.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 6 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-6">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 6: Mengambil Input dari User</h4>
-<a href="sessions/session-6.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 7 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-7">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 7: Operasi Aritmatika</h4>
-<a href="sessions/session-7.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 8 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-8">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 8: Operasi Komparasi</h4>
-<a href="sessions/session-8.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 9 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-9">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 9: Operasi Logika / Boolean</h4>
-<a href="sessions/session-9.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 10 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-10">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 10: Operator Bitwise</h4>
-<a href="sessions/session-10.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 11 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-11">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 11: Operator Assignment</h4>
-<a href="sessions/session-11.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 12 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-12">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 12: Pengenalan String</h4>
-<a href="sessions/session-12.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 13 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-13">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 13: Format String</h4>
-<a href="sessions/session-13.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 14 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-14">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 14: Latihan Date & Time</h4>
-<a href="sessions/session-14.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 15 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-15">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 15: If dan Else Statement</h4>
-<a href="sessions/session-15.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 16 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-16">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 16: Elif Statement</h4>
-<a href="sessions/session-16.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 17 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-17">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 17: For Loop</h4>
-<a href="sessions/session-17.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 18 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-18">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 18: While Loop</h4>
-<a href="sessions/session-18.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 19 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-19">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 19: Continue dan Pass</h4>
-<a href="sessions/session-19.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 20 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-20">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 20: List</h4>
-                    <a href="sessions/session-20.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 21 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-21">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 21: Manipulasi List</h4>
-                    <a href="sessions/session-21.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 22 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-22">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 22: Operasi List & Copy List</h4>
-                    <a href="sessions/session-22.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 23 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-23">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 23: Tuples dan Set</h4>
-                    <a href="sessions/session-23.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 24 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-24">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 24: Dictionary</h4>
-                    <a href="sessions/session-24.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 25 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-25">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 25: Looping Dictionary</h4>
-                    <a href="sessions/session-25.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 26 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-26">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 26: Pengenalan Fungsi (Function) di Python untuk Pemula</h4>
-                    <a href="sessions/session-26.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 27 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-27">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 27: Cara Menggunakan Parameter & Argument pada Fungsi Python</h4>
-                    <a href="sessions/session-27.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 28 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-28">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 28: Fungsi Python dengan Return Value (Mengembalikan Nilai)</h4>
-                    <a href="sessions/session-28.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 29 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-29">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 29: Latihan Membuat Fungsi Python (Praktik untuk Pemula)</h4>
-                    <a href="sessions/session-29.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 30 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-30">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 30: Penjelasan Type Hints Python (Annotasi Tipe pada Fungsi)</h4>
-                    <a href="sessions/session-30.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 31 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-31">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 31: Args pada Fungsi</h4>
-                    <a href="sessions/session-31.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 32 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-32">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 32: Kwargs pada Fungsi</h4>
-                    <a href="sessions/session-32.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 33 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-33">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 33: Anonymous & Lambda Function</h4>
-                    <a href="sessions/session-33.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 34 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-34">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 34: Global & Local Scope</h4>
-<a href="sessions/session-34.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 35 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-35">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 35: Import Statement</h4>
-<a href="sessions/session-35.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 36 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-36">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 36: Cara Membuat dan Menggunakan Module di Python</h4>
-<a href="sessions/session-36.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 37 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-37">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 37: Membuat Package Sederhana</h4>
-<a href="sessions/session-37.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 38 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-38">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 38: Menggunakan Standard Library</h4>
-<a href="sessions/session-38.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 39 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-39">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 39: Tkinter | GUI Standard Library Python</h4>
-<a href="sessions/session-39.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 40 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-40">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 40: Mengenal Pip</h4>
-<a href="sessions/session-40.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 41 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-41">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 41: Package Numpy</h4>
-<a href="sessions/session-41.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 42 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-42">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 42: Explore Pygame</h4>
-<a href="sessions/session-42.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 43 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-43">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 43: __main__ Sebagai Gerbang Program</h4>
-<a href="sessions/session-43.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 44 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-44">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 44: Read External File – open dan with</h4>
-<a href="sessions/session-44.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 45 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-45">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 45: Write External File</h4>
-<a href="sessions/session-45.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-                <!-- Session 46 -->
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-46">
-                    <h4 class="text-xl font-semibold mb-2">Sesi 46: Exception, Error, Try, and Except</h4>
-<a href="sessions/session-46.html" class="bg-primary text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mb-4 inline-block">Pelajari Selengkapnya</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
-        </div>
+    <footer class="site-footer">
+        <p>&copy; 2025 Cendiks. Platform belajar Python untuk semua.</p>
     </footer>
+
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const sessionsGrid = document.getElementById('sessionsGrid');
+        const sessionCards = sessionsGrid.getElementsByClassName('session-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+
+            Array.from(sessionCards).forEach(card => {
+                const title = card.querySelector('h4').textContent.toLowerCase();
+                
+                if (title.includes(searchTerm)) {
+                    card.style.display = 'block';
+                    card.style.animation = 'fadeInUp 0.5s ease-out';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+
+            // Show message if no results
+            const visibleCards = Array.from(sessionCards).filter(card => card.style.display !== 'none');
+            if (visibleCards.length === 0 && searchTerm !== '') {
+                if (!document.getElementById('noResults')) {
+                    const noResults = document.createElement('p');
+                    noResults.id = 'noResults';
+                    noResults.textContent = 'Tidak ada sesi yang ditemukan 😔';
+                    noResults.style.cssText = 'text-align: center; color: #94a3b8; font-size: 1.2rem; grid-column: 1/-1; padding: 3rem;';
+                    sessionsGrid.appendChild(noResults);
+                }
+            } else {
+                const noResults = document.getElementById('noResults');
+                if (noResults) noResults.remove();
+            }
+        });
+    </script>
 </body>
 </html>

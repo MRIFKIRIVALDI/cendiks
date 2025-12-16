@@ -4,95 +4,397 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>More - Cendiks</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../css/styles.css">
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: '#3B82F6',
-                        secondary: '#10B981',
-                        accent: '#F59E0B',
-                    }
-                }
+    <style>
+        /* Additional styles for More page */
+        .page-hero {
+            background: linear-gradient(135deg, 
+                rgba(139, 92, 246, 0.15) 0%,
+                rgba(236, 72, 153, 0.15) 50%,
+                rgba(59, 130, 246, 0.15) 100%);
+            backdrop-filter: blur(40px);
+            padding: 5rem 2rem;
+            text-align: center;
+            margin: 2rem 0;
+            border-radius: 28px;
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            box-shadow: 0 40px 100px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(139, 92, 246, 0.3) 0%, transparent 60%);
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: pulseGlow 4s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% { opacity: 0.5; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        .page-hero h2 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #a78bfa, #ec4899, #3b82f6);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            position: relative;
+            z-index: 1;
+        }
+
+        .page-hero p {
+            font-size: 1.25rem;
+            color: #e2e8f0;
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            margin: 4rem 0 3rem;
+            background: linear-gradient(135deg, #a78bfa, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .resources-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .resource-card {
+            background: linear-gradient(135deg, rgba(51, 65, 85, 0.5), rgba(30, 41, 59, 0.6));
+            backdrop-filter: blur(30px);
+            border-radius: 20px;
+            padding: 2.5rem;
+            border: 2px solid rgba(139, 92, 246, 0.2);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: -100%;
+            left: -100%;
+            width: 300%;
+            height: 300%;
+            background: conic-gradient(
+                from 0deg at 50% 50%,
+                transparent,
+                rgba(139, 92, 246, 0.3),
+                transparent 60deg
+            );
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            animation: cardRotate 6s linear infinite paused;
+        }
+
+        .resource-card:hover::before {
+            opacity: 1;
+            animation-play-state: running;
+        }
+
+        @keyframes cardRotate {
+            100% { transform: rotate(360deg); }
+        }
+
+        .resource-card::after {
+            content: '';
+            position: absolute;
+            inset: 2px;
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.9), rgba(15, 23, 42, 0.9));
+            border-radius: 18px;
+            z-index: 0;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: rgba(139, 92, 246, 0.6);
+            box-shadow: 
+                0 40px 80px rgba(0, 0, 0, 0.4),
+                0 0 60px rgba(139, 92, 246, 0.5);
+        }
+
+        .resource-card > * {
+            position: relative;
+            z-index: 1;
+        }
+
+        .resource-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(135deg, #a78bfa, #ec4899);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 800;
+        }
+
+        .resource-card p {
+            color: #cbd5e1;
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            font-size: 1rem;
+        }
+
+        .resource-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.85rem 1.75rem;
+            background: linear-gradient(135deg, #8b5cf6 0%, #ec4899 50%, #f59e0b 100%);
+            color: #fff;
+            border-radius: 12px;
+            font-weight: 700;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(139, 92, 246, 0.4);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .resource-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .resource-link:hover::before {
+            left: 100%;
+        }
+
+        .resource-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(139, 92, 246, 0.6);
+        }
+
+        .resource-link::after {
+            content: '→';
+            transition: transform 0.3s ease;
+        }
+
+        .resource-link:hover::after {
+            transform: translateX(5px);
+        }
+
+        .back-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(30, 41, 59, 0.6);
+            backdrop-filter: blur(20px);
+            border: 2px solid rgba(139, 92, 246, 0.3);
+            border-radius: 12px;
+            color: #cbd5e1;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin-bottom: 2rem;
+        }
+
+        .back-btn:hover {
+            background: rgba(139, 92, 246, 0.2);
+            border-color: rgba(139, 92, 246, 0.5);
+            color: #a78bfa;
+            transform: translateX(-5px);
+        }
+
+        .back-btn img {
+            width: 20px;
+            height: 20px;
+            filter: brightness(0) invert(1);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .page-hero {
+                padding: 3rem 1.5rem;
+            }
+
+            .page-hero h2 {
+                font-size: 2rem;
+            }
+
+            .page-hero p {
+                font-size: 1.1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .resources-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .resource-card {
+                padding: 2rem;
             }
         }
-    </script>
+    </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
-    <!-- Header -->
-    <header class="bg-white shadow-md">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4"><img src="../images/logo_back.png" alt="Kembali" class="w-6 h-6 inline"></button>
-            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
-            <nav class="space-x-4">
-                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
-                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
-                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
-                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
-                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
-            </nav>
+<body>
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <div class="container">
+            <h1 class="logo">Cendiks</h1>
+            <ul class="nav-links">
+                <li><a href="../index.html" class="nav-link">Beranda</a></li>
+                <li><a href="sessions.html" class="nav-link">Sesi Pembelajaran</a></li>
+                <li><a href="install.html" class="nav-link">Instalasi Python</a></li>
+                <li><a href="ujian-sertifikasi.html" class="nav-link">Ujian Sertifikasi</a></li>
+                <li><a href="more.html" class="nav-link">More</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
 
-    <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-purple-100 to-pink-100 py-20">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">Eksplorasi Lebih Lanjut</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Temukan sumber belajar Python tambahan dari berbagai platform terpercaya</p>
-        </div>
-    </section>
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Back Button -->
+        <a href="../index.html" class="back-btn fade-in-up">
+            <img src="../images/logo_back.png" alt="Kembali">
+            <span>Kembali ke Beranda</span>
+        </a>
 
-    <!-- Resources Section -->
-    <section class="py-16">
-        <div class="container mx-auto px-4">
-            <h3 class="text-3xl font-bold text-center mb-12 text-gray-800">Sumber Belajar Tambahan</h3>
-            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-1">
-                    <h4 class="text-xl font-semibold mb-2">Dokumentasi Resmi Python</h4>
-                    <p class="text-gray-600 mb-4">Dokumentasi resmi Python dengan panduan lengkap dan referensi.</p>
-                    <a href="https://docs.python.org/3/" target="_blank" class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">Kunjungi</a>
+        <!-- Hero Section -->
+        <section class="page-hero fade-in-up delay-1">
+            <h2>🌐 Eksplorasi Lebih Lanjut</h2>
+            <p>Temukan sumber belajar Python tambahan dari berbagai platform terpercaya untuk memperdalam kemampuan programming Anda</p>
+        </section>
+
+        <!-- Resources Section -->
+        <section>
+            <h3 class="section-title fade-in-up delay-2">Sumber Belajar Tambahan</h3>
+            
+            <div class="resources-grid">
+                <div class="resource-card fade-in-up delay-1">
+                    <h4>📚 Dokumentasi Resmi Python</h4>
+                    <p>Dokumentasi resmi Python dengan panduan lengkap, tutorial, dan referensi API yang komprehensif.</p>
+                    <a href="https://docs.python.org/3/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-2">
-                    <h4 class="text-xl font-semibold mb-2">Kursus Python Codecademy</h4>
-                    <p class="text-gray-600 mb-4">Kursus interaktif Python dengan latihan praktis.</p>
-                    <a href="https://www.codecademy.com/learn/learn-python-3" target="_blank" class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">Kunjungi</a>
+                <div class="resource-card fade-in-up delay-2">
+                    <h4>💻 Kursus Python Codecademy</h4>
+                    <p>Kursus interaktif Python dengan latihan praktis langsung di browser tanpa instalasi.</p>
+                    <a href="https://www.codecademy.com/learn/learn-python-3" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-3">
-                    <h4 class="text-xl font-semibold mb-2">Tutorial Python freeCodeCamp</h4>
-                    <p class="text-gray-600 mb-4">Tutorial Python gratis dengan sertifikat.</p>
-                    <a href="https://www.freecodecamp.org/learn/scientific-computing-with-python/" target="_blank" class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">Kunjungi</a>
+                <div class="resource-card fade-in-up delay-3">
+                    <h4>🎓 Tutorial Python freeCodeCamp</h4>
+                    <p>Tutorial Python gratis dengan proyek real-world dan sertifikat gratis setelah menyelesaikan kursus.</p>
+                    <a href="https://www.freecodecamp.org/learn/scientific-computing-with-python/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-4">
-                    <h4 class="text-xl font-semibold mb-2">Python untuk Semua Orang</h4>
-                    <p class="text-gray-600 mb-4">Kursus Python dari University of Michigan.</p>
-                    <a href="https://www.py4e.com/" target="_blank" class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">Kunjungi</a>
+                <div class="resource-card fade-in-up delay-4">
+                    <h4>🎯 Python untuk Semua Orang</h4>
+                    <p>Kursus Python populer dari University of Michigan dengan materi yang mudah dipahami pemula.</p>
+                    <a href="https://www.py4e.com/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-1">
-                    <h4 class="text-xl font-semibold mb-2">Real Python</h4>
-                    <p class="text-gray-600 mb-4">Artikel dan tutorial Python berkualitas tinggi.</p>
-                    <a href="https://realpython.com/" target="_blank" class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">Kunjungi</a>
+                <div class="resource-card fade-in-up delay-1">
+                    <h4>⚡ Real Python</h4>
+                    <p>Artikel dan tutorial Python berkualitas tinggi dengan fokus pada praktik terbaik dan teknik advanced.</p>
+                    <a href="https://realpython.com/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
                 </div>
 
-                <div class="bg-white p-6 rounded-lg shadow-md hover-lift bounce-in delay-2">
-                    <h4 class="text-xl font-semibold mb-2">Kursus Cepat Python</h4>
-                    <p class="text-gray-600 mb-4">Buku dan sumber belajar Python populer.</p>
-                    <a href="https://ehmatthes.github.io/pcc/" target="_blank" class="bg-primary text-white px-4 py-2 rounded hover:bg-blue-700 transition duration-300">Kunjungi</a>
+                <div class="resource-card fade-in-up delay-2">
+                    <h4>📖 Python Crash Course</h4>
+                    <p>Buku dan sumber belajar Python populer dengan pendekatan hands-on dan proyek praktis.</p>
+                    <a href="https://ehmatthes.github.io/pcc/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
+                </div>
+
+                <div class="resource-card fade-in-up delay-3">
+                    <h4>🐍 Python.org Tutorial</h4>
+                    <p>Tutorial resmi dari Python Software Foundation untuk memulai belajar Python dari dasar.</p>
+                    <a href="https://docs.python.org/3/tutorial/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
+                </div>
+
+                <div class="resource-card fade-in-up delay-4">
+                    <h4>🎬 Corey Schafer - YouTube</h4>
+                    <p>Channel YouTube dengan tutorial Python yang sangat detail dan mudah diikuti untuk semua level.</p>
+                    <a href="https://www.youtube.com/@coreyms" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
+                </div>
+
+                <div class="resource-card fade-in-up delay-1">
+                    <h4>🏆 LeetCode Python</h4>
+                    <p>Platform untuk berlatih coding challenges dan algoritma menggunakan Python.</p>
+                    <a href="https://leetcode.com/problemset/all/?difficulty=EASY&page=1&topicSlugs=python" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
+                </div>
+
+                <div class="resource-card fade-in-up delay-2">
+                    <h4>🔬 Kaggle Learn Python</h4>
+                    <p>Kursus Python gratis dari Kaggle dengan fokus pada data science dan machine learning.</p>
+                    <a href="https://www.kaggle.com/learn/python" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
+                </div>
+
+                <div class="resource-card fade-in-up delay-3">
+                    <h4>💡 W3Schools Python</h4>
+                    <p>Tutorial Python dengan contoh interaktif yang bisa dicoba langsung di browser.</p>
+                    <a href="https://www.w3schools.com/python/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
+                </div>
+
+                <div class="resource-card fade-in-up delay-4">
+                    <h4>🚀 Full Stack Python</h4>
+                    <p>Panduan lengkap untuk menjadi Python developer dengan fokus pada web development.</p>
+                    <a href="https://www.fullstackpython.com/" target="_blank" rel="noopener noreferrer" class="resource-link">
+                        Kunjungi
+                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    </div>
 
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
-        </div>
+    <footer class="site-footer">
+        <p>&copy; 2025 Cendiks. Platform belajar Python untuk semua.</p>
     </footer>
 </body>
 </html>
