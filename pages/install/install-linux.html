@@ -4,155 +4,127 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Instalasi Python di Linux - Cendiks</title>
-    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="../../css/styles.css">
     <script src="../../js/scripts.js"></script>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
-    <!-- Header -->
-    <header class="bg-white shadow-md">
-        <div class="container mx-auto px-4 py-4 flex justify-between items-center">
-            <button onclick="history.back()" class="text-gray-600 hover:text-primary mr-4">← Kembali</button>
-            <h1 class="text-2xl font-bold text-primary">Cendiks</h1>
-            <nav class="space-x-4">
-                <a href="../index.html" class="text-gray-600 hover:text-primary">Beranda</a>
-                <a href="sessions.html" class="text-gray-600 hover:text-primary">Sesi Pembelajaran</a>
-                <a href="install.html" class="text-gray-600 hover:text-primary">Instalasi Python</a>
-                <a href="certification.html" class="text-gray-600 hover:text-primary">Ujian Sertifikasi</a>
-                <a href="more.html" class="text-gray-600 hover:text-primary">More</a>
-            </nav>
+<body>
+    <!-- Navigation -->
+    <nav class="site-nav">
+        <div class="container">
+            <h1 class="logo">Cendiks</h1>
+            <ul class="nav-links">
+                <li><a href="../../index.html" class="nav-link">Beranda</a></li>
+                <li><a href="../sessions.html" class="nav-link">Sesi Pembelajaran</a></li>
+                <li><a href="install.html" class="nav-link">Instalasi Python</a></li>
+                <li><a href="../ujian-sertifikasi.html" class="nav-link">Ujian Sertifikasi</a></li>
+                <li><a href="../more.html" class="nav-link">More</a></li>
+                <li><a href="../login.html" class="btn btn-primary">Login</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <!-- Back Button -->
+        <a href="../../install.html" class="back-btn fade-in-up">
+            <img src="../../images/logo_back.png" alt="Kembali">
+            <span>Kembali ke Beranda</span>
+        </a>
+    </div>
 
     <!-- Hero Section -->
-    <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
-        <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">🟩 Instalasi Python di Linux</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Ubuntu/Debian/Fedora/Arch - Pilih distro Linux Anda!</p>
+    <section class="hero">
+        <div class="hero-content fade-in-up">
+            <h2>🟩 Instalasi Python di Linux</h2>
+            <p class="lead slide-in-right">Ubuntu/Debian/Fedora/Arch - Pilih distro Linux Anda!</p>
         </div>
     </section>
 
     <!-- Installation Methods -->
-    <section class="py-16">
-        <div class="container mx-auto px-4 max-w-4xl">
+    <section class="container">
+        <div class="grid">
             <!-- Method 1: Ubuntu/Debian -->
-            <div class="bg-white p-8 rounded-lg shadow-md mb-8 hover-lift bounce-in delay-1">
-                <div class="flex items-center mb-6">
-                    <div class="text-4xl mr-4">🐧</div>
-                    <h3 class="text-2xl font-bold text-primary">Metode 1: Ubuntu/Debian (apt)</h3>
-                </div>
-                <div class="mb-6">
-                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/cQI4jUWLivI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
-                </div>
-                <div class="space-y-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-lg mb-2">Langkah-langkah:</h4>
-                        <ol class="list-decimal list-inside space-y-2">
-                            <li>Buka Terminal</li>
-                            <li>Update repositori:</li>
-                        </ol>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2 mb-4">sudo apt update</code>
-                        <ol class="list-decimal list-inside space-y-2" start="3">
-                            <li>Install Python:</li>
-                        </ol>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2 mb-4">sudo apt install python3 python3-pip</code>
-                        <ol class="list-decimal list-inside space-y-2" start="4">
-                            <li>Cek versi:</li>
-                        </ol>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2">python3 --version</code>
-                    </div>
-                </div>
+            <div class="card fade-in-up delay-1">
+                <div class="card-img">🐧</div>
+                <h4>Metode 1: Ubuntu/Debian (apt)</h4>
+                <p class="small">Langkah-langkah:</p>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>Buka Terminal</li>
+                    <li>Update repositori:</li>
+                </ol>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2 mb-4">sudo apt update</code>
+                <ol class="list-decimal list-inside space-y-2" start="3">
+                    <li>Install Python:</li>
+                </ol>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2 mb-4">sudo apt install python3 python3-pip</code>
+                <ol class="list-decimal list-inside space-y-2" start="4">
+                    <li>Cek versi:</li>
+                </ol>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2">python3 --version</code>
             </div>
 
             <!-- Method 2: Fedora/RHEL -->
-            <div class="bg-white p-8 rounded-lg shadow-md mb-8 hover-lift bounce-in delay-2">
-                <div class="flex items-center mb-6">
-                    <div class="text-4xl mr-4">🔶</div>
-                    <h3 class="text-2xl font-bold text-primary">Metode 2: Fedora/RHEL (dnf)</h3>
-                </div>
-                <div class="mb-6">
-                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/cQI4jUWLivI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
-                </div>
-                <div class="space-y-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-lg mb-2">Langkah-langkah:</h4>
-                        <ol class="list-decimal list-inside space-y-2">
-                            <li>Buka Terminal</li>
-                            <li>Jalankan perintah install:</li>
-                        </ol>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2 mb-4">sudo dnf install python3 python3-pip</code>
-                        <ol class="list-decimal list-inside space-y-2" start="3">
-                            <li>Cek versi:</li>
-                        </ol>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2">python3 --version</code>
-                    </div>
-                </div>
+            <div class="card fade-in-up delay-2">
+                <div class="card-img">🔶</div>
+                <h4>Metode 2: Fedora/RHEL (dnf)</h4>
+                <p class="small">Langkah-langkah:</p>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>Buka Terminal</li>
+                    <li>Jalankan perintah install:</li>
+                </ol>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2 mb-4">sudo dnf install python3 python3-pip</code>
+                <ol class="list-decimal list-inside space-y-2" start="3">
+                    <li>Cek versi:</li>
+                </ol>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2">python3 --version</code>
             </div>
 
             <!-- Method 3: Arch Linux/Manjaro -->
-            <div class="bg-white p-8 rounded-lg shadow-md mb-8 hover-lift bounce-in delay-3">
-                <div class="flex items-center mb-6">
-                    <div class="text-4xl mr-4">🔷</div>
-                    <h3 class="text-2xl font-bold text-primary">Metode 3: Arch Linux/Manjaro (pacman)</h3>
-                </div>
-                <div class="mb-6">
-                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/cQI4jUWLivI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
-                </div>
-                <div class="space-y-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-lg mb-2">Langkah-langkah:</h4>
-                        <ol class="list-decimal list-inside space-y-2">
-                            <li>Buka Terminal</li>
-                            <li>Jalankan perintah install:</li>
-                        </ol>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2 mb-4">sudo pacman -S python python-pip</code>
-                        <ol class="list-decimal list-inside space-y-2" start="3">
-                            <li>Cek versi:</li>
-                        </ol>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2">python --version</code>
-                    </div>
-                </div>
+            <div class="card fade-in-up delay-3">
+                <div class="card-img">🔷</div>
+                <h4>Metode 4: Arch Linux/Manjaro (pacman)</h4>
+                <p class="small">Langkah-langkah:</p>
+                <ol class="list-decimal list-inside space-y-2">
+                    <li>Buka Terminal</li>
+                    <li>Jalankan perintah install:</li>
+                </ol>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2 mb-4">sudo pacman -S python python-pip</code>
+                <ol class="list-decimal list-inside space-y-2" start="3">
+                    <li>Cek versi:</li>
+                </ol>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block mt-2">python --version</code>
             </div>
 
             <!-- Method 4: Build from Source -->
-            <div class="bg-white p-8 rounded-lg shadow-md mb-8 hover-lift bounce-in delay-4">
-                <div class="flex items-center mb-6">
-                    <div class="text-4xl mr-4">🧰</div>
-                    <h3 class="text-2xl font-bold text-primary">Metode 4: Build dari Source Code (Advanced)</h3>
-                </div>
-                <div class="mb-6">
-                    <iframe width="100%" height="250" src="https://www.youtube.com/embed/cQI4jUWLivI" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
-                </div>
-                <div class="space-y-4">
-                    <div class="bg-blue-50 p-4 rounded-lg">
-                        <h4 class="font-semibold text-lg mb-2">Dipakai jika ingin versi terbaru atau custom build.</h4>
-                        <h5 class="font-semibold mb-2">Download source Python:</h5>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mb-4">wget https://www.python.org/ftp/python/3.x.x/Python-3.x.x.tgz</code>
-                        <h5 class="font-semibold mb-2">Ekstrak:</h5>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mb-4">tar -xvzf Python-3.x.x.tgz</code>
-                        <h5 class="font-semibold mb-2">Build:</h5>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mb-2">./configure</code>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block mb-2">make</code>
-                        <code class="bg-gray-800 text-white px-3 py-1 rounded block">sudo make install</code>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Completion Section -->
-            <div class="bg-green-50 p-6 rounded-lg border-l-4 border-green-400">
-                <h4 class="font-semibold text-lg mb-2 text-green-800">🎉 Selesai! Python Siap Digunakan</h4>
-                <p class="text-green-700 mb-2">Setelah Python terinstall, kamu bisa mulai menggunakan:</p>
-                <code class="bg-gray-800 text-white px-3 py-1 rounded block mb-2">python (atau python3)</code>
-                <p class="text-green-700 mb-2">dan menjalankan file .py menggunakan:</p>
-                <code class="bg-gray-800 text-white px-3 py-1 rounded block">python script.py</code>
+            <div class="card fade-in-up delay-4">
+                <div class="card-img">🧰</div>
+                <h4>Metode 4: Build dari Source Code (Advanced)</h4>
+                <p class="small">Dipakai jika ingin versi terbaru atau custom build.</p>
+                <p class="small">Download source Python:</p>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block mb-4">wget https://www.python.org/ftp/python/3.x.x/Python-3.x.x.tgz</code>
+                <p class="small">Ekstrak:</p>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block mb-4">tar -xvzf Python-3.x.x.tgz</code>
+                <p class="small">Build:</p>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block mb-2">./configure</code>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block mb-2">make</code>
+                <code class="bg-gray-800 text-white px-3 py-1 rounded block">sudo make install</code>
             </div>
         </div>
     </section>
 
+    <!-- Video Tutorial Section -->
+    <section class="container">
+        <h3 class="section-title fade-in-up delay-1">🎥 Video Tutorial Instalasi Python di Linux</h3>
+        <div class="video-container fade-in-up delay-2">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/8jA9hV8Q2i0" title="How to Install Python on Ubuntu Linux" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+        </div>
+        <p class="text-center mt-4 fade-in-up delay-3">Tutorial lengkap instalasi Python di berbagai distro Linux (Ubuntu, Fedora, Arch, dll.)</p>
+    </section>
+
     <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-8">
-        <div class="container mx-auto px-4 text-center">
-            <p>&copy; 2023 Cendiks. Platform belajar Python untuk semua.</p>
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 Cendiks. Platform belajar Python untuk semua.</p>
         </div>
     </footer>
 </body>
