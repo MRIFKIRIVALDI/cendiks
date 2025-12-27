@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sesi 33: Cara Menggunakan Modul Math di Python - Cendiks</title>
+    <title>Sesi 33: Anonymous dan Lambda Fungsi - Cendiks</title>
     <link rel="stylesheet" href="../../css/styles.css">
     <script src="../../js/scripts.js"></script>
 </head>
@@ -26,8 +26,8 @@
     <!-- Hero Section -->
     <section class="bg-gradient-to-r from-blue-100 to-yellow-100 py-20">
         <div class="container mx-auto px-4 text-center">
-            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 33: Cara Menggunakan Modul Math di Python</h2>
-            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari fungsi matematika dalam Python</p>
+            <h2 class="text-4xl font-bold mb-4 text-gray-800 fade-in-up">📚 Sesi 33: Anonymous dan Lambda Fungsi</h2>
+            <p class="text-xl mb-8 text-gray-600 slide-in-right">Pelajari fungsi lambda dan anonymous functions dalam Python</p>
         </div>
     </section>
 
@@ -38,263 +38,319 @@
                 <h3 class="text-2xl font-bold mb-6">Materi Pembelajaran</h3>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">1️⃣ Pengenalan Modul Math</h4>
-                    <p class="text-gray-600 mb-4">Modul math: gudang senjata matematika Python! 🧮</p>
+                    <h4 class="text-xl font-semibold mb-4">1️⃣ Pengenalan Lambda Function</h4>
+                    <p class="text-gray-600 mb-4">Lambda function adalah fungsi anonim (tanpa nama) yang dapat didefinisikan dalam satu baris. Lambda sangat berguna untuk operasi sederhana dan sering digunakan dengan fungsi higher-order seperti map(), filter(), dan sorted().</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import math
+                        <pre><code># Sintaks dasar lambda
+# lambda parameter: expression
 
-# Konstanta matematika
-print(f"Pi: {math.pi}")           # Output: 3.141592653589793
-print(f"Euler: {math.e}")         # Output: 2.718281828459045
-print(f"Tau: {math.tau}")         # Output: 6.283185307179586
+# Contoh sederhana
+kuadrat = lambda x: x ** 2
+print(kuadrat(5))  # Output: 25
 
-# Fungsi dasar
-print(f"Akar kuadrat 16: {math.sqrt(16)}")  # Output: 4.0
-print(f"2 pangkat 3: {math.pow(2, 3)}")     # Output: 8.0
-print(f"Faktorial 5: {math.factorial(5)}") # Output: 120</code></pre>
+# Lambda dengan multiple parameter
+tambah = lambda a, b: a + b
+print(tambah(3, 4))  # Output: 7
+
+# Lambda tanpa parameter
+halo = lambda: "Hello, World!"
+print(halo())  # Output: Hello, World!</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">2️⃣ Fungsi Trigonometri</h4>
-                    <p class="text-gray-600 mb-4">Sin, cos, tan - teman baik matematika untuk menghitung sudut! 📐</p>
+                    <h4 class="text-xl font-semibold mb-4">2️⃣ Lambda vs Regular Function</h4>
+                    <p class="text-gray-600 mb-4">Perbedaan utama antara lambda dan fungsi def biasa adalah lambda bersifat anonim dan hanya dapat berisi satu expression, sedangkan def dapat memiliki multiple statement.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import math
+                        <pre><code># Fungsi regular
+def kuadrat_regular(x):
+    return x ** 2
 
-# Sudut dalam radian
-sudut = math.pi / 4  # 45 derajat
+# Lambda equivalent
+kuadrat_lambda = lambda x: x ** 2
 
-print(f"Sudut: {sudut} radian ({math.degrees(sudut)}°)")
+print(kuadrat_regular(4))  # Output: 16
+print(kuadrat_lambda(4))   # Output: 16
 
-# Fungsi trigonometri
-print(f"sin(45°): {math.sin(sudut):.3f}")
-print(f"cos(45°): {math.cos(sudut):.3f}")
-print(f"tan(45°): {math.tan(sudut):.3f}")
+# Lambda tidak bisa memiliki multiple statement
+# Ini akan error:
+# lambda x: print(x); return x**2
 
-# Fungsi invers
-nilai_sin = 0.707
-sudut_asin = math.asin(nilai_sin)
-print(f"asin(0.707): {math.degrees(sudut_asin):.1f}°")
-
-# Konversi derajat ke radian
-derajat = 60
-radian = math.radians(derajat)
-print(f"{derajat}° = {radian:.3f} radian")</code></pre>
+# Tapi bisa dengan conditional expression
+cek_genap = lambda x: "Genap" if x % 2 == 0 else "Ganjil"
+print(cek_genap(4))  # Output: Genap
+print(cek_genap(5))  # Output: Ganjil</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">3️⃣ Fungsi Logaritma dan Eksponensial</h4>
-                    <p class="text-gray-600 mb-4">Logaritma dan eksponensial - rahasia pertumbuhan dan peluruhan! 📈📉</p>
+                    <h4 class="text-xl font-semibold mb-4">3️⃣ Menggunakan Lambda dengan map()</h4>
+                    <p class="text-gray-600 mb-4">map() adalah fungsi built-in yang menerapkan fungsi pada setiap elemen dalam iterable. Lambda sangat cocok digunakan dengan map() untuk operasi sederhana.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import math
+                        <pre><code># Menggunakan map dengan lambda
+angka = [1, 2, 3, 4, 5]
 
-# Logaritma natural (ln)
-print(f"ln(1): {math.log(1)}")      # Output: 0.0
-print(f"ln(e): {math.log(math.e)}") # Output: 1.0
+# Kuadratkan setiap angka
+kuadrat = list(map(lambda x: x ** 2, angka))
+print(kuadrat)  # Output: [1, 4, 9, 16, 25]
 
-# Logaritma basis 10
-print(f"log10(100): {math.log10(100)}")  # Output: 2.0
-print(f"log10(1000): {math.log10(1000)}") # Output: 3.0
+# Konversi ke string
+string_angka = list(map(lambda x: str(x), angka))
+print(string_angka)  # Output: ['1', '2', '3', '4', '5']
 
-# Logaritma basis 2
-print(f"log2(8): {math.log2(8)}")   # Output: 3.0
-print(f"log2(16): {math.log2(16)}") # Output: 4.0
+# Hitung panjang string
+kata = ["Python", "Java", "C++", "JavaScript"]
+panjang = list(map(lambda x: len(x), kata))
+print(panjang)  # Output: [6, 4, 3, 10]
 
-# Fungsi eksponensial
-print(f"e^2: {math.exp(2):.3f}")    # Output: 7.389
-print(f"e^0: {math.exp(0)}")       # Output: 1.0
-
-# Pangkat
-print(f"2^3: {math.pow(2, 3)}")    # Output: 8.0
-print(f"10^2: {math.pow(10, 2)}")  # Output: 100.0</code></pre>
+# Multiple iterables
+a = [1, 2, 3]
+b = [4, 5, 6]
+hasil = list(map(lambda x, y: x + y, a, b))
+print(hasil)  # Output: [5, 7, 9]</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">4️⃣ Fungsi Pembulatan</h4>
-                    <p class="text-gray-600 mb-4">Ceil, floor, round, trunc - atur angka dengan presisi! 🔢</p>
+                    <h4 class="text-xl font-semibold mb-4">4️⃣ Menggunakan Lambda dengan filter()</h4>
+                    <p class="text-gray-600 mb-4">filter() digunakan untuk menyaring elemen dari iterable berdasarkan kondisi tertentu. Lambda sering digunakan sebagai fungsi filter.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import math
+                        <pre><code># Menggunakan filter dengan lambda
+angka = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-angka = 3.7
+# Filter angka genap
+genap = list(filter(lambda x: x % 2 == 0, angka))
+print(genap)  # Output: [2, 4, 6, 8, 10]
 
-print(f"Angka: {angka}")
-print(f"ceil({angka}): {math.ceil(angka)}")   # Pembulatan ke atas
-print(f"floor({angka}): {math.floor(angka)}") # Pembulatan ke bawah
-print(f"trunc({angka}): {math.trunc(angka)}") # Potong desimal
+# Filter angka ganjil
+ganjil = list(filter(lambda x: x % 2 != 0, angka))
+print(ganjil)  # Output: [1, 3, 5, 7, 9]
 
-angka2 = -3.7
-print(f"\nAngka: {angka2}")
-print(f"ceil({angka2}): {math.ceil(angka2)}")
-print(f"floor({angka2}): {math.floor(angka2)}")
-print(f"trunc({angka2}): {math.trunc(angka2)}")
+# Filter string berdasarkan panjang
+kata = ["Python", "Java", "C", "JavaScript", "Go"]
+panjang_lebih_3 = list(filter(lambda x: len(x) > 3, kata))
+print(panjang_lebih_3)  # Output: ['Python', 'Java', 'JavaScript']
 
-# Perbedaan round() built-in vs math.round()
-print(f"\nround(3.5): {round(3.5)}")      # Built-in round
-print(f"round(2.5): {round(2.5)}")      # Built-in round</code></pre>
+# Filter nilai positif
+nilai = [-5, -2, 0, 3, 7, -1, 9]
+positif = list(filter(lambda x: x > 0, nilai))
+print(positif)  # Output: [3, 7, 9]</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">5️⃣ Fungsi Kombinatorik</h4>
-                    <p class="text-gray-600 mb-4">Permutasi dan kombinasi - hitung peluang dan kemungkinan! 🎲</p>
+                    <h4 class="text-xl font-semibold mb-4">5️⃣ Menggunakan Lambda dengan sorted()</h4>
+                    <p class="text-gray-600 mb-4">sorted() dapat menggunakan key function untuk menentukan kriteria pengurutan. Lambda sangat berguna untuk membuat key function custom.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import math
+                        <pre><code># Menggunakan sorted dengan lambda
+mahasiswa = [
+    {"nama": "Alice", "nilai": 85},
+    {"nama": "Bob", "nilai": 92},
+    {"nama": "Charlie", "nilai": 78},
+    {"nama": "Diana", "nilai": 95}
+]
 
-# Faktorial
-print(f"5! = {math.factorial(5)}")  # Output: 120
+# Urutkan berdasarkan nilai (ascending)
+urut_nilai = sorted(mahasiswa, key=lambda x: x["nilai"])
+print("Urut berdasarkan nilai:")
+for mhs in urut_nilai:
+    print(f"{mhs['nama']}: {mhs['nilai']}")
 
-# Permutasi P(n,r) = n! / (n-r)!
-def permutasi(n, r):
-    return math.factorial(n) // math.factorial(n - r)
+# Urutkan berdasarkan nama (alphabetical)
+urut_nama = sorted(mahasiswa, key=lambda x: x["nama"])
+print("\nUrut berdasarkan nama:")
+for mhs in urut_nama:
+    print(f"{mhs['nama']}: {mhs['nilai']}")
 
-# Kombinasi C(n,r) = n! / (r! * (n-r)!)
-def kombinasi(n, r):
-    return math.factorial(n) // (math.factorial(r) * math.factorial(n - r))
+# Urutkan string berdasarkan panjang
+kata = ["Python", "Java", "C", "JavaScript"]
+urut_panjang = sorted(kata, key=lambda x: len(x))
+print(f"\nUrut berdasarkan panjang: {urut_panjang}")
 
-# Contoh penggunaan
-n, r = 5, 3
-print(f"P({n},{r}) = {permutasi(n, r)}")  # Output: 60
-print(f"C({n},{r}) = {kombinasi(n, r)}")  # Output: 10
-
-# Lotere: 6 angka dari 49
-total_kombinasi = kombinasi(49, 6)
-print(f"Total kombinasi lotere: {total_kombinasi:,}")</code></pre>
+# Reverse sort
+urut_nilai_desc = sorted(mahasiswa, key=lambda x: x["nilai"], reverse=True)
+print("\nUrut nilai descending:")
+for mhs in urut_nilai_desc:
+    print(f"{mhs['nama']}: {mhs['nilai']}")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">6️⃣ Fungsi Lainnya</h4>
-                    <p class="text-gray-600 mb-4">GCD, LCM, hypot, degrees, radians - alat matematika serbaguna! 🛠️</p>
+                    <h4 class="text-xl font-semibold mb-4">6️⃣ Lambda dengan reduce()</h4>
+                    <p class="text-gray-600 mb-4">reduce() dari functools mengurangi iterable menjadi satu nilai dengan menerapkan fungsi secara kumulatif. Lambda sering digunakan dengan reduce().</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import math
+                        <pre><code>from functools import reduce
 
-# GCD (Greatest Common Divisor)
-print(f"GCD(12, 18): {math.gcd(12, 18)}")    # Output: 6
-print(f"GCD(100, 75): {math.gcd(100, 75)}") # Output: 25
+# Menggunakan reduce dengan lambda
+angka = [1, 2, 3, 4, 5]
 
-# LCM (Least Common Multiple) - Python 3.9+
-# print(f"LCM(4, 5): {math.lcm(4, 5)}")      # Output: 20
+# Jumlahkan semua elemen
+total = reduce(lambda x, y: x + y, angka)
+print(f"Total: {total}")  # Output: 15
 
-# Hypotenuse (teorema Pythagoras)
-print(f"hypot(3, 4): {math.hypot(3, 4)}")    # Output: 5.0
+# Kalikan semua elemen
+produk = reduce(lambda x, y: x * y, angka)
+print(f"Produk: {produk}")  # Output: 120
 
-# Konversi sudut
-print(f"degrees(π): {math.degrees(math.pi):.1f}°")  # Output: 180.0°
-print(f"radians(180°): {math.radians(180):.3f}")    # Output: 3.142
+# Cari nilai maksimum
+maks = reduce(lambda x, y: x if x > y else y, angka)
+print(f"Maksimum: {maks}")  # Output: 5
 
-# Absolute value
-print(f"fabs(-5.5): {math.fabs(-5.5)}")      # Output: 5.5
-print(f"fabs(5.5): {math.fabs(5.5)}")        # Output: 5.5</code></pre>
+# Concatenate string
+kata = ["Hello", " ", "World", "!"]
+kalimat = reduce(lambda x, y: x + y, kata)
+print(f"Kalimat: {kalimat}")  # Output: Hello World!
+
+# Dengan initial value
+total_dari_10 = reduce(lambda x, y: x + y, angka, 10)
+print(f"Total dari 10: {total_dari_10}")  # Output: 25</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">7️⃣ Konstanta Matematika</h4>
-                    <p class="text-gray-600 mb-4">Pi, e, tau, inf, nan - angka-angka ajaib matematika! ✨</p>
+                    <h4 class="text-xl font-semibold mb-4">7️⃣ Lambda dalam List Comprehension</h4>
+                    <p class="text-gray-600 mb-4">Lambda dapat digunakan dalam list comprehension untuk operasi yang lebih kompleks, meskipun list comprehension sendiri sudah cukup powerful.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import math
+                        <pre><code># Lambda dalam list comprehension
+angka = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
 
-print("Konstanta Matematika:")
-print(f"π (pi): {math.pi}")
-print(f"e (Euler): {math.e}")
-print(f"τ (tau): {math.tau}")  # tau = 2*pi
-print(f"∞ (inf): {math.inf}")
-print(f"NaN: {math.nan}")
+# Menggunakan lambda untuk operasi kompleks
+hasil = [(lambda x: x**2 if x % 2 == 0 else x**3)(x) for x in angka]
+print(f"Genap^2, Ganjil^3: {hasil}")
 
-# Penggunaan inf
-print(f"\n5 + inf = {5 + math.inf}")
-print(f"inf > 1000000: {math.inf > 1000000}")
+# Equivalent dengan regular function
+def transform(x):
+    if x % 2 == 0:
+        return x ** 2
+    else:
+        return x ** 3
 
-# Cek inf dan nan
-print(f"math.isinf(inf): {math.isinf(math.inf)}")
-print(f"math.isnan(nan): {math.isnan(math.nan)}")
+hasil2 = [transform(x) for x in angka]
+print(f"Hasil sama: {hasil2}")
 
-# Luas lingkaran
-def luas_lingkaran(jari_jari):
-    return math.pi * jari_jari ** 2
-
-print(f"\nLuas lingkaran jari-jari 5: {luas_lingkaran(5):.2f}")</code></pre>
+# Lambda dengan conditional dalam comprehension
+status = ["Lulus" if (lambda n: n >= 70)(nilai) else "Tidak Lulus" 
+          for nilai in [65, 75, 85, 55]]
+print(f"Status: {status}")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
-                    <h4 class="text-xl font-semibold mb-4">8️⃣ Contoh Penggunaan</h4>
-                    <p class="text-gray-600 mb-4">Hitung luas pizza dengan math.pi - matematika yang enak! 🍕</p>
+                    <h4 class="text-xl font-semibold mb-4">8️⃣ Best Practices untuk Lambda</h4>
+                    <p class="text-gray-600 mb-4">Lambda bagus untuk operasi sederhana, tapi untuk logika kompleks sebaiknya gunakan fungsi def biasa untuk readability.</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import math
+                        <pre><code># ✅ Good: Simple operations
+simple_ops = [
+    lambda x: x + 1,
+    lambda x: x * 2,
+    lambda x: x ** 2
+]
 
-def luas_pizza(diameter):
-    jari_jari = diameter / 2
-    return math.pi * jari_jari ** 2
+# ❌ Bad: Complex logic (hard to read)
+complex_lambda = lambda x: x if x > 0 else -x if x < 0 else 0
 
-# Hitung luas pizza medium (12 inch)
-luas = luas_pizza(12)
-print(f"Luas pizza 12 inch: {luas:.1f} inch²")
-print(f"Cukup untuk {int(luas/10)} orang!")  # Asumsi 10 inch² per orang</code></pre>
+# ✅ Better: Use regular function for complex logic
+def absolute_value(x):
+    if x > 0:
+        return x
+    elif x < 0:
+        return -x
+    else:
+        return 0
+
+# ✅ Good: Lambda with higher-order functions
+angka = [1, 2, 3, 4, 5]
+kuadrat_genap = list(map(lambda x: x**2, filter(lambda x: x % 2 == 0, angka)))
+print(f"Kuadrat genap: {kuadrat_genap}")  # Output: [4, 16]
+
+# ✅ Good: Lambda as key function
+data = [("Alice", 25), ("Bob", 30), ("Charlie", 20)]
+sorted_by_age = sorted(data, key=lambda x: x[1])
+print(f"Urut umur: {sorted_by_age}")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">9️⃣ Latihan Praktis</h4>
-                    <p class="text-gray-600 mb-4">Hitung jarak antara dua titik dengan math.hypot - seperti GPS! 📍</p>
+                    <p class="text-gray-600 mb-4">Buat program yang menggunakan lambda untuk memproses data mahasiswa:</p>
                     <div class="bg-gray-100 p-4 rounded-lg mb-4">
-                        <pre><code>import math
+                        <pre><code># Data mahasiswa
+mahasiswa = [
+    {"nama": "Alice", "nilai": 85, "jurusan": "Informatika"},
+    {"nama": "Bob", "nilai": 92, "jurusan": "Sistem Informasi"},
+    {"nama": "Charlie", "nilai": 78, "jurusan": "Informatika"},
+    {"nama": "Diana", "nilai": 95, "jurusan": "Teknik Komputer"},
+    {"nama": "Eve", "nilai": 88, "jurusan": "Sistem Informasi"}
+]
 
-def jarak_antar_titik(x1, y1, x2, y2):
-    return math.hypot(x2 - x1, y2 - y1)
+# 1. Filter mahasiswa dengan nilai >= 80
+berprestasi = list(filter(lambda m: m["nilai"] >= 80, mahasiswa))
+print("Mahasiswa berprestasi:")
+for m in berprestasi:
+    print(f"- {m['nama']}: {m['nilai']}")
 
-# Hitung jarak dari rumah ke sekolah
-jarak = jarak_antar_titik(0, 0, 3, 4)
-print(f"Jarak rumah ke sekolah: {jarak:.1f} km")
+# 2. Hitung rata-rata nilai
+total_nilai = reduce(lambda x, y: x + y, map(lambda m: m["nilai"], mahasiswa))
+rata_rata = total_nilai / len(mahasiswa)
+print(f"\nRata-rata nilai: {rata_rata:.1f}")
 
-# Hitung jarak tempuh sepeda
-kecepatan = 15  # km/jam
-waktu = jarak / kecepatan
-print(f"Waktu tempuh: {waktu:.1f} jam")</code></pre>
+# 3. Urutkan berdasarkan nilai descending
+urut_nilai = sorted(mahasiswa, key=lambda m: m["nilai"], reverse=True)
+print("\nUrutan berdasarkan nilai:")
+for m in urut_nilai:
+    print(f"- {m['nama']}: {m['nilai']}")
+
+# 4. Group by jurusan (menggunakan dictionary comprehension)
+from collections import defaultdict
+group_jurusan = defaultdict(list)
+for m in mahasiswa:
+    group_jurusan[m["jurusan"]].append(m["nama"])
+
+print("\nMahasiswa per jurusan:")
+for jurusan, nama_list in group_jurusan.items():
+    print(f"- {jurusan}: {', '.join(nama_list)}")</code></pre>
                     </div>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">🔟 Video Tutorial</h4>
-                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/cS-VYthhO9A" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
+                    <iframe width="100%" height="315" src="https://www.youtube.com/embed/placeholder" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen class="rounded-lg"></iframe>
                 </div>
 
                 <div class="mb-8">
                     <h4 class="text-xl font-semibold mb-4">1️⃣1️⃣ Kuis Interaktif</h4>
                     <div class="space-y-4">
                         <div>
-                            <p class="font-medium mb-2">1. Fungsi apa yang digunakan untuk menghitung akar kuadrat?</p>
+                            <p class="font-medium mb-2">1. Apa yang dimaksud dengan lambda function?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="a" class="mr-2">
-                                    <span>math.square()</span>
+                                    <span>Fungsi dengan nama panjang</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="b" class="mr-2">
-                                    <span>math.sqrt()</span>
+                                    <span>Fungsi anonim yang didefinisikan dalam satu baris</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q1" value="c" class="mr-2">
-                                    <span>math.root()</span>
+                                    <span>Fungsi yang hanya bisa menerima satu parameter</span>
                                 </label>
                             </div>
                         </div>
                         <div>
-                            <p class="font-medium mb-2">2. Apa nilai dari math.pi?</p>
+                            <p class="font-medium mb-2">2. Fungsi mana yang TIDAK cocok digunakan dengan lambda?</p>
                             <div class="space-y-2">
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="a" class="mr-2">
-                                    <span>3.14</span>
+                                    <span>map()</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="b" class="mr-2">
-                                    <span>3.141592653589793</span>
+                                    <span>filter()</span>
                                 </label>
                                 <label class="flex items-center">
                                     <input type="radio" name="q2" value="c" class="mr-2">
-                                    <span>22/7</span>
+                                    <span>print()</span>
                                 </label>
                             </div>
                         </div>
