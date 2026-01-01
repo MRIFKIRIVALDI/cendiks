@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 """
 URL configuration for cendiks_django project.
 
@@ -16,28 +15,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-]
-=======
-from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from django.contrib.auth import views as auth_views
-from django.urls import path
-from . import views
+from main import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),  # Gunakan template login yang telah dibuat
+    path('login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
-]
-
-urlpatterns = [
+    path('api/login/', views.api_login, name='api_login'),
+    path('api/register/', views.api_register, name='api_register'),
     path('exam/<int:exam_id>/', views.exam_detail, name='exam_detail'),
-    # URL untuk mengunduh sertifikat (jika sudah selesai ujian dan lulus)
     path('generate-certificate/<int:user_exam_id>/', views.generate_certificate, name='generate_certificate'),
 ]
-
->>>>>>> origin/master

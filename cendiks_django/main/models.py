@@ -1,21 +1,3 @@
-<<<<<<< HEAD
-from django.db import models
-from django.contrib.auth.models import User
-
-# Create your models here.
-
-class Certification(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
-    session_number = models.IntegerField()
-    score = models.IntegerField()
-    passed = models.BooleanField(default=False)
-    completed_at = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"{self.user.username} - Session {self.session_number} - {'Passed' if self.passed else 'Failed'}"
-=======
-# ...existing code...
-
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -26,7 +8,7 @@ class CertificationExam(models.Model):
     total_questions = models.IntegerField()
     passing_score = models.IntegerField(default=70)
     created_at = models.DateTimeField(auto_now_add=True)
-    updated_at = models.DateTimeField(auto_now=True)
+    updated_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return self.title
@@ -37,7 +19,7 @@ class ExamQuestion(models.Model):
         ('essay', 'Essay'),
         ('true-false', 'True/False'),
     ]
-    
+
     exam = models.ForeignKey(CertificationExam, on_delete=models.CASCADE, related_name='questions')
     question = models.TextField()
     question_type = models.CharField(max_length=20, choices=QUESTION_TYPES)
@@ -61,7 +43,7 @@ class ExamResult(models.Model):
         ('passed', 'Passed'),
         ('failed', 'Failed'),
     ]
-    
+
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     exam = models.ForeignKey(CertificationExam, on_delete=models.CASCADE)
     score = models.IntegerField()
@@ -82,4 +64,3 @@ class StudentAnswer(models.Model):
 
     def __str__(self):
         return f"{self.exam_result.user.username} - {self.question.id}"
->>>>>>> origin/master
