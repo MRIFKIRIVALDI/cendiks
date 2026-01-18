@@ -143,64 +143,70 @@
   </footer>
 
   <script>
-    const questions = [
-      {
-        question: "Apa output dari kode berikut?\nprint(type(5))",
-        options: ["<class 'int'>", "<class 'float'>", "<class 'str'>", "<class 'number'>"],
-        correct: 0
-      },
-      {
-        question: "Manakah cara yang benar untuk membuat komentar dalam Python?",
-        options: ["// ini komentar", "/* ini komentar */", "# ini komentar", "<!-- ini komentar -->"],
-        correct: 2
-      },
-      {
-        question: "Apa hasil dari: 10 // 3",
-        options: ["3.333", "3", "4", "3.0"],
-        correct: 1
-      },
-      {
-        question: "Manakah tipe data yang mutable (dapat diubah) di Python?",
-        options: ["tuple", "string", "list", "integer"],
-        correct: 2
-      },
-      {
-        question: "Apa output dari: len('Python')",
-        options: ["5", "6", "7", "Error"],
-        correct: 1
-      },
-      {
-        question: "Bagaimana cara membuat dictionary kosong dalam Python?",
-        options: ["dict = []", "dict = ()", "dict = {}", "dict = None"],
-        correct: 2
-      },
-      {
-        question: "Apa fungsi dari method .append() dalam list?",
-        options: ["Menghapus elemen", "Menambah elemen di akhir", "Mengurutkan list", "Membalik list"],
-        correct: 1
-      },
-      {
-        question: "Apa output dari: bool(0)",
-        options: ["True", "False", "0", "None"],
-        correct: 1
-      },
-      {
-        question: "Keyword apa yang digunakan untuk mendefinisikan fungsi?",
-        options: ["function", "def", "func", "define"],
-        correct: 1
-      },
-      {
-        question: "Apa hasil dari: 'Python' * 2",
-        options: ["PythonPython", "Python2", "Error", "Python Python"],
-        correct: 0
-      }
-    ];
-
+    let examData = null;
+    let questions = [];
     let currentQuestion = 0;
-    let answers = new Array(questions.length).fill(null);
-    let timeLeft = 900;
+    let answers = [];
+    let timeLeft = 0;
     let timerInterval;
     let startTime;
+    let examId = 1; // Default exam ID
+
+    // Load exam data from backend
+    async function loadExamData() {
+      try {
+        const response = await fetch(`/api/exam/${examId}/questions/`, {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          credentials: 'same-origin'
+        });
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            examData = data.exam;
+            questions = data.questions;
+            timeLeft = examData.duration * 60; // Convert to seconds
+            initializeExam();
+          } else {
+            alert('Gagal memuat data ujian: ' + data.message);
+          }
+        } else if (response.status === 401) {
+          alert('Silakan login terlebih dahulu untuk mengikuti ujian');
+          window.location.href = 'login.html';
+        } else {
+          alert('Gagal memuat data ujian');
+        }
+      } catch (error) {
+        console.error('Error loading exam data:', error);
+        alert('Terjadi kesalahan saat memuat data ujian');
+      }
+    }
+
+    function getCookie(name) {
+      let cookieValue = null;
+      if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+          const cookie = cookies[i].trim();
+          if (cookie.substring(0, name.length + 1) === (name + '=')) {
+            cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+            break;
+          }
+        }
+      }
+      return cookieValue;
+    }
+
+    function initializeExam() {
+      // Initialize exam with loaded data
+      document.getElementById('startScreen').style.display = 'block';
+      document.getElementById('examScreen').style.display = 'none';
+      document.getElementById('resultScreen').classList.remove('active');
+    }
 
     function startExam() {
       document.getElementById('startScreen').classList.add('hidden');
@@ -224,12 +230,12 @@
 
         questionCard.innerHTML = `
           <div class="question-number">Soal ${index + 1} dari ${questions.length}</div>
-          <div class="question-text">${q.question}</div>
+          <div class="question-text">${q.question.replace(/\n/g, '<br>')}</div>
           <div class="options">
             ${q.options.map((opt, i) => `
-              <div class="option" onclick="selectAnswer(${index}, ${i})">
+              <div class="option" data-option-id="${opt.id}" onclick="selectAnswer(${index}, ${opt.id})">
                 <div class="option-letter">${String.fromCharCode(65 + i)}</div>
-                <div class="option-text">${opt}</div>
+                <div class="option-text">${opt.option_text}</div>
               </div>
             `).join('')}
           </div>
@@ -246,12 +252,12 @@
       ).join('');
     }
 
-    function selectAnswer(questionIndex, answerIndex) {
-      answers[questionIndex] = answerIndex;
-      
+    function selectAnswer(questionIndex, optionId) {
+      answers[questionIndex] = optionId;
+
       const options = document.querySelectorAll('.question-card')[questionIndex].querySelectorAll('.option');
-      options.forEach((opt, i) => {
-        opt.classList.toggle('selected', i === answerIndex);
+      options.forEach((opt) => {
+        opt.classList.toggle('selected', parseInt(opt.getAttribute('data-option-id')) === optionId);
       });
 
       updateProgress();
@@ -336,7 +342,7 @@
       }
     }
 
-    function submitExam() {
+    async function submitExam() {
       clearInterval(timerInterval);
 
       let correct = 0;
@@ -345,43 +351,73 @@
       });
 
       const score = (correct / questions.length * 100).toFixed(0);
-      const timeUsed = 900 - timeLeft;
+      const timeUsed = examData.duration * 60 - timeLeft;
       const minutesUsed = Math.floor(timeUsed / 60);
       const secondsUsed = timeUsed % 60;
 
-      document.getElementById('examScreen').style.display = 'none';
-      document.getElementById('resultScreen').classList.add('active');
-      document.getElementById('finalScore').textContent = `${score}%`;
-      document.getElementById('correctCount').textContent = correct;
-      document.getElementById('wrongCount').textContent = questions.length - correct;
-      document.getElementById('timeUsed').textContent = `${minutesUsed}m ${secondsUsed}s`;
-
-      let message = '';
-      if (score >= 90) {
-        message = '🌟 Luar Biasa! Anda menguasai Python dengan sempurna!';
-      } else if (score >= 70) {
-        message = '✅ Selamat! Anda lulus ujian dengan baik!';
-      } else {
-        message = '💪 Terus belajar! Anda bisa mencoba lagi!';
-      }
-      document.getElementById('resultMessage').textContent = message;
-
-      if (score >= 70) {
-        document.getElementById('certificateSection').style.display = 'block';
-        const today = new Date().toLocaleDateString('id-ID', {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
+      // Submit results to backend
+      try {
+        const response = await fetch(`/api/exam/${examId}/submit/`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': getCookie('csrftoken')
+          },
+          credentials: 'same-origin',
+          body: JSON.stringify({
+            answers: answers,
+            time_used: timeUsed,
+            score: score
+          })
         });
-        document.getElementById('certDate').textContent = today;
+
+        if (response.ok) {
+          const data = await response.json();
+          if (data.success) {
+            // Show results
+            document.getElementById('examScreen').style.display = 'none';
+            document.getElementById('resultScreen').classList.add('active');
+            document.getElementById('finalScore').textContent = `${score}%`;
+            document.getElementById('correctCount').textContent = correct;
+            document.getElementById('wrongCount').textContent = questions.length - correct;
+            document.getElementById('timeUsed').textContent = `${minutesUsed}m ${secondsUsed}s`;
+
+            let message = '';
+            if (score >= 90) {
+              message = '🌟 Luar Biasa! Anda menguasai Python dengan sempurna!';
+            } else if (score >= 70) {
+              message = '✅ Selamat! Anda lulus ujian dengan baik!';
+            } else {
+              message = '💪 Terus belajar! Anda bisa mencoba lagi!';
+            }
+            document.getElementById('resultMessage').textContent = message;
+
+            if (score >= 70) {
+              document.getElementById('certificateSection').style.display = 'block';
+              const today = new Date().toLocaleDateString('id-ID', {
+                year: 'numeric',
+                month: 'long',
+                day: 'numeric'
+              });
+              document.getElementById('certDate').textContent = today;
+            }
+          } else {
+            alert('Gagal menyimpan hasil ujian: ' + data.message);
+          }
+        } else {
+          alert('Gagal mengirim hasil ujian');
+        }
+      } catch (error) {
+        console.error('Error submitting exam:', error);
+        alert('Terjadi kesalahan saat mengirim hasil ujian');
       }
     }
 
     function retakeExam() {
       currentQuestion = 0;
       answers = new Array(questions.length).fill(null);
-      timeLeft = 900;
-      
+      timeLeft = examData ? examData.duration * 60 : 900;
+
       document.getElementById('resultScreen').classList.remove('active');
       document.getElementById('startScreen').classList.remove('hidden');
     }
@@ -391,6 +427,9 @@
     }
 
     updateNavigationButtons();
+
+    // Initialize exam on page load
+    loadExamData();
   </script>
 </body>
 </html>

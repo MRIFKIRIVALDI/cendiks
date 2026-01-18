@@ -26,5 +26,9 @@ urlpatterns = [
     path('api/login/', views.api_login, name='api_login'),
     path('api/register/', views.api_register, name='api_register'),
     path('exam/<int:exam_id>/', views.exam_detail, name='exam_detail'),
+    path('api/exam/<int:exam_id>/questions/', views.get_exam_questions, name='get_exam_questions'),
+    path('api/exam/<int:exam_id>/submit/', views.submit_exam, name='submit_exam'),
+    path('api/exam/history/', views.get_exam_history, name='get_exam_history'),
+    path('api/exam/result/<int:result_id>/', views.get_exam_result_detail, name='get_exam_result_detail'),
     path('generate-certificate/<int:user_exam_id>/', views.generate_certificate, name='generate_certificate'),
 ]
